@@ -10,10 +10,10 @@
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/theui-dev/sveltekit.git"
+    "url": "https://github.com/mbparvezme/theui-sveltekit.git"
   },
-  "homepage": "https://www.theui.dev/components/sveltekit",
-  "bugs": "https://github.com/theui-dev/sveltekit/issues",
+  "homepage": "https://www.theui.dev/sveltekit-component-library",
+  "bugs": "https://github.com/mbparvezme/theui-sveltekit/issues",
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
