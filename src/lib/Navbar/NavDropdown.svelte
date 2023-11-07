@@ -25,24 +25,39 @@
   }
 
   let linkCls = "nav-link flex items-center " + ($$props.class ? $$props.class : config.linkStyle) + getRounded(config?.rounded)
-
-  let commonCls = "nav-dropdown"
-  let defaultCls = twMerge("pl-4 flex-col py-2 pr-2 bg-primary", $$props.class)
-  let nonResCls = "absolute pl-0 flex shadow-xl block w-80 max-h-[80vh] overflow-y-auto"
-  let resCls =  getRounded(config?.rounded, "bottom") + getAnimate(config.animate) + " shadow-none " +
-                (config.responsive == "xl" ? "xl:absolute xl:pl-2 xl:flex xl:shadow-xl xl:block dark:xl:bg-tertiary " :
-                config.responsive == "md" ? "md-collapse md:absolute md:pl-2 md:flex md:shadow-xl md:block dark:md:bg-tertiary " :
-                config.responsive == "lg" ? "lg-collapse lg:absolute lg:pl-2 lg:flex lg:shadow-xl lg:block dark:lg:bg-tertiary " : "") +
-                (megaMenu ? "mega-menu left-0 right-0" : (align=="right" ? "right-0" : "left-0"))
-
-  let resSize = () => {
-    if(config.responsive == "xl"){
-      return ((megaMenu ? "w-full" : (size == "sm" ? "xl:w-64" : size == "lg" ? "w-[460px]" : "xl:w-80")) + " xl:max-h-[80vh] overflow-y-auto")
+  
+  let commonCls = "nav-dropdown pl-4 flex-col py-2 pr-2 bg-primary "
+  let nonResCls = () => "absolute pl-0 flex shadow-xl block w-80 max-h-[80vh] overflow-y-auto"
+  let resCls = () => {
+    let classes = getRounded(config?.rounded, "bottom") + getAnimate(config.animate) + " shadow-none hidden " +
+    (
+      config.mobileNavOn == "sm" ? "md-collapse md:absolute md:pl-2 md:flex md:shadow-xl md:block dark:md:bg-tertiary " :
+      config.mobileNavOn == "md" ? "lg-collapse lg:absolute lg:pl-2 lg:flex lg:shadow-xl lg:block dark:lg:bg-tertiary " :
+      config.mobileNavOn == "lg" ? "xl:absolute xl:pl-2 xl:flex xl:shadow-xl xl:block dark:xl:bg-tertiary " :
+      config.mobileNavOn == "xl" ? "2xl:absolute 2xl:pl-2 2xl:flex 2xl:shadow-xl 2xl:block dark:2xl:bg-tertiary " :
+      config.mobileNavOn == "lg" ? "lg-collapse lg:absolute lg:pl-2 lg:flex lg:shadow-xl lg:block dark:lg:bg-tertiary " : ""
+    ) + (megaMenu ? "mega-menu left-0 right-0" : (align=="right" ? "right-0" : "left-0"))
+    if(megaMenu){
+      classes += " w-full"
     }
-    if(config.responsive == "lg"){
-      return ((megaMenu ? "w-full" : (size == "sm" ? "lg:w-64" : size == "lg" ? "w-[460px]" : "lg:w-80")) + " lg:max-h-[80vh] overflow-y-auto")
+    else{
+      if(config.mobileNavOn == "sm"){
+        classes += " md:max-h-[80vh]" + (size == "sm" ? "md:w-64" : size == "md" ? "md:w-[460px]" : "md:w-80")
+      }
+      else if(config.mobileNavOn == "md"){
+        classes += " lg:max-h-[80vh]" + (size == "sm" ? "lg:w-64" : size == "lg" ? "lg:w-[460px]" : "lg:w-80")
+      }
+      else if(config.mobileNavOn == "lg"){
+        classes += " xl:max-h-[80vh]" + (size == "sm" ? "xl:w-64" : size == "lg" ? "xl:w-[460px]" : "xl:w-80")
+      }
+      else if(config.mobileNavOn == "xl"){
+        classes += " 2xl:max-h-[80vh]" + (size == "sm" ? "2xl:w-64" : size == "lg" ? "2xl:w-[460px]" : "2xl:w-80")
+      }
+      else{
+        classes += " 2xl:max-h-[80vh]" + size
+      }
     }
-      return ((megaMenu ? "w-full" : (size == "sm" ? "md:w-64" : size == "lg" ? "w-[460px]" : "md:w-80")) + " md:max-h-[80vh] overflow-y-auto")
+    return classes
   }
 
   let handleKeyboard = (e: KeyboardEvent) => {
@@ -76,7 +91,8 @@
     {/if}
   </button>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <div class={commonCls + " " + defaultCls + " " + (config.responsive != false ? (resCls + " hidden " + resSize()) : nonResCls)}
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <div class={commonCls + twMerge((config.mobileNavOn != false ? resCls() : nonResCls()), $$props?.class)}
         class:fade={animation=="fade"}
         class:slide-up={animation=="slide-up"}
         class:zoom-in={animation=="zoom-in"}

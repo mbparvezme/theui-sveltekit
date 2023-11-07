@@ -16,7 +16,7 @@
   export let height                : 'sm' | 'md' | 'lg' | 'xl' = "md"
   export let navInner              : string = ""
   export let linkStyle             : string = "p-3 text-gray-700 dark:text-gray-300 hover:text-default text-sm"
-  export let responsive            : 'md' | 'lg' | 'xl' | false = "lg"
+  export let mobileNavOn           : 'md' | 'lg' | 'xl' | false = "lg"
   export let rounded               : ROUNDED = "md"
   export let scrollAmountToHide    : number = 64
   export let scrollAmountToShrink  : number = 32
@@ -29,7 +29,7 @@
     height ?: 'sm' | 'md' | 'lg' | 'xl',
     navInner ?: string,
     linkStyle ?: string,
-    responsive ?: 'md' | 'lg' | 'xl' | false, 
+    mobileNavOn ?: 'md' | 'lg' | 'xl' | false, 
     rounded ?: ROUNDED,
     scrollAmountToShrink ?: number,
     scrollAmountToHide ?: number,
@@ -41,7 +41,7 @@
     height,
     navInner,
     linkStyle,
-    responsive,
+    mobileNavOn,
     rounded,
     scrollAmountToHide,
     scrollAmountToShrink,
