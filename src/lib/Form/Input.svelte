@@ -7,12 +7,12 @@
 
   // Input attributes
   export let config : INPUT_CONFIG = {}
-  export let id     : string = generateToken()
   export let helperText : string | undefined = undefined
+  export let id     : string = generateToken()
   export let label  : string|undefined = undefined
   export let name   : string
-  export let type   : string = "text"
   export let value  : any = ""
+  export let type   : string = "text"
 
   let C:INPUT_CONFIG = {animate: false, inputGrow: true, labelStyle: "", reset: false, rounded : "md", size: "md", variant: "bordered"}
   Object.assign(C, ctx?.formConfig || {}, config)

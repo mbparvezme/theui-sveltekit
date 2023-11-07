@@ -56,6 +56,7 @@
 
 {#if $$slots.modalBtn}
   <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y-interactive-supports-focus -->
   <span role="button" on:click={()=>toggle()}>
     <slot name="modalBtn" {attr} {label}></slot>
   </span>
@@ -65,12 +66,13 @@
   <div id="{id}Modal" class={twMerge(modalBodyCls(), modalOuterClass)} role="dialog" class:open={$modalIdStore.includes(id)} class:animate={animate}>
     {#if backdrop}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div class="backdrop fixed inset-0 bg-black z-[-1]{animateCls()}" on:click={()=>toggle(false)}></div>
     {/if}
 
     <div class={twMerge(modalContentCls(), (size !== "full" ? getRounded(rounded) : ""), modalInnerClass)}
-      aria-labelledby={$$slots.header ? `${id}Heading` : `${id}Btn`} aria-hidden={!$modalIdStore.includes(id)}>
-      {#if $$slots.header}
+      aria-labelledby={$$slots?.header ? `${id}Heading` : `${id}Btn`} aria-hidden={!$modalIdStore.includes(id)}>
+      {#if $$slots?.header}
         <div id="{id}Heading" class={twMerge("modal-header flex justify-between w-full gap-8 items-start border-b border-black/10 dark:border-tertiary pb-4 mb-8", modalHeaderClass)}>
           <slot name="header"></slot>
           {#if closeBtn!==false}
@@ -85,7 +87,9 @@
         </button>
       {/if}
 
-      <slot name="body"></slot>
+      <div class="w-full">
+        <slot name="body"></slot>
+      </div>
 
       {#if $$slots.footer}
         <div class={twMerge("modal-footer border-t border-black/10 dark:border-tertiary pt-4 mt-8", modalFooterClass)}>

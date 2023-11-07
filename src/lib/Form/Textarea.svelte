@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { INPUT_CONFIG } from "$lib/types"
   import { getContext } from "svelte"
-  import { generateToken, getRounded, getInputContainerClass, getFormControlStyle } from "$lib/functions"
+  import { generateToken, getRounded, getInputContainerClass, getInputBoxClass, getFormControlStyle } from "$lib/functions"
   import { FORM, Label, HelperText } from "$lib"
   const ctx: any = getContext( FORM || {} )
 
@@ -25,7 +25,7 @@
     <Label style={C.labelStyle} {id} {label}/>
   {/if}
 
-  <div class="textarea-box relative inline-flex p-px {getRounded(C.rounded)}" class:overflow-hidden={$$slots?.left || $$slots?.right}>
+  <div class={getInputBoxClass(C, $$restProps)} class:overflow-hidden={$$slots?.left || $$slots?.right}>
     <slot name="left" class={$$props?.class}/>
     <textarea {...$$restProps} class={getFormControlStyle(C, $$restProps, $$props?.class, "input", $$slots)} {id} {name} bind:value
       on:blur

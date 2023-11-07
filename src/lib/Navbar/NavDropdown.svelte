@@ -57,7 +57,6 @@
         classes += " 2xl:max-h-[80vh] " + size
       }
     }
-    console.log(label, classes)
     return classes
   }
 
