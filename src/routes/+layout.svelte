@@ -6,7 +6,7 @@
 
 <Navbar scrollBehavior="default" mobileNavOn="md">
   <NavBrand href="/">
-    <span class="flex items-baseline font-title font-bold">theui<sub class="text-gray-500 font-normal text-sm">.xyz</sub></span>
+    <!-- <span class="flex items-baseline font-title font-bold">theui<sub class="text-gray-500 font-normal text-sm">.xyz</sub></span> -->
   </NavBrand>
 
   <NavCollapse>

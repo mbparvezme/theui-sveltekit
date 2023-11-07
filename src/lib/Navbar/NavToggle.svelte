@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getContext } from "svelte"
-  import { NAV, Button, Svg } from "$lib"
+  import { NAV, Svg } from "$lib"
   import { twMerge } from "tailwind-merge"
   const { config, id, mobileNav } = getContext(NAV)
 
@@ -12,16 +12,15 @@
       mobileNav.update((d: any)=> [...d, id])
     }
   }
-
-  let getClass = () => "nav-toggle bg-transparent " + (config.mobileNavOn == "sm" ? "md:hidden" : config.mobileNavOn == "md" ? "lg:hidden" : config.mobileNavOn == "lg" ? "xl:hidden" : config.mobileNavOn == "xl" ? "2xl:hidden" : "hidden")
+  let getClass = () => "nav-toggle border border-gray-200 rounded-md w-12 h-12 flex items-center justify-center " + (config.mobileNavOn == "sm" ? "md:hidden" : config.mobileNavOn == "md" ? "lg:hidden" : config.mobileNavOn == "lg" ? "xl:hidden" : config.mobileNavOn == "xl" ? "2xl:hidden" : "hidden")
 </script>
 
 {#if config.mobileNavOn !== false}
-<Button on:click={()=>toggle()} class={twMerge(getClass(), $$props?.class)} ariaLabel="Toggle nav bar" label="">
-  <slot name="menuIcon" slot="label">
-    <Svg size={1.75} fill="none" viewBox="0 0 24 24" stroke-width="2" class=" stroke-gray-700 dark:stroke-gray-300">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+<button on:click={()=>toggle()} class={twMerge(getClass(), $$props?.class)} aria-label="Toggle nav bar">
+  <slot name="menuIcon">
+    <Svg size={1.25}>
+      <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
     </Svg>
   </slot>
-</Button>
+</button>
 {/if}

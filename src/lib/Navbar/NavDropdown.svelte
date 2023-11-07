@@ -24,7 +24,7 @@
     }
   }
 
-  let linkCls = "nav-link flex items-center " + ($$props.class ? $$props.class : config.linkStyle) + getRounded(config?.rounded)
+  let linkCls = "nav-link flex items-center " + config.linkStyle + getRounded(config?.rounded)
   
   let commonCls = "nav-dropdown pl-4 flex-col py-2 pr-2 bg-primary "
   let nonResCls = () => "absolute pl-0 flex shadow-xl block w-80 max-h-[80vh] overflow-y-auto"
@@ -42,21 +42,22 @@
     }
     else{
       if(config.mobileNavOn == "sm"){
-        classes += " md:max-h-[80vh]" + (size == "sm" ? "md:w-64" : size == "md" ? "md:w-[460px]" : "md:w-80")
+        classes += " md:max-h-[80vh] " + (size == "sm" ? "md:w-64" : size == "md" ? "md:w-[460px]" : "md:w-80")
       }
       else if(config.mobileNavOn == "md"){
-        classes += " lg:max-h-[80vh]" + (size == "sm" ? "lg:w-64" : size == "lg" ? "lg:w-[460px]" : "lg:w-80")
+        classes += " lg:max-h-[80vh] " + (size == "sm" ? "lg:w-64" : size == "lg" ? "lg:w-[460px]" : "lg:w-80")
       }
       else if(config.mobileNavOn == "lg"){
-        classes += " xl:max-h-[80vh]" + (size == "sm" ? "xl:w-64" : size == "lg" ? "xl:w-[460px]" : "xl:w-80")
+        classes += " xl:max-h-[80vh] " + (size == "sm" ? "xl:w-64" : size == "lg" ? "xl:w-[460px]" : "xl:w-80")
       }
       else if(config.mobileNavOn == "xl"){
-        classes += " 2xl:max-h-[80vh]" + (size == "sm" ? "2xl:w-64" : size == "lg" ? "2xl:w-[460px]" : "2xl:w-80")
+        classes += " 2xl:max-h-[80vh] " + (size == "sm" ? "2xl:w-64" : size == "lg" ? "2xl:w-[460px]" : "2xl:w-80")
       }
       else{
-        classes += " 2xl:max-h-[80vh]" + size
+        classes += " 2xl:max-h-[80vh] " + size
       }
     }
+    console.log(label, classes)
     return classes
   }
 
@@ -85,7 +86,6 @@
     {#if !$$slots.label}
       {label} {:else} <slot name="label"/>
     {/if}
-
     {#if icon}
       <slot name="icon"><Svg stroke={true} viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></Svg></slot>
     {/if}
