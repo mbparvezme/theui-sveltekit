@@ -79,12 +79,8 @@
   })
   setContext(NAV, {config, id, mobileNav})
 
-  let navClass = () => {
-    return "bg-primary left-0 top-0 w-full flex items-center justify-center" + getAnimate(animate) +
-              (miniNav||(hideNav===false && scrollPos!==0) ? scrollClass : "")
-  }
-
-  let navInnerClass = () => "nav-inner w-full max-w-[var(--max-width)] flex grow gap-x-8 items-center justify-between relative" + navInner + heightCls() + getAnimate(animate) +
+  let navClass = () => "bg-primary left-0 top-0 w-full flex items-center justify-center" + getAnimate(animate) + (miniNav||(hideNav===false && scrollPos!==0) ? scrollClass : "")
+  let navInnerClass = () => "nav-inner w-full max-w-[var(--max-width)] flex grow gap-x-8 items-center justify-between relative" + heightCls() + getAnimate(animate) +
               (miniNav||(hideNav===false && scrollPos!==0) ? " px-4" : " px-8")
 </script>
 
@@ -99,7 +95,7 @@
   class:fixed={scrollBehavior !== "default"}
   class="theui-navbar z-20 {twMerge(navClass(), $$props?.class)}"
 >
-  <div class="{twMerge(navInnerClass(), navInner)} kkk">
+  <div class="{twMerge(navInnerClass(), navInner)}">
     <slot {segment}></slot>
   </div>
 </nav>

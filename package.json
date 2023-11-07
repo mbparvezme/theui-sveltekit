@@ -1,6 +1,6 @@
 {
   "name": "theui-sveltekit",
-  "version": "1.0.0-beta.41",
+  "version": "1.0.0-beta.42",
   "description": "theui-sveltekit A component library by TheUI. Out-of-the-box accessible and easy to customize built with TailwindCSS.",
   "author": {
     "name": "M B Parvez",
