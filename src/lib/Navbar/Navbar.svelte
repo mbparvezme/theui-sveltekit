@@ -84,10 +84,8 @@
               (miniNav||(hideNav===false && scrollPos!==0) ? scrollClass : "")
   }
 
-  let navInnerClass = () => {
-    return "nav-inner w-full max-w-[var(--max-width)] flex grow gap-x-8 items-center justify-between relative" + navInner + heightCls() + getAnimate(animate) +
-              (miniNav||(hideNav===false && scrollPos!==0) ? "px-4" : "px-8")
-  }
+  let navInnerClass = () => "nav-inner w-full max-w-[var(--max-width)] flex grow gap-x-8 items-center justify-between relative" + navInner + heightCls() + getAnimate(animate) +
+              (miniNav||(hideNav===false && scrollPos!==0) ? " px-4" : " px-8")
 </script>
 
 <div class="w-full max-w-[var(--max-width)] items-center relative">
