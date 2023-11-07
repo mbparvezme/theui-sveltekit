@@ -1,9 +1,10 @@
 <script>
   import { DarkMode, Navbar, NavCollapse, NavDropdown, NavBrand, NavLink, NavContainer, NavToggle } from '$lib'
   import "../app.postcss";
+  import "$lib/style.postcss"
 </script>
 
-<Navbar config={{ scrollBehavior: 'hideOnScrollDown'}} >
+<Navbar scrollBehavior="default" >
   <NavBrand href="/">
     <span class="flex items-baseline font-title font-bold">theui<sub class="text-gray-500 font-normal text-sm">.xyz</sub></span>
   </NavBrand>

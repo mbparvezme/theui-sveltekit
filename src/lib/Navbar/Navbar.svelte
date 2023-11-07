@@ -11,9 +11,6 @@
   import { mobileNav } from "$lib/stores"
   export let segment: string = "/"
 
-  // export let config: NAV_CONFIG = {}
-  // Object.assign(C, config)
-
   export let activeLinkStyle       : string = "p-3 text-default text-sm"
   export let animate               : ANIMATE_SPEED = "fast"
   export let height                : 'sm' | 'md' | 'lg' | 'xl' = "md"
