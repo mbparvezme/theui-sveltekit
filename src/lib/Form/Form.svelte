@@ -6,7 +6,7 @@
 	import { setContext } from "svelte"
   import { twMerge } from "tailwind-merge"
   import { generateToken } from "$lib/functions"
-  
+
   // Input attributes
   export let id : string = generateToken()
   export let inputGrow : boolean = true

@@ -4,7 +4,7 @@
 </script>
 
 <p {...$$restProps} class={twMerge("text-xs text-gray-400 dark:text-gray-700", $$props?.class)}>
-    <slot>
-        {#if text}{@html text}{/if}
-    </slot>
+  <slot>
+    {#if text}{@html text}{/if}
+  </slot>
 </p>

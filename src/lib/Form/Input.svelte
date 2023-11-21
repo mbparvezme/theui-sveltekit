@@ -6,21 +6,20 @@
   const ctx: any = getContext( FORM || {} )
 
   // Input attributes
-  export let config : INPUT_CONFIG = {}
-  export let helperText : string | undefined = undefined
   export let id     : string = generateToken()
-  export let label  : string|undefined = undefined
   export let name   : string
   export let value  : any = ""
   export let type   : string = "text"
-
+  export let helperText : string | undefined = undefined
+  export let label  : string|undefined = undefined
+  
+  export let config : INPUT_CONFIG = {}
   let C:INPUT_CONFIG = {animate: false, inputGrow: true, labelStyle: "", reset: false, rounded : "md", size: "md", variant: "bordered"}
   Object.assign(C, ctx?.formConfig || {}, config)
   let setType = (node: HTMLInputElement) => node.type = type
 </script>
 
 <div class={getInputContainerClass(C)}>
-
   {#if $$slots.label}
     <slot name="label"/>
   {:else if label}
@@ -52,7 +51,6 @@
   {:else if helperText}
     <HelperText>{@html helperText}</HelperText>
   {/if}
-
 </div>
 
 <style lang="postcss">
@@ -75,4 +73,3 @@
     @apply px-5;
   }
 </style>
-

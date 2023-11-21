@@ -4,10 +4,10 @@
 
     export let item: DROPDOWN_ITEM|null|any = null
     export let itemConfig : DROPDOWN_ITEM_CONFIG|null = null
-    
-    let preload: PRELOAD = "hover"
-    let type = item?.type || "link"
-    let active = item?.active || false
+
+    let preload : PRELOAD = "hover"
+    let type : 'link' | 'divider' | 'header' = item?.type || "link"
+    let active : boolean = item?.active || false
 
     let itemClass = () => {
         if(type == "link"){

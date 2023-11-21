@@ -15,11 +15,11 @@ export let getInputContainerClass = (config: INPUT_CONFIG, type: string = "input
     return cls
 }
 
-export let getInputBoxClass = (config: INPUT_CONFIG, attr: any) => {
-    let cls = "input-box relative inline-flex overflow-hidden " + ((config?.variant == "flat") ? getRounded(false) : getRounded(config.rounded))
+export let getInputBoxClass = (config: INPUT_CONFIG, attr: any, type: string = "input") => {
+    let cls = "input-box relative inline-flex overflow-hidden " + ((config?.variant == "flat") ? getRounded("none") : getRounded(config.rounded))
     cls += config.variant == "filled" ? " bg-gray-50 dark:bg-gray-800 border border-gray-50 dark:border-gray-800" :
         config.variant == "bordered" ? " border border-gray-100 dark:border-gray-700 bg-transparent" :
-            config.variant == "flat" ? " border-b-2 border-gray-100 dark:border-gray-700 bg-transparent" : ""
+            config.variant == "flat" ? (type!== "file" ? " border-b-2 border-gray-100 dark:border-gray-700 bg-transparent" : "") : ""
     cls += attr?.disabled || attr?.readonly ? " opacity-50" : ""
     return cls
 }
@@ -40,7 +40,7 @@ export let getFormControlStyle = (config: INPUT_CONFIG, restAttr: any, propsClas
 
 export let getInputSize = (size: "none" | "sm" | "md" | "lg" | "xl" | undefined, type: string = "input"): string => {
     if (type == "file") {
-        return size == "sm" ? " file:p-2 file:text-sm" : size == "md" ? " file:p-3" : size == "lg" ? " file:p-4 file:text-xl" : size == "xl" ? " file:p-5 file:text-2xl" : ""
+        return size == "sm" ? " input-sm file:px-4 file:py-2 file:text-sm" : size == "md" ? " input-md file:px-6 file:py-3" : size == "lg" ? " input-lg file:px-6 file:py-4 file:text-xl" : size == "xl" ? " input-xl file:px-8 file:py-5 file:text-2xl" : ""
     }
     if (type == "checkbox" || type == "radio") {
         return type + (size == "sm" ? "-sm h-3 w-3" : size == "md" ? "-md h-4 w-4" : size == "lg" ? "-md h-6 w-6" : size == "xl" ? "-md h-8 w-8" : "")
@@ -73,7 +73,7 @@ export let fileInputCls = (config: INPUT_CONFIG, attr: any): string => {
     let cls = config.variant == "filled" ? "bg-gray-50 dark:bg-gray-800 text-default border border-gray-50 dark:border-gray-800 focus:border-brand" :
         config.variant == "bordered" ? "border border-gray-100 dark:border-gray-700 text-default focus:border-brand bg-transparent focus:ring-brand" :
             config.variant == "flat" ? "border-0 text-default" : ""
-    cls += getAnimate(config?.animate) + " focus:ring-brand focus:border-brand focus:outline-brand text-gray-500/70 " + getRounded(config?.rounded)
+    cls += getAnimate(config?.animate) + " focus:ring-brand focus:border-brand focus:outline-brand text-gray-500/70 " + getRoundedFileBtn(config?.rounded)
 
     if (attr?.disabled) cls += " disabled:cursor-not-allowed disabled:opacity-50 disabled:select-none"
     if (attr?.readonly) cls += " read-only:pointer-events-none read-only:opacity-50"
@@ -154,23 +154,23 @@ export let getRounded = (value: ROUNDED, side: "top" | "right" | "bottom" | "lef
 export let getRoundedFileBtn = (value: ROUNDED, side: "top" | "right" | "bottom" | "left" | "all" = "all"): string => {
     if (!value) return " !file:rounded-none"
     if (side == "top") {
-        return value == "sm" ? " file:rounded-t" : value == "lg" ? " file:rounded-t-lg" : (value == "md" || !!value) ? " file:rounded-t-md" :
+        return value == "sm" ? " file:rounded-t" : value == "lg" ? " file:rounded-t-lg" : (value == "md") ? " file:rounded-t-md" :
             value == "xl" ? " file:rounded-t-xl" : value == "full" ? " file:rounded-t-full" : " "
     }
     if (side == "right") {
-        return value == "sm" ? " file:rounded-r" : value == "lg" ? " file:rounded-r-lg" : (value == "md" || !!value) ? " file:rounded-r-md" :
+        return value == "sm" ? " file:rounded-r" : value == "lg" ? " file:rounded-r-lg" : (value == "md") ? " file:rounded-r-md" :
             value == "xl" ? " file:rounded-r-xl" : value == "full" ? " file:rounded-r-full" : " "
     }
     if (side == "bottom") {
-        return value == "sm" ? " file:rounded-b" : value == "lg" ? " file:rounded-b-lg" : (value == "md" || !!value) ? " file:rounded-b-md" :
+        return value == "sm" ? " file:rounded-b" : value == "lg" ? " file:rounded-b-lg" : (value == "md") ? " file:rounded-b-md" :
             value == "xl" ? " file:rounded-b-xl" : value == "full" ? " file:rounded-b-full" : " "
     }
     if (side == "left") {
-        return value == "sm" ? " file:rounded-l" : value == "lg" ? " file:rounded-l-lg" : (value == "md" || !!value) ? " file:rounded-l-md" :
+        return value == "sm" ? " file:rounded-l" : value == "lg" ? " file:rounded-l-lg" : (value == "md") ? " file:rounded-l-md" :
             value == "xl" ? " file:rounded-l-xl" : value == "full" ? " file:rounded-l-full" : " "
     }
     if (side == "all") {
-        return value == "sm" ? " file:rounded" : value == "lg" ? " file:rounded-lg" : (value == "md" || !!value) ? " file:rounded-md" :
+        return value == "sm" ? " file:rounded" : value == "lg" ? " file:rounded-lg" : (value == "md") ? " file:rounded-md" :
             value == "xl" ? " file:rounded-xl" : value == "full" ? " file:rounded-full" : " "
     }
     return " "
@@ -179,23 +179,23 @@ export let getRoundedFileBtn = (value: ROUNDED, side: "top" | "right" | "bottom"
 export let getRoundedFirst = (value: ROUNDED, side: "top" | "right" | "bottom" | "left" | "all" = "all"): string => {
     if (!value) return " !first:rounded-none"
     if (side == "top") {
-        return value == "sm" ? " first:rounded-t" : value == "lg" ? " first:rounded-t-lg" : (value == "md" || !!value) ? " first:rounded-t-md" :
+        return value == "sm" ? " first:rounded-t" : value == "lg" ? " first:rounded-t-lg" : (value == "md") ? " first:rounded-t-md" :
             value == "xl" ? " first:rounded-t-xl" : value == "full" ? " first:rounded-t-full" : " "
     }
     if (side == "right") {
-        return value == "sm" ? " first:rounded-r" : value == "lg" ? " first:rounded-r-lg" : (value == "md" || !!value) ? " first:rounded-r-md" :
+        return value == "sm" ? " first:rounded-r" : value == "lg" ? " first:rounded-r-lg" : (value == "md") ? " first:rounded-r-md" :
             value == "xl" ? " first:rounded-r-xl" : value == "full" ? " first:rounded-r-full" : " "
     }
     if (side == "bottom") {
-        return value == "sm" ? " first:rounded-b" : value == "lg" ? " first:rounded-b-lg" : (value == "md" || !!value) ? " first:rounded-b-md" :
+        return value == "sm" ? " first:rounded-b" : value == "lg" ? " first:rounded-b-lg" : (value == "md") ? " first:rounded-b-md" :
             value == "xl" ? " first:rounded-b-xl" : value == "full" ? " first:rounded-b-full" : " "
     }
     if (side == "left") {
-        return value == "sm" ? " first:rounded-l" : value == "lg" ? " first:rounded-l-lg" : (value == "md" || !!value) ? " first:rounded-l-md" :
+        return value == "sm" ? " first:rounded-l" : value == "lg" ? " first:rounded-l-lg" : (value == "md") ? " first:rounded-l-md" :
             value == "xl" ? " first:rounded-l-xl" : value == "full" ? " first:rounded-l-full" : " "
     }
     if (side == "all") {
-        return value == "sm" ? " rounded" : value == "lg" ? " first:rounded-lg" : (value == "md" || !!value) ? " first:rounded-md" :
+        return value == "sm" ? " rounded" : value == "lg" ? " first:rounded-lg" : (value == "md") ? " first:rounded-md" :
             value == "xl" ? " first:rounded-xl" : value == "full" ? " first:rounded-full" : " "
     }
     return " "
@@ -204,23 +204,23 @@ export let getRoundedFirst = (value: ROUNDED, side: "top" | "right" | "bottom" |
 export let getRoundedLast = (value: ROUNDED, side: "top" | "right" | "bottom" | "left" | "all" = "all"): string => {
     if (!value) return " !last:rounded-none"
     if (side == "top") {
-        return value == "sm" ? " last:rounded-t" : value == "lg" ? " last:rounded-t-lg" : (value == "md" || !!value) ? " last:rounded-t-md" :
+        return value == "sm" ? " last:rounded-t" : value == "lg" ? " last:rounded-t-lg" : (value == "md") ? " last:rounded-t-md" :
             value == "xl" ? " last:rounded-t-xl" : value == "full" ? " last:rounded-t-full" : " "
     }
     if (side == "right") {
-        return value == "sm" ? " last:rounded-r" : value == "lg" ? " last:rounded-r-lg" : (value == "md" || !!value) ? " last:rounded-r-md" :
+        return value == "sm" ? " last:rounded-r" : value == "lg" ? " last:rounded-r-lg" : (value == "md") ? " last:rounded-r-md" :
             value == "xl" ? " last:rounded-r-xl" : value == "full" ? " last:rounded-r-full" : " "
     }
     if (side == "bottom") {
-        return value == "sm" ? " last:rounded-b" : value == "lg" ? " last:rounded-b-lg" : (value == "md" || !!value) ? " last:rounded-b-md" :
+        return value == "sm" ? " last:rounded-b" : value == "lg" ? " last:rounded-b-lg" : (value == "md") ? " last:rounded-b-md" :
             value == "xl" ? " last:rounded-b-xl" : value == "full" ? " last:rounded-b-full" : " "
     }
     if (side == "left") {
-        return value == "sm" ? " last:rounded-l" : value == "lg" ? " last:rounded-l-lg" : (value == "md" || !!value) ? " last:rounded-l-md" :
+        return value == "sm" ? " last:rounded-l" : value == "lg" ? " last:rounded-l-lg" : (value == "md") ? " last:rounded-l-md" :
             value == "xl" ? " last:rounded-l-xl" : value == "full" ? " last:rounded-l-full" : " "
     }
     if (side == "all") {
-        return value == "sm" ? " rounded" : value == "lg" ? " last:rounded-lg" : (value == "md" || !!value) ? " last:rounded-md" :
+        return value == "sm" ? " rounded" : value == "lg" ? " last:rounded-lg" : (value == "md") ? " last:rounded-md" :
             value == "xl" ? " last:rounded-xl" : value == "full" ? " last:rounded-full" : " "
     }
     return " "

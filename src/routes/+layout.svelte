@@ -25,6 +25,7 @@
         <NavLink href="/table">Table</NavLink>
       </NavDropdown>
       <NavDropdown label="Form" megaMenu={true}>
+        <NavLink href="/form/file">File</NavLink>
         <NavLink href="/form/editor">Editor</NavLink>
       </NavDropdown>
       <NavLink href="/new">New</NavLink>

@@ -4,11 +4,11 @@ export interface EditorData {
 
 // Custom types
 export type ANIMATE_SPEED = undefined | false | 'slower' | 'slow' | 'normal' | 'fast' | 'faster'
-export type ROUNDED = 'sm' | 'md' | 'lg' | 'xl' | 'full' | false | undefined
-export type SHADOW = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'inner' | undefined
+export type ROUNDED = 'sm' | 'md' | 'lg' | 'xl' | 'full' | 'none' | undefined
+export type SHADOW = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'inner' | 'none' | undefined
 export type PRELOAD = '' | 'off' | 'tap' | 'hover'
 export type TABLE_ROW = object | (object | string | string[])[] | undefined
-export type BUTTON_SIZE = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 0
+export type BUTTON_SIZE = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '0'
 export type INPUT_VARIANT = 'filled' | 'bordered' | 'flat'
 export type BREADCRUMB_DATA = Array<{text: string, url?: string}>
 export type DROPDOWN_ITEM = { active?: boolean, url?: string, text?: string, type?: 'link' | 'divider' | 'header', preload?: PRELOAD }
