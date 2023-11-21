@@ -8,7 +8,9 @@
 
   const ctx: any = getContext( ACCORDION_GROUP || {} )
 
-  export let data: {title: string, content: string}|null = null
+  export let title: string|undefined = undefined
+  export let content: string|undefined = undefined
+  export let ariaLabel: string = (title||"") +" Accordion"
   export let isOpen: boolean = false
   export let id: string = generateToken()
 
@@ -77,14 +79,14 @@
     id='{id}Heading'
     class='accordion-title'
     aria-controls={id}
-    aria-label={data?.title}
+    aria-label={ariaLabel}
     aria-expanded={$activeAccordionID==id}
   >
     <button
       class={getTitleClasses($activeAccordionID)}
       class:accordion-active={$activeAccordionID==id}
       on:click={()=>toggle(id)}>
-      <slot name="title">{data?.title||""}</slot>
+      <slot name="title">{@html title || ""}</slot>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-auto" class:transition-transform={animationSpeed} class:transform={!animationSpeed} class:-rotate-180={$activeAccordionID==id} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
       </svg>
@@ -99,8 +101,7 @@
     class:accordion-close={$activeAccordionID!=id}
   >
     <div class={getContentClasses($activeAccordionID)}>
-      {#if $$slots.content}<slot name="content"></slot>
-      {:else}{@html data?.content||""}{/if}
+      <slot>{@html content || ""}</slot>
     </div>
   </div>
 </div>
