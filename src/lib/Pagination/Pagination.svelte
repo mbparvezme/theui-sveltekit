@@ -29,7 +29,7 @@
 
 {#if data.length > 0}
     <div class="theui-pagination flex" class:justify-center={align=="center"} class:justify-end={align=="right"}>
-        <ButtonGroup label="Pagination" {size} let:size round={false} class={twMerge("border border-gray-100 dark:border-gray-700", $$props?.class)}>
+        <ButtonGroup label="Pagination" {size} let:size round={"none"} class={twMerge("border border-gray-100 dark:border-gray-700", $$props?.class)}>
             <Button class={getNumLinkClass("")} on:click={previous} label={prevBtn} config={{size}} ariaLabel="Pagination link: previous"/>
             {#each data as link, i}
             <Button href={link.url} class={getNumLinkClass(link?.url)} label={(i+1).toString()} config={{size}} ariaLabel="Pagination page {i+1}"/>

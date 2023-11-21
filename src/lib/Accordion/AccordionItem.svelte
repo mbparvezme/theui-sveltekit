@@ -61,7 +61,7 @@
   let getTitleClasses = (active_ID: string) => {
     let cls = "accordion-title flex items-center w-full "
     if(isFlush){
-      cls += active_ID == id ? "border-b border-brand/50 bg-brand/5 text-brand dark:text-on-brand " : "border-b border-gray-300 dark:border-gray-700 "
+      cls += active_ID == id ? "border-b border-brand/50 bg-brand/10 text-brand dark:text-on-brand " : "border-b border-gray-300 dark:border-gray-700 "
     }else{
       cls += active_ID == id ? "bg-brand text-on-brand " : " "
     }

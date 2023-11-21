@@ -1,23 +1,34 @@
+<script context="module">
+	export const DROPDOWN = {}
+</script>
+
 <script lang="ts">
-	import type { ANIMATE_SPEED, ROUNDED, DROPDOWN_ITEM, DROPDOWN_ITEM_CONFIG } from "$lib/types"
+	import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
 	import { getAnimate, getRounded, generateToken } from "$lib/functions"
 	import { activeDropdownID } from "$lib/stores"
-  	import { twMerge } from "tailwind-merge"
+	import { twMerge } from "tailwind-merge"
 	import { Button, DropdownItem } from "$lib"
+	import { setContext } from "svelte"
 
 	export let animate : ANIMATE_SPEED = "fast"
 	export let id: string = generateToken()
-	export let items: DROPDOWN_ITEM[] = []
+	// export let items: DROPDOWN_ITEM[] = []
 	export let label: string = ""
 	export let animation : 'slide-left' | 'slide-up' | 'slide-right' | 'slide-down' | 'fade' | 'zoom-in' | 'zoom-out' = "slide-up"
 	export let align : 'left' | 'right' = "right"
 	export let backdrop : string|undefined = undefined
 	export let containerClass : string|undefined = undefined
 	export let closeOnOutsideClick : boolean = true
-	export let itemConfig : DROPDOWN_ITEM_CONFIG|null = null
 	export let rounded : ROUNDED = "md"
 	export let size : 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom' = "md"
 	export let standalone : boolean = true
+
+	export let linkClass: string | undefined = "flex items-center gap-4 py-3 px-4 bg-transparent hover:bg-gray-500/10 text-default"
+	export let activeClass: string | undefined = "flex items-center gap-4 py-3 px-4 bg-gray-500/10"
+	export let dividerClass: string | undefined = "border-b pb-2 mb-2 border-tertiary"
+	export let headerClass: string | undefined = "flex items-center gap-4 p-4 font-semibold text-xs opacity-75 uppercase"
+
+	// export let itemConfig : DROPDOWN_ITEM_CONFIG|null = null
 
 	const toggle = (close: boolean = true) => {
 		if(close === false) return
@@ -61,17 +72,19 @@
 
 	let getDropdownClasses = () => animation + " dropdown-content absolute list-none z-[11] bg-white dark:bg-secondary text-base shadow-lg py-1 " + getAnimate(animate) + getRounded(rounded)
 
-	let liCls = (data: null | { type?: string } = {}) => {
-		let cls = "dropdown-item-container "
-		if(data?.type=="divider"){
-		cls += "border-b pb-2 mb-2 " + twMerge("border-tertiary", itemConfig?.dividerClass)
-		}
-		return cls
-	}
+	let config: {
+		linkClass: string | undefined,
+		activeClass: string | undefined,
+		dividerClass: string | undefined,
+		headerClass: string | undefined
+  } = {
+    linkClass,
+    activeClass,
+    dividerClass,
+    headerClass
+  }
 
-	let itemCls = (data: null | { active?: boolean } = {}) => {
-		return "flex items-center gap-4 py-3 px-4 " + (data?.active ?  twMerge("bg-gray-500/10", itemConfig?.activeClass) : twMerge("bg-transparent hover:bg-gray-500/10 text-default", itemConfig?.linkClass))
-	}
+	setContext(DROPDOWN, {config})
 </script>
 
 <svelte:window on:click={(e)=>handleBlur(e)}/>
@@ -91,11 +104,7 @@
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<ul class={twMerge(getDropdownClasses(), $$props?.class)} aria-labelledby={id + "Btn"}>
-		<slot>
-			{#each items as item }
-				<DropdownItem {item} {itemConfig} />
-			{/each}
-		</slot>
+		<slot />
 	</ul>
 </div>
 

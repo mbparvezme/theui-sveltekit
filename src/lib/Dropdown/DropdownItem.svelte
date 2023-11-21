@@ -1,41 +1,45 @@
 <script lang="ts">
-    import type { DROPDOWN_ITEM, DROPDOWN_ITEM_CONFIG, PRELOAD } from "$lib/types"
-    import { twMerge } from "tailwind-merge"
+  import type { PRELOAD } from "$lib/types"
+  import { twMerge } from "tailwind-merge"
+  import { getContext } from "svelte"
+  import { DROPDOWN } from "$lib"
 
-    export let item: DROPDOWN_ITEM|null|any = null
-    export let itemConfig : DROPDOWN_ITEM_CONFIG|null = null
+  const { config } = getContext(DROPDOWN)
 
-    let preload : PRELOAD = "hover"
-    let type : 'link' | 'divider' | 'header' = item?.type || "link"
-    let active : boolean = item?.active || false
+  console.log(config)
 
-    let itemClass = () => {
-        if(type == "link"){
-            let cls = "flex items-center gap-4 py-3 px-4 "
-            if(active){
-                return cls + twMerge("bg-gray-500/10", itemConfig?.activeClass, $$props?.class)
-            }else{
-                return cls + twMerge("bg-transparent hover:bg-gray-500/10 text-default", itemConfig?.linkClass, $$props?.class)
-            }
+    export let url: string = "/"
+    export let text: string|undefined = undefined
+    export let preload : PRELOAD = "hover"
+    export let type : 'link' | 'divider' | 'header' = "link"
+    export let active : boolean = false
+
+    let itemClass = (t:string) => {
+        if(t == "link"){
+            return active ? twMerge(config.activeClass, $$props?.class) : twMerge(config.linkClass, $$props?.class)
         }
-        if(type == "header"){
-            return twMerge("flex items-center gap-4 p-4 font-semibold text-xs opacity-75 uppercase", itemConfig?.headerClass, $$props?.class)
+        if(t == "header"){
+            return twMerge(config.headerClass, $$props?.class)
         }
+        if(t == "divider"){
+            return twMerge(config.dividerClass, $$props?.class)
+        }
+        return ""
     }
 </script>
 
-<li class="dropdown-item {(type=="divider" ? twMerge("border-b pb-2 mb-2 border-tertiary", itemConfig?.dividerClass) : "")}">
+<li class="dropdown-item {itemClass(type=="divider" ? "divider" : "")}">
     {#if type != "divider"}
         {#if type == "header"}
-            <h6 class={itemClass()}>
+            <h6 class={itemClass(type)}>
                 <slot name="startItem" />
-                {item.text}
+                {text}
                 <div class="ms-auto flex items-center"><slot name="endItem" /></div>
             </h6>
         {:else}
-            <a href={item?.url} class={itemClass()} data-sveltekit-preload-data={item?.preload||preload}>
+            <a href={url} class={itemClass(type)} data-sveltekit-preload-data={preload||preload}>
                 <slot name="startItem" />
-                {item.text}
+                {text}
                 <div class="ms-auto flex items-center"><slot name="endItem" /></div>
             </a>
         {/if}

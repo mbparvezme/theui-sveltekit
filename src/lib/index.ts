@@ -8,7 +8,7 @@ export { default as ButtonGroup, BUTTON_GROUP } from "./Button/ButtonGroup.svelt
 export { default as Chips } from "./Chips/Chips.svelte"
 export { default as Collapse } from "./Collapse/Collapse.svelte"
 export { default as Container } from "./Container/Container.svelte"
-export { default as Dropdown } from "./Dropdown/Dropdown.svelte"
+export { default as Dropdown, DROPDOWN } from "./Dropdown/Dropdown.svelte"
 export { default as DropdownItem } from "./Dropdown/DropdownItem.svelte"
 export { default as Modal } from "./Modal/Modal.svelte"
 export { default as Notification } from "./Notification/Notification.svelte"

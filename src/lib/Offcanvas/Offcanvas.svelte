@@ -36,6 +36,7 @@
 
 {#if $$slots.button}
 <!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-interactive-supports-focus -->
 <span role="button" on:click={()=>toggle(id)} id="{id}Btn">
   <slot name="button" {label} {attr}></slot>
 </span>
@@ -46,6 +47,7 @@
 
     {#if backdrop}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div class="backdrop fixed inset-0 bg-black z-[-1] {getAnimate(animate)}"
       on:click={()=>staticBackdrop ? false : toggle(id)}
     ></div>

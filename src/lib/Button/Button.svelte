@@ -26,7 +26,7 @@
     ["md",  "btn-md px-4 py-2.5 text-base "],
     ["lg",  "btn-lg px-6 py-3 text-lg "],
     ["xl",  "btn-xl px-8 py-4 text-xl "],
-    [0,     "btn-0 p-0 "],
+    ["0",     "btn-0 p-0 "],
   ])
 
   let btnClass = () => {
