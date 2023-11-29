@@ -5,27 +5,24 @@
   import { DROPDOWN } from "$lib"
 
   const { config } = getContext(DROPDOWN)
-
-  console.log(config)
-
-    export let url: string = "/"
-    export let text: string|undefined = undefined
-    export let preload : PRELOAD = "hover"
-    export let type : 'link' | 'divider' | 'header' = "link"
-    export let active : boolean = false
-
-    let itemClass = (t:string) => {
-        if(t == "link"){
-            return active ? twMerge(config.activeClass, $$props?.class) : twMerge(config.linkClass, $$props?.class)
-        }
-        if(t == "header"){
-            return twMerge(config.headerClass, $$props?.class)
-        }
-        if(t == "divider"){
-            return twMerge(config.dividerClass, $$props?.class)
-        }
-        return ""
-    }
+  export let url: string = "/"
+  export let text: string|undefined = undefined
+  export let preload : PRELOAD = "hover"
+  export let type : 'link' | 'divider' | 'header' = "link"
+  export let active : boolean = false
+  
+  let itemClass = (t:string) => {
+      if(t == "link"){
+          return active ? twMerge(config.activeClass, $$props?.class) : twMerge(config.linkClass, $$props?.class)
+      }
+      if(t == "header"){
+          return twMerge(config.headerClass, $$props?.class)
+      }
+      if(t == "divider"){
+          return twMerge(config.dividerClass, $$props?.class)
+      }
+      return ""
+  }
 </script>
 
 <li class="dropdown-item {itemClass(type=="divider" ? "divider" : "")}">
