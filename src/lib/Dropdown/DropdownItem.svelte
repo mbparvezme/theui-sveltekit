@@ -1,10 +1,11 @@
 <script lang="ts">
+  interface DropdownContext {config: any}
   import type { PRELOAD } from "$lib/types"
   import { twMerge } from "tailwind-merge"
   import { getContext } from "svelte"
   import { DROPDOWN } from "$lib"
 
-  const { config } = getContext(DROPDOWN)
+  const { config } = getContext<DropdownContext>(DROPDOWN)
   export let url: string = "/"
   export let text: string|undefined = undefined
   export let preload : PRELOAD = "hover"
