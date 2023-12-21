@@ -7,7 +7,7 @@
 	import { getAnimate, getRounded, generateToken } from "$lib/functions"
 	import { activeDropdownID } from "$lib/stores"
 	import { twMerge } from "tailwind-merge"
-	import { Button, DropdownItem } from "$lib"
+	import { Button } from "$lib"
 	import { setContext } from "svelte"
 
 	export let animate : ANIMATE_SPEED = "fast"
@@ -23,7 +23,7 @@
 	export let size : 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom' = "md"
 	export let standalone : boolean = true
 
-	export let linkClass: string | undefined = "flex items-center gap-4 py-3 px-4 bg-transparent hover:bg-gray-500/10 text-default"
+	export let linkClass: string | undefined = "flex w-full items-center gap-4 py-3 px-4 bg-transparent hover:bg-gray-500/10 text-default"
 	export let activeClass: string | undefined = "flex items-center gap-4 py-3 px-4 bg-gray-500/10"
 	export let dividerClass: string | undefined = "border-b pb-2 mb-2 border-tertiary"
 	export let headerClass: string | undefined = "flex items-center gap-4 p-4 font-semibold text-xs opacity-75 uppercase"

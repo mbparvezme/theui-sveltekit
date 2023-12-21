@@ -39,6 +39,10 @@
     type: "header"
   }
 
+  let test = () => {
+    alert("Hello")
+  }
+
 </script>
 
 <Container>
@@ -50,6 +54,10 @@
       <Close slot="endItem" />
     </DropdownItem>
     <DropdownItem url={item2.url} text={item2.text} headerClass="border-y">
+      <Close slot="startItem" />
+      <Close slot="endItem" />
+    </DropdownItem>
+    <DropdownItem type="button" text={item2.text} headerClass="border-y">
       <Close slot="startItem" />
       <Close slot="endItem" />
     </DropdownItem>

@@ -9,11 +9,11 @@
   export let url: string = "/"
   export let text: string|undefined = undefined
   export let preload : PRELOAD = "hover"
-  export let type : 'link' | 'divider' | 'header' = "link"
+  export let type : 'link' | 'divider' | 'header' | 'button' = "link"
   export let active : boolean = false
-  
+
   let itemClass = (t:string) => {
-      if(t == "link"){
+      if(t == "link" || t == "button"){
           return active ? twMerge(config.activeClass, $$props?.class) : twMerge(config.linkClass, $$props?.class)
       }
       if(t == "header"){
@@ -34,6 +34,12 @@
                 {text}
                 <div class="ms-auto flex items-center"><slot name="endItem" /></div>
             </h6>
+        {:else if type == "button"}
+            <button class={itemClass(type)} on:click on:dblclick on:focus on:keydown on:keypress on:keyup on:mouseenter on:mouseleave on:mouseover>
+                <slot name="startItem" />
+                {text}
+                <div class="ms-auto flex items-center"><slot name="endItem" /></div>
+            </button>
         {:else}
             <a href={url} class={itemClass(type)} data-sveltekit-preload-data={preload||preload}>
                 <slot name="startItem" />

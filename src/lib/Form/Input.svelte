@@ -42,6 +42,7 @@
       on:mouseenter
       on:mouseleave
       on:paste
+      on:input
     />
     <slot name="right" class={$$props?.class}/>
   </div>

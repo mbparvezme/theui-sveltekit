@@ -93,7 +93,6 @@
   })
   onDestroy(() => {if (editor) editor.destroy()})
 
-
   // const addImage = () => {
   //   const url = window.prompt("URL")
   //   if (url) {
@@ -140,7 +139,6 @@
     {:else if label}
       <Label style={C.labelStyle} {id} {label}/>
     {/if}
-  
     <div class="flex flex-wrap editor-toolbar gap-1">
       <Dropdown animation="fade" closeOnOutsideClick={false} align="left" >
         <button type="button" slot="label" class={twMerge(btnClass(), "w-10 h-10 rounded-md p-1 flex justify-center items-center")} aria-label="Select text headings"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M11 4.002V12H9.67V8.455H6.33V12H5V4.002h1.33v3.322h3.34V4.002H11Z"/><path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2Zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2Z"/></svg></button>
@@ -252,9 +250,23 @@
   {/if}
   <div class={getInputBoxClass(C, $$restProps)}>
     <div id="editor" class={twMerge(getFormControlStyle(C, $$restProps, $$props?.class), "block focus:border-brand")} bind:this={element} />
-    <textarea class="hidden" {id} {name}>{$editorData[name]||""}</textarea>
+    <textarea class="hidden" {id} {name}
+      on:blur
+      on:change
+      on:click
+      on:focus
+      on:keydown
+      on:keypress
+      on:keyup
+      on:mouseover
+      on:mouseenter
+      on:mouseleave
+      on:paste
+      on:input
+      bind:value={$editorData[name]}
+    ></textarea>
+    </div>
   </div>
-</div>
 
 <style lang="postcss">
   #editor {
