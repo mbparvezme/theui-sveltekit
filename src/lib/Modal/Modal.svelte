@@ -2,10 +2,9 @@
   import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
   import { twMerge } from "tailwind-merge"
   import { getAnimate, getRounded, generateToken } from "$lib/functions"
-  import { modalIdStore } from "$lib/stores"
   import { Close } from "$lib"
 
-  export let id                 : string = generateToken()
+  export let id                 : string = generateToken() + "Modal"
 	export let label              : string = ""
   export let animate            : ANIMATE_SPEED = "fast"
   export let animation          : 'slide-down' | 'slide-up' | 'fade' | 'zoom-in' | 'zoom-out' = "fade"
@@ -14,42 +13,41 @@
   export let closeOnEsc         : boolean = true
   export let modalFooterClass   : string = ""
   export let modalHeaderClass   : string = ""
-  export let modalInnerClass    : string = ""
+  export let modalBodyClass     : string = ""
   export let modalOuterClass    : string = ""
   export let position           : 'top' | 'center' | 'bottom' = "center"
   export let rounded            : ROUNDED = "md"
   export let size               : 'sm' | 'md' | 'lg' | 'full' = "md"
   export let staticBackdrop     : boolean = false
+  export let modalStatus        : boolean = false
 
-	$: attr = {
+  $: modalStatus = false
+
+  $: attr = {
 		"id" : `${id}Btn`,
 		"aria-label" : label,
 		"aria-haspopup" : "true",
-		"aria-controls" : `${id}Modal`,
-		"aria-expanded" : $modalIdStore.includes(id)
+		"aria-controls" : id,
+		"aria-expanded" : modalStatus
 	}
 
-  let toggle = ( closeBtn = true ) => {
-    if($modalIdStore.includes(id) && (closeBtn || (!closeBtn && !staticBackdrop))){
-      modalIdStore.set( $modalIdStore.filter(i => i !== id) )
-      return
-    }
-    modalIdStore.update(m=> [...m, id])
+  $: toggle = ( closeBtn = true ) => {
+    let currentModal = document.getElementById(id)
+    modalStatus = !(currentModal?.classList.contains('open') && (closeBtn || (!closeBtn && !staticBackdrop)))
   }
 
-	let handleKeyboard = (e: KeyboardEvent) => {
-		if ($modalIdStore.includes(id) && (closeOnEsc && e.code === "Escape")){
+	$: handleKeyboard = (e: KeyboardEvent) => {
+		if (modalStatus && (closeOnEsc && e.code === "Escape")){
       e.preventDefault()
-      modalIdStore.set( $modalIdStore.filter(i => i !== id) )
+      modalStatus = false
     }
-		return
 	}
 
-  let modalBodyCls    = () => "theui-modal z-50" + modalSize() + modalPosition() + animateCls()
-  let modalContentCls = () => "modal-content bg-white dark:bg-secondary " + modalSize() + modalPosition() + animateCls() + ((animate && animation) ? animation : "")
-  let modalSize       = () => " " + (size === "sm" ? " modal-sm" : size === "lg" ? " modal-lg" : size === "full" ? " modal-full" : " modal-md")
-  let modalPosition   = () => " " + (position === "bottom" ? " items-end" : position === "center" ? " items-center" :  " items-start")
-  let animateCls      = () => getAnimate(animate)
+  $: modalSize      = () => " " + (size === "sm" ? " modal-sm" : size === "lg" ? " modal-lg" : size === "full" ? " modal-full" : " modal-md")
+  $: modalPosition  = () => " " + (position === "bottom" ? " items-end" : position === "center" ? " items-center" :  " items-start")
+  $: animateCls     = () => getAnimate(animate)
+  $: modalCls       = () => "theui-modal z-50" + modalSize() + modalPosition() + animateCls()
+  $: modalBodyCls   = () => "modal-content bg-white dark:bg-secondary " + animateCls() + " " + ((animate && animation) ? animation : "")
 </script>
 
 <svelte:body on:keydown={(e)=>handleKeyboard(e)}></svelte:body>
@@ -63,15 +61,15 @@
 {/if}
 
 {#if $$slots.body}
-  <div id="{id}Modal" class={twMerge(modalBodyCls(), modalOuterClass)} role="dialog" class:open={$modalIdStore.includes(id)} class:animate={animate}>
+  <div {id} class={twMerge(modalCls(), modalOuterClass)} role="dialog" class:open={modalStatus} class:animate={animate}>
     {#if backdrop}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div class="backdrop fixed inset-0 bg-black z-[-1]{animateCls()}" on:click={()=>toggle(false)}></div>
     {/if}
 
-    <div class={twMerge(modalContentCls(), (size !== "full" ? getRounded(rounded) : ""), modalInnerClass)}
-      aria-labelledby={$$slots?.header ? `${id}Heading` : `${id}Btn`} aria-hidden={!$modalIdStore.includes(id)}>
+    <div class={twMerge(modalBodyCls(), (size !== "full" ? getRounded(rounded) : ""), modalBodyClass)}
+      aria-labelledby={$$slots?.header ? `${id}Heading` : `${id}Btn`} aria-hidden={!modalStatus}>
       {#if $$slots?.header}
         <div id="{id}Heading" class={twMerge("modal-header flex justify-between w-full gap-8 items-start border-b border-black/10 dark:border-tertiary pb-4 mb-8", modalHeaderClass)}>
           <slot name="header"></slot>
@@ -126,25 +124,25 @@
   .theui-modal.modal-full .modal-content{
     @apply w-full min-h-screen;
   }
-  .theui-modal.animate .backdrop{
+  .theui-modal.tui-animate .backdrop{
     @apply opacity-0;
   }
   .theui-modal.open .backdrop{
-    @apply opacity-90;
+    @apply opacity-50 dark:opacity-75;
   }
-  .theui-modal.animate .modal-content.slide-down{
+  .theui-modal.tui-animate .modal-content.slide-down{
     @apply transform -translate-y-8;
   }
-  .theui-modal.animate .modal-content.slide-up{
+  .theui-modal.tui-animate .modal-content.slide-up{
     @apply transform translate-y-8;
   }
   .theui-modal.open .modal-content.slide-down, .theui-modal.open .modal-content.slide-up{
     @apply translate-y-0;
   }
-  .theui-modal.animate .modal-content.zoom-in{
+  .theui-modal.tui-animate .modal-content.zoom-in{
     @apply transform scale-90;
   }
-  .theui-modal.animate .modal-content.zoom-out{
+  .theui-modal.tui-animate .modal-content.zoom-out{
     @apply transform scale-110;
   }
   .theui-modal.open .modal-content.zoom-in, .theui-modal.open .modal-content.zoom-out{

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ROUNDED } from "$lib/types"
 	import { twMerge } from "tailwind-merge"
-  	import { getRounded, generateToken } from "$lib/functions"
+	import { getRounded, generateToken } from "$lib/functions"
 	import { Close, Svg } from "$lib"
 
 	export let dismissible: boolean = true

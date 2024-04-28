@@ -6,8 +6,8 @@
 
   export let text: string|undefined = undefined
 
-  export let animate   : ANIMATE_SPEED = "normal"
-  export let animation : 'fade' | 'slide' | 'zoom-in' | 'zoom-out' = "fade"
+  export const animate   : ANIMATE_SPEED = "normal"
+  export const animation : 'fade' | 'slide' | 'zoom-in' | 'zoom-out' = "fade"
   export let bgColor   : string = "#1F2937"
   export let position  : 'left' | 'top' | 'right' | 'bottom' = "top"
   export let rounded   : ROUNDED = "md"

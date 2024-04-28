@@ -34,30 +34,28 @@
 
 <svelte:body on:keydown={(e)=>handleKeyboard(e)}></svelte:body>
 
-{#if $$slots.button}
+{#if $$slots.offcanvasButton}
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-interactive-supports-focus -->
 <span role="button" on:click={()=>toggle(id)} id="{id}Btn">
-  <slot name="button" {label} {attr}></slot>
+  <slot name="offcanvasButton" {label} {attr}></slot>
 </span>
 {/if}
 
-{#if $$slots.body}
+{#if $$slots.offcanvasContent}
   <div {id} class="theui-offcanvas fixed inset-0 z-40 {getAnimate(animate)} {positionCls(position||"left")}" role="dialog" class:animate={animate}>
 
     {#if backdrop}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div class="backdrop fixed inset-0 bg-black z-[-1] {getAnimate(animate)}"
-      on:click={()=>staticBackdrop ? false : toggle(id)}
-    ></div>
+    <div class="backdrop fixed inset-0 bg-black z-[-1] {getAnimate(animate)}" on:click={()=>staticBackdrop ? false : toggle(id)}></div>
     {/if}
 
     <div id="{id}Offcanvas" class={twMerge(getClass(), $$props?.class)} aria-labelledby="{id}Btn" aria-hidden={!active}>
       <button class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity absolute top-2 right-4" on:click={()=>toggle(id)} aria-label="Close" >
         <Close/>
       </button>
-      <slot name="body"></slot>
+      <slot name="offcanvasContent"></slot>
     </div>
 
   </div>

@@ -66,4 +66,8 @@
   button[disabled].btn-outline{
     @apply opacity-50 pointer-events-none;
   }
+
+  :global(.theui-btn-group:not(:first-child, :last-child)){
+    @apply !rounded-none;
+  }
 </style>

@@ -25,7 +25,7 @@
         Notifications <Badge title="Hello badge" topFixed={true}/>
         </p>
     
-        <p class="relative p-2 bg-gray-100 dark:bg-gray-700">
+        <p class="relative p-2 bg-yellow-100 dark:bg-gray-700">
         Notifications <Badge topFixed={true} text="New"/>
         </p>
     </div>

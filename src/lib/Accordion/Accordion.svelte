@@ -4,8 +4,9 @@
 
 <script lang="ts">
   import { setContext } from "svelte"
-  export let gap: 0|2|4|8 = 0
-  setContext(ACCORDION_GROUP, {group: true})
+  export let gap: 0 | 2 | 4 | 8 = 0
+  export let size : "compact" | "default" | "large" = "default"
+  setContext(ACCORDION_GROUP, {group: true, size})
 </script>
 
 <div class="theui-accordion-group flex flex-col"
@@ -14,5 +15,5 @@
   class:gap-4={gap==4}
   class:gap-8={gap==8}
 >
-  <slot></slot>
+  <slot />
 </div>

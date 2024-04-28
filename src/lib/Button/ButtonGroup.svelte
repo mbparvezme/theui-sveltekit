@@ -12,9 +12,10 @@
   export let round: ROUNDED = "md"
   export let size: BUTTON_SIZE = "md"
   export let stacked: boolean = false
-  setContext(BUTTON_GROUP, {group: true, stacked})
+
+setContext(BUTTON_GROUP, {group: true, stacked})
 </script>
 
-<div class={twMerge(("theui-btn-group inline-flex" + getRounded(round)), $$props?.class)} class:flex-col={stacked} role="group" aria-label={label}>
+<div class={twMerge(("theui-btn-group inline-flex" + getRounded(round)), $$props?.class)} class:flex-col={stacked} class:btn-group-stacked={stacked} role="group" aria-label={label}>
   <slot {size}></slot>
 </div>

@@ -84,10 +84,6 @@
               (miniNav||(hideNav===false && scrollPos!==0) ? " px-4" : " px-8")
 </script>
 
-<div class="w-full max-w-[var(--max-width)] items-center relative">
-  <slot name="topbar"></slot>
-</div>
-
 <nav
   {id}
   class:navbar-mini={miniNav}
