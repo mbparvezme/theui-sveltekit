@@ -10,4 +10,8 @@
 
 <Container>
     <Breadcrumb data={breadcrumbData} />
+    <div class="py-4"></div>
+    <Breadcrumb data={breadcrumbData} separator=">" />
+    <div class="py-4"></div>
+    <Breadcrumb data={breadcrumbData} separator="&rarr;" />
 </Container>

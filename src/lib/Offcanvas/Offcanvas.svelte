@@ -4,8 +4,8 @@
   import { getAnimate, generateToken } from "$lib/functions"
 	import { Close } from "$lib"
 
-  export let id: string = generateToken()
-  export let label: string = ""
+  export let id             : string = generateToken()
+  export let label          : string = ""
   export let animate        : ANIMATE_SPEED = "fast"
   export let backdrop       : boolean = true
   export let closeOnEsc     : boolean = true
@@ -28,7 +28,7 @@
 		if (document.getElementById(id)?.classList.contains("open") && (closeOnEsc != false && e.keyCode == 27)) toggle(id)
 	}
 
-  let positionCls = (position: string) => position === "top" ? "offcanvas-top" : position === "right" ? "offcanvas-right" : position === "bottom" ? "offcanvas-bottom" : "offcanvas-left"
+  let positionCls = () => position === "top" ? "offcanvas-top" : position === "right" ? "offcanvas-right" : position === "bottom" ? "offcanvas-bottom" : "offcanvas-left"
   let getClass = () => "offcanvas-body fixed bg-white dark:bg-secondary" + getAnimate(animate)
 </script>
 
@@ -43,7 +43,7 @@
 {/if}
 
 {#if $$slots.offcanvasContent}
-  <div {id} class="theui-offcanvas fixed inset-0 z-40 {getAnimate(animate)} {positionCls(position||"left")}" role="dialog" class:animate={animate}>
+  <div {id} class="theui-offcanvas fixed inset-0 z-40 {getAnimate(animate)} {positionCls()}" role="dialog" class:animate={animate}>
 
     {#if backdrop}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -108,3 +108,16 @@
     @apply translate-y-0
   }
 </style>
+
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let id             : string = generateToken()
+  export let label          : string = ""
+  export let animate        : ANIMATE_SPEED = "fast"
+  export let backdrop       : boolean = true
+  export let closeOnEsc     : boolean = true
+  export let position       : 'top' | 'right' | 'bottom' | 'left' = "left"
+  export let staticBackdrop : boolean = false
+-->

@@ -9,10 +9,10 @@
   export let round : ROUNDED = "md"
   export let separator : string = "/"
 
-  let getLinkCls = (url: any) => "before:text-gray-300/70 dark:before:text-gray-300/50 " + (url ? linkClass : activeLinkClass)
+  let getLinkCls = (url: any) => "before:text-black/30 dark:before:text-white/30 " + (url ? linkClass : activeLinkClass)
 </script>
 
-<nav aria-label="breadcrumb" class="theui-breadcrumb {twMerge("bg-secondary p-4", $$props?.class)}{getRounded(round)}">
+<nav aria-label="breadcrumb" class="theui-breadcrumb {twMerge("bg-secondary/50 p-4", $$props?.class)}{getRounded(round)}">
   <ol class="breadcrumb-list flex">
     {#each data as item, i}
       <li class="breadcrumb-item {getLinkCls(item.url)}" class:before:pr-2={i!=0} class:before:pl-2={i!=0} class:active={!item.url} style="--breadcrumb-separator: '{separator}';">
@@ -27,3 +27,14 @@
     content: var(--breadcrumb-separator);
   }
 </style>
+
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let data : BREADCRUMB_DATA = []
+  export let activeLinkClass : string = "text-gray-400"
+  export let linkClass : string = "text-brand"
+  export let round : ROUNDED = "md"
+  export let separator : string = "/"
+-->

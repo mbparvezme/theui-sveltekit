@@ -1,5 +1,7 @@
 # MIT License
+
 <br><br>
+
 <h3 class="mt-0 text-2xl">{"Copyright " + {(new Date()).getFullYear()} + " TheUI"}</h3>
 <br>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>

@@ -1,23 +1,26 @@
-<script context="module">
-	export const FORM = {}
+<script context="module" lang="ts">
+	export const FORM_CTX: INPUT_CONFIG = {size: "md", variant: "bordered"}
 </script>
 
 <script lang="ts">
+  import type { INPUT_CONFIG, INPUT_VARIANT } from "$lib/types";
 	import { setContext } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { generateToken } from "$lib/functions"
 
-  // Input attributes
-  export let id : string = generateToken()
+  // Form prop
+  export let method : 'GET' | 'POST' = "POST"
+  // Input props (Context)
+  export let animate: INPUT_CONFIG["animate"] = "normal"
   export let inputGrow : boolean = true
-  export let reset : boolean = false
-  export let size : 'none' | 'sm' | 'md' | 'lg' | 'xl' = "md"
-  export let variant : 'filled' | 'bordered' | 'flat' = "bordered"
-  export let labelStyle  : string|undefined = undefined
+  export let labelClasses  : string|undefined = undefined
+  export let inputReset : boolean = false
+  export let rounded: INPUT_CONFIG["rounded"] = "md"
+  export let inputSize : 'none' | 'sm' | 'md' | 'lg' | 'xl' = "md"
+  export let inputVariant : INPUT_VARIANT = "bordered"
 
-  setContext(FORM, {formConfig: {variant, inputGrow, size, labelStyle, reset}, formID: id})
+  setContext(FORM_CTX, {formConfig: {animate, size: inputSize, labelClasses, reset: inputReset, rounded, variant: inputVariant, grow: inputGrow}})
 </script>
 
-<form method="POST" {...$$restProps} class={twMerge("flex flex-col gap-4", $$props.class)} on:submit>
+<form {method} {...$$restProps} class={twMerge("flex flex-col gap-4", $$props?.class)} on:submit on:reset on:change on:input>
   <slot/>
 </form>

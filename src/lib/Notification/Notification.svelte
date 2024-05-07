@@ -55,3 +55,10 @@
   }
 </style>
 
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let position : "top-right" | "top-center" | "top-left" | "bottom-right" | "bottom-center" | "bottom-left" = "top-right"
+  export let animate: boolean = true
+-->

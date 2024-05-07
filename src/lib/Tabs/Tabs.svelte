@@ -3,31 +3,39 @@
 </script>
 
 <script lang="ts">
-	import type { ANIMATE_SPEED, TAB_CONFIG } from "$lib/types"
+	import type { ANIMATE_SPEED, TABS_CONTEXT, TAB_CONFIG, SHADOW } from "$lib/types"
 	import { setContext, onDestroy } from "svelte"
 	import { writable } from "svelte/store"
-  	import { generateToken } from "$lib/functions"
-    import { twMerge } from "tailwind-merge"
+	import { generateToken } from "$lib/functions"
+	import { twMerge } from "tailwind-merge"
 
 	export let id : string = generateToken()
-	export let variant : 'tabs' | 'pills' = "tabs"
+	export let border : boolean = true
 	export let animate : ANIMATE_SPEED = "normal"
-	export let activeTabClass : object | string = (variant==="pills" ? "bg-brand text-white" : "border-0 border-b-2 border-brand text-brand bg-primary")
-	export let tabClass : object | string = (variant==="pills" ? "bg-secondary hover:bg-brand" : "border-0 border-b-2 border-secondary bg-primary")
+	export let activeTabClasses : string = ""
+	export let inactiveTabClasses : string = ""
+	export let tabPanelClasses: string = ""
+	export let variant : 'tabs' | 'pills' = "pills"
+
+	let activeTabClassesDefault = (variant==="pills" ? "bg-brand text-white" : "border-0 border-b-2 border-brand text-brand")
+	let inactiveTabClassesDefault = (variant==="pills" ? "hover:bg-brand hover:text-on-brand" : "border-0 border-b-2 border-transparent")
 
 	let config: TAB_CONFIG = {
+		activeTabClasses : twMerge(activeTabClassesDefault, activeTabClasses),
+		inactiveTabClasses : twMerge(inactiveTabClassesDefault, inactiveTabClasses),
 		animate,
-		activeTabClass,
-		tabClass
+		border,
+		tabPanelClasses,
+		variant,
 	}
 
-	const tabs: any = []
-	const panels: any = []
-	const selectedTab = writable(null)
-	const selectedPanel = writable(null)
+	let tabs: Array<HTMLElement> = []
+	let panels: Array<HTMLElement> = []
+	let selectedTab = writable<HTMLElement>()
+	let selectedPanel = writable<HTMLElement>()
 
-	setContext(TABS, {
-		registerTab: (tab:any) => {
+	let ctx: TABS_CONTEXT = {
+		registerTab: (tab: HTMLElement) => {
 			tabs.push(tab)
 			selectedTab.update(current => current || tab)
 			onDestroy(() => {
@@ -52,11 +60,12 @@
 		},
 		selectedTab,
 		selectedPanel,
-		config,
-		variant,
-	})
+		config
+	}
+
+	setContext(TABS, ctx)
 </script>
 
-<div {id} class="theui-tabs {twMerge("", $$props.class)}">
+<div {id} class="theui-tabs -mb-0.5 {twMerge("", $$props.class)}">
 	<slot></slot>
 </div>

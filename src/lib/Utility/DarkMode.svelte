@@ -1,42 +1,41 @@
 <script lang="ts">
-  import { onMount } from "svelte"
-  import { twMerge } from "tailwind-merge"
+  import { onMount } from "svelte";
+  import { twMerge } from "tailwind-merge";
 
-  export let darkMode: boolean | 'system' = true
-  let toggleTheme: () => void = () => {}
+  export let darkMode: boolean | 'system' = true;
+  let toggleTheme: () => void = () => {};
 
   onMount((): void => {
     if(darkMode === true){
       toggleTheme = () => {
-        localStorage.setItem("theme", localStorage.theme == "light" ? "dark" : "light")
-        document.querySelector("html")?.classList.remove("dark", "light")
-        document.querySelector("html")?.classList.add(localStorage.theme)
+        localStorage.setItem("theme", localStorage.theme == "light" ? "dark" : "light");
+        document.querySelector("html")?.classList.remove("dark", "light");
+        document.querySelector("html")?.classList.add(localStorage.theme);
       }
     }
   })
 </script>
 
 <svelte:head>
-{#if darkMode === true}
+  {#if darkMode === true}
   <script>
     function setTheme() {
       if (localStorage.theme === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-        document.documentElement.classList.add("dark")
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove("dark")
+        document.documentElement.classList.remove("dark");
       }
     }
     setTheme();
   </script>
   {/if}
-
   {#if darkMode === "system"}
   <script>
     function setTheme() {
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        document.documentElement.classList.add("dark")
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove("dark")
+        document.documentElement.classList.remove("dark");
       }
     }
     setTheme();
@@ -53,3 +52,10 @@
   </slot>
 </button>
 {/if}
+
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let darkMode: boolean | 'system' = true
+-->

@@ -4,7 +4,7 @@
   import { getRounded } from "$lib/functions"
   import { twMerge } from "tailwind-merge"
 
-  export let event          : 'entry' | 'exit' = "entry"
+  export let trigger        : 'onEntry' | 'onExit' = "onEntry"
   export let repeat         : boolean | 'page' = true
   export let backdrop       : boolean|string = true
   export let containerClass : string = ""
@@ -14,7 +14,7 @@
   let popup = false
 
   onMount(() => {
-    if(event == "entry"){
+    if(trigger == "onEntry"){
       const onPageLoad = () => {
         if(repeat === false){
           if(localStorage.getItem("entryPopUp")) return
@@ -31,7 +31,7 @@
       }
       onPageLoad()
     }
-    if(event == 'exit'){
+    if(trigger == 'onExit'){
       const onMouseOut = (e: MouseEvent) => {
         const target = e.target as HTMLElement | null;
         if(e.clientY < 50 && e.relatedTarget == null && target?.nodeName.toLowerCase() !== 'select') {
@@ -77,8 +77,20 @@
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   {#if backdrop !== false}<div class="back-drop fixed inset-0 {twMerge("bg-black/50", (typeof backdrop == "string" ? backdrop : ""))} z-[-1]" on:click={()=>handleBackdrop()}></div>{/if}
-  <div class="content overflow-y-auto relative {twMerge("bg-white dark:bg-gray-800 max-w-3xl max-h-screen p-8", $$props?.class)} {getRounded(rounded)}">
+  <div class="content overflow-y-auto relative {twMerge("bg-secondary max-w-3xl max-h-screen p-8", $$props?.class)} {getRounded(rounded)}">
     <slot />
   </div>
 </div>
 {/if}
+
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let trigger        : 'onEntry' | 'onExit' = "onEntry"
+  export let repeat         : boolean | 'page' = true
+  export let backdrop       : boolean|string = true
+  export let containerClass : string = ""
+  export let rounded        : ROUNDED = "xl"
+  export let staticBackdrop : boolean = false
+-->

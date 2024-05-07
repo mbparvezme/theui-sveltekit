@@ -2,7 +2,7 @@
   import { getContext } from "svelte"
   import { NAV, Svg } from "$lib"
   import { twMerge } from "tailwind-merge"
-  const { config, id, mobileNav } = getContext(NAV)
+  const { config, id, mobileNav } = getContext(NAV) as any;
 
   let toggle = () => {
     if ($mobileNav.includes(id)) {
@@ -12,7 +12,7 @@
       mobileNav.update((d: any)=> [...d, id])
     }
   }
-  let getClass = () => "nav-toggle border border-gray-200 rounded-md w-12 h-12 flex items-center justify-center " + (config.mobileNavOn == "sm" ? "md:hidden" : config.mobileNavOn == "md" ? "lg:hidden" : config.mobileNavOn == "lg" ? "xl:hidden" : config.mobileNavOn == "xl" ? "2xl:hidden" : "hidden")
+  let getClass = () => `nav-toggle border border-gray-200 rounded-md w-12 h-12 flex items-center justify-center ${(config.mobileNavOn == "sm" ? "md:hidden" : config.mobileNavOn == "md" ? "lg:hidden" : config.mobileNavOn == "lg" ? "xl:hidden" : config.mobileNavOn == "xl" ? "2xl:hidden" : "hidden")}`
 </script>
 
 {#if config.mobileNavOn !== false}

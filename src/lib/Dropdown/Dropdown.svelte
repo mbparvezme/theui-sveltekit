@@ -5,64 +5,58 @@
 <script lang="ts">
 	import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
 	import { getAnimate, getRounded, generateToken } from "$lib/functions"
-	import { activeDropdownID } from "$lib/stores"
 	import { twMerge } from "tailwind-merge"
 	import { Button } from "$lib"
 	import { setContext } from "svelte"
 
 	export let animate : ANIMATE_SPEED = "fast"
 	export let id: string = generateToken()
-	// export let items: DROPDOWN_ITEM[] = []
 	export let label: string = ""
 	export let animation : 'slide-left' | 'slide-up' | 'slide-right' | 'slide-down' | 'fade' | 'zoom-in' | 'zoom-out' = "slide-up"
 	export let align : 'left' | 'right' = "right"
-	export let backdrop : string|undefined = undefined
+	export let backdrop : string|boolean = false
 	export let containerClass : string|undefined = undefined
 	export let closeOnOutsideClick : boolean = true
 	export let rounded : ROUNDED = "md"
-	export let size : 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom' = "md"
-	export let standalone : boolean = true
+	export let size : 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom' = "auto"
 
 	export let linkClass: string | undefined = "flex w-full items-center gap-4 py-3 px-4 bg-transparent hover:bg-gray-500/10 text-default"
 	export let activeClass: string | undefined = "flex items-center gap-4 py-3 px-4 bg-gray-500/10"
 	export let dividerClass: string | undefined = "border-b pb-2 mb-2 border-tertiary"
 	export let headerClass: string | undefined = "flex items-center gap-4 p-4 font-semibold text-xs opacity-75 uppercase"
 
-	// export let itemConfig : DROPDOWN_ITEM_CONFIG|null = null
+	let isOpen: boolean
+	$: isOpen = false
 
-	const toggle = (close: boolean = true) => {
-		if(close === false) return
-		$activeDropdownID.includes(id) ? hide() : show()
-		return
+	$: toggle = () => {
+		let currentDD = document.getElementById(id)
+		isOpen = !currentDD?.classList.contains('open')
 	}
 
-	let show = () =>  standalone ? activeDropdownID.set([id]) : activeDropdownID.update(d=> [...d, id])
-	let hide = () => activeDropdownID.set( $activeDropdownID.filter(i => i !== id) )
+	$: handleKeyboard = (e: KeyboardEvent) => {
+		e.preventDefault()
+		if (e.code === "Escape" || e.code === "ArrowUp") {
+			isOpen = false
+		}
+		if (e.code === "ArrowDown") {
+			isOpen = true
+		}
+
+	}
+
+	$: handleBlur = (e: MouseEvent) => {
+		let currentDD = document.getElementById(id)
+		if (closeOnOutsideClick && currentDD?.classList.contains('open') && e.target instanceof Element && !e.target.closest("#"+id)) {
+			isOpen = false
+		}
+	}
 
 	$: attr = {
 		"id" : `${id}Heading`,
 		"aria-label" : label,
 		"aria-haspopup" : "true",
 		"aria-controls" : `${id}Body`,
-		"aria-expanded" : $activeDropdownID.includes(id)
-	}
-
-	const handleKeyboard = (e: KeyboardEvent) => {
-		if ($activeDropdownID.includes(id) && (e.code === "Escape" || e.code === "ArrowUp")) {
-			e.preventDefault()
-			hide()
-		}
-		
-		if (!$activeDropdownID.includes(id) && e.code === "ArrowDown") {
-			e.preventDefault()
-			show()
-		}
-	}
-
-	let handleBlur = (e: MouseEvent) => {
-		if (closeOnOutsideClick && $activeDropdownID.includes(id) && e.target instanceof Element && !e.target.closest(".theui-dropdown")) {
-			hide()
-		}
+		"aria-expanded" : isOpen
 	}
 
 	let getContainerClasses = () => "theui-dropdown relative inline-block " +
@@ -70,7 +64,7 @@
 		(size === "sm" ? "dropdown-sm" : size === "md" ? "dropdown-md" : size === "lg" ? "dropdown-lg" : size === "full" ? "dropdown-full" : size === "auto" ? "dropdown-auto" : "dropdown-custom") +
 		getAnimate(animate)
 
-	let getDropdownClasses = () => animation + " dropdown-content absolute list-none z-[11] bg-white dark:bg-secondary text-base shadow-lg py-1 " + getAnimate(animate) + getRounded(rounded)
+	let getDropdownClasses = () => animation + " dropdown-content absolute list-none z-[11] bg-white dark:bg-secondary text-base shadow-lg py-1 text-nowrap " + getAnimate(animate) + getRounded(rounded)
 
 	let config: {
 		linkClass: string | undefined,
@@ -89,9 +83,9 @@
 
 <svelte:window on:click={(e)=>handleBlur(e)}/>
 
-<div {...$$restProps} class={twMerge(getContainerClasses(), containerClass)} class:open={$activeDropdownID.includes(id)}>
+<div {...$$restProps} class={twMerge(getContainerClasses(), containerClass)} class:open={isOpen} {id}>
 	<!-- svelte-ignore a11y-interactive-supports-focus -->
-	<span class="relative dropdown-btn select-none" role="button" id={id + "Btn"} on:click={()=>toggle()} on:keydown={(e)=>handleKeyboard(e)} aria-expanded={$activeDropdownID.includes(id)}>
+	<span class="relative dropdown-btn select-none" role="button" id={id + "Btn"} on:click={()=>toggle()} on:keydown={(e)=>handleKeyboard(e)} aria-expanded={isOpen}>
 		{#if $$slots.label}
 			<slot name="label" {attr} {label}></slot>
 		{:else}
@@ -100,7 +94,7 @@
 	</span>
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	{#if backdrop}<div class="fixed inset-0 backdrop z-10 bg-black/50" on:click={()=>toggle()}></div>{/if}
+	{#if backdrop}<div class={twMerge("fixed inset-0 backdrop z-10 bg-black/50", (typeof backdrop == "string" ? backdrop : "" ))} on:click={()=>toggle()}></div>{/if}
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<ul class={twMerge(getDropdownClasses(), $$props?.class)} aria-labelledby={id + "Btn"}>
@@ -159,7 +153,7 @@
 	.theui-dropdown .dropdown-content.slide-right{
 		@apply -translate-x-2;
 	}
-	.dropdown.open .dropdown-content.slide-left, .dropdown.open .dropdown-content.slide-right{
+	.theui-dropdown.open .dropdown-content.slide-left, .theui-dropdown.open .dropdown-content.slide-right{
 		@apply translate-x-0;
 	}
 	.theui-dropdown .dropdown-content.zoom-in{
@@ -172,3 +166,23 @@
 		@apply scale-100;
 	}
 </style>
+
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let animate : ANIMATE_SPEED = "fast"
+	export let id: string = generateToken()
+	export let label: string = ""
+	export let animation : 'slide-left' | 'slide-up' | 'slide-right' | 'slide-down' | 'fade' | 'zoom-in' | 'zoom-out' = "slide-up"
+	export let align : 'left' | 'right' = "right"
+	export let backdrop : string|boolean = false
+	export let containerClass : string|undefined = undefined
+	export let closeOnOutsideClick : boolean = true
+	export let rounded : ROUNDED = "md"
+	export let size : 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom' = "auto"
+	export let linkClass: string | undefined = "flex w-full items-center gap-4 py-3 px-4 bg-transparent hover:bg-gray-500/10 text-default"
+	export let activeClass: string | undefined = "flex items-center gap-4 py-3 px-4 bg-gray-500/10"
+	export let dividerClass: string | undefined = "border-b pb-2 mb-2 border-tertiary"
+	export let headerClass: string | undefined = "flex items-center gap-4 p-4 font-semibold text-xs opacity-75 uppercase"
+-->

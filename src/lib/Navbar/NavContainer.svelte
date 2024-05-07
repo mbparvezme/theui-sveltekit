@@ -1,19 +1,22 @@
 <script lang="ts">
-  import { getContext } from "svelte"
-  import { NAV } from "$lib"
-  import { twMerge } from "tailwind-merge"
-  const { config } = getContext(NAV)
+  import { getContext } from "svelte";
+  import { NAV } from "$lib";
+  import { twMerge } from "tailwind-merge";
+  const { config } = getContext(NAV || {}) as any;
 
-  export let align: 'left' | 'right' | 'center' = "left"
+  export let align: 'left' | 'right' | 'center' = "left";
 
-  let classes =   "flex-col " + (config.mobileNavOn == "sm" ? "md:flex-row " : config.mobileNavOn == "md" ? "lg:flex-row " : config.mobileNavOn == "lg" ? "xl:flex-row " : config.mobileNavOn ==  "xl" ? "2xl:flex-row " : "flex-row ") +
-                  (align == "right" ?
-                    (config.mobileNavOn == "sm" ? "md:ml-auto" : config.mobileNavOn == "md" ? "lg:ml-auto" : config.mobileNavOn == "lg" ? "xl:ml-auto" : config.mobileNavOn == "xl" ? "2xl:ml-auto" : "") :
-                  align == "center" ?
-                    (config.mobileNavOn == "sm" ? "md:mx-auto" : config.mobileNavOn == "md" ? "lg:mx-auto" : config.mobileNavOn == "lg" ? "xl:mx-auto" : config.mobileNavOn == "xl" ? "2xl:mx-auto" : "") :
-                  (config.mobileNavOn == "sm" ? "md:mr-auto" : config.mobileNavOn == "md" ? "lg:mr-auto" : config.mobileNavOn == "lg" ? "xl:mr-auto" : config.mobileNavOn == "xl" ? "2xl:mr-auto" : ""))
+  let breakPoint = config.mobileNavOn;
+
+  let navContainerClasses: string = `${!breakPoint ? "items-center flex-row" :
+    `${breakPoint == "sm" ? "md:flex-row" : breakPoint == "md" ? "lg:flex-row" : breakPoint == "lg" ? "xl:flex-row" : "2xl:flex-row"}`} flex-col
+    ${align === "right" ?
+            `${breakPoint === "sm" ? "md:ms-auto " : breakPoint === "md" ? "lg:ms-auto " : breakPoint === "lg" ? "xl:ms-auto " : "2xl:ms-auto "}` :
+          align === "center" ?
+            `${(breakPoint === "sm" ? "md:mx-auto " : breakPoint === "md" ? "lg:mx-auto " : breakPoint === "lg" ? "xl:mx-auto " : "2xl:mx-auto ")}` :
+            `${(breakPoint === "sm" ? "md:me-auto " : breakPoint === "md" ? "lg:me-auto " : breakPoint === "lg" ? "xl:me-auto " : "2xl:me-auto ")}`}`;
 </script>
 
-<div class="nav-links flex {twMerge((config.mobileNavOn !== false ? classes : "items-center flex-row"), $$props?.class)}">
+<div class="nav-links flex {twMerge(navContainerClasses, $$props?.class)}">
   <slot />
 </div>

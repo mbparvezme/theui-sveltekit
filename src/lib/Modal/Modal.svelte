@@ -149,3 +149,25 @@
     @apply scale-100;
   }
 </style>
+
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let id                 : string = generateToken() + "Modal"
+	export let label              : string = ""
+  export let animate            : ANIMATE_SPEED = "fast"
+  export let animation          : 'slide-down' | 'slide-up' | 'fade' | 'zoom-in' | 'zoom-out' = "fade"
+  export let backdrop           : boolean = true
+  export let closeBtn           : boolean = true
+  export let closeOnEsc         : boolean = true
+  export let modalFooterClass   : string = ""
+  export let modalHeaderClass   : string = ""
+  export let modalBodyClass     : string = ""
+  export let modalOuterClass    : string = ""
+  export let position           : 'top' | 'center' | 'bottom' = "center"
+  export let rounded            : ROUNDED = "md"
+  export let size               : 'sm' | 'md' | 'lg' | 'full' = "md"
+  export let staticBackdrop     : boolean = false
+  export let modalStatus        : boolean = false
+-->

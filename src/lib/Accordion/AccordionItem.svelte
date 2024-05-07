@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
   import { getAnimate, getRounded, getRoundedFirst, getRoundedLast, generateToken } from "$lib/functions"
-  import { getContext } from "svelte"
+  import { getContext, onMount } from "svelte"
   import { twMerge } from "tailwind-merge"
   import { ACCORDION_GROUP } from "$lib"
 
@@ -26,10 +26,10 @@
 
   let isOpened: boolean
   
-  let makeAccordionOpen = (accordion: HTMLElement) => {
+  let makeAccordionOpen = (accordion: HTMLElement | null) => {
     isOpened = true
     accordion?.classList.add('open')
-    if(animationSpeed) accordion.style.height = (accordion.scrollHeight + 20) + "px"
+    if(animationSpeed) (accordion as HTMLElement).style.height = ((accordion as HTMLElement).scrollHeight + 20) + "px"
   }
 
   let toggle = (id: string) => {
@@ -46,9 +46,11 @@
     }
   }
 
-  if (isOpen){
-    makeAccordionOpen(document.getElementById(id) as HTMLElement)
-  }
+  onMount(() => {
+    if (isOpen){
+      makeAccordionOpen(document.getElementById(id) as HTMLElement)
+    }
+  })
 
   $: getContainerClasses = () => {
     let cls = "theui-accordion " + (isFlush ? "accordion-flush " : "accordion-default ") + `space-${size}` + (isOpened ? " accordion-active " : " ")
@@ -144,3 +146,24 @@
     @apply h-0;
   }
 </style>
+
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let title: string|undefined = undefined
+  export let content: string|undefined = undefined
+  export let ariaLabel: string = (title||"") +" Accordion"
+  export let isOpen: boolean = false
+  export let id: string = generateToken()
+  export let isFlush: boolean = false
+  export let animationSpeed : ANIMATE_SPEED = "fast"
+  export let containerClass : string  =  ""
+  export let containerActiveClass : string = ""
+  export let contentClass : string = ""
+  export let contentActiveClass : string = ""
+  export let rounded : ROUNDED = "md"
+  export let size : "compact" | "default" | "large" = ctx?.size || "default"
+  export let titleClass : string = ""
+  export let titleActiveClass : string = ""
+-->

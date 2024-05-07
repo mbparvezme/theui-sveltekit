@@ -4,22 +4,20 @@
   import { twMerge } from "tailwind-merge"
   import { getAnimate, getRounded } from "$lib/functions"
   import { NAV } from "$lib"
-  const { config, id, mobileNav } = getContext(NAV)
+  const { config, id, mobileNav } = getContext(NAV) as any;
 
   export let href     : string|null = null
   export let preload  : PRELOAD = "hover"
   export let active   : string|boolean = false
 
-  let linkCls = "nav-link flex items-center " + twMerge((active ? config.activeLinkStyle : config.linkStyle), $$props.class) + getRounded(config?.rounded) + getAnimate(config?.animate)
+  let linkCls = `nav-link flex items-center ${twMerge((active ? config.activeLinkStyle : config.linkStyle), $$props.class)} ${getRounded(config?.rounded)} ${getAnimate(config?.animate)}`
 
   let closeMobileNav = () => {
     if ($mobileNav.includes(id)) {
       let D = $mobileNav.filter((i:any) => i !== id)
-			// mobileNav.update(d => D)
 			mobileNav.update(() => D)
     }
   }
-
 </script>
 
 {#if href}
@@ -42,3 +40,12 @@
     @apply md:hover:bg-transparent;
   }
 </style>
+
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let href     : string|null = null
+  export let preload  : PRELOAD = "hover"
+  export let active   : string|boolean = false
+-->

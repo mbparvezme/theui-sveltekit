@@ -1,94 +1,112 @@
 <script lang="ts">
-  import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
+  import type { ANIMATE_SPEED } from "$lib/types";
   import { onMount } from "svelte";
-  import { twMerge } from "tailwind-merge"
-  import { getRounded } from "$lib/functions"
+  import { twMerge } from "tailwind-merge";
+  import { getAnimate, getRounded } from "$lib/functions";
 
-  export let text: string|undefined = undefined
+  type TOOLTIP_POSITION = 'left' | 'top' | 'right' | 'bottom';
+  type TOOLTIP_ANIMATION = 'fade' | 'slide' | 'zoom-in' | 'zoom-out';
 
-  export const animate   : ANIMATE_SPEED = "normal"
-  export const animation : 'fade' | 'slide' | 'zoom-in' | 'zoom-out' = "fade"
-  export let bgColor   : string = "#1F2937"
-  export let position  : 'left' | 'top' | 'right' | 'bottom' = "top"
-  export let rounded   : ROUNDED = "md"
-  export let triggerBy : 'hover' | 'click' | string = "hover"
+  export let animate      : ANIMATE_SPEED = "slower";
+  export let animation    : TOOLTIP_ANIMATION = "fade";
+  export let bgColor      : string = "#1F2937";
+  export let position     : TOOLTIP_POSITION = "top";
+  export let tooltipEvent : 'hover' | 'click' | string = "hover";
 
-  let tooltip: HTMLSpanElement
-  let tooltipClasses: any
-  $: tooltipClasses = () => " theui-tooltip z-[60] absolute min-w-[150px] max-w-xs inline-block text-sm text-center p-2 text-white" + (position === "left" ? " tooltip-left" : position === "right" ? " tooltip-right" : position === "bottom" ?   " tooltip-bottom" : " tooltip-top") + getRounded(rounded||"sm")
+  let tooltip: HTMLSpanElement;
+  let tooltipText: string
+  let showTooltip: boolean
+  $: tooltipText = ""
+  $: showTooltip = false
+
+  $: tooltipClasses = () => {
+    // Define position classes
+    let positionClasses = {
+      'left': 'tooltip-left -left-3 top-1/2 -translate-x-full -translate-y-1/2',
+      'right': 'tooltip-right -right-3 top-1/2 translate-x-full -translate-y-1/2',
+      'bottom': 'tooltip-bottom -bottom-3 left-1/2 -translate-x-1/2 translate-y-full',
+      'top': 'tooltip-top -top-3 left-1/2 -translate-x-1/2 -translate-y-full'
+    };
+
+    // Define animation classes
+    let animationClasses = {
+      'slide': 'tooltip-slide',
+      'zoom-in': 'tooltip-zoom-in',
+      'zoom-out': 'tooltip-zoom-out',
+      'fade': 'tooltip-fade'
+    };
+
+    let defaultClasses = `theui-tooltip ${positionClasses[position]} ${animationClasses[animation] || animationClasses['fade']} z-[60] absolute`;
+
+    let customClasses = 'min-w-[150px] max-w-xs text-sm text-center p-2 bg-[var(--bg-color)] text-white' + getRounded("sm") + getAnimate(animate);
+
+    return defaultClasses + ' ' + twMerge(customClasses, $$props?.class);
+  }
 
   onMount(() => {
-    let triggerElement: HTMLElement[]|[]
-    triggerElement = [...document.querySelectorAll<HTMLElement>("[data-tooltip]")] || []
+    let triggerElement: HTMLElement[]|[] = [...document.querySelectorAll<HTMLElement>("[data-tooltip]")] || [];
     if (!triggerElement.length) {
       console.error("No tooltip found.");
     }
 
     triggerElement.forEach((element: HTMLElement) => {
-      if (element.tabIndex < 0) element.tabIndex = 0; // trigger must be focusable
-    })
-
-    triggerElement.forEach((element: HTMLElement) => {
       if (element) {
+
+        // Getting trigger event
+        let triggerEvent = element.dataset?.tooltipEvent ?? tooltipEvent;
+        
+        // Making trigger focusable
+        if (element.tabIndex < 0){
+          element.tabIndex = 0;
+        }
+
         // Setting relative class if not available
         if(!element.classList.contains("relative")){
-          element.classList.add("relative")
+          element.classList.add("relative");
         }
-        // Getting trigger event
-        let triggerEvent = element.getAttribute("data-trigger-by")||triggerBy
+
         // Click trigger event
         if(triggerEvent == "click"){
-          element.addEventListener("click", (e) => {
-            if(element.classList.contains("tooltip-shown")) removeTooltip(element)
-            else createTooltip(element, e)
-          })
-          element.onblur = () => element.classList.remove("tooltip-shown")
+          element.addEventListener("click", () => showTooltip ? removeTooltip(element) : createTooltip(element));
+          element.onblur = () => removeTooltip(element);
         }
-        // Hover trigger event
         else{
-          element.addEventListener("mouseenter", (e) => createTooltip(element, e))
-          element.onmouseleave = () => removeTooltip(element)
+          element.addEventListener("mouseenter", () => createTooltip(element));
+          element.onmouseleave = () => removeTooltip(element);
         }
       }
     })
-
-    let createTooltip = (element: HTMLElement, e: MouseEvent) => {
-      element.appendChild(tooltip)
-      text = e?.target?.dataset?.tooltip || ""
-      position = e?.target?.dataset.tooltipPosition || position
-      element.classList.add("tooltip-shown")
+    
+    let createTooltip = (element: HTMLElement) => {
+      // Getting tooltip content
+      tooltipText = element?.dataset?.tooltip ?? "";
+      // Getting tooltip position
+      position = element?.dataset.tooltipPosition as TOOLTIP_POSITION ?? position;
+      // Getting tooltip animation
+      animation = element?.dataset.animation as TOOLTIP_ANIMATION ?? animation;
+      showTooltip = true;
+      element.prepend(tooltip);
     }
 
     let removeTooltip = (element: HTMLElement) => {
-      element.classList.remove("tooltip-shown")
-      element.removeChild(tooltip)
+      if(tooltip.classList.contains('open')) element.removeChild(tooltip);
+      showTooltip = false;
     }
-
   })
 </script>
 
-<span bind:this={tooltip} class={twMerge(tooltipClasses(), $$props?.class)} style="--bg-color: {bgColor};">
-  {@html text}
+<span
+  bind:this={tooltip}
+  class={tooltipClasses()}
+  class:show={showTooltip}
+  class:inline-block={showTooltip}
+  class:hidden={!showTooltip}
+  style="--bg-color: {bgColor};">
+  {@html tooltipText}
 </span>
 
 <style lang="postcss">
-  .theui-tooltip {
-    background-color: var(--bg-color);
-    @apply hidden;
-  }
-  .theui-tooltip.tooltip-top {
-    @apply -top-3 left-1/2 -translate-x-1/2 -translate-y-full;
-  }
-  .theui-tooltip.tooltip-right {
-    @apply -right-3 top-1/2 translate-x-full -translate-y-1/2;
-  }
-  .theui-tooltip.tooltip-bottom {
-    @apply -bottom-3 left-1/2 -translate-x-1/2 translate-y-full;
-  }
-  .theui-tooltip.tooltip-left {
-    @apply -left-3 top-1/2 -translate-x-full -translate-y-1/2;
-  }
-  /* Arrow */
+  /* Tooltip arrow */
   .theui-tooltip::after {
     content: " ";
     @apply absolute h-0 w-0 transform border-transparent border-8;
@@ -109,7 +127,17 @@
     border-left-color: var(--bg-color);
     @apply border-r-0 -right-[7px] top-1/2 -translate-y-1/2;
   }
-  :global(.tooltip-shown .theui-tooltip){
-    @apply inline-block;
-  }
 </style>
+
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let text: string|undefined = undefined
+  export const animate   : ANIMATE_SPEED = "normal"
+  export const animation : 'fade' | 'slide' | 'zoom-in' | 'zoom-out' = "fade"
+  export let bgColor   : string = "#1F2937"
+  export let position  : 'left' | 'top' | 'right' | 'bottom' = "top"
+  export let rounded   : ROUNDED = "md"
+  export let tooltipEvent : 'hover' | 'click' | string = "hover"
+-->

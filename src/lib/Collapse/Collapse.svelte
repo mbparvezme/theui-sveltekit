@@ -42,3 +42,13 @@
     @apply h-0;
   }
 </style>
+
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let animation  : ANIMATE_SPEED = "fast"
+  export let id         : string = generateToken()
+  export let ariaLabel  : string = ""
+  export let isOpen     : boolean = false
+-->

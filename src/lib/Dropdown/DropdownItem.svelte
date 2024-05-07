@@ -31,19 +31,19 @@
         {#if type == "header"}
             <h6 class={itemClass(type)}>
                 <slot name="startItem" />
-                {text}
+                <slot>{text}</slot>
                 <div class="ms-auto flex items-center"><slot name="endItem" /></div>
             </h6>
         {:else if type == "button"}
             <button class={itemClass(type)} on:click on:dblclick on:focus on:keydown on:keypress on:keyup on:mouseenter on:mouseleave on:mouseover>
                 <slot name="startItem" />
-                {text}
+                <slot>{text}</slot>
                 <div class="ms-auto flex items-center"><slot name="endItem" /></div>
             </button>
         {:else}
             <a href={url} class={itemClass(type)} data-sveltekit-preload-data={preload||preload}>
                 <slot name="startItem" />
-                {text}
+                <slot>{text}</slot>
                 <div class="ms-auto flex items-center"><slot name="endItem" /></div>
             </a>
         {/if}

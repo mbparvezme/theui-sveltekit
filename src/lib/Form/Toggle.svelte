@@ -6,7 +6,7 @@
   export let label	  : string|null = null
   export let rounded  : boolean = true
 
-  let setType = (node: HTMLInputElement) => node.type = type
+  let setType: any = (node: HTMLInputElement) => node.type = type
 </script>
 
 <div class="flex items-start gap-2">
@@ -46,3 +46,13 @@
 		background-image: none;
 	}
 </style>
+
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let id		  : string = generateToken()
+  export let type	  : string = "checkbox"
+  export let label	  : string|null = null
+  export let rounded  : boolean = true
+-->

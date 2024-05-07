@@ -7,10 +7,6 @@
   let testModal = () => {
     modalStatus = false
   }
-
-  // setTimeout(() => {
-  //   modalStatus = true
-  // }, 2000)
 </script>
 
 <h3>Default modal</h3>
@@ -25,8 +21,8 @@
   <div slot="body"></div>
 </Modal>
 
-<h3>Without close button</h3>
-<Modal staticBackdrop={false}>
+<h3>Static Backdrop</h3>
+<Modal staticBackdrop={true}>
   <Button label="Static Backdrop" slot="modalBtn"></Button>
   <div slot="body"></div>
 </Modal>

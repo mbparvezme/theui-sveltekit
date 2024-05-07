@@ -1,18 +1,18 @@
 <script lang="ts">
-  import { getContext } from "svelte"
-  import { twMerge } from "tailwind-merge"
-  import { getAnimate, getRounded, generateToken } from "$lib/functions"
-  import { NAV, Svg } from "$lib"
-  const { config } = getContext(NAV)
+  import { getContext } from "svelte";
+  import { twMerge } from "tailwind-merge";
+  import { getAnimate, getRounded, generateToken } from "$lib/functions";
+  import { NAV, Svg } from "$lib";
 
-  export let label: string = ""
-  export let icon: boolean = true
-  export let megaMenu: boolean = false
-  export let align: 'left'|'right' = "left"
-  export let size: 'sm'|'md'|'lg' = "md"
-  export let animation: 'fade'|'slide-up'|'zoom-in' = "zoom-in"
+  const { config } = getContext(NAV) as any;
+  export let label: string = "";
+  export let icon: boolean = true;
+  export let megaMenu: boolean = false;
+  export let align: 'left'|'right' = "left";
+  export let size: 'sm'|'md'|'lg' = "md";
+  export let animation: 'fade'|'slide-up'|'zoom-in' = "zoom-in";
 
-  let id: string = generateToken()
+  let id: string = generateToken();
   let toggle = () => {
     let dd = document.getElementById(id)
     if(dd?.classList.contains("hide")){
@@ -24,10 +24,10 @@
     }
   }
 
-  let linkCls = "nav-link flex items-center " + config.linkStyle + getRounded(config?.rounded)
+  let linkCls = "nav-link flex items-center " + config.linkStyle + getRounded(config?.rounded);
   
-  let commonCls = "nav-dropdown pl-4 flex-col py-2 pr-2 bg-primary "
-  let nonResCls = () => "absolute pl-0 flex shadow-xl block w-80 max-h-[80vh] overflow-y-auto"
+  let commonCls = "nav-dropdown pl-4 flex-col py-2 pr-2 bg-primary ";
+  let nonResCls = () => "absolute pl-0 flex shadow-xl block w-80 max-h-[80vh] overflow-y-auto";
   let resCls = () => {
     let classes = getRounded(config?.rounded, "bottom") + getAnimate(config.animate) + " shadow-none hidden " +
     (
@@ -42,19 +42,19 @@
     }
     else{
       if(config.mobileNavOn == "sm"){
-        classes += " md:max-h-[80vh] " + (size == "sm" ? "md:w-64" : size == "md" ? "md:w-[460px]" : "md:w-80")
+        classes += ` md:max-h-[80vh] ${(size == "sm" ? "md:w-64" : size == "md" ? "md:w-[460px]" : "md:w-80")}`
       }
       else if(config.mobileNavOn == "md"){
-        classes += " lg:max-h-[80vh] " + (size == "sm" ? "lg:w-64" : size == "lg" ? "lg:w-[460px]" : "lg:w-80")
+        classes += ` lg:max-h-[80vh] ${(size == "sm" ? "lg:w-64" : size == "lg" ? "lg:w-[460px]" : "lg:w-80")}`
       }
       else if(config.mobileNavOn == "lg"){
-        classes += " xl:max-h-[80vh] " + (size == "sm" ? "xl:w-64" : size == "lg" ? "xl:w-[460px]" : "xl:w-80")
+        classes += ` xl:max-h-[80vh] ${(size == "sm" ? "xl:w-64" : size == "lg" ? "xl:w-[460px]" : "xl:w-80")}`
       }
       else if(config.mobileNavOn == "xl"){
-        classes += " 2xl:max-h-[80vh] " + (size == "sm" ? "2xl:w-64" : size == "lg" ? "2xl:w-[460px]" : "2xl:w-80")
+        classes += ` 2xl:max-h-[80vh] ${(size == "sm" ? "2xl:w-64" : size == "lg" ? "2xl:w-[460px]" : "2xl:w-80")}`
       }
       else{
-        classes += " 2xl:max-h-[80vh] " + size
+        classes += ` 2xl:max-h-[80vh] ${size}`
       }
     }
     return classes
@@ -121,3 +121,15 @@
     @apply translate-y-2 opacity-100 scale-100 transition-all duration-150;
   }
 </style>
+
+<!--
+@component
+[Go to docs](https://www.theui.dev/r/skcl)
+## Props
+@prop export let label: string = ""
+  export let icon: boolean = true
+  export let megaMenu: boolean = false
+  export let align: 'left'|'right' = "left"
+  export let size: 'sm'|'md'|'lg' = "md"
+  export let animation: 'fade'|'slide-up'|'zoom-in' = "zoom-in"
+-->

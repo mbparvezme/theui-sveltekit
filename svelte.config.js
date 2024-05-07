@@ -7,8 +7,8 @@ const config = {
   // for more information about preprocessors
   preprocess: [
     preprocess({
-      preserve: ['ld+json'],
-      postcss: true
+      preserve: ["ld+json"],
+      postcss: true,
     }),
   ],
 

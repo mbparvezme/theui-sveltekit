@@ -6,7 +6,7 @@ const config = {
     "./node_modules/theui-sveltekit/**/*.{html,js,svelte,ts}", // New line
   ],
   presets: [require("./src/lib/preset.cjs")], // New line
-  darkMode: 'class',
+  darkMode: "class",
   theme: {
     extend: {},
   },
