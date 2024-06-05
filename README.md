@@ -33,46 +33,47 @@ The **theui-sveltekit** is [**TheUI**](https://www.theui.dev)'s official compone
 
 - General Components
 
-  - [Accordion](https://www.svelte.theui.dev/accordion)
-  - [Alert](https://www.svelte.theui.dev/alert)
-  - [Badge](https://www.svelte.theui.dev/badge)
-  - [Breadcrumb](https://www.svelte.theui.dev/breadcrumb)
-  - [Button](https://www.svelte.theui.dev/button)
-  - [Button group](https://www.svelte.theui.dev/button-group)
-  - [Chips](https://www.svelte.theui.dev/chips)
-  - [Collapse](https://www.svelte.theui.dev/collapse)
-  - [Container](https://www.svelte.theui.dev/container)
-  - [Dropdown](https://www.svelte.theui.dev/dropdown)
-  - [Modal](https://www.svelte.theui.dev/modal)
-  - [Navbar](https://www.svelte.theui.dev/navbar)
-  - [Notification](https://www.svelte.theui.dev/notification)
-  - [Offcanvas](https://www.svelte.theui.dev/offcanvas)
-  - [Pagination](https://www.svelte.theui.dev/pagination)
-  - [Popup (Exit and Entry popup)](https://www.svelte.theui.dev/popup)
-  - [Progress bar](https://www.svelte.theui.dev/progress-bar)
-  - [SVG](https://www.svelte.theui.dev/svg)
-  - [Table](https://www.svelte.theui.dev/table)
-  - [Tabs](https://www.svelte.theui.dev/tabs)
-  - [Tooltip](https://www.svelte.theui.dev/tooltip)
+  - [Accordion](https://www.svelte.theui.dev/components/accordion)
+  - [Alert](https://www.svelte.theui.dev/components/alert)
+  - [Badge](https://www.svelte.theui.dev/components/badge)
+  - [Breadcrumb](https://www.svelte.theui.dev/components/breadcrumb)
+  - [Button](https://www.svelte.theui.dev/components/button)
+  - [Button group](https://www.svelte.theui.dev/components/button-group)
+  - [Chips](https://www.svelte.theui.dev/components/chips)
+  - [Collapse](https://www.svelte.theui.dev/components/collapse)
+  - [Container](https://www.svelte.theui.dev/components/container)
+  - [Drawer](https://www.svelte.theui.dev/components/drawer)
+  - [Dropdown](https://www.svelte.theui.dev/components/dropdown)
+  - [Floating Button](https://www.svelte.theui.dev/components/float-button)
+  - [Modal](https://www.svelte.theui.dev/components/modal)
+  - [Navbar](https://www.svelte.theui.dev/components/navbar)
+  - [Notification](https://www.svelte.theui.dev/components/notification)
+  - [Pagination](https://www.svelte.theui.dev/components/pagination)
+  - [Popup (Exit & Entry popup)](https://www.svelte.theui.dev/components/popup)
+  - [Progress bar](https://www.svelte.theui.dev/components/progress-bar)
+  - [SVG](https://www.svelte.theui.dev/components/svg)
+  - [Table](https://www.svelte.theui.dev/components/table)
+  - [Tabs](https://www.svelte.theui.dev/components/tabs)
+  - [Tooltip](https://www.svelte.theui.dev/components/tooltip)
 
 - Form Components
 
-  - [Form](https://www.svelte.theui.dev/form)
-  - [Fieldset](https://www.svelte.theui.dev/fieldset)
-  - [Helper text](https://www.svelte.theui.dev/helper-text)
-  - [Check-box](https://www.svelte.theui.dev/check-box)
-  - [Text editor](https://www.svelte.theui.dev/text-editor)
-  - [File input](https://www.svelte.theui.dev/file-input)
-  - [Input](https://www.svelte.theui.dev/input)
-  - [Label](https://www.svelte.theui.dev/label)
-  - [Radio button](https://www.svelte.theui.dev/radio-button)
-  - [Select](https://www.svelte.theui.dev/select)
-  - [Textarea](https://www.svelte.theui.dev/textarea)
-  - [Toggle](https://www.svelte.theui.dev/toggle)
+  - [Check-box](https://www.svelte.theui.dev/components/check-box)
+  - [Fieldset](https://www.svelte.theui.dev/components/fieldset)
+  - [File input](https://www.svelte.theui.dev/components/file-input)
+  - [Form](https://www.svelte.theui.dev/components/form)
+  - [Helper text](https://www.svelte.theui.dev/components/helper-text)
+  - [Input](https://www.svelte.theui.dev/components/input)
+  - [Label](https://www.svelte.theui.dev/components/label)
+  - [Radio button](https://www.svelte.theui.dev/components/radio-button)
+  - [Select](https://www.svelte.theui.dev/components/select)
+  - [Textarea](https://www.svelte.theui.dev/components/textarea)
+  - [Text editor](https://www.svelte.theui.dev/components/text-editor)
+  - [Toggle](https://www.svelte.theui.dev/components/toggle)
 
 - Utility
-  - [Close](https://www.svelte.theui.dev/close)
-  - [Dark mode](https://www.svelte.theui.dev/dark-mode)
+  - [Close](https://www.svelte.theui.dev/components/close)
+  - [Dark mode](https://www.svelte.theui.dev/components/dark-mode)
 
 <br>
 
@@ -135,9 +136,9 @@ Open the TailwindCSS configuration file called `tailwind.config.cjs` and replace
 const config = {
   content: [
     "./src/**/*.{html,js,svelte,ts}",
-    "./node_modules/theui-sveltekit/**/*.{html,js,svelte,ts}", // New line
+    "./node_modules/theui-svelte/**/*.{html,js,svelte,ts}", // New line
   ],
-  presets: [require("theui-sveltekit/preset")], // New line
+  presets: [require("theui-svelte/preset")], // New line
   darkMode: "class",
   theme: {
     extend: {},
@@ -153,7 +154,7 @@ If you wish to use the default colors or desire an instant design without any co
 
 ```html
 <script>
-  import "theui-sveltekit/style"; // Add this line inside script tag
+  import "theui-svelte/style"; // Add this line inside script tag
   import "../app.postcss";
 </script>
 ```

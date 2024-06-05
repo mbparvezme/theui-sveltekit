@@ -1,24 +1,24 @@
 <script lang="ts">
-  import type { ROUNDED } from "$lib/types"
-  import { onMount } from "svelte"
-  import { getRounded } from "$lib/functions"
-  import { twMerge } from "tailwind-merge"
+  import type { ROUNDED } from "$lib/types";
+  import { onMount } from "svelte";
+  import { getRounded } from "$lib/functions";
+  import { twMerge } from "tailwind-merge";
 
-  export let trigger        : 'onEntry' | 'onExit' = "onEntry"
-  export let repeat         : boolean | 'page' = true
-  export let backdrop       : boolean|string = true
-  export let containerClass : string = ""
-  export let rounded        : ROUNDED = "xl"
-  export let staticBackdrop : boolean = false
+  export let trigger        : 'onEntry' | 'onExit' = "onEntry";
+  export let repeat         : boolean | 'page' = true;
+  export let backdrop       : boolean|string = true;
+  export let containerClass : string = "";
+  export let rounded        : ROUNDED = "xl";
+  export let staticBackdrop : boolean = false;
 
-  let popup = false
+  let popup = false;
 
   onMount(() => {
     if(trigger == "onEntry"){
       const onPageLoad = () => {
         if(repeat === false){
-          if(localStorage.getItem("entryPopUp")) return
-          localStorage.setItem("entryPopUp", "true")
+          if(localStorage.getItem("entryPopUp")) return;
+          localStorage.setItem("entryPopUp", "true");
         }
         if(repeat === "page"){
           let epData = JSON.parse(localStorage.getItem("entryPopUp") || "[]");
@@ -27,46 +27,46 @@
               localStorage.setItem("entryPopUp", JSON.stringify(epData));
           }
         }
-        popup = true
+        popup = true;
       }
-      onPageLoad()
+      onPageLoad();
     }
     if(trigger == 'onExit'){
       const onMouseOut = (e: MouseEvent) => {
         const target = e.target as HTMLElement | null;
         if(e.clientY < 50 && e.relatedTarget == null && target?.nodeName.toLowerCase() !== 'select') {
           if(repeat === false){
-            if(localStorage.getItem('exitPopUp')) return
-            localStorage.setItem('exitPopUp', 'true')
+            if(localStorage.getItem('exitPopUp')) return;
+            localStorage.setItem('exitPopUp', 'true');
           }
           if(repeat === 'page'){
-            document.removeEventListener("mouseout", onMouseOut)
+            document.removeEventListener("mouseout", onMouseOut);
             let epData = JSON.parse(localStorage.getItem('exitPopUp') || '[]');
             if (!epData.includes(window.location.href)) {
                 epData.push(window.location.href);
                 localStorage.setItem('exitPopUp', JSON.stringify(epData));
             }
           }
-          popup = true
+          popup = true;
         }
       }
-      document.addEventListener("mouseout", onMouseOut)
+      document.addEventListener("mouseout", onMouseOut);
     }
   })
 
 	let handleKeyboard = (e: KeyboardEvent) => {
 		if (e.code === "Escape"){
-      e.preventDefault()
-      popup = false
+      e.preventDefault();
+      popup = false;
     }
-		return
+		return;
 	}
 
   let handleBackdrop = () => {
 		if (staticBackdrop === false){
-      popup = false
+      popup = false;
     }
-		return
+		return;
   }
 </script>
 
@@ -82,15 +82,3 @@
   </div>
 </div>
 {/if}
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let trigger        : 'onEntry' | 'onExit' = "onEntry"
-  export let repeat         : boolean | 'page' = true
-  export let backdrop       : boolean|string = true
-  export let containerClass : string = ""
-  export let rounded        : ROUNDED = "xl"
-  export let staticBackdrop : boolean = false
--->

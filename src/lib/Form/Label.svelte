@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getContext } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { FORM_CTX } from "$lib"
+  import { FORM_CTX } from "./Form.svelte";
   export let label: string|undefined = undefined
   export let id: string|undefined = undefined
 

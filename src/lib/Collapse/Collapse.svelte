@@ -1,24 +1,32 @@
 <script lang="ts">
-  import type { ANIMATE_SPEED } from "$lib/types"
-  import { getAnimate, generateToken } from "$lib/functions"
+  import type { ANIMATE_SPEED } from "$lib/types";
+  import { getAnimate, generateToken } from "$lib/functions";
+    import { onMount } from "svelte";
 
-  export let animation  : ANIMATE_SPEED = "fast"
-  export let id         : string = generateToken()
-  export let ariaLabel  : string = ""
-  export let isOpen     : boolean = false      
+  export let animation  : ANIMATE_SPEED = "fast";
+  export let id         : string = generateToken();
+  export let ariaLabel  : string = "";
+  
+  let isOpen: boolean;
 
-  let classes = getAnimate(animation)
+  let classes = getAnimate(animation);
 
   $: toggleCollapse = (id: string) => {
-    let element = document.getElementById(id)!
+    let element = document.getElementById(id)!;
     if(element?.classList.contains('collapse-open')){
-      isOpen = false
-      if(animation) element.style.height = "0"
+      isOpen = false;
+      if(animation) element.style.height = "0";
     }else{
-      isOpen = true
-      if(animation) element.style.height = element.scrollHeight + "px"
+      isOpen = true;
+      if(animation) element.style.height = `${element.scrollHeight}px`;
     }
   }
+
+  onMount(() => {
+    if ($$props?.open){
+      toggleCollapse(id);
+    }
+  })
 </script>
 
 {#if $$slots.title}
@@ -42,13 +50,3 @@
     @apply h-0;
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let animation  : ANIMATE_SPEED = "fast"
-  export let id         : string = generateToken()
-  export let ariaLabel  : string = ""
-  export let isOpen     : boolean = false
--->

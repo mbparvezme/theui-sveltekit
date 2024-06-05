@@ -2,7 +2,8 @@
   import type { INPUT_CONFIG } from "$lib/types";
   import { getContext } from "svelte";
   import { generateToken, getInputBoxClasses, getInputClasses } from "$lib/functions";
-  import { FORM_CTX, HelperText } from "$lib";
+  import { FORM_CTX } from "./Form.svelte";
+  import { HelperText } from "$lib";
   
   // Slot: disabled, readonly, custom, reverse, override, reset
 
@@ -30,7 +31,7 @@
         class:justify-end={$$restProps?.reverse}
         class:items-center={C?.size!="lg"}
         class:items-start={C?.size=="lg"}>
-  <input class={getInputClasses(C, $$restProps, "checkbox", $$props?.class)} {...$$restProps} class:sr-only={$$restProps?.custom} {id} {name} type="radio" bind:value>
+  <input class={getInputClasses(C, $$restProps, "radio")} {...$$restProps} class:sr-only={$$restProps?.custom} {id} {name} type="radio" bind:value>
   {#if $$restProps?.custom}
     <slot />
   {:else}

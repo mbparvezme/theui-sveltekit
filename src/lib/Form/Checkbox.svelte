@@ -2,7 +2,8 @@
   import type { INPUT_CONFIG } from "$lib/types";
   import { getContext } from "svelte";
   import { generateToken, getInputBoxClasses, getInputClasses } from "$lib/functions";
-  import { FORM_CTX, HelperText } from "$lib";
+  import { FORM_CTX } from "./Form.svelte";
+  import { HelperText } from "$lib";
 
   // Slot: disabled, readonly, custom, reverse, override, reset
 
@@ -20,7 +21,7 @@
 
   const ctx: any = getContext(FORM_CTX || {});
   let C: any = {animate, labelClasses, rounded, size, reset: !!$$restProps?.reset};
-  if(!$$restProps?.override) Object.assign(C, ctx?.formConfig );
+  if(!$$restProps?.override) Object.assign(C, ctx?.formConfig);
   let helperSizeFix: string = C.size=="sm" ? "pl-7" : C.size=="md" ? "pl-8" : C.size=="lg" ? "pl-10" : C.size=="xl" ? "pl-12" : "";
 </script>
 
@@ -30,7 +31,7 @@
         class:justify-end={$$restProps?.reverse}
         class:items-center={C?.size!="lg"}
         class:items-start={C?.size=="lg"}>
-  <input class={getInputClasses(C, $$restProps, "checkbox", $$props?.class)} {...$$restProps} class:sr-only={$$restProps?.custom} {id} {name} type="checkbox" bind:value>
+  <input class={getInputClasses(C, $$restProps, "checkbox")} {...$$restProps} class:sr-only={$$restProps?.custom} {id} {name} type="checkbox" bind:value>
   {#if $$restProps?.custom}
     <slot />
   {:else}

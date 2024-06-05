@@ -14,10 +14,10 @@
   export let tooltipEvent : 'hover' | 'click' | string = "hover";
 
   let tooltip: HTMLSpanElement;
-  let tooltipText: string
-  let showTooltip: boolean
-  $: tooltipText = ""
-  $: showTooltip = false
+  let tooltipText: string;
+  let showTooltip: boolean;
+  $: tooltipText = "";
+  $: showTooltip = false;
 
   $: tooltipClasses = () => {
     // Define position classes
@@ -37,10 +37,9 @@
     };
 
     let defaultClasses = `theui-tooltip ${positionClasses[position]} ${animationClasses[animation] || animationClasses['fade']} z-[60] absolute`;
+    let customClasses = `min-w-[150px] max-w-xs text-sm text-center p-2 bg-[var(--bg-color)] text-white ${getRounded("sm")} ${getAnimate(animate)}`;
 
-    let customClasses = 'min-w-[150px] max-w-xs text-sm text-center p-2 bg-[var(--bg-color)] text-white' + getRounded("sm") + getAnimate(animate);
-
-    return defaultClasses + ' ' + twMerge(customClasses, $$props?.class);
+    return `${defaultClasses} ${twMerge(customClasses, $$props?.class)}`;
   }
 
   onMount(() => {
@@ -51,17 +50,16 @@
 
     triggerElement.forEach((element: HTMLElement) => {
       if (element) {
-
         // Getting trigger event
         let triggerEvent = element.dataset?.tooltipEvent ?? tooltipEvent;
-        
         // Making trigger focusable
         if (element.tabIndex < 0){
           element.tabIndex = 0;
         }
 
-        // Setting relative class if not available
-        if(!element.classList.contains("relative")){
+        const positionClasses = ["relative", "absolute", "fixed", "static"];
+        const hasPositionClass = positionClasses.some(positionClass => element.classList.contains(positionClass));
+        if (!hasPositionClass) {
           element.classList.add("relative");
         }
 
@@ -76,7 +74,7 @@
         }
       }
     })
-    
+
     let createTooltip = (element: HTMLElement) => {
       // Getting tooltip content
       tooltipText = element?.dataset?.tooltip ?? "";
@@ -87,7 +85,6 @@
       showTooltip = true;
       element.prepend(tooltip);
     }
-
     let removeTooltip = (element: HTMLElement) => {
       if(tooltip.classList.contains('open')) element.removeChild(tooltip);
       showTooltip = false;
@@ -128,16 +125,3 @@
     @apply border-r-0 -right-[7px] top-1/2 -translate-y-1/2;
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let text: string|undefined = undefined
-  export const animate   : ANIMATE_SPEED = "normal"
-  export const animation : 'fade' | 'slide' | 'zoom-in' | 'zoom-out' = "fade"
-  export let bgColor   : string = "#1F2937"
-  export let position  : 'left' | 'top' | 'right' | 'bottom' = "top"
-  export let rounded   : ROUNDED = "md"
-  export let tooltipEvent : 'hover' | 'click' | string = "hover"
--->

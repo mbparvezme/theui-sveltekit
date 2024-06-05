@@ -14,4 +14,8 @@
     <Breadcrumb data={breadcrumbData} separator=">" />
     <div class="py-4"></div>
     <Breadcrumb data={breadcrumbData} separator="&rarr;" />
+    <div class="py-4"></div>
+    <Breadcrumb data={breadcrumbData} separator="&rarr;" />
+    <div class="py-4"></div>
+    <Breadcrumb activeLinkClass={"text-pink-500"} linkClass={"text-yellow-500"} data={breadcrumbData} separator="&rarr;" />
 </Container>

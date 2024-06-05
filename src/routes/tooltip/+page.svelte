@@ -1,5 +1,5 @@
 <script>
-  import { Tooltip, Container } from "$lib"
+  import { Tooltip, Container, Button } from "$lib"
 </script>
 
 <Container class="flex gap-8">
@@ -7,5 +7,10 @@
     <div class="w-20 h-10 bg-slate-300" data-tooltip="2 Hello TheUI tooltip.." data-tooltip-position="bottom">Tooltip</div>
     <div class="w-20 h-10 bg-slate-300" data-tooltip="3 Hello TheUI tooltip.." data-tooltip-position="left">Tooltip</div>
     <div class="w-20 h-10 bg-slate-300" data-tooltip="4 Hello TheUI tooltip.." data-tooltip-position="bottom" data-tooltip-event="click">Tooltip</div>
+    <br>
+    <br>
+    <div class="w-full h-36 bg-red-400 relative">
+      <Button label="Hello" data-tooltip="Button tooltip.." class="absolute right-0 top-0"/>
+    </div>
     <Tooltip />
 </Container>

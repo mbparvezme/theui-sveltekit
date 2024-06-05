@@ -2,7 +2,8 @@
   import type { INPUT_CONFIG, SELECT_DATA } from "$lib/types"
   import { getContext } from "svelte"
   import { generateToken, getInputBoxClasses, getInputClasses } from "$lib/functions"
-  import { FORM_CTX, Label, HelperText, Input } from "$lib"
+  import { FORM_CTX } from "./Form.svelte";
+  import { Label, HelperText, Input } from "$lib"
 
   // Slot: disabled, readonly, custom, reverse, override, reset
 
@@ -25,25 +26,25 @@
   if(!$$restProps?.override) Object.assign(C, ctx?.formConfig)
 </script>
 
-<div class={getInputBoxClasses(C, $$restProps)}>
+<div class={getInputBoxClasses(C, $$restProps, "default")}>
   {#if label}
     <Label {id} {label}/>
   {/if}
 
   {#if $$restProps?.readonly ||  $$restProps?.disabled}
     {#if value != ""}
-      <Input {id} {name} readonly {value} class={getInputClasses(C, $$restProps, "select", $$props?.class)}/>
+      <Input {id} {name} readonly {value} class={getInputClasses(C, $$restProps, "select")}/>
     {:else}
       {#if data?.length > 0}
         {#each data as d}
           {#if d?.selected}
-            <Input {id} {name} readonly value={d?.value||d?.text} class={getInputClasses(C, $$restProps, "select", $$props?.class)}/>
+            <Input {id} {name} readonly value={d?.value||d?.text} class={getInputClasses(C, $$restProps, "select")}/>
           {/if}
         {/each}
       {/if}
     {/if}
   {:else}
-    <select {id} {name} {...$$restProps} class={getInputClasses(C, $$restProps, "select", $$props?.class)} bind:value on:change on:click on:focus>
+    <select {id} {name} {...$$restProps} class={getInputClasses(C, $$restProps, "select")} bind:value on:change on:click on:focus>
       {#if $$restProps?.placeholder}<option value="" disabled>{$$restProps.placeholder}</option>{/if}
       {#if data?.length > 0}
         {#each data as d}

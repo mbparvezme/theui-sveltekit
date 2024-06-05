@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { TABS_CONTEXT } from "$lib/types"
-  import { getContext } from "svelte"
-  import { twMerge } from "tailwind-merge"
-  import { TABS } from "$lib"
-  const { config } = getContext<TABS_CONTEXT>(TABS)
+  import type { TABS_CONTEXT } from "$lib/types";
+  import { getContext } from "svelte";
+  import { twMerge } from "tailwind-merge";
+  import { TABS } from "./Tabs.svelte";
+  const { config } = getContext<TABS_CONTEXT>(TABS);
 
-  export let borderClasses: string = ""
+  export let borderClasses: string = "";
 </script>
 
 <div class="theui-tab-list {twMerge((config.border ? "" : "mb-4") , $$props?.class)}">

@@ -4,6 +4,23 @@
 
 <br>
 
+## v1.0.0-rc.2
+
+- Tooltip bug fix for overwriting the 
+
+## v1.0.0-rc.1
+
+- Repository name changed to "theui-svelte" from "theui-sveltekit"
+- Performance improvement and bug fixes
+
+## v1.0.0-beta.59
+
+- NavContainer dropped and the functionality marge with Navbar
+- Offcanvas changed to Drawer
+- Refreshed Form other components
+### New components
+- FloatButton
+
 ## v1.0.0-beta.58
 
 - Minor bug fixed in Dropdown, Input and Editor component

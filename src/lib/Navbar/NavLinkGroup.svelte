@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getContext } from "svelte";
-  import { NAV } from "$lib";
+  import { NAV } from "./Navbar.svelte";
   import { twMerge } from "tailwind-merge";
   const { config } = getContext(NAV || {}) as any;
 

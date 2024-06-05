@@ -1,8 +1,9 @@
 <script lang="ts">
-  import type { INPUT_CONFIG } from "$lib/types"
-  import { getContext } from "svelte"
-  import { generateToken, getInputBoxClasses, getInputClasses } from "$lib/functions"
-  import { FORM_CTX, Label, HelperText } from "$lib"
+  import type { INPUT_CONFIG } from "$lib/types";
+  import { getContext } from "svelte";
+  import { generateToken, getInputBoxClasses, getInputClasses } from "$lib/functions";
+  import { FORM_CTX } from "./Form.svelte";
+  import { Label, HelperText } from "$lib";
 
   // Slot: disabled, readonly, custom, reverse, override, reset
 
@@ -25,13 +26,13 @@
   if(!$$restProps?.override) Object.assign(C, ctx?.formConfig)
 </script>
 
-<div class={getInputBoxClasses(C)}>
+<div class={getInputBoxClasses(C, $$restProps, "default")}>
   {#if label}
     <Label {id} {label}/>
   {/if}
   <input
     {...$$restProps}
-    class={getInputClasses(C, $$restProps, "file", $$props?.class)}
+    class={getInputClasses(C, $$restProps, "file")}
     {id}
     {name}
     type="file"

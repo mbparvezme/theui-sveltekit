@@ -2,7 +2,8 @@
   import type { INPUT_CONFIG, INPUT_TYPE } from "$lib/types"
   import { getContext } from "svelte"
   import { generateToken, getInputBoxClasses, getInputClasses } from "$lib/functions"
-  import { FORM_CTX, Label, HelperText } from "$lib"
+  import { FORM_CTX } from "./Form.svelte";
+  import { Label, HelperText } from "$lib"
 
   // Slot: disabled, readonly, custom, reverse, override, reset
 
@@ -26,12 +27,12 @@
   let setType: any = (node: HTMLInputElement) => node.type = type
 </script>
 
-<div class={getInputBoxClasses(C, $$restProps)}>
+<div class={getInputBoxClasses(C, $$restProps, "default")}>
   {#if label}
     <Label {id} {label}/>
   {/if}
 
-  <input {...$$restProps} {id} {name} class={getInputClasses(C, $$restProps, "input", $$props?.class)}
+  <input {...$$restProps} {id} {name} class={getInputClasses(C, $$restProps, "input")}
     bind:value
     use:setType
     on:blur

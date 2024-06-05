@@ -1,15 +1,15 @@
 <script>
-  import { DarkMode, Navbar, NavDropdown, NavBrand, NavLink, NavContainer, NavToggle } from '$lib'
-  import "../app.postcss";
+  import { DarkMode, Navbar, NavDropdown, NavBrand, NavLink, NavLinkGroup, NavToggle } from '$lib'
   import "$lib/style.postcss"
+  import "../app.postcss";
 </script>
 
-<Navbar scrollBehavior="default" mobileNavOn="md">
+<Navbar>
   <NavBrand href="/">
     <!-- <span class="flex items-baseline font-title font-bold">theui<sub class="text-gray-500 font-normal text-sm">.xyz</sub></span> -->
   </NavBrand>
 
-    <NavContainer>
+    <NavLinkGroup>
       <NavLink href="/">Home</NavLink>
       <NavDropdown label="Components" animation='fade'>
         <div class="grid grid-cols-2 gap-4">
@@ -21,12 +21,13 @@
             <NavLink href="/button">Button</NavLink>
             <NavLink href="/chips">Chips</NavLink>
             <NavLink href="/collapse">Collapse</NavLink>
+            <NavLink href="/drawer">Drawer</NavLink>
             <NavLink href="/dropdown">Dropdown</NavLink>
-            <NavLink href="/modal">Modal</NavLink>
-            <NavLink href="/notification">Notification</NavLink>
           </div>
           <div>
-            <NavLink href="/offcanvas">Offcanvas</NavLink>
+            <NavLink href="/floating-button">FAB</NavLink>
+            <NavLink href="/modal">Modal</NavLink>
+            <NavLink href="/notification">Notification</NavLink>
             <NavLink href="/pagination">Pagination</NavLink>
             <NavLink href="/popup">Popup</NavLink>
             <NavLink href="/progress-bar">Progress bar</NavLink>
@@ -41,12 +42,12 @@
         <NavLink href="/form/file">File</NavLink>
         <NavLink href="/form/editor">Editor</NavLink>
       </NavDropdown>
-    </NavContainer>
-    <NavContainer align="right">
+    </NavLinkGroup>
+    <NavLinkGroup align="right">
       <NavLink href="/">About</NavLink>
       <NavLink href="/all">Contact</NavLink>
       <NavLink href="/table">Support</NavLink>
-    </NavContainer>
+    </NavLinkGroup>
 
   <div class="flex items-center transition-none">
     <DarkMode />

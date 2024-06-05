@@ -5,12 +5,13 @@ const config = {
     "./src/**/*.{html,js,svelte,ts}",
     "./node_modules/theui-sveltekit/**/*.{html,js,svelte,ts}", // New line
   ],
-  presets: [require("./src/lib/preset.cjs")], // New line
+  presets: [require("./src/lib/preset.cjs")({ 
+    // exclude: ["brand-soft", "brand-secondary", "brand-secondary-soft"]
+   })], // New line
   darkMode: "class",
   theme: {
     extend: {},
   },
-
   plugins: [],
 };
 

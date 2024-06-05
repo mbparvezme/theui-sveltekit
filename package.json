@@ -1,7 +1,7 @@
 {
-  "name": "theui-sveltekit",
-  "version": "1.0.0-beta.58",
-  "description": "theui-sveltekit A component library by TheUI. Out-of-the-box accessible and easy to customize built with TailwindCSS.",
+  "name": "theui-svelte",
+  "version": "1.0.0-rc.10",
+  "description": "theui-svelte A component library by TheUI. Out-of-the-box accessible and easy to customize built with TailwindCSS.",
   "author": {
     "name": "M B Parvez",
     "email": "hello@mbparvez.me",
@@ -10,10 +10,10 @@
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mbparvezme/theui-sveltekit.git"
+    "url": "https://github.com/mbparvezme/theui-svelte.git"
   },
-  "homepage": "https://www.theui.dev/r/skcl",
-  "bugs": "https://github.com/mbparvezme/theui-sveltekit/issues",
+  "homepage": "https://www.theui.dev/r/skc",
+  "bugs": "https://github.com/mbparvezme/theui-svelte/issues",
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
@@ -36,13 +36,13 @@
     "@sveltejs/package": "^2.2.6",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.32",
+    "postcss": "^8.4.33",
     "postcss-load-config": "^5.0.2",
     "svelte": "^4.2.7",
     "svelte-check": "^3.6.0",
     "svelte-preprocess": "^5.1.3",
-    "svelte2tsx": "^0.7.0",
-    "tailwindcss": "^3.3.6",
+    "svelte2tsx": "^0.7.8",
+    "tailwindcss": "^3.4.1",
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",
     "vite": "^5.0.3",
@@ -53,29 +53,33 @@
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.7",
-    "@tailwindcss/typography": "^0.5.10",
-    "@tiptap/core": "^2.1.16",
-    "@tiptap/extension-code": "^2.1.16",
-    "@tiptap/extension-color": "^2.1.16",
-    "@tiptap/extension-highlight": "^2.1.16",
-    "@tiptap/extension-image": "^2.1.16",
-    "@tiptap/extension-link": "^2.1.16",
-    "@tiptap/extension-placeholder": "^2.1.16",
-    "@tiptap/extension-subscript": "^2.1.16",
-    "@tiptap/extension-superscript": "^2.1.16",
-    "@tiptap/extension-table": "^2.1.16",
-    "@tiptap/extension-table-cell": "^2.1.16",
-    "@tiptap/extension-table-header": "^2.1.16",
-    "@tiptap/extension-table-row": "^2.1.16",
+    "@tailwindcss/typography": "^0.5.13",
+    "@tiptap/core": "^2.3.2",
+    "@tiptap/extension-code": "^2.3.2",
+    "@tiptap/extension-color": "^2.3.2",
+    "@tiptap/extension-highlight": "^2.3.2",
+    "@tiptap/extension-image": "^2.3.2",
+    "@tiptap/extension-link": "^2.3.2",
+    "@tiptap/extension-placeholder": "^2.3.2",
+    "@tiptap/extension-subscript": "^2.3.2",
+    "@tiptap/extension-superscript": "^2.3.2",
+    "@tiptap/extension-table": "^2.3.2",
+    "@tiptap/extension-table-cell": "^2.3.2",
+    "@tiptap/extension-table-header": "^2.3.2",
+    "@tiptap/extension-table-row": "^2.3.2",
     "@tiptap/extension-text-align": "^2.1.11",
-    "@tiptap/extension-text-style": "^2.1.16",
-    "@tiptap/extension-typography": "^2.1.16",
-    "@tiptap/extension-underline": "^2.1.16",
-    "@tiptap/extension-youtube": "^2.1.16",
-    "@tiptap/pm": "^2.1.16",
-    "@tiptap/starter-kit": "^2.1.16",
+    "@tiptap/extension-text-style": "^2.3.2",
+    "@tiptap/extension-typography": "^2.3.2",
+    "@tiptap/extension-underline": "^2.3.2",
+    "@tiptap/extension-youtube": "^2.3.2",
+    "@tiptap/pm": "^2.3.2",
+    "@tiptap/starter-kit": "^2.3.2",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
     "prettier": "^3.2.5",
-    "tailwind-merge": "^1.14.0"
+    "recast": "^0.23.7",
+    "tailwind-merge": "^1.14.0",
+    "url": "^0.11.3"
   },
   "type": "module",
   "files": [
@@ -84,7 +88,7 @@
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "keywords": [
-    "sveltekit-components",
+    "svelte-components",
     "svelte",
     "sveltekit",
     "components",
@@ -118,7 +122,7 @@
     "modals",
     "navbar",
     "notifications",
-    "offcanvas",
+    "Drawer",
     "pagination",
     "exit pop-up",
     "entry pop-up",
@@ -133,6 +137,20 @@
     ".": {
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js"
+    },
+    "./function": {
+      "types": "./dist/functions.d.ts",
+      "require": "./dist/functions.js"
+    },
+    "./preset": {
+      "types": "./dist/preset.d.cts",
+      "require": "./dist/preset.cjs"
+    },
+    "./style": "./dist/style.postcss",
+    "./type": {
+      "types": "./dist/types.d.ts",
+      "require": "./dist/types.js",
+      "default": "./dist/types.js"
     },
     "./Accordion.svelte": {
       "types": "./dist/Accordion\\Accordion.svelte.d.ts",
@@ -166,6 +184,10 @@
       "types": "./dist/Chips\\Chips.svelte.d.ts",
       "svelte": "./dist/Chips\\Chips.svelte"
     },
+    "./Close.svelte": {
+      "types": "./dist/Utility\\Close.svelte.d.ts",
+      "svelte": "./dist/Utility\\Close.svelte"
+    },
     "./Collapse.svelte": {
       "types": "./dist/Collapse\\Collapse.svelte.d.ts",
       "svelte": "./dist/Collapse\\Collapse.svelte"
@@ -173,6 +195,14 @@
     "./Container.svelte": {
       "types": "./dist/Container\\Container.svelte.d.ts",
       "svelte": "./dist/Container\\Container.svelte"
+    },
+    "./DarkMode.svelte": {
+      "types": "./dist/Utility\\DarkMode.svelte.d.ts",
+      "svelte": "./dist/Utility\\DarkMode.svelte"
+    },
+    "./Drawer.svelte": {
+      "types": "./dist/Drawer\\Drawer.svelte.d.ts",
+      "svelte": "./dist/Drawer\\Drawer.svelte"
     },
     "./Dropdown.svelte": {
       "types": "./dist/Dropdown\\Dropdown.svelte.d.ts",
@@ -182,53 +212,13 @@
       "types": "./dist/Dropdown\\DropdownItem.svelte.d.ts",
       "svelte": "./dist/Dropdown\\DropdownItem.svelte"
     },
-    "./Checkbox.svelte": {
-      "types": "./dist/Form\\Checkbox.svelte.d.ts",
-      "svelte": "./dist/Form\\Checkbox.svelte"
+    "./FloatButton.svelte": {
+      "types": "./dist/FloatButton\\FloatButton.svelte.d.ts",
+      "svelte": "./dist/FloatButton\\FloatButton.svelte"
     },
-    "./Editor.svelte": {
-      "types": "./dist/Form\\Editor.svelte.d.ts",
-      "svelte": "./dist/Form\\Editor.svelte"
-    },
-    "./Fieldset.svelte": {
-      "types": "./dist/Form\\Fieldset.svelte.d.ts",
-      "svelte": "./dist/Form\\Fieldset.svelte"
-    },
-    "./FileInput.svelte": {
-      "types": "./dist/Form\\FileInput.svelte.d.ts",
-      "svelte": "./dist/Form\\FileInput.svelte"
-    },
-    "./Form.svelte": {
-      "types": "./dist/Form\\Form.svelte.d.ts",
-      "svelte": "./dist/Form\\Form.svelte"
-    },
-    "./Helper.svelte": {
-      "types": "./dist/Form\\Helper.svelte.d.ts",
-      "svelte": "./dist/Form\\Helper.svelte"
-    },
-    "./Input.svelte": {
-      "types": "./dist/Form\\Input.svelte.d.ts",
-      "svelte": "./dist/Form\\Input.svelte"
-    },
-    "./Label.svelte": {
-      "types": "./dist/Form\\Label.svelte.d.ts",
-      "svelte": "./dist/Form\\Label.svelte"
-    },
-    "./Radio.svelte": {
-      "types": "./dist/Form\\Radio.svelte.d.ts",
-      "svelte": "./dist/Form\\Radio.svelte"
-    },
-    "./Select.svelte": {
-      "types": "./dist/Form\\Select.svelte.d.ts",
-      "svelte": "./dist/Form\\Select.svelte"
-    },
-    "./Textarea.svelte": {
-      "types": "./dist/Form\\Textarea.svelte.d.ts",
-      "svelte": "./dist/Form\\Textarea.svelte"
-    },
-    "./Toggle.svelte": {
-      "types": "./dist/Form\\Toggle.svelte.d.ts",
-      "svelte": "./dist/Form\\Toggle.svelte"
+    "./FloatButtonBox.svelte": {
+      "types": "./dist/FloatButton\\FloatButtonBox.svelte.d.ts",
+      "svelte": "./dist/FloatButton\\FloatButtonBox.svelte"
     },
     "./Modal.svelte": {
       "types": "./dist/Modal\\Modal.svelte.d.ts",
@@ -246,10 +236,6 @@
       "types": "./dist/Navbar\\NavCollapse.svelte.d.ts",
       "svelte": "./dist/Navbar\\NavCollapse.svelte"
     },
-    "./NavContainer.svelte": {
-      "types": "./dist/Navbar\\NavContainer.svelte.d.ts",
-      "svelte": "./dist/Navbar\\NavContainer.svelte"
-    },
     "./NavDropdown.svelte": {
       "types": "./dist/Navbar\\NavDropdown.svelte.d.ts",
       "svelte": "./dist/Navbar\\NavDropdown.svelte"
@@ -265,10 +251,6 @@
     "./Notification.svelte": {
       "types": "./dist/Notification\\Notification.svelte.d.ts",
       "svelte": "./dist/Notification\\Notification.svelte"
-    },
-    "./Offcanvas.svelte": {
-      "types": "./dist/Offcanvas\\Offcanvas.svelte.d.ts",
-      "svelte": "./dist/Offcanvas\\Offcanvas.svelte"
     },
     "./Pagination.svelte": {
       "types": "./dist/Pagination\\Pagination.svelte.d.ts",
@@ -330,13 +312,53 @@
       "types": "./dist/Tooltip\\Tooltip.svelte.d.ts",
       "svelte": "./dist/Tooltip\\Tooltip.svelte"
     },
-    "./Close.svelte": {
-      "types": "./dist/Utility\\Close.svelte.d.ts",
-      "svelte": "./dist/Utility\\Close.svelte"
+    "./Form.svelte": {
+      "types": "./dist/Form\\Form.svelte.d.ts",
+      "svelte": "./dist/Form\\Form.svelte"
     },
-    "./DarkMode.svelte": {
-      "types": "./dist/Utility\\DarkMode.svelte.d.ts",
-      "svelte": "./dist/Utility\\DarkMode.svelte"
+    "./Checkbox.svelte": {
+      "types": "./dist/Form\\Checkbox.svelte.d.ts",
+      "svelte": "./dist/Form\\Checkbox.svelte"
+    },
+    "./Editor.svelte": {
+      "types": "./dist/Form\\Editor.svelte.d.ts",
+      "svelte": "./dist/Form\\Editor.svelte"
+    },
+    "./Fieldset.svelte": {
+      "types": "./dist/Form\\Fieldset.svelte.d.ts",
+      "svelte": "./dist/Form\\Fieldset.svelte"
+    },
+    "./FileInput.svelte": {
+      "types": "./dist/Form\\FileInput.svelte.d.ts",
+      "svelte": "./dist/Form\\FileInput.svelte"
+    },
+    "./HelperText.svelte": {
+      "types": "./dist/Form\\Helper.svelte.d.ts",
+      "svelte": "./dist/Form\\Helper.svelte"
+    },
+    "./Input.svelte": {
+      "types": "./dist/Form\\Input.svelte.d.ts",
+      "svelte": "./dist/Form\\Input.svelte"
+    },
+    "./Label.svelte": {
+      "types": "./dist/Form\\Label.svelte.d.ts",
+      "svelte": "./dist/Form\\Label.svelte"
+    },
+    "./Radio.svelte": {
+      "types": "./dist/Form\\Radio.svelte.d.ts",
+      "svelte": "./dist/Form\\Radio.svelte"
+    },
+    "./Select.svelte": {
+      "types": "./dist/Form\\Select.svelte.d.ts",
+      "svelte": "./dist/Form\\Select.svelte"
+    },
+    "./Textarea.svelte": {
+      "types": "./dist/Form\\Textarea.svelte.d.ts",
+      "svelte": "./dist/Form\\Textarea.svelte"
+    },
+    "./Toggle.svelte": {
+      "types": "./dist/Form\\Toggle.svelte.d.ts",
+      "svelte": "./dist/Form\\Toggle.svelte"
     },
     "./package.json": "./package.json"
   }

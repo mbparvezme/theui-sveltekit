@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { twMerge } from "tailwind-merge"
-  export let size         : number = 1
-  export let stroke       : boolean = false
+  import { twMerge } from "tailwind-merge";
+  export let size         : number = 1;
+  export let stroke       : boolean = false;
 
-  let focusable : "true"|"false" = "true"
-  let viewBox : string = "0 0 16 16"
-  let cls = "theui-svg-icon shrink-0 " + (stroke ? "stroke-current fill-transparent" : "fill-current")
+  let focusable : "true"|"false" = "true";
+  let viewBox : string = "0 0 16 16";
+  let cls = `theui-svg-icon shrink-0 ${stroke ? "stroke-current fill-transparent" : "fill-current"}`;
 </script>
 
 <svg

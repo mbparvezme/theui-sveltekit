@@ -1,18 +1,21 @@
 <script lang="ts">
   import { generateToken } from "$lib/functions"
+	import {Label} from "$lib"
 
-  export let id		  : string = generateToken()
-  export let type	  : string = "checkbox"
+  export let id				: string = generateToken()
+  export let name			: string
+  export let type			: 'checkbox' | 'radio' = "checkbox"
   export let label	  : string|null = null
-  export let rounded  : boolean = true
+	export let value		: any = ""
+  export let rounded  : boolean = false
 
   let setType: any = (node: HTMLInputElement) => node.type = type
 </script>
 
-<div class="flex items-start gap-2">
-	<input
-		{id}
+<div class="flex items-center gap-2">
+	<input {id} {name}
 		use:setType
+		bind:value
 		on:keyup
 		on:keydown
 		on:keypress
@@ -23,14 +26,14 @@
 		on:mouseenter
 		on:mouseleave
 		on:paste
-		class="h-5 w-9 border-0 bg-gray-300 dark:bg-gray-600 checked:bg-brand dark:checked:bg-brand appearance-none relative flex items-center px-1 ease-in-out duration-300 text-brand focus:!ring-gray-500 checked:focus:!ring-brand mt-[6px]"
+		class="h-5 w-9 border-0 bg-gray-300 dark:bg-gray-600 checked:bg-brand dark:checked:bg-brand appearance-none relative flex items-center px-1 ease-in-out duration-300 text-brand focus:!ring-gray-500 checked:focus:!ring-brand cursor-pointer"
 		class:rounded-full={rounded}
 		class:rounded-sm={!rounded}
 		class:after:rounded-full={rounded}
 		class:after:rounded-sm={!rounded}
 	/>
 	{#if label}
-		<label for={id}>{label}</label>
+		<Label {id} {label} />
 	{/if}
 </div>
 

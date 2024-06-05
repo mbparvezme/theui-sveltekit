@@ -1,7 +1,7 @@
 <script lang="ts">
   import type {SELECT_DATA} from "$lib/types"
   import { Container} from "$lib"
-  import { Form, Input, Textarea, Select, Checkbox, Radio, FileInput, Editor} from "$lib"
+  import { Form, Input, Textarea, Select, Checkbox, Radio, FileInput, Editor, Toggle} from "$lib"
 
   let selectData: SELECT_DATA = [
     "select 1",
@@ -9,12 +9,12 @@
     "select 3",
     "select 4",
   ]
-
-  let html = "<b>Hello editor!</b> <i>Are you ready?</i> <u>Click here!</u>"
 </script>
 
 <Container>
   <Form rounded="full">
+
+    <Toggle name="toggle" label="Hello" />
 
     <Editor name="editor" label="Editor" value="<b>Hello editor!</b> <i>Are you ready?</i> <u>Click here!</u>" override/>
     <Editor name="editor" label="Editor Mini" value="<b>Hello editor!</b> <i>Are you ready?</i> <u>Click here!</u>" override mini/>
@@ -26,8 +26,8 @@
     <div>
       <Checkbox name="hello" label="CB1"/>
       <Checkbox name="hello" label="CB2" size="lg" override/>
-      <Checkbox name="hello" label="Custom CB" checked size="lg" override custom customClasses="p-2 peer-checked:bg-brand peer-checked:text-on-brand">
-        <span>CHK</span>
+      <Checkbox name="hello" label="Custom CB" checked size="lg" override custom>
+        <span class="p-2 peer-checked:bg-brand peer-checked:text-on-brand">CHK</span>
       </Checkbox>
       <Checkbox name="hello" label="CB disabled" disabled/>
     </div>
@@ -40,13 +40,13 @@
       <Radio name="hello" label="RD disabled" disabled/>
     </div>
     <Input name="Input" label="Enter your name" placeholder="Enter full name.." helperText="This is for user full name" />
-    <Input name="Input" label="Enter your name" placeholder="Enter full name.." helperText="This is for user full name" config={{variant: "flat"}}/>
-    <Input name="Input" label="Enter your name" placeholder="Enter full name.." helperText="This is for user full name" config={{variant: "filled"}}/>
+    <Input name="Input" label="Enter your name" placeholder="Enter full name.." helperText="This is for user full name"/>
+    <Input name="Input" label="Enter your name" placeholder="Enter full name.." helperText="This is for user full name"/>
     <Textarea name="textarea" label="Text" placeholder="Enter full name.."/>
-    <Textarea name="textarea" label="Text" placeholder="Enter full name.." helperText="This is for text area" config={{variant: "flat"}}/>
-    <Textarea name="textarea" label="Text" placeholder="Enter full name.." helperText="This is for text area" config={{variant: "filled"}}/>
+    <Textarea name="textarea" label="Text" placeholder="Enter full name.." helperText="This is for text area"/>
+    <Textarea name="textarea" label="Text" placeholder="Enter full name.." helperText="This is for text area"/>
     <Select name="select" label="Select label" data={selectData} placeholder="Select option"/>
-    <Select name="select" label="Select label" data={selectData} placeholder="Select option" config={{variant: "flat"}}/>
-    <Select name="select" label="Select label" data={selectData} placeholder="Select option" config={{variant: "filled"}}/>
+    <Select name="select" label="Select label" data={selectData} placeholder="Select option"/>
+    <Select name="select" label="Select label" data={selectData} placeholder="Select option"/>
   </Form>
 </Container>

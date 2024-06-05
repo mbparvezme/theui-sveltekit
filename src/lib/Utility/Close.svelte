@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { twMerge } from "tailwind-merge"
-	import { Svg } from "$lib"
+    import { twMerge } from "tailwind-merge";
+	import { Svg } from "$lib";
 
-    export let size: number = 1.5
-    export let ariaLabel: string = "Close button"
+    export let size: number = 1.5;
+    export let ariaLabel: string = "Close button";
 </script>
 
 <button class="theui-close {twMerge("opacity-60 dark:opacity-50 hover:opacity-100 transition-opacity", $$props?.class)}" aria-label={ariaLabel} on:click>

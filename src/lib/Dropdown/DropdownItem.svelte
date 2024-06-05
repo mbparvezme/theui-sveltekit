@@ -1,28 +1,28 @@
 <script lang="ts">
-  interface DropdownContext {config: any}
-  import type { PRELOAD } from "$lib/types"
-  import { twMerge } from "tailwind-merge"
-  import { getContext } from "svelte"
-  import { DROPDOWN } from "$lib"
+  interface DropdownContext {config: any};
+  import type { PRELOAD } from "$lib/types";
+  import { twMerge } from "tailwind-merge";
+  import { getContext } from "svelte";
+  import { DROPDOWN } from "./Dropdown.svelte";
 
-  const { config } = getContext<DropdownContext>(DROPDOWN)
-  export let url: string = "/"
-  export let text: string|undefined = undefined
-  export let preload : PRELOAD = "hover"
-  export let type : 'link' | 'divider' | 'header' | 'button' = "link"
-  export let active : boolean = false
+  const { config } = getContext<DropdownContext>(DROPDOWN);
+  export let url: string = "/";
+  export let text: string|undefined = undefined;
+  export let preload : PRELOAD = "hover";
+  export let type : 'link' | 'divider' | 'header' | 'button' = "link";
+  export let active : boolean = false;
 
   let itemClass = (t:string) => {
       if(t == "link" || t == "button"){
-          return active ? twMerge(config.activeClass, $$props?.class) : twMerge(config.linkClass, $$props?.class)
+        return active ? twMerge(config.activeClass, $$props?.class) : twMerge(config.linkClass, $$props?.class);
       }
       if(t == "header"){
-          return twMerge(config.headerClass, $$props?.class)
+        return twMerge(config.headerClass, $$props?.class);
       }
       if(t == "divider"){
-          return twMerge(config.dividerClass, $$props?.class)
+        return twMerge(config.dividerClass, $$props?.class);
       }
-      return ""
+      return "";
   }
 </script>
 

@@ -1,27 +1,27 @@
 <script lang="ts">
-  import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
-  import { twMerge } from "tailwind-merge"
-  import { getAnimate, getRounded, generateToken } from "$lib/functions"
-  import { Close } from "$lib"
+  import type { ANIMATE_SPEED, ROUNDED } from "$lib/types";
+  import { twMerge } from "tailwind-merge";
+  import { getAnimate, getRounded, generateToken } from "$lib/functions";
+  import { Close } from "$lib";
 
-  export let id                 : string = generateToken() + "Modal"
-	export let label              : string = ""
-  export let animate            : ANIMATE_SPEED = "fast"
-  export let animation          : 'slide-down' | 'slide-up' | 'fade' | 'zoom-in' | 'zoom-out' = "fade"
-  export let backdrop           : boolean = true
-  export let closeBtn           : boolean = true
-  export let closeOnEsc         : boolean = true
-  export let modalFooterClass   : string = ""
-  export let modalHeaderClass   : string = ""
-  export let modalBodyClass     : string = ""
-  export let modalOuterClass    : string = ""
-  export let position           : 'top' | 'center' | 'bottom' = "center"
-  export let rounded            : ROUNDED = "md"
-  export let size               : 'sm' | 'md' | 'lg' | 'full' = "md"
-  export let staticBackdrop     : boolean = false
-  export let modalStatus        : boolean = false
+  export let id                 : string = `${generateToken()}Modal`;
+	export let label              : string = "";
+  export let animate            : ANIMATE_SPEED = "fast";
+  export let animation          : 'slide-down' | 'slide-up' | 'fade' | 'zoom-in' | 'zoom-out' = "fade";
+  export let backdrop           : boolean|string = true;
+  export let closeBtn           : boolean = true;
+  export let closeOnEsc         : boolean = true;
+  export let modalFooterClass   : string = "";
+  export let modalHeaderClass   : string = "";
+  export let modalBodyClass     : string = "";
+  export let modalOuterClass    : string = "";
+  export let position           : 'top' | 'center' | 'bottom' = "center";
+  export let rounded            : ROUNDED = "md";
+  export let size               : 'sm' | 'md' | 'lg' | 'full' = "md";
+  export let staticBackdrop     : boolean = false;
+  export let modalStatus        : boolean = false;
 
-  $: modalStatus = false
+  $: modalStatus = false;
 
   $: attr = {
 		"id" : `${id}Btn`,
@@ -29,25 +29,24 @@
 		"aria-haspopup" : "true",
 		"aria-controls" : id,
 		"aria-expanded" : modalStatus
-	}
+	};
 
   $: toggle = ( closeBtn = true ) => {
-    let currentModal = document.getElementById(id)
-    modalStatus = !(currentModal?.classList.contains('open') && (closeBtn || (!closeBtn && !staticBackdrop)))
+    let currentModal = document.getElementById(id);
+    modalStatus = !(currentModal?.classList.contains('open') && (closeBtn || (!closeBtn && !staticBackdrop)));
   }
 
 	$: handleKeyboard = (e: KeyboardEvent) => {
 		if (modalStatus && (closeOnEsc && e.code === "Escape")){
-      e.preventDefault()
-      modalStatus = false
+      e.preventDefault();
+      modalStatus = false;
     }
-	}
+	};
 
-  $: modalSize      = () => " " + (size === "sm" ? " modal-sm" : size === "lg" ? " modal-lg" : size === "full" ? " modal-full" : " modal-md")
-  $: modalPosition  = () => " " + (position === "bottom" ? " items-end" : position === "center" ? " items-center" :  " items-start")
-  $: animateCls     = () => getAnimate(animate)
-  $: modalCls       = () => "theui-modal z-50" + modalSize() + modalPosition() + animateCls()
-  $: modalBodyCls   = () => "modal-content bg-white dark:bg-secondary " + animateCls() + " " + ((animate && animation) ? animation : "")
+  $: modalSize      = () => ` ${(size === "sm" ? " modal-sm" : size === "lg" ? " modal-lg" : size === "full" ? " modal-full" : " modal-md")}`;
+  $: modalPosition  = () => ` ${(position === "bottom" ? " items-end" : position === "center" ? " items-center" :  " items-start")}`;
+  $: modalCls       = () => `theui-modal z-50 ${modalSize()} ${modalPosition()} ${getAnimate(animate)}`;
+  $: modalBodyCls   = () => `modal-content bg-white dark:bg-secondary ${getAnimate(animate)} ${animate? animation : ""}`;
 </script>
 
 <svelte:body on:keydown={(e)=>handleKeyboard(e)}></svelte:body>
@@ -65,7 +64,7 @@
     {#if backdrop}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <!-- svelte-ignore a11y-no-static-element-interactions -->
-      <div class="backdrop fixed inset-0 bg-black z-[-1]{animateCls()}" on:click={()=>toggle(false)}></div>
+      <div class={twMerge(`backdrop fixed inset-0 bg-black z-[-1] ${getAnimate(animate)}`, typeof backdrop == "string" ? backdrop :"")} on:click={()=>toggle(false)}></div>
     {/if}
 
     <div class={twMerge(modalBodyCls(), (size !== "full" ? getRounded(rounded) : ""), modalBodyClass)}
@@ -124,50 +123,28 @@
   .theui-modal.modal-full .modal-content{
     @apply w-full min-h-screen;
   }
-  .theui-modal.tui-animate .backdrop{
+  .theui-modal.theui-animate .backdrop{
     @apply opacity-0;
   }
   .theui-modal.open .backdrop{
     @apply opacity-50 dark:opacity-75;
   }
-  .theui-modal.tui-animate .modal-content.slide-down{
+  .theui-modal.theui-animate .modal-content.slide-down{
     @apply transform -translate-y-8;
   }
-  .theui-modal.tui-animate .modal-content.slide-up{
+  .theui-modal.theui-animate .modal-content.slide-up{
     @apply transform translate-y-8;
   }
   .theui-modal.open .modal-content.slide-down, .theui-modal.open .modal-content.slide-up{
     @apply translate-y-0;
   }
-  .theui-modal.tui-animate .modal-content.zoom-in{
+  .theui-modal.theui-animate .modal-content.zoom-in{
     @apply transform scale-90;
   }
-  .theui-modal.tui-animate .modal-content.zoom-out{
+  .theui-modal.theui-animate .modal-content.zoom-out{
     @apply transform scale-110;
   }
   .theui-modal.open .modal-content.zoom-in, .theui-modal.open .modal-content.zoom-out{
     @apply scale-100;
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let id                 : string = generateToken() + "Modal"
-	export let label              : string = ""
-  export let animate            : ANIMATE_SPEED = "fast"
-  export let animation          : 'slide-down' | 'slide-up' | 'fade' | 'zoom-in' | 'zoom-out' = "fade"
-  export let backdrop           : boolean = true
-  export let closeBtn           : boolean = true
-  export let closeOnEsc         : boolean = true
-  export let modalFooterClass   : string = ""
-  export let modalHeaderClass   : string = ""
-  export let modalBodyClass     : string = ""
-  export let modalOuterClass    : string = ""
-  export let position           : 'top' | 'center' | 'bottom' = "center"
-  export let rounded            : ROUNDED = "md"
-  export let size               : 'sm' | 'md' | 'lg' | 'full' = "md"
-  export let staticBackdrop     : boolean = false
-  export let modalStatus        : boolean = false
--->

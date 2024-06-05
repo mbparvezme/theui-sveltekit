@@ -1,21 +1,21 @@
 <script lang="ts">
-  import type {PRELOAD} from "$lib/types"
-  import { getContext } from "svelte"
-  import { twMerge } from "tailwind-merge"
-  import { getAnimate, getRounded } from "$lib/functions"
-  import { NAV } from "$lib"
+  import type {PRELOAD} from "$lib/types";
+  import { getContext } from "svelte";
+  import { twMerge } from "tailwind-merge";
+  import { getAnimate, getRounded } from "$lib/functions";
+  import { NAV } from "./Navbar.svelte";
   const { config, id, mobileNav } = getContext(NAV) as any;
 
-  export let href     : string|null = null
-  export let preload  : PRELOAD = "hover"
-  export let active   : string|boolean = false
+  export let href     : string|null = null;
+  export let preload  : PRELOAD = "hover";
+  export let active   : string|boolean = false;
 
-  let linkCls = `nav-link flex items-center ${twMerge((active ? config.activeLinkStyle : config.linkStyle), $$props.class)} ${getRounded(config?.rounded)} ${getAnimate(config?.animate)}`
+  let linkCls = `nav-link flex items-center ${twMerge((active ? config.activeLinkStyle : config.linkStyle), $$props.class)} ${getRounded(config?.rounded)} ${getAnimate(config?.animate)}`;
 
   let closeMobileNav = () => {
     if ($mobileNav.includes(id)) {
-      let D = $mobileNav.filter((i:any) => i !== id)
-			mobileNav.update(() => D)
+      let D = $mobileNav.filter((i:any) => i !== id);
+			mobileNav.update(() => D);
     }
   }
 </script>
@@ -40,12 +40,3 @@
     @apply md:hover:bg-transparent;
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let href     : string|null = null
-  export let preload  : PRELOAD = "hover"
-  export let active   : string|boolean = false
--->

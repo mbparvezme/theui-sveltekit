@@ -23,27 +23,29 @@ export let notify = (
 };
 
 export let removeNotification = (id: string) => {
-  notifications.update((all) =>
-    all.filter((toast: any) => toast.CONFIG.id !== id),
-  );
+  notifications.update((all) => all.filter((toast: any) => toast.CONFIG.id !== id));
 };
 
 export let getClasses = (config: NOTIFY_CONFIG, type: string): string => {
-  return (
-    "notification " +
-    getRounded(config.rounded) +
-    " px-4 py-3 shadow-2xl shadow-black/50 cursor-pointer " +
-    (config.variant == "borderBottom"
-      ? "notification-border-bottom "
-      : config.variant == "borderTop"
-        ? "notification-border-top "
-        : config.variant == "borderStart"
-          ? "notification-border-top "
-          : config.variant == "cardLight"
-            ? "notification-card-light "
-            : "notification-card ") +
-    getTheme(config?.variant, type)
-  );
+  const variant: any = {
+    borderBottom: "notification-border-bottom ",
+    borderTop: "notification-border-top ",
+    borderStart: "notification-border-start ",
+    cardLight: "notification-card-light ",
+    default: "notification-card "
+  }
+  return `notification${getRounded(config.rounded)} px-4 py-3 shadow-2xl shadow-black/50 cursor-pointer ${(variant[config?.variant] ?? variant["default"])} ${getTheme(config?.variant, type)}`;
+    // (config.variant == "borderBottom"
+    // ? "notification-border-bottom "
+    // : config.variant == "borderTop"
+    //   ? "notification-border-top "
+    //   : config.variant == "borderStart"
+    //     ? "notification-border-start "
+    //     : config.variant == "cardLight"
+    //       ? "notification-card-light "
+    //       : "notification-card ") +
+    // getTheme(config?.variant, type)
+    // );
 };
 
 let getTheme = (variant: string, type: string): string => {

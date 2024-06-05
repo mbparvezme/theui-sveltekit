@@ -2,7 +2,8 @@
   import type { INPUT_CONFIG } from "$lib/types"
   import { getContext } from "svelte"
   import { generateToken, getInputBoxClasses, getInputClasses } from "$lib/functions"
-  import { FORM_CTX, Label, HelperText } from "$lib"
+  import { FORM_CTX } from "./Form.svelte";
+  import { Label, HelperText } from "$lib"
 
   // Slot: disabled, readonly, custom, reverse, override, reset
 
@@ -24,12 +25,12 @@
   if(!$$restProps?.override) Object.assign(C, ctx?.formConfig)
 </script>
 
-<div class={getInputBoxClasses(C, $$restProps)}>
+<div class={getInputBoxClasses(C, $$restProps, "default")}>
   {#if label}
     <Label {id} {label}/>
   {/if}
 
-  <textarea {...$$restProps} {id} {name} class={getInputClasses(C, $$restProps, "input", $$props?.class)}
+  <textarea {...$$restProps} {id} {name} class={getInputClasses(C, $$restProps, "textarea")}
     bind:value
     on:blur
     on:change

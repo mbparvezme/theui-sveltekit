@@ -2,7 +2,8 @@
   import { getContext } from "svelte";
   import { twMerge } from "tailwind-merge";
   import { getAnimate, getRounded, generateToken } from "$lib/functions";
-  import { NAV, Svg } from "$lib";
+  import { NAV } from "./Navbar.svelte";
+  import { Svg } from "$lib";
 
   const { config } = getContext(NAV) as any;
   export let label: string = "";
@@ -24,19 +25,19 @@
     }
   }
 
-  let linkCls = "nav-link flex items-center " + config.linkStyle + getRounded(config?.rounded);
+  let linkCls = `nav-link flex items-center ${config.linkStyle}${getRounded(config?.rounded)}`;
   
   let commonCls = "nav-dropdown pl-4 flex-col py-2 pr-2 bg-primary ";
   let nonResCls = () => "absolute pl-0 flex shadow-xl block w-80 max-h-[80vh] overflow-y-auto";
   let resCls = () => {
-    let classes = getRounded(config?.rounded, "bottom") + getAnimate(config.animate) + " shadow-none hidden " +
-    (
+    let classes = `${getRounded(config?.rounded, "bottom")} ${getAnimate(config.animate)} shadow-none hidden 
+    ${(
       config.mobileNavOn == "sm" ? "md-collapse md:absolute md:pl-2 md:flex md:shadow-xl md:block dark:md:bg-tertiary " :
       config.mobileNavOn == "md" ? "lg-collapse lg:absolute lg:pl-2 lg:flex lg:shadow-xl lg:block dark:lg:bg-tertiary " :
       config.mobileNavOn == "lg" ? "xl:absolute xl:pl-2 xl:flex xl:shadow-xl xl:block dark:xl:bg-tertiary " :
       config.mobileNavOn == "xl" ? "2xl:absolute 2xl:pl-2 2xl:flex 2xl:shadow-xl 2xl:block dark:2xl:bg-tertiary " :
       config.mobileNavOn == "lg" ? "lg-collapse lg:absolute lg:pl-2 lg:flex lg:shadow-xl lg:block dark:lg:bg-tertiary " : ""
-    ) + (megaMenu ? "mega-menu left-0 right-0" : (align=="right" ? "right-0" : "left-0"))
+    )} ${megaMenu ? "mega-menu left-0 right-0" : (align=="right" ? "right-0" : "left-0")}`
     if(megaMenu){
       classes += " w-full"
     }
@@ -72,7 +73,7 @@
     return
 	}
   let handleBlur = (e: MouseEvent) => {
-    if((e.target as HTMLElement).closest("#"+id+":not(.hide)") === null){
+    if((e.target as HTMLElement).closest(`#${id}:not(.hide)`) === null){
       document.getElementById(id)?.classList.add("hide")
     }
   }
@@ -91,7 +92,7 @@
   </button>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div class={commonCls + twMerge((config.mobileNavOn != false ? resCls() : nonResCls()), $$props?.class)}
+  <div class={`${commonCls} ${twMerge((config.mobileNavOn != false ? resCls() : nonResCls()), $$props?.class)}`}
         class:fade={animation=="fade"}
         class:slide-up={animation=="slide-up"}
         class:zoom-in={animation=="zoom-in"}
@@ -121,15 +122,3 @@
     @apply translate-y-2 opacity-100 scale-100 transition-all duration-150;
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let label: string = ""
-  export let icon: boolean = true
-  export let megaMenu: boolean = false
-  export let align: 'left'|'right' = "left"
-  export let size: 'sm'|'md'|'lg' = "md"
-  export let animation: 'fade'|'slide-up'|'zoom-in' = "zoom-in"
--->

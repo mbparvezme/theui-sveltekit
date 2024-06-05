@@ -19,7 +19,7 @@
 
 <Container>
     Simple Accordion
-    <AccordionItem>
+    <AccordionItem animationSpeed="slower" rounded="none">
         <span slot="title">This is a accordion title test</span>
         <p>Kickstart your development with the Sveltekit Components library, a tool of the Sveltekit ecosystem by TheUI. It includes the power of Sveltekit and TailwindCSS to speed up your development. So, build fast, deliver faster.</p>
     </AccordionItem>
@@ -41,6 +41,14 @@
     GROUP ACCORDION
     <Accordion>
         {#each data as d}
+            <AccordionItem title={d.title} content={d.content} />
+        {/each}
+    </Accordion>
+    <div class="my-8"></div>
+
+    GROUP ACCORDION (Group Flush)
+    <Accordion flush>
+        {#each data as d, i}
             <AccordionItem title={d.title} content={d.content} />
         {/each}
     </Accordion>

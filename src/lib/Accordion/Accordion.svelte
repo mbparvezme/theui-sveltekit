@@ -1,12 +1,12 @@
 <script context="module">
-	export const ACCORDION_GROUP = {}
+	export const ACCORDION_GROUP = {};
 </script>
 
 <script lang="ts">
-  import { setContext } from "svelte"
-  export let gap: 0 | 2 | 4 | 8 = 0
-  export let size : "compact" | "default" | "large" = "default"
-  setContext(ACCORDION_GROUP, {group: true, size})
+  import { setContext } from "svelte";
+  export let gap: 0 | 2 | 4 | 8 = 0;
+  export let size : "compact" | "default" | "large" = "default";
+  setContext(ACCORDION_GROUP, {group: true, size, flush: $$props?.flush});
 </script>
 
 <div class="theui-accordion-group flex flex-col"
