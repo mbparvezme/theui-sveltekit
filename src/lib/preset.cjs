@@ -6,8 +6,8 @@ module.exports = (options = {}) => {
   const { exclude } = options;
 
   // Function to check if a color should be excluded
-  const shouldExcludeColor = (colorKey) => exclude && exclude.includes(colorKey);
-
+  const shouldExcludeColor = (colorKey) => !(exclude && exclude.includes(colorKey));
+  
   return {
     mode: "jit",
     darkMode: "class",
@@ -20,52 +20,58 @@ module.exports = (options = {}) => {
       extend: {
         colors: {
           brand: "rgb(var(--ui-brand) / <alpha-value>)",
-          "brand-active": "rgb(var(--ui-brand-active) / <alpha-value>)",
+          // Brand soft colors
           ...(shouldExcludeColor('brand-soft') ? {} : {
-            "brand-soft": "rgb(var(--ui-brand-soft) / <alpha-value>)",
-            "brand-soft-active": "rgb(var(--ui-brand-soft-active) / <alpha-value>)",
+            "brand-soft": "rgb(var(--ui-brand-soft) / <alpha-value>)"
           }),
+          // Secondary brand color
           ...(shouldExcludeColor('brand-secondary') ? {} : {
             "brand-secondary": "rgb(var(--ui-brand-secondary) / <alpha-value>)",
-            "brand-secondary-active": "rgb(var(--ui-brand-secondary-active) / <alpha-value>)",
+            // Secondary brand soft color
             ...(shouldExcludeColor('brand-secondary-soft') ? {} : {
-              "brand-secondary-soft": "rgb(var(--ui-brand-secondary-soft) / <alpha-value>)",
-              "brand-secondary-soft-active": "rgb(var(--ui-brand-secondary-soft-active) / <alpha-value>)",
+              "brand-secondary-soft": "rgb(var(--ui-brand-secondary-soft) / <alpha-value>)"
             }),
           }),
-          primary: "rgb(var(--ui-bg-primary) / <alpha-value>)",
-          secondary: "rgb(var(--ui-bg-secondary) / <alpha-value>)",
-          tertiary: "rgb(var(--ui-bg-tertiary) / <alpha-value>)",
+          error: "rgb(var(--ui-error) / <alpha-value>)",
+          info: "rgb(var(--ui-info) / <alpha-value>)",
+          success: "rgb(var(--ui-success) / <alpha-value>)",
+          warning: "rgb(var(--ui-warning) / <alpha-value>)",
         },
         textColor: {
-          brand: "rgb(var(--ui-brand) / <alpha-value>)",
+          "brand-soft": null,
+          "brand-secondary-active": null,
+          "brand-secondary-soft": null,
           "on-brand": "rgb(var(--ui-text-on-brand) / <alpha-value>)",
-          ...(shouldExcludeColor('brand-soft') ? {} : {
-            "on-brand-soft": "rgb(var(--ui-text-on-brand-soft) / <alpha-value>)",
-          }),
+          // Secondary brand color
           ...(shouldExcludeColor('brand-secondary') ? {} : {
-            "on-brand-secondary": "rgb(var(--ui-text-on-brand-secondary) / <alpha-value>)",
-          }),
-          ...(shouldExcludeColor('brand-secondary-soft') ? {} : {
-            "on-brand-secondary-soft": "rgb(var(--ui-text-on-brand-secondary-soft) / <alpha-value>)",
+            "on-brand-secondary": "rgb(var(--ui-text-on-brand-secondary) / <alpha-value>)"
           }),
           default: "rgb(var(--ui-text-default) / <alpha-value>)",
-          muted: "rgb(var(--ui-text-muted) / <alpha-value>)"
+          muted: "rgb(var(--ui-text-muted) / <alpha-value>)",
+          alt: "rgb(var(--ui-text-alt) / <alpha-value>)",
         },
         backgroundColor: {
-          // brand: "rgb(var(--ui-brand) / <alpha-value>)",
-          // "brand-active": "rgb(var(--ui-brand-active) / <alpha-value>)",
-          // ...(shouldExcludeColor('brandSecondary') ? {} : {
-          //   "brand-secondary": "rgb(var(--ui-brand-secondary) / <alpha-value>)",
-          //   "brand-secondary-active": "rgb(var(--ui-brand-secondary-active) / <alpha-value>)",
-          //   ...(shouldExcludeColor('brandSecondarySoft') ? {} : {
-          //     "brand-secondary-soft": "rgb(var(--ui-brand-secondary-soft) / <alpha-value>)",
-          //     "brand-secondary-soft-active": "rgb(var(--ui-brand-secondary-soft-active) / <alpha-value>)",
-          //   }),
-          // }),
           primary: "rgb(var(--ui-bg-primary) / <alpha-value>)",
           secondary: "rgb(var(--ui-bg-secondary) / <alpha-value>)",
           tertiary: "rgb(var(--ui-bg-tertiary) / <alpha-value>)",
+          // Brand active colors
+          "brand-active": "rgb(var(--ui-brand-active) / <alpha-value>)",
+          // Brand soft colors
+          ...(shouldExcludeColor('brand-soft') ? {} : {
+            "brand-soft-active": "rgb(var(--ui-brand-soft-active) / <alpha-value>)",
+          }),
+          // Secondary brand color
+          ...(shouldExcludeColor('brand-secondary') ? {} : {
+            "brand-secondary-active": "rgb(var(--ui-brand-secondary-active) / <alpha-value>)",
+          }),
+          // Secondary brand soft color
+          ...(shouldExcludeColor('brand-secondary-soft') ? {} : {
+            "brand-secondary-soft-active": "rgb(var(--ui-brand-secondary-soft-active) / <alpha-value>)"
+          }),
+        },
+        fontFamily: {
+          'body': ['var(--ui-font-body)', ...defaultTheme.fontFamily.sans],
+          'title': ['var(--ui-font-title)', ...defaultTheme.fontFamily.serif],
         },
         fontWeight: ["dark"],
         fill: ["dark"],
@@ -82,8 +88,17 @@ module.exports = (options = {}) => {
           "&:not(:last-child)",
         ]);
       }),
-      plugin(({ addComponents }) => {
+      plugin(({ addComponents, addUtilities }) => {
         addComponents({
+          body: {
+            backgroundColor: "rgb(var(--ui-bg-primary) / 1)",
+            color: "rgb(var(--ui-text-default) / 1)",
+          },
+        }),
+        addUtilities({
+          '.max-w': {
+            maxWidth: 'var(--ui-max-width)',
+          },
           ".sticky,[class$=sticky]": {
             zIndex: 20,
           },

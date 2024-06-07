@@ -9,7 +9,7 @@
   const ctx: any = getContext( BUTTON_GROUP );
 
   // Functional props
-  export let label            : string;
+  // export let label            : string;
   export let externalLinkIcon : boolean = true;
   export let href             : string|undefined = undefined;
   export let preload          : 'hover' | 'tap' | undefined = href ? "hover" : undefined;
@@ -17,12 +17,13 @@
 
   // Style props
   export let animationSpeed   : ANIMATE_SPEED = "normal";
-  export let ariaLabel        : string = label;
+  export let ariaLabel        : string = "Button";
   export let isActive         : boolean = false;
   export let rounded          : ROUNDED = ctx?.rounded ?? "md";
   export let shadow           : SHADOW = "md";
   export let size             : BUTTON_SIZE = ctx?.size ?? "md";
-  export let variant          : 'elevated' | 'filled' | 'filledLight' | 'outline' | 'text' = ctx?.variant ?? "filled";
+  // export let variant          : 'elevated' | 'filled' | 'filledLight' | 'outline' | 'text' = ctx?.variant ?? "filled";
+  export let variant          : 'default' | 'outline' | 'text' = ctx?.variant ?? "filled";
 
   let sizeClasses = new Map<BUTTON_SIZE, string>([
     ["sm",  "px-3 py-2 text-sm "],
@@ -33,27 +34,30 @@
     ["0",   "p-0 "],
   ]);
 
-  let btnDefaultClass = `${(href ? "theui-link inline-block" : "theui-button")} focus-visible:ring-brand-200 dark:focus-visible:ring-brand-700 ${sizeClasses.get(size)}${getAnimate(animationSpeed)} ${getShadow(shadow)}`;
   let defaultBtnClass = " bg-brand text-on-brand hover:bg-brand-active ";
   let outlineBtnClass = " btn-outline border-brand text-brand hover:bg-brand-active hover:text-on-brand ";
   let btnActiveClass  = " bg-brand-active text-on-brand ";
-
-
-  let elevatedBtnClass = () => `${getRounded(rounded)} text-default font-base`;
-  let filledBtnClass = () => `${getRounded(rounded)} bg-brand text-on-brand hover:bg-brand-active `;
-  let filledLightBtnClass = () => `${getRounded(rounded)} bg-brand text-on-brand hover:bg-brand-active `;
-
-
+  
+  let elevatedBtnClass    = () => `${getRounded(rounded)} ${getShadow(shadow)} text-brand font-base `;
+  let filledBtnClass      = () => `${getRounded(rounded)} bg-brand text-on-brand hover:bg-brand-active `;
+  let filledLightBtnClass = () => `${getRounded(rounded)} bg-brand/25 text-brand hover:bg-brand `;
+  let outlineBtnClassF    = () => `${getRounded(rounded)} border-brand text-brand hover:bg-brand hover:text-on-brand `;
+  let textBtnClass        = () => `${getRounded(rounded)} bg-transparent text-default `;
+  let btnDefaultClass     = () => `${(href ? "theui-link inline-block" : "theui-button")} focus-visible:ring-brand-200 dark:focus-visible:ring-brand-700 ${sizeClasses.get(size)}${getAnimate(animationSpeed)}`;
+  let btnActiveClassF     = () => $$props?.active ? (variant == "outline" ? "bg-brand" : "bg-brand-active") : "";
+  
+  
   let getButtonClass = () => {
+    let cls: string = "";
     if(ctx?.group){
-      btnDefaultClass += `${getRoundedFirst(rounded, ctx.stacked ? "top" : "left")} ${getRoundedLast(rounded, ctx.stacked ? "bottom" : "right")}`;
+      cls += `${getRoundedFirst(rounded, ctx.stacked ? "top" : "left")} ${getRoundedLast(rounded, ctx.stacked ? "bottom" : "right")}`;
       if(ctx?.outline && ctx?.variant != "flat"){
         outlineBtnClass += ctx?.stacked ? " border-x border-t last:border-b " : " border-y border-l last:border-r ";
       }else{
         if(ctx?.variant != "flat") defaultBtnClass += " border-r last:border-r-none border-black/30 ";
       }
     }else{
-      btnDefaultClass += `${getRounded(rounded)} ${getShadow(shadow)}`;
+      cls += `${getRounded(rounded)} ${getShadow(shadow)}`;
       outlineBtnClass += " border ";
     }
 
@@ -65,10 +69,10 @@
 
 <svelte:element this={href ? "a" : "button"} {href} {...$$restProps} data-sveltekit-preload-data={preload}
   class={twMerge(getButtonClass(), $$props?.class)} type={href ? undefined : type}
-  role={href ? "link" : "button"} aria-disabled={$$restProps?.disabled==true} aria-label={ariaLabel||label||"button"}
+  role={href ? "link" : "button"} aria-disabled={$$restProps?.disabled==true} aria-label={ariaLabel}
   on:click on:keydown on:keyup on:touchstart|passive on:touchend on:touchcancel on:mouseenter on:mouseleave>
   <slot name="beforeLabel"></slot>
-  <slot name="label">{@html label}</slot>
+  <slot />
   <slot name="afterLabel"></slot>
   {#if externalLinkIcon && $$restProps.target}
     <span class="self-start">

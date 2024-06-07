@@ -6,7 +6,7 @@ const config = {
     "./node_modules/theui-sveltekit/**/*.{html,js,svelte,ts}", // New line
   ],
   presets: [require("./src/lib/preset.cjs")({ 
-    // exclude: ["brand-soft", "brand-secondary", "brand-secondary-soft"]
+    exclude: ["brand-secondary"]
    })], // New line
   darkMode: "class",
   theme: {
