@@ -3,21 +3,22 @@
 </script>
 
 <script lang="ts">
-  import type { BUTTON_SIZE, ROUNDED } from "$lib/types";
+  import type { BUTTON_SIZE, ROUNDED, SHADOW } from "$lib/types";
   import { setContext } from "svelte";
   import { twMerge } from "tailwind-merge";
-  import { getRounded } from "$lib/functions";
+  import { getRounded, getShadow } from "$lib/functions";
 
   export let label    : string = "Button group";
   export let round    : ROUNDED = "md";
   export let size     : BUTTON_SIZE = "md";
+  export let shadow   : SHADOW = "md";
   export let btnClass : string = "border border-black/10";
-  export let variant  : 'elevated' | 'filled' | 'filledLight' | 'outline' | 'text' = "filled";
+  export let style  : 'elevated' | 'outline' | 'text' | 'default' = "default";
 
-  let ctx = {group: true, stacked: $$props?.stacked, variant, btnClass, size, round};
+  let ctx = {group: true, stacked: $$props?.stacked, style, btnClass, size, round};
   setContext(BUTTON_GROUP, ctx);
 </script>
 
-<div class={twMerge(`theui-btn-group inline-flex ${getRounded(round)}`, $$props?.class)} class:flex-col={ctx.stacked} class:theui-btn-stacked={ctx.stacked} role="group" aria-label={label}>
+<div class={twMerge(`theui-btn-group inline-flex ${getRounded(round)}${getShadow(shadow)}`, $$props?.class)} class:flex-col={ctx.stacked} class:theui-btn-stacked={ctx.stacked} role="group" aria-label={label}>
   <slot {size}></slot>
 </div>

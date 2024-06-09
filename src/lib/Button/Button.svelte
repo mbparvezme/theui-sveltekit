@@ -9,8 +9,7 @@
   const ctx: any = getContext( BUTTON_GROUP );
 
   // Functional props
-  // export let label            : string;
-  export let externalLinkIcon : boolean = true;
+  export let label            : string;
   export let href             : string|undefined = undefined;
   export let preload          : 'hover' | 'tap' | undefined = href ? "hover" : undefined;
   export let type             : 'button' | 'submit' | 'reset' = "button";
@@ -18,12 +17,11 @@
   // Style props
   export let animationSpeed   : ANIMATE_SPEED = "normal";
   export let ariaLabel        : string = "Button";
-  export let isActive         : boolean = false;
   export let rounded          : ROUNDED = ctx?.rounded ?? "md";
   export let shadow           : SHADOW = "md";
   export let size             : BUTTON_SIZE = ctx?.size ?? "md";
-  // export let variant          : 'elevated' | 'filled' | 'filledLight' | 'outline' | 'text' = ctx?.variant ?? "filled";
-  export let variant          : 'default' | 'outline' | 'text' = ctx?.variant ?? "filled";
+  export let style            : 'elevated' | 'outline' | 'text' | 'default' = ctx?.style ?? "default";
+  export let variant          : 'error' | 'info' | 'success' | 'warning' | 'none' = "none";
 
   let sizeClasses = new Map<BUTTON_SIZE, string>([
     ["sm",  "px-3 py-2 text-sm "],
@@ -34,36 +32,30 @@
     ["0",   "p-0 "],
   ]);
 
-  let defaultBtnClass = " bg-brand text-on-brand hover:bg-brand-active ";
-  let outlineBtnClass = " btn-outline border-brand text-brand hover:bg-brand-active hover:text-on-brand ";
-  let btnActiveClass  = " bg-brand-active text-on-brand ";
-  
-  let elevatedBtnClass    = () => `${getRounded(rounded)} ${getShadow(shadow)} text-brand font-base `;
-  let filledBtnClass      = () => `${getRounded(rounded)} bg-brand text-on-brand hover:bg-brand-active `;
-  let filledLightBtnClass = () => `${getRounded(rounded)} bg-brand/25 text-brand hover:bg-brand `;
-  let outlineBtnClassF    = () => `${getRounded(rounded)} border-brand text-brand hover:bg-brand hover:text-on-brand `;
-  let textBtnClass        = () => `${getRounded(rounded)} bg-transparent text-default `;
-  let btnDefaultClass     = () => `${(href ? "theui-link inline-block" : "theui-button")} focus-visible:ring-brand-200 dark:focus-visible:ring-brand-700 ${sizeClasses.get(size)}${getAnimate(animationSpeed)}`;
-  let btnActiveClassF     = () => $$props?.active ? (variant == "outline" ? "bg-brand" : "bg-brand-active") : "";
-  
+  let themeClasses = new Map<string, string>([
+    ["error",  style == "outline" ? "border border-error text-error hover:bg-error hover:text-red-50" : "bg-error text-red-50"],
+    ["success",  style == "outline" ? "border border-success text-success hover:bg-success hover:text-red-50" : "bg-success text-green-50"],
+    ["info",  style == "outline" ? "border border-info text-info hover:bg-info hover:text-indigo-50" : "bg-info text-indigo-50"],
+    ["warning",  style == "outline" ? "border border-warning text-warning hover:bg-warning hover:text-yellow-800" : "bg-warning text-yellow-800"]
+  ]);
+
+  let btnDefaultClass   = () => `${(href ? "theui-link inline-block" : "theui-button")} inline-flex items-center gap-2 focus-visible:ring-brand-200 dark:focus-visible:ring-brand-700 ${sizeClasses.get(size)}${getAnimate(animationSpeed)}`;
+  let defaultBtnClass   = () => `${btnDefaultClass()} ${$$props?.active ? "bg-brand-active" : "bg-brand hover:bg-brand-active"} focus:bg-brand-active text-on-brand `;
+  let elevatedBtnClass  = () => `${btnDefaultClass()} ${$$props?.active ? "bg-brand/40" : "bg-brand/20 hover:bg-brand/40"} focus:bg-brand/40 text-brand font-base ${!ctx?.group ? getShadow(shadow) : ""} `;
+  let outlineBtnClass   = (border: string = "") => `${btnDefaultClass()} ${$$props?.active ? "bg-brand text-on-brand" : "hover:bg-brand hover:text-on-brand text-brand"} focus:bg-brand focus:text-on-brand ${border} border-brand `;
+  let textBtnClass      = () => `${btnDefaultClass()} bg-transparent text-default `;
   
   let getButtonClass = () => {
-    let cls: string = "";
     if(ctx?.group){
-      cls += `${getRoundedFirst(rounded, ctx.stacked ? "top" : "left")} ${getRoundedLast(rounded, ctx.stacked ? "bottom" : "right")}`;
-      if(ctx?.outline && ctx?.variant != "flat"){
-        outlineBtnClass += ctx?.stacked ? " border-x border-t last:border-b " : " border-y border-l last:border-r ";
+      let cls = `${getRoundedFirst(rounded, ctx.stacked ? "top" : "left")} ${getRoundedLast(rounded, ctx.stacked ? "bottom" : "right")}`;
+      if(style == "outline"){
+        return `${outlineBtnClass(ctx?.stacked ? "border-x border-t last:border-b" : "border-y border-l last:border-r")} ${cls}`
       }else{
-        if(ctx?.variant != "flat") defaultBtnClass += " border-r last:border-r-none border-black/30 ";
+        return `${style == "elevated" ? elevatedBtnClass() : style == "text" ? textBtnClass() : defaultBtnClass()} ${cls}`;
       }
     }else{
-      cls += `${getRounded(rounded)} ${getShadow(shadow)}`;
-      outlineBtnClass += " border ";
+      return `${(variant != "none") ? `${btnDefaultClass()} ${themeClasses.get(variant)}` : (style == "elevated" ? elevatedBtnClass() : style == "outline" ? outlineBtnClass("border") : style == "text" ? textBtnClass() : defaultBtnClass())} ${getRounded(rounded)}`;
     }
-
-    if(isActive) return `${btnDefaultClass} ${btnActiveClass}`;
-    if(variant == "outline") return `${btnDefaultClass} ${outlineBtnClass}`;
-    return `${btnDefaultClass} ${defaultBtnClass}`;
   }
 </script>
 
@@ -72,9 +64,9 @@
   role={href ? "link" : "button"} aria-disabled={$$restProps?.disabled==true} aria-label={ariaLabel}
   on:click on:keydown on:keyup on:touchstart|passive on:touchend on:touchcancel on:mouseenter on:mouseleave>
   <slot name="beforeLabel"></slot>
-  <slot />
+  <slot>{@html label??""}</slot>
   <slot name="afterLabel"></slot>
-  {#if externalLinkIcon && $$restProps.target}
+  {#if $$restProps?.target && !$$props?.noExternalLinkIcon}
     <span class="self-start">
       <Svg size={.6}>
         <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
