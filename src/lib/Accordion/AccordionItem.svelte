@@ -4,7 +4,6 @@
   import { getContext, onMount } from "svelte";
   import { twMerge } from "tailwind-merge";
   import { ACCORDION_GROUP } from "./Accordion.svelte";
-  import { Svg } from "$lib"
 
   const ctx: any = getContext( ACCORDION_GROUP || {} );
 
@@ -74,11 +73,11 @@
   }
 
   $: getTitleClasses = () => {
-    let cls = `accordion-title flex items-center justify-between w-full bg-primary${getAnimate(animationSpeed)} `;
+    let cls = `accordion-title flex items-center justify-between w-full bg-primary${getAnimate(animationSpeed)}${!isFlush?getRounded(rounded):""} focus-visible:outline-brand-500 `;
     if(isFlush){
-      cls += isOpened ? "border-b border-brand/50 bg-brand/10 text-brand dark:text-on-brand " : "border-b border-gray-300 dark:border-gray-700 ";
+      cls += isOpened ? "border-b border-brand-200 dark:border-brand-700 bg-brand-100 dark:bg-brand-900 text-brand-500 dark:text-on-brand-500 " : "border-b border-gray-300 dark:border-gray-700 ";
     }else{
-      cls += isOpened ? `bg-brand text-on-brand ${getRounded(rounded, "bottom")} ` : ` `;
+      cls += isOpened ? `bg-brand-500 text-on-brand-500 ` : ` `;
     }
     return twMerge(`${cls} ${getSize("title")}`, (isOpened ? titleActiveClass : titleClass));
   }

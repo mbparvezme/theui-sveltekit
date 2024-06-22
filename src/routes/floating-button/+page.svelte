@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { FloatButtonBox, FloatButton } from "$lib"
+  import { FABBox, FAB } from "$lib"
 </script>
 
-<FloatButtonBox>
-  <FloatButton />
-  <FloatButton />
-</FloatButtonBox>
+<FABBox>
+  <FAB />
+  <FAB />
+</FABBox>

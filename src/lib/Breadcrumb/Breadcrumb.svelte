@@ -5,7 +5,7 @@
 
   export let data:            BREADCRUMB_DATA = [];
   export let activeLinkClass: string = "text-gray-400";
-  export let linkClass:       string = "text-brand";
+  export let linkClass:       string = "text-brand-500";
   export let round:           ROUNDED = "md";
   export let separator:       string = "/";
 

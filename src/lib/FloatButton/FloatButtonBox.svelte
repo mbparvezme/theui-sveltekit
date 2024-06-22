@@ -3,43 +3,32 @@
 </script>
 
 <script lang="ts">
-  import type { ANIMATE_SPEED } from "$lib/types"
-  import { generateToken, getAnimate } from "$lib/functions"
+  import type { ANIMATE_SPEED, ROUNDED } from "$lib/types";
+  import { generateToken, getAnimate, getRounded } from "$lib/functions";
   import { twMerge } from "tailwind-merge";
   import { onMount, setContext } from "svelte";
 
-  export let animate: ANIMATE_SPEED = "normal"
-  export let size: 'sm' | 'md' | 'lg' | 'xl' = "md"
-  export let shape: 'circle' | 'rounded' | 'square' = "circle"
-  export let position: 'left' | 'right' = "right"
-  export let href: string|undefined = undefined
-  export let trigger: 'click' | 'hover' = "hover"
-  export let iconClass: string = ""
-  export let direction: 'horizontal' | 'vertical' = "vertical"
+  export let animationSpeed: ANIMATE_SPEED = "normal";
+  export let size: 'sm' | 'md' | 'lg' | 'xl' = "md";
+  export let rounded: ROUNDED = "full";
+  export let position: 'left' | 'right' = "right";
+  export let href: string|undefined = undefined;
+  export let trigger: 'click' | 'hover' = "click";
+  export let iconClass: string = "";
+  export let direction: 'horizontal' | 'vertical' = "vertical";
 
-  let id: string = `${generateToken()}-fab-trigger`
+  let id: string = `${generateToken()}-fab-trigger`;
 
   onMount(() => {
-    let elem = document.getElementById(id)
+    let elem = document.getElementById(id);
     if(trigger == "hover"){
-      elem?.addEventListener("mouseenter", () => elem.classList.add("open"))
-      elem?.addEventListener("mouseleave", () => elem.classList.remove("open"))
+      elem?.addEventListener("mouseenter", () => elem.classList.add("open"));
+      elem?.addEventListener("mouseleave", () => elem.classList.remove("open"));
     }
     if(trigger == "click"){
-      elem?.addEventListener("click", () => elem.classList.toggle("open"))
+      elem?.addEventListener("click", () => elem.classList.toggle("open"));
     }
   });
-
-  let corner = () => {
-    if(shape == "circle") return "rounded-full";
-    if(shape == "rounded"){
-      if(size == "xl") return "rounded-lg";
-      if(size == "lg") return "rounded-lg";
-      if(size == "md") return "rounded-md";
-      return "rounded-md";
-    }
-    return "";
-  };
 
   let btnSizeClass = {
     sm: "w-10 h-10",
@@ -60,15 +49,15 @@
     right: "right-6 bottom-6 fab-right"
   };
 
-  let fabBoxClass = () => `theui-fab-box fixed flex ${positionClass[position]} ${getAnimate(animate)} ${direction=="horizontal" ? "flex-row" : "flex-col"}`;
-  let fabButtonClass = () => `theui-fab static flex items-center justify-center ${btnSizeClass[size]} ${twMerge(`${corner()} ${getAnimate(animate)} bg-primary shadow-2xl hover:bg-secondary`, $$props?.class)}`;
+  let fabBoxClass = () => `theui-fab-box fixed flex ${positionClass[position]} ${getAnimate(animationSpeed)} ${direction=="horizontal" ? "flex-row" : "flex-col"}`;
+  let fabButtonClass = () => `theui-fab static flex items-center justify-center ${btnSizeClass[size]} ${twMerge(`${getRounded(rounded)} ${getAnimate(animationSpeed)} bg-brand-500 text-on-brand-500 shadow-2xl hover:bg-brand-700 hover:bg-brand-700`, $$props?.class)}`;
   let fabIconClass = () => `fab-icon ${twMerge(iconSizeClass[size], iconClass)}`;
 
   setContext(FAB, {btnClass: fabButtonClass(), iconClass: fabIconClass()});
 </script>
 
 <div {id} class={fabBoxClass()}>
-  <div class="theui-fab-items {getAnimate(animate)}" class:fab-vertical={direction == "vertical"} class:fab-horizontal={direction == "horizontal"}>
+  <div class="theui-fab-items {getAnimate(animationSpeed)}" class:fab-vertical={direction == "vertical"} class:fab-horizontal={direction == "horizontal"}>
     <slot />
   </div>
   <svelte:element {id} this={href ? "a" : "button"} {href}

@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-  import type { BUTTON_SIZE, ROUNDED, SHADOW } from "$lib/types";
+  import type { BUTTON_SIZE, BUTTON_VARIANT, ROUNDED, SHADOW } from "$lib/types";
   import { setContext } from "svelte";
   import { twMerge } from "tailwind-merge";
   import { getRounded, getShadow } from "$lib/functions";
@@ -13,9 +13,9 @@
   export let size     : BUTTON_SIZE = "md";
   export let shadow   : SHADOW = "md";
   export let btnClass : string = "border border-black/10";
-  export let style  : 'elevated' | 'outline' | 'text' | 'default' = "default";
+  export let variant  : BUTTON_VARIANT = "filled";
 
-  let ctx = {group: true, stacked: $$props?.stacked, style, btnClass, size, round};
+  let ctx = {group: true, stacked: $$props?.stacked, variant, btnClass, size, round};
   setContext(BUTTON_GROUP, ctx);
 </script>
 

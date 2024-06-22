@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ANIMATE_SPEED, ROUNDED, SHADOW, BUTTON_SIZE } from "$lib/types";
+  import type { ANIMATE_SPEED, ROUNDED, SHADOW, BUTTON_SIZE, BUTTON_VARIANT } from "$lib/types";
   import { getContext } from "svelte";
   import { twMerge } from "tailwind-merge";
   import { getAnimate, getRounded, getRoundedFirst, getRoundedLast, getShadow } from "$lib/functions";
@@ -11,7 +11,7 @@
   // Functional props
   export let label            : string;
   export let href             : string|undefined = undefined;
-  export let preload          : 'hover' | 'tap' | undefined = href ? "hover" : undefined;
+  export let preload          : 'hover' | 'tap' | false = href ? "hover" : false;
   export let type             : 'button' | 'submit' | 'reset' = "button";
 
   // Style props
@@ -20,8 +20,8 @@
   export let rounded          : ROUNDED = ctx?.rounded ?? "md";
   export let shadow           : SHADOW = "md";
   export let size             : BUTTON_SIZE = ctx?.size ?? "md";
-  export let style            : 'elevated' | 'outline' | 'text' | 'default' = ctx?.style ?? "default";
-  export let variant          : 'error' | 'info' | 'success' | 'warning' | 'none' = "none";
+  export let variant          : BUTTON_VARIANT = ctx?.variant ?? "filled";
+  export let theme            : 'error' | 'info' | 'success' | 'warning' | 'none' = "none";
 
   let sizeClasses = new Map<BUTTON_SIZE, string>([
     ["sm",  "px-3 py-2 text-sm "],
@@ -33,35 +33,39 @@
   ]);
 
   let themeClasses = new Map<string, string>([
-    ["error",  style == "outline" ? "border border-error text-error hover:bg-error hover:text-red-50" : "bg-error text-red-50"],
-    ["success",  style == "outline" ? "border border-success text-success hover:bg-success hover:text-red-50" : "bg-success text-green-50"],
-    ["info",  style == "outline" ? "border border-info text-info hover:bg-info hover:text-indigo-50" : "bg-info text-indigo-50"],
-    ["warning",  style == "outline" ? "border border-warning text-warning hover:bg-warning hover:text-yellow-800" : "bg-warning text-yellow-800"]
+    ["error",  variant == "outline" ? "border border-error-500 text-error-500 hover:bg-error-500 hover:text-error-50 focus:bg-error-600 focus:text-error-50" : "bg-error-500 hover:bg-error-600 focus:bg-error-700 text-error-50"],
+    ["success",  variant == "outline" ? "border border-success-500 text-success-500 hover:bg-success-500 hover:text-success-50 focus:bg-success-600 focus:text-success-50" : "bg-success-500 hover:bg-success-600 focus:bg-success-700 text-success-50"],
+    ["info",  variant == "outline" ? "border border-info-500 text-info-500 hover:bg-info-500 hover:text-info-50 focus:bg-info-600 focus:text-info-50" : "bg-info-500 hover:bg-info-600 focus:bg-info-700 text-info-50"],
+    ["warning",  variant == "outline" ? "border border-warning-500 text-warning-500 hover:bg-warning-500 hover:text-warning-800 focus:bg-warning-600 focus:text-warning-50" : "bg-warning-500 hover:bg-warning-600 focus:bg-warning-700 text-warning-800 focus:text-warning-50"]
   ]);
 
-  let btnDefaultClass   = () => `${(href ? "theui-link inline-block" : "theui-button")} inline-flex items-center gap-2 focus-visible:ring-brand-200 dark:focus-visible:ring-brand-700 ${sizeClasses.get(size)}${getAnimate(animationSpeed)}`;
-  let defaultBtnClass   = () => `${btnDefaultClass()} ${$$props?.active ? "bg-brand-active" : "bg-brand hover:bg-brand-active"} focus:bg-brand-active text-on-brand `;
-  let elevatedBtnClass  = () => `${btnDefaultClass()} ${$$props?.active ? "bg-brand/40" : "bg-brand/20 hover:bg-brand/40"} focus:bg-brand/40 text-brand font-base ${!ctx?.group ? getShadow(shadow) : ""} `;
-  let outlineBtnClass   = (border: string = "") => `${btnDefaultClass()} ${$$props?.active ? "bg-brand text-on-brand" : "hover:bg-brand hover:text-on-brand text-brand"} focus:bg-brand focus:text-on-brand ${border} border-brand `;
+  let btnDefaultClass   = () => `${(href ? "theui-link inline-block" : "theui-button")} inline-flex items-center gap-2 focus-visible:ring-brand-200 dark:focus-visible:ring-brand-700 ${sizeClasses.get(size)}${getAnimate(animationSpeed)} ${$$props?.disabled ? ((variant == "elevated" || variant == "outline")  ? "opacity-60 cursor-not-allowed" : "opacity-75 cursor-not-allowed") : ""}`;
+
+  let filledBtnClass   = () => `btn-filled ${btnDefaultClass()} ${$$props?.active ? "bg-brand-700" : "bg-brand-500 hover:bg-brand-600"} focus:bg-brand-700 text-on-brand-500 `;
+
+  let elevatedBtnClass  = () => `btn-elevated ${btnDefaultClass()} ${$$props?.active ? "bg-brand-100 dark:bg-brand-900" : ""} hover:bg-brand-50 dark:hover:bg-brand-900 focus:bg-brand-100 dark:focus:bg-brand-800 text-brand-500 font-base ${!ctx?.group ? getShadow(shadow) : ""} `;
+
+  let outlineBtnClass   = (border: string = "") => `btn-outline ${btnDefaultClass()} ${$$props?.active ? "bg-brand-500 text-on-brand-500" : "hover:bg-brand-500 hover:text-on-brand-500 text-brand-500"} focus:bg-brand-500 focus:text-on-brand-500 ${border} border-brand-500 `;
+
   let textBtnClass      = () => `${btnDefaultClass()} bg-transparent text-default `;
   
   let getButtonClass = () => {
     if(ctx?.group){
       let cls = `${getRoundedFirst(rounded, ctx.stacked ? "top" : "left")} ${getRoundedLast(rounded, ctx.stacked ? "bottom" : "right")}`;
-      if(style == "outline"){
+      if(variant == "outline"){
         return `${outlineBtnClass(ctx?.stacked ? "border-x border-t last:border-b" : "border-y border-l last:border-r")} ${cls}`
       }else{
-        return `${style == "elevated" ? elevatedBtnClass() : style == "text" ? textBtnClass() : defaultBtnClass()} ${cls}`;
+        return `${variant == "elevated" ? elevatedBtnClass() : variant == "text" ? textBtnClass() : filledBtnClass()} ${cls}`;
       }
     }else{
-      return `${(variant != "none") ? `${btnDefaultClass()} ${themeClasses.get(variant)}` : (style == "elevated" ? elevatedBtnClass() : style == "outline" ? outlineBtnClass("border") : style == "text" ? textBtnClass() : defaultBtnClass())} ${getRounded(rounded)}`;
+      return `${(theme != "none") ? `${btnDefaultClass()} ${themeClasses.get(theme)}` : (variant == "elevated" ? elevatedBtnClass() : variant == "outline" ? outlineBtnClass("border") : variant == "text" ? textBtnClass() : filledBtnClass())} ${getRounded(rounded)}`;
     }
   }
 </script>
 
 <svelte:element this={href ? "a" : "button"} {href} {...$$restProps} data-sveltekit-preload-data={preload}
   class={twMerge(getButtonClass(), $$props?.class)} type={href ? undefined : type}
-  role={href ? "link" : "button"} aria-disabled={$$restProps?.disabled==true} aria-label={ariaLabel}
+  role={href ? "link" : "button"} aria-disabled={$$restProps?.disabled} aria-label={ariaLabel}
   on:click on:keydown on:keyup on:touchstart|passive on:touchend on:touchcancel on:mouseenter on:mouseleave>
   <slot name="beforeLabel"></slot>
   <slot>{@html label??""}</slot>
@@ -75,15 +79,3 @@
     </span>
   {/if}
 </svelte:element>
-
-<style lang="postcss">
-  button[disabled]:not(.btn-outline){
-    @apply opacity-75 pointer-events-none;
-  }
-  button[disabled].btn-outline{
-    @apply opacity-50 pointer-events-none;
-  }
-  :global(.theui-btn-group:not(:first-child, :last-child)){
-    @apply !rounded-none;
-  }
-</style>

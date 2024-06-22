@@ -244,7 +244,7 @@ const defaultInputClasses = (config: INPUT_CONFIG, attr: any, type: DEFAULT_INPU
 };
 
 const getFileInputClasses = (config: INPUT_CONFIG, attr: any): string => {
-  return ` ${fileInputSizes[config?.size ?? "md"]} file:mr-4 file:bg-brand/10 file:text-brand file:cursor-pointer cursor-pointer file:border-0${getRoundedFileBtn(config?.rounded)}${getRounded(config?.rounded)} ${getInputTheme(config?.variant, "input")} ${getAttributesClasses(attr)}`
+  return ` ${fileInputSizes[config?.size ?? "md"]} file:mr-4 file:bg-brand-500/10 file:text-brand-500 file:cursor-pointer cursor-pointer file:border-0${getRoundedFileBtn(config?.rounded)}${getRounded(config?.rounded)} ${getInputTheme(config?.variant, "input")} ${getAttributesClasses(attr)}`
 };
 
 const getGroupInputClasses = (config: INPUT_CONFIG, attr: any, type: 'checkbox' | 'radio') => {
@@ -252,15 +252,15 @@ const getGroupInputClasses = (config: INPUT_CONFIG, attr: any, type: 'checkbox' 
   if (type == "radio"){
     roundedSize = (config.size == "sm" || config.size == "md") ? "sm" : "md";
   }
-  return ` bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-200/20 text-brand focus-within:ring-brand dark:checked:bg-brand !ring-offset-primary peer ${groupInputSizes[config?.size ?? "md"]} ${type == "radio" ? getRounded("full") : getRounded(roundedSize??"sm")} ${getAttributesClasses(attr)}`;
+  return ` bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-200/20 text-brand-500 focus-within:ring-brand-500 dark:checked:bg-brand-500 !ring-offset-primary peer ${groupInputSizes[config?.size ?? "md"]} ${type == "radio" ? getRounded("full") : getRounded(roundedSize??"sm")} ${getAttributesClasses(attr)}`;
 }
 
 let getInputTheme = (variant: 'bordered' | 'filled' | 'flat' = "bordered", type: any) => {
-  let common = `outline-none ring-1 ring-transparent ${type == "editor" ? "focus-within:outline-none focus-within:ring-brand" : "focus:outline-none focus:ring-brand"}`;
+  let common = `outline-none ring-1 ring-transparent ${type == "editor" ? "focus-within:outline-none focus-within:ring-brand-500" : "focus:outline-none focus:ring-brand-500"}`;
   const theme: Record<NonNullable<INPUT_CONFIG['variant']>, string> = {
-    bordered: "border border-gray-100 dark:border-gray-700 focus:border-brand bg-transparent",
+    bordered: "border border-gray-300 dark:border-gray-700 focus:border-brand-500 bg-transparent",
     filled: "border-0 bg-gray-50 dark:bg-gray-800",
-    flat: type != "file" ? "border-0 border-b-2 border-gray-100 dark:border-gray-700 bg-transparent" : "border-0"
+    flat: type != "file" ? "border-0 border-b-2 border-gray-200 dark:border-gray-700 bg-transparent" : "border-0"
   };
   return `${common} ${theme[variant??"bordered"]}`;
 }

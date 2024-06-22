@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { BUTTON_SIZE } from "$lib/types";
+    import type { BUTTON_SIZE, BUTTON_VARIANT } from "$lib/types";
     import { createEventDispatcher } from "svelte";
     import { twMerge } from "tailwind-merge";
     import { Button, ButtonGroup } from "$lib";
@@ -11,14 +11,14 @@
     export let minimalMode: boolean = false;
     export let activeButtonStyle: string = "";
     export let align: 'left' | 'center' | 'right' = "center";
-    export let variant: 'bordered' | 'flat' = "bordered";
+    export let variant: BUTTON_VARIANT = "outline";
 
     export let data: Array<{url: string, active?: boolean}> = [];
     const dispatch  = createEventDispatcher();
     const previous  = () => dispatch("previous");
     const next      = () => dispatch("next");
 
-    let getNumLinkClass = (active: boolean|undefined = undefined) => active ? twMerge("bg-brand text-on-brand", activeButtonStyle) : twMerge("bg-transparent text-default hover:bg-brand", buttonStyle);
+    let getNumLinkClass = (active: boolean|undefined = undefined) => active ? twMerge("bg-brand-500 text-on-brand-500", activeButtonStyle) : twMerge("bg-transparent text-default hover:bg-brand-500", buttonStyle);
 </script>
 
 {#if minimalMode || data.length > 0}

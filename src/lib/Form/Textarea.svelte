@@ -14,14 +14,14 @@
   export let label : string | undefined = undefined
   export let value : any = ""
 
-  export let animate: INPUT_CONFIG["animate"] = "normal"
+  export let animationSpeed: INPUT_CONFIG["animate"] = "normal"
   export let labelClasses: INPUT_CONFIG["labelClasses"] = ""
   export let rounded: INPUT_CONFIG["rounded"] = "md"
   export let size: INPUT_CONFIG["size"] = "md"
   export let variant: INPUT_CONFIG["variant"] = "bordered"
 
   const ctx: any = getContext(FORM_CTX || {})
-  let C:INPUT_CONFIG = {animate, labelClasses, rounded, size, variant, grow: !!$$restProps?.grow, reset: !!$$restProps?.reset}
+  let C:INPUT_CONFIG = {animate: animationSpeed, labelClasses, rounded, size, variant, grow: !!$$restProps?.grow, reset: !!$$restProps?.reset}
   if(!$$restProps?.override) Object.assign(C, ctx?.formConfig)
 </script>
 

@@ -5,24 +5,22 @@
   import { FORM_CTX } from "./Form.svelte";
   import { Label, HelperText, Input } from "$lib"
 
-  // Slot: disabled, readonly, custom, reverse, override, reset
-
   // Input attributes
-  export let data : SELECT_DATA = []
+  export let data : SELECT_DATA[] = []
   export let helperText : string | undefined = undefined
   export let id : string = generateToken()
   export let label : string | undefined = undefined
   export let name : string
   export let value : any = ""
 
-  export let animate: INPUT_CONFIG["animate"] = "normal"
+  export let animationSpeed: INPUT_CONFIG["animate"] = "normal"
   export let labelClasses: INPUT_CONFIG["labelClasses"] = ""
   export let rounded: INPUT_CONFIG["rounded"] = "md"
   export let size: INPUT_CONFIG["size"] = "md"
   export let variant: INPUT_CONFIG["variant"] = "bordered"
 
   const ctx: any = getContext(FORM_CTX || {})
-  let C:INPUT_CONFIG = {animate, labelClasses, rounded, size, variant, grow: !!$$restProps?.grow, reset: !!$$restProps?.reset}
+  let C:INPUT_CONFIG = {animate: animationSpeed, labelClasses, rounded, size, variant, grow: !!$$restProps?.grow, reset: !!$$restProps?.reset}
   if(!$$restProps?.override) Object.assign(C, ctx?.formConfig)
 </script>
 
@@ -37,7 +35,7 @@
     {:else}
       {#if data?.length > 0}
         {#each data as d}
-          {#if d?.selected}
+          {#if typeof d === 'object' && d?.selected}
             <Input {id} {name} readonly value={d?.value||d?.text} class={getInputClasses(C, $$restProps, "select")}/>
           {/if}
         {/each}
@@ -48,7 +46,11 @@
       {#if $$restProps?.placeholder}<option value="" disabled>{$$restProps.placeholder}</option>{/if}
       {#if data?.length > 0}
         {#each data as d}
-          <option value={d?.value||d?.text||d} selected={d?.selected || value == d?.value} disabled={d?.disabled}>{d.text||d}</option>
+          {#if typeof d === 'object'}
+            <option value={d?.value||d?.text||d} selected={d?.selected || value == d?.value}>{d.text||d}</option>
+          {:else}
+            <option value={d}>{d}</option>
+          {/if}
         {/each}
       {:else}
         <slot/>
@@ -60,38 +62,3 @@
     <HelperText>{@html helperText}</HelperText>
   {/if}
 </div>
-
-<!-- <style lang="postcss">
-  :global(.tui-form-control select){
-    /* @apply [background_#444]; */
-    @apply dark:bg-secondary;
-  }
-  :global(.select-box [slot=left], .select-box [slot=right]){
-    @apply flex items-center justify-center z-[-1] text-gray-500 bg-gray-100;
-  }
-  :global(.input-sm .select-box [slot=left], .input-sm .select-box [slot=right]){
-    @apply px-2;
-  }
-  :global(.input-md .select-box [slot=left], .input-md .select-box [slot=right]){
-    @apply px-3;
-  }
-  :global(.input-lg .select-box [slot=left], .input-lg .select-box [slot=right]){
-    @apply px-4;
-  }
-  :global(.input-xl .select-box [slot=left], .input-xl .select-box [slot=right]){
-    @apply px-5;
-  }
-</style> -->
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let config     : INPUT_CONFIG = {}
-  export let helperText : string | undefined = undefined
-  export let id         : string = generateToken()
-  export let label      : string|undefined = undefined
-  export let name       : string
-  export let value      : any = ""
-  export let data       : Array<{disabled ?: boolean, selected ?: boolean, text : string, value ?: any}> = []
--->

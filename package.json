@@ -1,6 +1,6 @@
 {
   "name": "theui-svelte",
-  "version": "1.0.0-rc.10",
+  "version": "1.0.0-rc.12",
   "description": "theui-svelte A component library by TheUI. Out-of-the-box accessible and easy to customize built with TailwindCSS.",
   "author": {
     "name": "M B Parvez",
@@ -17,13 +17,14 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
     "package": "svelte-package",
     "preview": "vite preview",
     "test": "playwright test",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-    "format": "prettier --plugin-search-dir . --write ."
+    "format": "prettier --plugin-search-dir . --write .",
+    "build:colors": "node generate-color-variables.js",
+    "build": "vite build:colors && tsc"
   },
   "engines": {
     "npm": ">=7.0.0",
@@ -74,11 +75,14 @@
     "@tiptap/extension-youtube": "^2.3.2",
     "@tiptap/pm": "^2.3.2",
     "@tiptap/starter-kit": "^2.3.2",
+    "chroma-js": "^2.4.2",
     "fs": "^0.0.1-security",
     "path": "^0.12.7",
+    "postcss-safe-parser": "^7.0.0",
     "prettier": "^3.2.5",
     "recast": "^0.23.7",
     "tailwind-merge": "^1.14.0",
+    "tw-color-shades": "^1.0.0-rc",
     "url": "^0.11.3"
   },
   "type": "module",

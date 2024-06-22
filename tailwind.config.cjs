@@ -1,3 +1,4 @@
+import twShades from "tw-color-shades";
 // 1. Update config.content
 // 2. Add config.presets
 const config = {
@@ -5,12 +6,12 @@ const config = {
     "./src/**/*.{html,js,svelte,ts}",
     "./node_modules/theui-sveltekit/**/*.{html,js,svelte,ts}", // New line
   ],
-  presets: [require("./src/lib/preset.cjs")({ 
-    exclude: ["brand-secondary"]
-   })], // New line
+  presets: [
+    require("./src/lib/preset.cjs")({exclude: ["brand-secondary"]})
+  ],
   darkMode: "class",
   theme: {
-    extend: {},
+    extend: {}
   },
   plugins: [],
 };

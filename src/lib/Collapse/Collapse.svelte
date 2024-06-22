@@ -3,22 +3,22 @@
   import { getAnimate, generateToken } from "$lib/functions";
     import { onMount } from "svelte";
 
-  export let animation  : ANIMATE_SPEED = "fast";
+  export let animationSpeed  : ANIMATE_SPEED = "fast";
   export let id         : string = generateToken();
   export let ariaLabel  : string = "";
   
   let isOpen: boolean;
 
-  let classes = getAnimate(animation);
+  let classes = getAnimate(animationSpeed);
 
   $: toggleCollapse = (id: string) => {
     let element = document.getElementById(id)!;
     if(element?.classList.contains('collapse-open')){
       isOpen = false;
-      if(animation) element.style.height = "0";
+      if(animationSpeed) element.style.height = "0";
     }else{
       isOpen = true;
-      if(animation) element.style.height = `${element.scrollHeight}px`;
+      if(animationSpeed) element.style.height = `${element.scrollHeight}px`;
     }
   }
 

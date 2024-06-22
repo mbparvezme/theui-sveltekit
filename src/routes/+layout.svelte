@@ -42,6 +42,7 @@
         <NavLink href="/form/file">File</NavLink>
         <NavLink href="/form/editor">Editor</NavLink>
       </NavDropdown>
+      <NavLink href="/shade">Shade</NavLink>
     </NavLinkGroup>
     <NavLinkGroup align="right">
       <NavLink href="/">About</NavLink>

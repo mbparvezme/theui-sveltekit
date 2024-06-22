@@ -7,7 +7,7 @@
   type TOOLTIP_POSITION = 'left' | 'top' | 'right' | 'bottom';
   type TOOLTIP_ANIMATION = 'fade' | 'slide' | 'zoom-in' | 'zoom-out';
 
-  export let animate      : ANIMATE_SPEED = "slower";
+  export let animationSpeed      : ANIMATE_SPEED = "slower";
   export let animation    : TOOLTIP_ANIMATION = "fade";
   export let bgColor      : string = "#1F2937";
   export let position     : TOOLTIP_POSITION = "top";
@@ -37,7 +37,7 @@
     };
 
     let defaultClasses = `theui-tooltip ${positionClasses[position]} ${animationClasses[animation] || animationClasses['fade']} z-[60] absolute`;
-    let customClasses = `min-w-[150px] max-w-xs text-sm text-center p-2 bg-[var(--bg-color)] text-white ${getRounded("sm")} ${getAnimate(animate)}`;
+    let customClasses = `min-w-[150px] max-w-xs text-sm text-center p-2 bg-[var(--bg-color)] text-white ${getRounded("sm")} ${getAnimate(animationSpeed)}`;
 
     return `${defaultClasses} ${twMerge(customClasses, $$props?.class)}`;
   }

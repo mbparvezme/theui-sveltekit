@@ -9,7 +9,7 @@
 	import { Button } from "$lib";
 	import { setContext } from "svelte";
 
-	export let animate : ANIMATE_SPEED = "fast";
+	export let animationSpeed : ANIMATE_SPEED = "fast";
 	export let id: string = generateToken();
 	export let label: string = "";
 	export let animation : 'slide-left' | 'slide-up' | 'slide-right' | 'slide-down' | 'fade' | 'zoom-in' | 'zoom-out' = "slide-up";
@@ -58,9 +58,9 @@
 		"aria-expanded" : isOpen
 	}
 
-	let getContainerClasses = () => `theui-dropdown relative inline-block ${align=="right" ? " dropdown-right " : " "} ${size === "sm" ? "dropdown-sm" : size === "md" ? "dropdown-md" : size === "lg" ? "dropdown-lg" : size === "full" ? "dropdown-full" : size === "auto" ? "dropdown-auto" : "dropdown-custom"} ${getAnimate(animate)}`
+	let getContainerClasses = () => `theui-dropdown relative inline-block ${align=="right" ? " dropdown-right " : " "} ${size === "sm" ? "dropdown-sm" : size === "md" ? "dropdown-md" : size === "lg" ? "dropdown-lg" : size === "full" ? "dropdown-full" : size === "auto" ? "dropdown-auto" : "dropdown-custom"} ${getAnimate(animationSpeed)}`
 
-	let getDropdownClasses = () => `${animation} dropdown-content absolute list-none z-[11] bg-white dark:bg-secondary text-base shadow-lg py-1 text-nowrap ${getAnimate(animate)}${getRounded(rounded)}`;
+	let getDropdownClasses = () => `${animation} dropdown-content absolute list-none z-[11] bg-white dark:bg-secondary text-base shadow-lg py-1 text-nowrap ${getAnimate(animationSpeed)}${getRounded(rounded)}`;
 
 	let config: {
 		linkClass: string | undefined,

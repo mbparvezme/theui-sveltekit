@@ -6,7 +6,7 @@
 
   export let id             : string = generateToken();
   export let label          : string = "";
-  export let animate        : ANIMATE_SPEED = "fast";
+  export let animationSpeed        : ANIMATE_SPEED = "fast";
   export let backdrop       : boolean = true;
   export let closeOnEsc     : boolean = true;
   export let position       : 'top' | 'right' | 'bottom' | 'left' = "left";
@@ -29,7 +29,7 @@
 	}
 
   let positionCls = () => position === "top" ? "drawer-top" : position === "right" ? "drawer-right" : position === "bottom" ? "drawer-bottom" : "drawer-left";
-  let getClass = () => `drawer-body fixed bg-white dark:bg-secondary ${getAnimate(animate)}`;
+  let getClass = () => `drawer-body fixed bg-white dark:bg-secondary ${getAnimate(animationSpeed)}`;
 </script>
 
 <svelte:body on:keydown={(e)=>handleKeyboard(e)}></svelte:body>
@@ -43,12 +43,12 @@
 {/if}
 
 {#if $$slots.drawerContent}
-  <div {id} class="theui-drawer fixed inset-0 z-40 {getAnimate(animate)} {positionCls()}" role="dialog" class:animate={animate}>
+  <div {id} class="theui-drawer fixed inset-0 z-40 {getAnimate(animationSpeed)} {positionCls()}" role="dialog" class:animate={animationSpeed}>
 
     {#if backdrop}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div class="backdrop fixed inset-0 bg-black z-[-1] {getAnimate(animate)}" on:click={()=>staticBackdrop ? false : toggle(id)}></div>
+    <div class="backdrop fixed inset-0 bg-black z-[-1] {getAnimate(animationSpeed)}" on:click={()=>staticBackdrop ? false : toggle(id)}></div>
     {/if}
 
     <div id="{id}Drawer" class={twMerge(getClass(), $$props?.class)} aria-labelledby="{id}Btn" aria-hidden={!active}>

@@ -16,9 +16,9 @@
 
   let getThickness = (): string => vertical ? (thickness == "px" ? "w-px " : thickness == "sm" ? "w-1 " : thickness == "md" ? "w-2 " : thickness == "lg" ? "w-4 " : "w-6 ") : (thickness == "px" ? "h-px " : thickness == "sm" ? "h-1 " : thickness == "md" ? "h-2 " : thickness == "lg" ? "h-4 " : "h-6 ")
 
-  let trackCls = () => `theui-progress ${getThickness()} ${vertical ? "inline-flex h-full" : "flex w-full"} overflow-hidden relative select-none ${twMerge(`text-on-brand text-xs bg-tertiary ${getRounded("full")}`, $$props?.class)}`
+  let trackCls = () => `theui-progress ${getThickness()} ${vertical ? "inline-flex h-full" : "flex w-full"} overflow-hidden relative select-none ${twMerge(`text-on-brand-500 text-xs bg-tertiary ${getRounded("full")}`, $$props?.class)}`
 
-  let barCls = () => `progress-bar absolute ${twMerge(`flex items-center justify-center bg-brand ${getRounded("full")}`, barClass)}`
+  let barCls = () => `progress-bar absolute ${twMerge(`flex items-center justify-center bg-brand-500 ${getRounded("full")}`, barClass)}`
 
   onMount(() => setBar());
   $: setBar = () => {

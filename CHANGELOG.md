@@ -4,6 +4,14 @@
 
 <br>
 
+## v1.0.0-rc.12
+
+- Color bug fix
+
+## v1.0.0-rc.11
+
+- Color system updated
+
 ## v1.0.0-rc.2
 
 - Tooltip bug fix for overwriting the 

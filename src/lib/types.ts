@@ -26,6 +26,7 @@ export type SHADOW =
 export type PRELOAD = "" | "off" | "tap" | "hover";
 export type TABLE_ROW = object | (object | string | string[])[] | undefined;
 export type BUTTON_SIZE = "xs" | "sm" | "md" | "lg" | "xl" | "0";
+export type BUTTON_VARIANT = 'elevated' | 'outline' | 'text' | 'filled';
 export type INPUT_TYPE = 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'reset' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week' | 'search';
 export type INPUT_VARIANT = "bordered" | "filled" | "flat";
 export type BREADCRUMB_DATA = Array<{ text: string; url?: string }>;
@@ -79,7 +80,7 @@ export type INPUT_CONFIG = {
   variant?: INPUT_VARIANT;
 };
 
-export type SELECT_DATA = Array<{ disabled?: boolean, selected?: boolean, text: string, value?: any } | string>;
+export type SELECT_DATA = { disabled?: boolean; selected?: boolean; text: string; value?: any } | string;
 
 export type Tools = "blockquote" | "code" | "codeblock" | "link" | "horizontalLine" | "youtube" | "highlighter" | "color" | "redoUndo";
 

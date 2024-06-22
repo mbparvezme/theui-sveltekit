@@ -11,19 +11,19 @@
 
 	export let id : string = generateToken();
 	export let border : boolean = true;
-	export let animate : ANIMATE_SPEED = "normal";
+	export let animationSpeed : ANIMATE_SPEED = "normal";
 	export let activeTabClasses : string = "";
 	export let inactiveTabClasses : string = "";
 	export let tabPanelClasses: string = "";
 	export let variant : 'tabs' | 'pills' = "pills";
 
-	let activeTabClassesDefault = (variant==="pills" ? "bg-brand text-white" : "border-0 border-b-2 border-brand text-brand");
-	let inactiveTabClassesDefault = (variant==="pills" ? "hover:bg-brand hover:text-on-brand" : "border-0 border-b-2 border-transparent");
+	let activeTabClassesDefault = (variant==="pills" ? "bg-brand-500 text-on-brand-500" : "border-0 border-b-2 border-brand-500 text-brand-500");
+	let inactiveTabClassesDefault = (variant==="pills" ? "hover:bg-brand-500 hover:text-on-brand-500" : "border-0 border-b-2 border-transparent");
 
 	let config: TAB_CONFIG = {
 		activeTabClasses : twMerge(activeTabClassesDefault, activeTabClasses),
 		inactiveTabClasses : twMerge(inactiveTabClassesDefault, inactiveTabClasses),
-		animate,
+		animate: animationSpeed,
 		border,
 		tabPanelClasses,
 		variant,
@@ -66,6 +66,6 @@
 	setContext(TABS, ctx);
 </script>
 
-<div {id} class="theui-tabs -mb-0.5 {twMerge("", $$props.class)}">
+<div {id} class="theui-tabs -mb-0.5 {twMerge("", $$props?.class)}">
 	<slot></slot>
 </div>

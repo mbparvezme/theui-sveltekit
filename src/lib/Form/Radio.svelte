@@ -14,13 +14,13 @@
   export let name       : string;
   export let value      : string = "";
 
-  export let animate: INPUT_CONFIG["animate"] = "normal";
+  export let animationSpeed: INPUT_CONFIG["animate"] = "normal";
   export let labelClasses: INPUT_CONFIG["labelClasses"] = "";
   export let rounded: INPUT_CONFIG["rounded"] = "md";
   export let size: INPUT_CONFIG["size"] = "md";
 
   const ctx: any = getContext(FORM_CTX || {});
-  let C: any = {animate, labelClasses, rounded, size, reset: !!$$restProps?.reset};
+  let C: any = {animationSpeed, labelClasses, rounded, size, reset: !!$$restProps?.reset};
   if(!$$restProps?.override) Object.assign(C, ctx?.formConfig );
   let helperSizeFix: string = C.size=="sm" ? "pl-7" : C.size=="md" ? "pl-8" : C.size=="lg" ? "pl-10" : C.size=="xl" ? "pl-12" : "";
 </script>

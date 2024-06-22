@@ -2,12 +2,17 @@
     import {Alert, Container} from "$lib"
 </script>
 
-
 <Container class="grid grid-cols-1 gap-4">
     <Alert dismissible>Dismissible</Alert>
     <Alert dismissible type="info">Dismissible</Alert>
     <Alert dismissible type="success">Dismissible</Alert>
     <Alert dismissible type="warning">Dismissible</Alert>
+
+    Deep
+    <Alert theme="deep" dismissible>Dismissible</Alert>
+    <Alert theme="deep" dismissible type="info">Dismissible</Alert>
+    <Alert theme="deep" dismissible type="success">Dismissible</Alert>
+    <Alert theme="deep" dismissible type="warning">Dismissible</Alert>
 
     Rounded conner test
     <Alert round="none">Not rounded</Alert>
@@ -16,7 +21,7 @@
     <Alert hideIcon>No icon</Alert>
 
     Flat Alert test
-    <Alert type="error" theme="flat">Hello</Alert>
+    <Alert type="error" theme="flat" dismissible>Hello</Alert>
     <Alert type="info" theme="flat">Hello</Alert>
     <Alert type="success" theme="flat">Hello</Alert>
     <Alert type="warning" theme="flat">Hello</Alert>
@@ -29,6 +34,7 @@
     <Alert theme="flat" type="warning" border="start">Hello</Alert>
     <Alert theme="flat" type="warning" border="x">Hello</Alert>
     <Alert theme="flat" type="warning" border="y">Hello</Alert>
+
     Variant
     <Alert type="error" border="none">Hello</Alert>
     <Alert type="info" border="all">Hello</Alert>

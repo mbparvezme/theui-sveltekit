@@ -26,7 +26,7 @@
 		on:mouseenter
 		on:mouseleave
 		on:paste
-		class="h-5 w-9 border-0 bg-gray-300 dark:bg-gray-600 checked:bg-brand dark:checked:bg-brand appearance-none relative flex items-center px-1 ease-in-out duration-300 text-brand focus:!ring-gray-500 checked:focus:!ring-brand cursor-pointer"
+		class="h-5 w-9 border-0 bg-gray-300 dark:bg-gray-600 checked:bg-brand-500 dark:checked:bg-brand-500 appearance-none relative flex items-center px-1 ease-in-out duration-300 text-brand-500 focus:!ring-gray-500 checked:focus:!ring-brand-500 cursor-pointer"
 		class:rounded-full={rounded}
 		class:rounded-sm={!rounded}
 		class:after:rounded-full={rounded}

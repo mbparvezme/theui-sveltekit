@@ -6,7 +6,7 @@
 
   export let id                 : string = `${generateToken()}Modal`;
 	export let label              : string = "";
-  export let animate            : ANIMATE_SPEED = "fast";
+  export let animationSpeed            : ANIMATE_SPEED = "fast";
   export let animation          : 'slide-down' | 'slide-up' | 'fade' | 'zoom-in' | 'zoom-out' = "fade";
   export let backdrop           : boolean|string = true;
   export let closeBtn           : boolean = true;
@@ -45,13 +45,13 @@
 
   $: modalSize      = () => ` ${(size === "sm" ? " modal-sm" : size === "lg" ? " modal-lg" : size === "full" ? " modal-full" : " modal-md")}`;
   $: modalPosition  = () => ` ${(position === "bottom" ? " items-end" : position === "center" ? " items-center" :  " items-start")}`;
-  $: modalCls       = () => `theui-modal z-50 ${modalSize()} ${modalPosition()} ${getAnimate(animate)}`;
-  $: modalBodyCls   = () => `modal-content bg-white dark:bg-secondary ${getAnimate(animate)} ${animate? animation : ""}`;
+  $: modalCls       = () => `theui-modal z-50 ${modalSize()} ${modalPosition()} ${getAnimate(animationSpeed)}`;
+  $: modalBodyCls   = () => `modal-content bg-white dark:bg-secondary ${getAnimate(animationSpeed)} ${animationSpeed? animation : ""}`;
 </script>
 
 <svelte:body on:keydown={(e)=>handleKeyboard(e)}></svelte:body>
 
-{#if $$slots.modalBtn}
+{#if $$slots?.modalBtn}
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <!-- svelte-ignore a11y-interactive-supports-focus -->
   <span role="button" on:click={()=>toggle()}>
@@ -59,43 +59,41 @@
   </span>
 {/if}
 
-{#if $$slots.body}
-  <div {id} class={twMerge(modalCls(), modalOuterClass)} role="dialog" class:open={modalStatus} class:animate={animate}>
-    {#if backdrop}
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <!-- svelte-ignore a11y-no-static-element-interactions -->
-      <div class={twMerge(`backdrop fixed inset-0 bg-black z-[-1] ${getAnimate(animate)}`, typeof backdrop == "string" ? backdrop :"")} on:click={()=>toggle(false)}></div>
-    {/if}
+<div {id} class={twMerge(modalCls(), modalOuterClass)} role="dialog" class:open={modalStatus} class:animate={animationSpeed}>
+  {#if backdrop}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <div class={twMerge(`backdrop fixed inset-0 bg-black z-[-1] ${getAnimate(animationSpeed)}`, typeof backdrop == "string" ? backdrop :"")} on:click={()=>toggle(false)}></div>
+  {/if}
 
-    <div class={twMerge(modalBodyCls(), (size !== "full" ? getRounded(rounded) : ""), modalBodyClass)}
-      aria-labelledby={$$slots?.header ? `${id}Heading` : `${id}Btn`} aria-hidden={!modalStatus}>
-      {#if $$slots?.header}
-        <div id="{id}Heading" class={twMerge("modal-header flex justify-between w-full gap-8 items-start border-b border-black/10 dark:border-tertiary pb-4 mb-8", modalHeaderClass)}>
-          <slot name="header"></slot>
-          {#if closeBtn!==false}
-          <button class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity" on:click={()=>toggle()}>
-            <Close/>
-          </button>
-          {/if}
-        </div>
-        {:else if closeBtn!==false}
-        <button class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity absolute top-2 right-2" on:click={()=>toggle()}>
+  <div class={twMerge(modalBodyCls(), (size !== "full" ? getRounded(rounded) : ""), modalBodyClass)}
+    aria-labelledby={$$slots?.header ? `${id}Heading` : `${id}Btn`} aria-hidden={!modalStatus}>
+    {#if $$slots?.header}
+      <div id="{id}Heading" class={twMerge("modal-header flex justify-between w-full gap-8 items-start border-b border-black/10 dark:border-tertiary pb-4 mb-8", modalHeaderClass)}>
+        <slot name="header"></slot>
+        {#if closeBtn!==false}
+        <button class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity" on:click={()=>toggle()}>
           <Close/>
         </button>
-      {/if}
-
-      <div class="w-full">
-        <slot name="body"></slot>
+        {/if}
       </div>
+      {:else if closeBtn!==false}
+      <button class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity absolute top-2 right-2" on:click={()=>toggle()}>
+        <Close/>
+      </button>
+    {/if}
 
-      {#if $$slots.footer}
-        <div class={twMerge("modal-footer border-t border-black/10 dark:border-tertiary pt-4 mt-8", modalFooterClass)}>
-          <slot name="footer"></slot>
-        </div>
-      {/if}
+    <div class="w-full">
+      <slot />
     </div>
+
+    {#if $$slots.footer}
+      <div class={twMerge("modal-footer border-t border-black/10 dark:border-tertiary pt-4 mt-8", modalFooterClass)}>
+        <slot name="footer"></slot>
+      </div>
+    {/if}
   </div>
-{/if}
+</div>
 
 <style lang="postcss">
   .theui-modal{
