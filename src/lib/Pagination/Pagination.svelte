@@ -10,7 +10,7 @@
     export let buttonStyle: string = ""
     export let minimalMode: boolean = false
     export let activeButtonStyle: string = ""
-    export let align: 'left' | 'center' | 'right' = "center"
+    export let align: 'start' | 'center' | 'end' = "center"
     export let variant: 'bordered' | 'flat' = "bordered"
 
     export let data: Array<{url: string, active?: boolean}> = []
@@ -26,7 +26,7 @@
 
 <!-- {#if data.length > 0 || ((!data || data?.length < 1) && minimalMode)} -->
 {#if minimalMode || data.length > 0}
-    <div class="theui-pagination flex" class:justify-center={align=="center"} class:justify-end={align=="right"}>
+    <div class="theui-pagination flex" class:justify-center={align=="center"} class:justify-end={align=="end"}>
         <ButtonGroup label="Pagination" {size} round="none" class={twMerge("", $$props?.class)} {variant} outline={true}>
             <Button class={getNumLinkClass()} on:click={previous} label={prevBtn} ariaLabel="Pagination link: previous"/>
             {#if !minimalMode}

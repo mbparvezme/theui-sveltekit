@@ -8,7 +8,7 @@
   export let label: string = "";
   export let icon: boolean = true;
   export let megaMenu: boolean = false;
-  export let align: 'left'|'right' = "left";
+  export let align: 'start'|'end' = "start";
   export let size: 'sm'|'md'|'lg' = "md";
   export let animation: 'fade'|'slide-up'|'zoom-in' = "zoom-in";
 
@@ -36,7 +36,7 @@
       config.mobileNavOn == "lg" ? "xl:absolute xl:pl-2 xl:flex xl:shadow-xl xl:block dark:xl:bg-tertiary " :
       config.mobileNavOn == "xl" ? "2xl:absolute 2xl:pl-2 2xl:flex 2xl:shadow-xl 2xl:block dark:2xl:bg-tertiary " :
       config.mobileNavOn == "lg" ? "lg-collapse lg:absolute lg:pl-2 lg:flex lg:shadow-xl lg:block dark:lg:bg-tertiary " : ""
-    ) + (megaMenu ? "mega-menu left-0 right-0" : (align=="right" ? "right-0" : "left-0"))
+    ) + (megaMenu ? "mega-menu inset-x-0" : (align=="end" ? "end-0" : "start-0"))
     if(megaMenu){
       classes += " w-full"
     }

@@ -13,7 +13,7 @@
 	export let id: string = generateToken()
 	export let label: string = ""
 	export let animation : 'slide-left' | 'slide-up' | 'slide-right' | 'slide-down' | 'fade' | 'zoom-in' | 'zoom-out' = "slide-up"
-	export let align : 'left' | 'right' = "right"
+	export let align : 'start' | 'end' = "end"
 	export let backdrop : string|boolean = false
 	export let containerClass : string|undefined = undefined
 	export let closeOnOutsideClick : boolean = true
@@ -60,7 +60,7 @@
 	}
 
 	let getContainerClasses = () => "theui-dropdown relative inline-block " +
-		(align=="right" ? " dropdown-right " : " ") +
+		(align=="end" ? " dropdown-end " : " ") +
 		(size === "sm" ? "dropdown-sm" : size === "md" ? "dropdown-md" : size === "lg" ? "dropdown-lg" : size === "full" ? "dropdown-full" : size === "auto" ? "dropdown-auto" : "dropdown-custom") +
 		getAnimate(animate)
 
@@ -128,13 +128,13 @@
 		@apply w-80;
 	}
 	.dropdown-full .dropdown-content{
-		@apply w-full left-0 right-0;
+		@apply w-full start-0 end-0;
 	}
 	.dropdown-custom .dropdown-content{
-		@apply w-[var(--dropdown-width)] left-0 right-0;
+		@apply w-[var(--dropdown-width)] start-0 end-0;
 	}
-	.dropdown-right .dropdown-content{
-		@apply left-auto right-0;
+	.dropdown-end .dropdown-content{
+		@apply start-auto end-0;
 	}
 
 	/* Dropdown animations */

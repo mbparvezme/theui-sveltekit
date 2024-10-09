@@ -75,7 +75,8 @@
     "@tiptap/pm": "^2.1.16",
     "@tiptap/starter-kit": "^2.1.16",
     "prettier": "^3.2.5",
-    "tailwind-merge": "^1.14.0"
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss-rtl": "^0.9.0"
   },
   "type": "module",
   "files": [

@@ -70,7 +70,7 @@
 	</slot>
 	<slot />
 	{#if dismissible}
-	<div class="ml-auto mb-auto">
+	<div class="ms-auto mb-auto">
 		<Close ariaLabel="Close alert" on:click={toggleAlert} />
 	</div>
 	{/if}

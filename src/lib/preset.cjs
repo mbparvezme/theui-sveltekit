@@ -48,6 +48,7 @@ const config = {
   plugins: [
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
+    require('tailwindcss-rtl'),
     plugin(({ addVariant }) => {
       addVariant("not-first-child", "&:not(:first-child)");
       addVariant("not-last-child", "&:not(:last-child)");

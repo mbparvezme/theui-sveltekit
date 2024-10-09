@@ -36,11 +36,11 @@
 
   let getButtonClass = () => {
     if(ctx?.group){
-      btnDefaultClass += getRoundedFirst(rounded, ctx.stacked ? "top" : "left") + getRoundedLast(rounded, ctx.stacked ? "bottom" : "right")
+      btnDefaultClass += getRoundedFirst(rounded, ctx.stacked ? "top" : "start") + getRoundedLast(rounded, ctx.stacked ? "bottom" : "end")
       if(ctx?.outline && ctx?.variant != "flat"){
-        outlineBtnClass += ctx?.stacked ? " border-x border-t last:border-b " : " border-y border-l last:border-r "
+        outlineBtnClass += ctx?.stacked ? " border-x border-t last:border-b " : " border-y border-s last:border-e "
       }else{
-        if(ctx?.variant != "flat") defaultBtnClass += " border-r last:border-r-none border-black/30 "
+        if(ctx?.variant != "flat") defaultBtnClass += " border-e last:border-e-none border-black/30 "
       }
     }else{
       btnDefaultClass += getRounded(rounded) + getShadow(shadow)

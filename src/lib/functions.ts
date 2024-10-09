@@ -335,7 +335,7 @@ export let getRoundedFileBtn = (
 
 export let getRoundedFirst = (
   value: ROUNDED,
-  side: "top" | "right" | "bottom" | "left" | "all" = "all",
+  side: "top" | "end" | "bottom" | "start" | "all" = "all",
 ): string => {
   if (!value) return " !first:rounded-none";
   if (side == "top") {
@@ -351,17 +351,17 @@ export let getRoundedFirst = (
               ? " first:rounded-t-full"
               : " ";
   }
-  if (side == "right") {
+  if (side == "end") {
     return value == "sm"
-      ? " first:rounded-r"
+      ? " first:rounded-e"
       : value == "lg"
-        ? " first:rounded-r-lg"
+        ? " first:rounded-e-lg"
         : value == "md"
-          ? " first:rounded-r-md"
+          ? " first:rounded-e-md"
           : value == "xl"
-            ? " first:rounded-r-xl"
+            ? " first:rounded-e-xl"
             : value == "full"
-              ? " first:rounded-r-full"
+              ? " first:rounded-e-full"
               : " ";
   }
   if (side == "bottom") {
@@ -377,17 +377,17 @@ export let getRoundedFirst = (
               ? " first:rounded-b-full"
               : " ";
   }
-  if (side == "left") {
+  if (side == "start") {
     return value == "sm"
-      ? " first:rounded-l"
+      ? " first:rounded-s"
       : value == "lg"
-        ? " first:rounded-l-lg"
+        ? " first:rounded-s-lg"
         : value == "md"
-          ? " first:rounded-l-md"
+          ? " first:rounded-s-md"
           : value == "xl"
-            ? " first:rounded-l-xl"
+            ? " first:rounded-s-xl"
             : value == "full"
-              ? " first:rounded-l-full"
+              ? " first:rounded-s-full"
               : " ";
   }
   if (side == "all") {
@@ -408,7 +408,7 @@ export let getRoundedFirst = (
 
 export let getRoundedLast = (
   value: ROUNDED,
-  side: "top" | "right" | "bottom" | "left" | "all" = "all",
+  side: "top" | "end" | "bottom" | "start" | "all" = "all",
 ): string => {
   if (!value) return " !last:rounded-none";
   if (side == "top") {
@@ -424,17 +424,17 @@ export let getRoundedLast = (
               ? " last:rounded-t-full"
               : " ";
   }
-  if (side == "right") {
+  if (side == "end") {
     return value == "sm"
-      ? " last:rounded-r"
+      ? " last:rounded-e"
       : value == "lg"
-        ? " last:rounded-r-lg"
+        ? " last:rounded-e-lg"
         : value == "md"
-          ? " last:rounded-r-md"
+          ? " last:rounded-e-md"
           : value == "xl"
-            ? " last:rounded-r-xl"
+            ? " last:rounded-e-xl"
             : value == "full"
-              ? " last:rounded-r-full"
+              ? " last:rounded-e-full"
               : " ";
   }
   if (side == "bottom") {
@@ -450,17 +450,17 @@ export let getRoundedLast = (
               ? " last:rounded-b-full"
               : " ";
   }
-  if (side == "left") {
+  if (side == "start") {
     return value == "sm"
-      ? " last:rounded-l"
+      ? " last:rounded-s"
       : value == "lg"
-        ? " last:rounded-l-lg"
+        ? " last:rounded-s-lg"
         : value == "md"
-          ? " last:rounded-l-md"
+          ? " last:rounded-s-md"
           : value == "xl"
-            ? " last:rounded-l-xl"
+            ? " last:rounded-s-xl"
             : value == "full"
-              ? " last:rounded-l-full"
+              ? " last:rounded-s-full"
               : " ";
   }
   if (side == "all") {

@@ -4,21 +4,21 @@
 </script>
 
 <Container>
-  <p>Default</p>
   <Offcanvas>
     <Button slot="offcanvasButton" label="Click"/>
     <div slot="offcanvasContent" class="p-8">
       Offcanvas content
     </div>
   </Offcanvas>
-  <p class="pt-8">Position</p>
+  <br>
+  <br>
   <Offcanvas>
     <Button slot="offcanvasButton" label="Left (Default)"/>
     <div slot="offcanvasContent" class="p-8">
       Offcanvas content
     </div>
   </Offcanvas>
-  <Offcanvas position="right">
+  <Offcanvas position="end">
     <Button slot="offcanvasButton" label="Right"/>
     <div slot="offcanvasContent" class="p-8">
       Offcanvas content
@@ -36,18 +36,18 @@
       Offcanvas content
     </div>
   </Offcanvas>
-  <p class="pt-8">No backdrop</p>
   <Offcanvas backdrop={false}>
     <Button slot="offcanvasButton" label="No backdrop"/>
     <div slot="offcanvasContent" class="p-8">
       Offcanvas content
     </div>
   </Offcanvas>
-  <p class="pt-8">Static backdrop</p>
+  <br>
+  <br>
   <Offcanvas staticBackdrop={true}>
-    <Button slot="offcanvasButton" label="No backdrop"/>
+    <Button slot="offcanvasButton" label="Static backdrop"/>
     <div slot="offcanvasContent" class="p-8">
-      Offcanvas content
+      Static backdrop
     </div>
   </Offcanvas>
 </Container>

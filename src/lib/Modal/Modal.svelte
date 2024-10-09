@@ -124,28 +124,28 @@
   .theui-modal.modal-full .modal-content{
     @apply w-full min-h-screen;
   }
-  .theui-modal.tui-animate .backdrop{
+  .theui-modal.theui-animate .backdrop{
     @apply opacity-0;
   }
   .theui-modal.open .backdrop{
     @apply opacity-50 dark:opacity-75;
   }
-  .theui-modal.tui-animate .modal-content.slide-down{
+  .theui-modal.theui-animate .modal-content.slide-down{
     @apply transform -translate-y-8;
   }
-  .theui-modal.tui-animate .modal-content.slide-up{
+  .theui-modal.theui-animate .modal-content.slide-up{
     @apply transform translate-y-8;
   }
-  .theui-modal.open .modal-content.slide-down, .theui-modal.open .modal-content.slide-up{
-    @apply translate-y-0;
-  }
-  .theui-modal.tui-animate .modal-content.zoom-in{
+  .theui-modal.theui-animate .modal-content.zoom-in{
     @apply transform scale-90;
   }
-  .theui-modal.tui-animate .modal-content.zoom-out{
+  .theui-modal.theui-animate .modal-content.zoom-out{
     @apply transform scale-110;
   }
-  .theui-modal.open .modal-content.zoom-in, .theui-modal.open .modal-content.zoom-out{
+  .theui-modal.theui-animate.open .modal-content.slide-down, .theui-modal.theui-animate.open .modal-content.slide-up{
+    @apply translate-y-0;
+  }
+  .theui-modal.theui-animate.open .modal-content.zoom-in, .theui-modal.theui-animate.open .modal-content.zoom-out{
     @apply scale-100;
   }
 </style>

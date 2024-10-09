@@ -9,7 +9,7 @@
   export let animate        : ANIMATE_SPEED = "fast"
   export let backdrop       : boolean = true
   export let closeOnEsc     : boolean = true
-  export let position       : 'top' | 'right' | 'bottom' | 'left' = "left"
+  export let position       : 'top' | 'end' | 'bottom' | 'start' = "start"
   export let staticBackdrop : boolean = false
 
   let active: boolean = false
@@ -28,7 +28,7 @@
 		if (document.getElementById(id)?.classList.contains("open") && (closeOnEsc != false && e.keyCode == 27)) toggle(id)
 	}
 
-  let positionCls = () => position === "top" ? "offcanvas-top" : position === "right" ? "offcanvas-right" : position === "bottom" ? "offcanvas-bottom" : "offcanvas-left"
+  let positionCls = () => position === "top" ? "offcanvas-top" : position === "end" ? "offcanvas-end" : position === "bottom" ? "offcanvas-bottom" : "offcanvas-start"
   let getClass = () => "offcanvas-body fixed bg-white dark:bg-secondary" + getAnimate(animate)
 </script>
 
@@ -68,14 +68,14 @@
   .theui-offcanvas{
     @apply invisible opacity-0;
   }
-  .theui-offcanvas.offcanvas-right .offcanvas-body, .theui-offcanvas.offcanvas-left .offcanvas-body{
+  .theui-offcanvas.offcanvas-end .offcanvas-body, .theui-offcanvas.offcanvas-start .offcanvas-body{
     @apply top-0 bottom-0 w-full sm:w-96;
   }
   .theui-offcanvas.offcanvas-top .offcanvas-body, .theui-offcanvas.offcanvas-bottom .offcanvas-body{
-    @apply left-0 right-0 w-full min-h-[160px];
+    @apply start-0 end-0 w-full min-h-[160px];
   }
-  .theui-offcanvas.offcanvas-right .offcanvas-body{
-    @apply right-0;
+  .theui-offcanvas.offcanvas-end .offcanvas-body{
+    @apply end-0;
   }
   .theui-offcanvas.offcanvas-bottom .offcanvas-body{
     @apply bottom-0;
@@ -89,14 +89,14 @@
   .theui-offcanvas.animate .offcanvas-body{
     @apply transform;
   }
-  .theui-offcanvas.animate.offcanvas-left .offcanvas-body{
-    @apply -translate-x-full;
+  .theui-offcanvas.animate.offcanvas-start .offcanvas-body{
+    @apply -translate-x-full rtl:translate-x-full;
   }
-  .theui-offcanvas.animate.offcanvas-right .offcanvas-body{
-    @apply translate-x-full;
+  .theui-offcanvas.animate.offcanvas-end .offcanvas-body{
+    @apply translate-x-full rtl:-translate-x-full;
   }
-  .theui-offcanvas.animate.offcanvas-left.open .offcanvas-body, .theui-offcanvas.animate.offcanvas-right.open .offcanvas-body{
-    @apply translate-x-0
+  .theui-offcanvas.animate.offcanvas-start.open .offcanvas-body, .theui-offcanvas.animate.offcanvas-end.open .offcanvas-body{
+    @apply translate-x-0;
   }
   .theui-offcanvas.animate.offcanvas-top .offcanvas-body{
     @apply -translate-y-full;
