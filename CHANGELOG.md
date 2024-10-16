@@ -4,6 +4,10 @@
 
 <br>
 
+## v1.0.0-beta.59
+- RTL support included!
+- All components refreshed!
+
 ## v1.0.0-beta.58
 
 - Minor bug fixed in Dropdown, Input and Editor component

@@ -25,10 +25,13 @@
     </AccordionItem>
     <div class="my-8"></div>
     Open by default
-    <AccordionItem isOpen={true}>
-        <span slot="title">This is a accordion title test</span>
-        <p>Kickstart your development with the Sveltekit Components library, a tool of the Sveltekit ecosystem by TheUI. It includes the power of Sveltekit and TailwindCSS to speed up your development. So, build fast, deliver faster.</p>
-    </AccordionItem>
+    <div dir="rtl">
+        <AccordionItem isOpen={true}>
+            <span slot="title">This is a accordion title test</span>
+            <p>Kickstart your development with the Sveltekit Components library, a tool of the Sveltekit ecosystem by TheUI. It includes the power of Sveltekit and TailwindCSS to speed up your development. So, build fast, deliver faster.</p>
+        </AccordionItem>
+
+    </div>
     <div class="my-8"></div>
 
     Accordion by DATA loop

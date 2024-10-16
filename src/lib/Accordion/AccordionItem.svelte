@@ -66,9 +66,9 @@
   $: getTitleClasses = () => {
     let cls = "accordion-title flex items-center w-full "
     if(isFlush){
-      cls += isOpened ? "border-b border-brand/50 bg-brand/10 text-brand dark:text-on-brand " : "border-b border-gray-300 dark:border-gray-700 "
+      cls += isOpened ? "border-b border-brand-200 bg-brand-100 text-brand-500 dark:text-on-brand-500 " : "border-b border-gray-300 dark:border-gray-700 "
     }else{
-      cls += isOpened ? "bg-brand text-on-brand " : " "
+      cls += isOpened ? "bg-brand-500 text-on-brand-500 " : " "
     }
     return isOpened ? twMerge(cls, titleActiveClass) : twMerge(cls, titleClass)
   }

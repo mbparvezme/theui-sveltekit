@@ -1,6 +1,7 @@
 /** @type {import("tailwindcss").Config} */
 const defaultTheme = require("tailwindcss/defaultTheme");
 const plugin = require("tailwindcss/plugin");
+const twShades = require('tw-color-shades');
 
 const config = {
   mode: "jit",
@@ -13,23 +14,21 @@ const config = {
     },
     extend: {
       colors: {
-        brand: "rgb(var(--ui-brand) / <alpha-value>)",
+        brand: twShades('#5046E6'),
         "brand-active": "rgb(var(--ui-brand-active) / <alpha-value>)",
-        "brand-secondary": "rgb(var(--ui-brand-secondary) / <alpha-value>)",
-        "brand-secondary-active":
-          "rgb(var(--ui-brand-secondary-active) / <alpha-value>)",
-        "on-brand": "rgb(var(--ui-text-on-brand) / <alpha-value>)",
+        "brand-secondary": twShades('#FDE68A'), //"rgb(var(--ui-brand-secondary) / <alpha-value>)",
+        "brand-secondary-active": "rgb(var(--ui-brand-secondary-active) / <alpha-value>)",
+        "on-brand": twShades('#FFFFFF'),
         primary: "rgb(var(--ui-bg-primary) / <alpha-value>)",
         secondary: "rgb(var(--ui-bg-secondary) / <alpha-value>)",
         tertiary: "rgb(var(--ui-bg-tertiary) / <alpha-value>)",
       },
       textColor: {
-        brand: "rgb(var(--ui-brand) / <alpha-value>)",
-        "on-brand": "rgb(var(--ui-text-on-brand) / <alpha-value>)",
-        "brand-secondary": "rgb(var(--ui-brand-secondary) / <alpha-value>)",
-        "on-brand-secondary":
-          "rgb(var(--ui-text-on-brand-secondary) / <alpha-value>)",
-        default: "rgb(var(--ui-text-default) / <alpha-value>)",
+        brand: twShades('#5046E6'),
+        "on-brand": twShades('#FFFFFF'),
+        "brand-secondary": twShades('#FDE68A'),
+        "on-brand-secondary": twShades('#080818'),
+        default: twShades('#080818'),
       },
       backgroundColor: {
         brand: "rgb(var(--ui-brand) / <alpha-value>)",
@@ -48,7 +47,6 @@ const config = {
   plugins: [
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
-    require('tailwindcss-rtl'),
     plugin(({ addVariant }) => {
       addVariant("not-first-child", "&:not(:first-child)");
       addVariant("not-last-child", "&:not(:last-child)");
