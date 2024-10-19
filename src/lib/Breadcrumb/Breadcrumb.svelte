@@ -5,7 +5,7 @@
 
   export let data : BREADCRUMB_DATA = []
   export let activeLinkClass : string = "text-gray-400"
-  export let linkClass : string = "text-brand"
+  export let linkClass : string = "text-brand-primary-500"
   export let round : ROUNDED = "md"
   export let separator : string = "/"
 
@@ -27,14 +27,3 @@
     content: var(--breadcrumb-separator);
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let data : BREADCRUMB_DATA = []
-  export let activeLinkClass : string = "text-gray-400"
-  export let linkClass : string = "text-brand"
-  export let round : ROUNDED = "md"
-  export let separator : string = "/"
--->

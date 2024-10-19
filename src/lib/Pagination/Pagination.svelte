@@ -20,8 +20,8 @@
     const next      = () => dispatch("next")
 
     let getNumLinkClass = (active: boolean|undefined = undefined) => active ?
-                          twMerge("bg-brand text-on-brand", activeButtonStyle) :
-                          twMerge("bg-transparent text-default hover:bg-brand", buttonStyle)
+                          twMerge("bg-brand-primary-500 text-on-brand-primary-500", activeButtonStyle) :
+                          twMerge("bg-transparent text-default hover:bg-brand-primary-500", buttonStyle)
 </script>
 
 <!-- {#if data.length > 0 || ((!data || data?.length < 1) && minimalMode)} -->
@@ -38,11 +38,3 @@
         </ButtonGroup>
     </div>
 {/if}
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let prevBtn: string = "&larr;
-@prop export let nextBtn: string = "Next &rarr;
--->

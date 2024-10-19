@@ -106,8 +106,8 @@ let getInputSize = (
 
 let getDefaultInputTheme = (config : INPUT_CONFIG, type: INPUT_TYPES) => {
   let theme: { [variant in INPUT_CONFIG['variant']]: string } = {
-    bordered: "border border-gray-100 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand focus:border-brand",
-    filled: "bg-gray-50 dark:bg-gray-800 focus:ring-1 focus:ring-brand focus:border-brand",
+    bordered: "border border-gray-100 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
+    filled: "bg-gray-50 dark:bg-gray-800 focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
     flat: (type !== "file" ? "border-0 border-b-2 border-gray-100 dark:border-gray-700 bg-transparent focus:ring-0" : "border-0 focus:ring-0")
   }
   return `${theme[config.variant]}${(type == "radio" ? getRounded("full") : (config.variant == "flat" ? getRounded("none") : getRounded(config.rounded)))}`;
@@ -115,9 +115,9 @@ let getDefaultInputTheme = (config : INPUT_CONFIG, type: INPUT_TYPES) => {
 
 let defaultInputClasses = (config: INPUT_CONFIG) => ` outline-transparent ring-transparent block w-full${getAnimate(config?.animate)}`
 
-let fileInputClasses = (config: INPUT_CONFIG) => ` file:mr-4 file:bg-brand/10 file:text-brand file:cursor-pointer cursor-pointer file:border-0${getRoundedFileBtn(config?.rounded)}${getRounded(config?.rounded)}`;
+let fileInputClasses = (config: INPUT_CONFIG) => ` file:mr-4 file:bg-brand-primary-100 file:text-brand-primary-500 file:cursor-pointer cursor-pointer file:border-0${getRoundedFileBtn(config?.rounded)}${getRounded(config?.rounded)}`;
 
-let radioAndCheckboxClasses = (config: INPUT_CONFIG) => " bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-200/20 text-brand focus-within:ring-brand dark:checked:bg-brand !ring-offset-primary peer";
+let radioAndCheckboxClasses = (config: INPUT_CONFIG) => " bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-200/20 text-brand-primary-500 focus-within:ring-brand-primary-500 dark:checked:bg-brand-primary-500 !ring-offset-primary peer";
 
 export let getAttributesClasses = (attributes: any) => {
   if (attributes?.disabled) {

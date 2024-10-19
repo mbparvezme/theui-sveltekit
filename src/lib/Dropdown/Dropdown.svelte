@@ -166,23 +166,3 @@
 		@apply scale-100;
 	}
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let animate : ANIMATE_SPEED = "fast"
-	export let id: string = generateToken()
-	export let label: string = ""
-	export let animation : 'slide-left' | 'slide-up' | 'slide-right' | 'slide-down' | 'fade' | 'zoom-in' | 'zoom-out' = "slide-up"
-	export let align : 'left' | 'right' = "right"
-	export let backdrop : string|boolean = false
-	export let containerClass : string|undefined = undefined
-	export let closeOnOutsideClick : boolean = true
-	export let rounded : ROUNDED = "md"
-	export let size : 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom' = "auto"
-	export let linkClass: string | undefined = "flex w-full items-center gap-4 py-3 px-4 bg-transparent hover:bg-gray-500/10 text-default"
-	export let activeClass: string | undefined = "flex items-center gap-4 py-3 px-4 bg-gray-500/10"
-	export let dividerClass: string | undefined = "border-b pb-2 mb-2 border-tertiary"
-	export let headerClass: string | undefined = "flex items-center gap-4 p-4 font-semibold text-xs opacity-75 uppercase"
--->

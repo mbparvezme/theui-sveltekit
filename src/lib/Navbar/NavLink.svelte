@@ -40,12 +40,3 @@
     @apply md:hover:bg-transparent;
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let href     : string|null = null
-  export let preload  : PRELOAD = "hover"
-  export let active   : string|boolean = false
--->

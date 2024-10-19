@@ -121,15 +121,3 @@
     @apply translate-y-2 opacity-100 scale-100 transition-all duration-150;
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let label: string = ""
-  export let icon: boolean = true
-  export let megaMenu: boolean = false
-  export let align: 'left'|'right' = "left"
-  export let size: 'sm'|'md'|'lg' = "md"
-  export let animation: 'fade'|'slide-up'|'zoom-in' = "zoom-in"
--->

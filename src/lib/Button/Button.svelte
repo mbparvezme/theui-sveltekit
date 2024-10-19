@@ -27,12 +27,12 @@
     ["lg",  "btn-lg px-6 py-3 text-lg "],
     ["xl",  "btn-xl px-8 py-4 text-xl "],
     ["0",   "btn-0 p-0 "],
-  ])
+  ]);
 
-  let btnDefaultClass = (href ? "theui-link inline-block" : "theui-button") + " focus-visible:ring-brand-200 dark:focus-visible:ring-brand-700 " + sizeClasses.get(size) + getAnimate(animate)
-  let defaultBtnClass = " bg-brand text-on-brand hover:bg-brand-active "
-  let outlineBtnClass = " btn-outline border-brand text-brand hover:bg-brand-active hover:text-on-brand "
-  let btnActiveClass  = " bg-brand-active text-on-brand "
+  let btnDefaultClass = (href ? "theui-link inline-block" : "theui-button") + " focus-visible:ring-brand-primary-200 dark:focus-visible:ring-brand-primary-700 " + sizeClasses.get(size) + getAnimate(animate)
+  let defaultBtnClass = " bg-brand-primary-500 text-on-brand-primary-500 hover:bg-brand-primary-600 "
+  let outlineBtnClass = " btn-outline border-brand-primary-500 text-brand-primary-500 hover:bg-brand-primary-500 hover:text-on-brand-primary-500 "
+  let btnActiveClass  = " bg-brand-primary-700 text-on-brand-primary-500 "
 
   let getButtonClass = () => {
     if(ctx?.group){
@@ -82,21 +82,3 @@
     @apply !rounded-none;
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let label            : string
-  export let animate          : ANIMATE_SPEED = "normal"
-  export let ariaLabel        : string = label
-  export let externalLinkIcon : boolean = true
-  export let href             : string|undefined = undefined
-  export let isActive         : boolean = false
-  export let outline          : boolean = ctx?.outline ?? false
-  export let preload          : 'hover' | 'tap' | undefined = href ? "hover" : undefined
-  export let rounded          : ROUNDED = "md"
-  export let shadow           : SHADOW = "md"
-  export let size             : BUTTON_SIZE = ctx?.size ?? "md"
-  export let type             : 'button' | 'submit' | 'reset' = "button"
--->

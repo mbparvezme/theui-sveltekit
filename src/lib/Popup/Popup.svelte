@@ -82,15 +82,3 @@
   </div>
 </div>
 {/if}
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let trigger        : 'onEntry' | 'onExit' = "onEntry"
-  export let repeat         : boolean | 'page' = true
-  export let backdrop       : boolean|string = true
-  export let containerClass : string = ""
-  export let rounded        : ROUNDED = "xl"
-  export let staticBackdrop : boolean = false
--->

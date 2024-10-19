@@ -1,81 +1,76 @@
 <script lang="ts">
-  import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
-  import { getAnimate, getRounded, getRoundedFirst, getRoundedLast, generateToken } from "$lib/functions"
-  import { getContext, onMount } from "svelte"
-  import { twMerge } from "tailwind-merge"
-  import { ACCORDION_GROUP } from "$lib"
+  import type { ANIMATE_SPEED, ROUNDED } from "$lib/types";
+  import { getAnimate, getRounded, getRoundedFirst, getRoundedLast, generateToken } from "$lib/functions";
+  import { getContext, onMount } from "svelte";
+  import { twMerge } from "tailwind-merge";
+  import { ACCORDION_GROUP } from "$lib";
 
-  const ctx: any = getContext( ACCORDION_GROUP || {} )
+  const ctx: any = getContext(ACCORDION_GROUP) ?? {}
 
-  export let title: string|undefined = undefined
-  export let content: string|undefined = undefined
-  export let ariaLabel: string = (title||"") +" Accordion"
-  export let isOpen: boolean = false
-  export let id: string = generateToken()
+  export let title: string|undefined = undefined;
+  export let content: string|undefined = undefined;
+  export let ariaLabel: string = (title??"") +" Accordion";
+  export let isOpen: boolean = false;
+  export let id: string = generateToken();
 
-  export let isFlush: boolean = false
-  export let animationSpeed : ANIMATE_SPEED = "fast"
-  export let containerClass : string  =  ""
-  export let containerActiveClass : string = ""
-  export let contentClass : string = ""
-  export let contentActiveClass : string = ""
-  export let rounded : ROUNDED = "md"
-  export let size : "compact" | "default" | "large" = ctx?.size || "default"
-  export let titleClass : string = ""
-  export let titleActiveClass : string = ""
+  export let isFlush: boolean = false;
+  export let animationSpeed : ANIMATE_SPEED = "fast";
+  export let containerClass : string  =  "";
+  export let containerActiveClass : string = "";
+  export let contentClass : string = "";
+  export let contentActiveClass : string = "";
+  export let rounded : ROUNDED = "md";
+  export let size : "compact" | "default" | "large" = ctx?.size ?? "default";
+  export let titleClass : string = "";
+  export let titleActiveClass : string = "";
 
   let isOpened: boolean
   
   let makeAccordionOpen = (accordion: HTMLElement | null) => {
-    isOpened = true
-    accordion?.classList.add('open')
-    if(animationSpeed) (accordion as HTMLElement).style.height = ((accordion as HTMLElement).scrollHeight + 20) + "px"
+    isOpened = true;
+    accordion?.classList.add('open');
+    if(animationSpeed) (accordion as HTMLElement).style.height = ((accordion as HTMLElement).scrollHeight + 20) + "px";
   }
 
   let toggle = (id: string) => {
-    let currentAccordion = document.getElementById(id)
-    if(currentAccordion?.classList.contains('open')){
-      isOpened = false
-      currentAccordion?.classList.remove('open')
-      if(animationSpeed){
-        (currentAccordion as HTMLElement).style.height = "0px";
-        (currentAccordion as HTMLElement).classList.add("overflow-hidden");
-      }
-    }else{
-      makeAccordionOpen(currentAccordion as HTMLElement)
-    }
+    const accordion = document.getElementById(id);
+    if (!accordion) return;
+    isOpened = !accordion.classList.contains('open');
+    accordion.style.height = isOpened ? `${accordion.scrollHeight + 20}px` : '0px';
+    accordion.classList.toggle('open', isOpened);
+    accordion.classList.toggle('overflow-hidden', !isOpened);
   }
 
   onMount(() => {
     if (isOpen){
-      makeAccordionOpen(document.getElementById(id) as HTMLElement)
+      makeAccordionOpen(document.getElementById(id) as HTMLElement);
     }
   })
 
   $: getContainerClasses = () => {
-    let cls = "theui-accordion " + (isFlush ? "accordion-flush " : "accordion-default ") + `space-${size}` + (isOpened ? " accordion-active " : " ")
+    let cls = "theui-accordion " + (isFlush ? "accordion-flush " : "accordion-default ") + `space-${size}` + (isOpened ? " accordion-active " : " ");
     if(isFlush){
-      cls += (isOpened ? "accordion-active " : "") + "border-b "
+      cls += (isOpened ? "accordion-active " : "") + "border-b ";
     }else{
-      cls += ctx?.group ? ("border-x border-t last:border-b" + getRoundedFirst(rounded, "top") + getRoundedLast(rounded, "bottom")) : ("border" + getRounded(rounded))
+      cls += ctx?.group ? ("border-x border-t last:border-b" + getRoundedFirst(rounded, "top") + getRoundedLast(rounded, "bottom")) : ("border" + getRounded(rounded));
     }
-    cls += " border-gray-300 dark:border-gray-700 overflow-hidden "
-    return isOpened ? twMerge(cls, containerActiveClass) : twMerge(cls, containerClass)
+    cls += " border-gray-300 dark:border-gray-700 overflow-hidden ";
+    return isOpened ? twMerge(cls, containerActiveClass) : twMerge(cls, containerClass);
   }
 
   $: getTitleClasses = () => {
-    let cls = "accordion-title flex items-center w-full "
+    let cls = "accordion-title flex items-center w-full ";
     if(isFlush){
-      cls += isOpened ? "border-b border-brand-200 bg-brand-100 text-brand-500 dark:text-on-brand-500 " : "border-b border-gray-300 dark:border-gray-700 "
+      cls += isOpened ? "border-b border-brand-primary-200 bg-brand-primary-50 text-brand-primary-500 dark:text-on-brand-primary-500 " : "border-b border-gray-300 dark:border-gray-700 ";
     }else{
-      cls += isOpened ? "bg-brand-500 text-on-brand-500 " : " "
+      cls += isOpened ? "bg-brand-primary-500 text-on-brand-primary-500 " : " ";
     }
-    return isOpened ? twMerge(cls, titleActiveClass) : twMerge(cls, titleClass)
+    return isOpened ? twMerge(cls, titleActiveClass) : twMerge(cls, titleClass);
   }
 
   $: getContentClasses = () => {
-    let cls = "accordion-content " + (!isFlush ? getRounded(rounded, "bottom") : "") + " h-full "
-    return isOpened ? twMerge(cls, contentActiveClass) : twMerge(cls, contentClass)
+    let cls = "accordion-content " + (!isFlush ? getRounded(rounded, "bottom") : "") + " h-full ";
+    return isOpened ? twMerge(cls, contentActiveClass) : twMerge(cls, contentClass);
   }
 </script>
 
@@ -87,11 +82,12 @@
     aria-label={ariaLabel}
     aria-expanded={isOpened}
   >
+  <!-- class={getTitleClasses()}
+  class:accordion-active={isOpened} -->
     <button
-      class={getTitleClasses()}
-      class:accordion-active={isOpened}
+      class={twMerge(getTitleClasses(), isOpened && 'accordion-active')}
       on:click={()=>toggle(id)}>
-      <slot name="title">{@html title || ""}</slot>
+      <slot name="title">{title}</slot>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ms-auto" class:transition-transform={animationSpeed} class:transform={!animationSpeed} class:-rotate-180={isOpened} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
       </svg>
@@ -106,7 +102,7 @@
     class:accordion-close={!isOpened}
   >
     <div class={getContentClasses()}>
-      <slot>{@html content || ""}</slot>
+      <slot>{content}</slot>
     </div>
   </div>
 </div>
@@ -131,9 +127,6 @@
     @apply py-5 px-3;
   }
   .theui-accordion.space-default.accordion-flush .accordion-content{
-    @apply py-3;
-  }
-  .theui-accordion.space-default.accordion-flush .accordion-content{
     @apply py-4;
   }
   .theui-accordion.space-large.accordion-flush .accordion-content{
@@ -146,24 +139,3 @@
     @apply h-0;
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let title: string|undefined = undefined
-  export let content: string|undefined = undefined
-  export let ariaLabel: string = (title||"") +" Accordion"
-  export let isOpen: boolean = false
-  export let id: string = generateToken()
-  export let isFlush: boolean = false
-  export let animationSpeed : ANIMATE_SPEED = "fast"
-  export let containerClass : string  =  ""
-  export let containerActiveClass : string = ""
-  export let contentClass : string = ""
-  export let contentActiveClass : string = ""
-  export let rounded : ROUNDED = "md"
-  export let size : "compact" | "default" | "large" = ctx?.size || "default"
-  export let titleClass : string = ""
-  export let titleActiveClass : string = ""
--->

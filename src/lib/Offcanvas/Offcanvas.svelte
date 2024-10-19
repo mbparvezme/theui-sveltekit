@@ -108,16 +108,3 @@
     @apply translate-y-0
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let id             : string = generateToken()
-  export let label          : string = ""
-  export let animate        : ANIMATE_SPEED = "fast"
-  export let backdrop       : boolean = true
-  export let closeOnEsc     : boolean = true
-  export let position       : 'top' | 'right' | 'bottom' | 'left' = "left"
-  export let staticBackdrop : boolean = false
--->
