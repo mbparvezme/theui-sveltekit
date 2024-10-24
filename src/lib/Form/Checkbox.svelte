@@ -19,17 +19,17 @@
   export let size: INPUT_CONFIG["size"] = "md";
 
   const ctx: any = getContext(FORM_CTX || {});
-  let C: any = {animate, labelClasses, rounded, size, reset: !!$$restProps?.reset};
+  let C: any = {animate, labelClasses, rounded, size, reset: !!$$restProps?.reset, variant: "bordered"};
   if(!$$restProps?.override) Object.assign(C, ctx?.formConfig );
   let helperSizeFix: string = C.size=="sm" ? "pl-7" : C.size=="md" ? "pl-8" : C.size=="lg" ? "pl-10" : C.size=="xl" ? "pl-12" : "";
 </script>
 
-<label  for={id}
-        class="flex gap-x-4 {getInputBoxClasses(C, $$restProps, "group")}"
-        class:flex-row-reverse={$$restProps?.reverse}
-        class:justify-end={$$restProps?.reverse}
-        class:items-center={C?.size!="lg"}
-        class:items-start={C?.size=="lg"}>
+<label for={id}
+  class=" inline-flex gap-x-4 {getInputBoxClasses(C, $$restProps, "group")}"
+  class:flex-row-reverse={$$restProps?.reverse}
+  class:justify-end={$$restProps?.reverse}
+  class:items-center={C?.size!="lg"}
+  class:items-start={C?.size=="lg"}>
   <input class={getInputClasses(C, $$restProps, "checkbox", $$props?.class)} {...$$restProps} class:sr-only={$$restProps?.custom} {id} {name} type="checkbox" bind:value>
   {#if $$restProps?.custom}
     <slot />

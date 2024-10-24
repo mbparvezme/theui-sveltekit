@@ -19,7 +19,7 @@ let textSelectInputContainerClasses = (config: INPUT_CONFIG): string => `flex fl
 
 // Get container classes for checkbox and radio
 let radioCheckboxContainerClasses = (config: INPUT_CONFIG, attributes: any): string => {
-  let cls = `theui-input-box theui-input-${config.variant} ${(config?.reset ? "theui-reset" : "")}`;
+  let cls = `theui-input-box theui-input-${config.variant} ${(config?.reset ? "theui-reset" : "cursor-pointer")}`;
   if (attributes?.disabled) {
     return `${cls} cursor-not-allowed opacity-50 select-none`;
   }
@@ -50,18 +50,15 @@ export let getInputClasses = (
     cls += `${fileInputClasses(config)} ${getAttributesClasses(attr)}`;
   }
   if (type == "checkbox" || type == "radio") {
-    cls += radioAndCheckboxClasses(config);
+    cls += radioAndCheckboxClasses();
   }
 
   return defaultClasses + twMerge(cls, propsClass);
 };
 
-let getInputSize = (
-    config: INPUT_CONFIG,
-    type: string = "input",
-  ): string => {
+let getInputSize = ( config: INPUT_CONFIG, type: string = "input"): string => {
 
-  let defaultInputSizes: {[type in 'flat' | 'nonFlat']: {[size in INPUT_CONFIG['size']] : string}} = {
+  let defaultInputSizes: { [type in 'flat' | 'nonFlat']: { [size in Exclude<INPUT_CONFIG['size'], undefined> | 'none']: string }} = {
     flat : {
       none: "",
       sm: "px-0 py-2 text-sm",
@@ -78,7 +75,7 @@ let getInputSize = (
     }
   };
 
-  let fileInputSizes: { [size in INPUT_CONFIG['size']]: string } = {
+  let fileInputSizes: { [size in Exclude<INPUT_CONFIG['size'], undefined> | 'none']: string } = {
     none: "",
     sm: "file:px-4 file:py-2 file:text-sm",
     md: "file:px-6 file:py-3",
@@ -86,7 +83,7 @@ let getInputSize = (
     xl: "file:px-8 file:py-5 file:text-2xl",
   };
 
-  let binaryInputSizes: { [size in INPUT_CONFIG['size']]: string } = {
+  let binaryInputSizes: { [size in Exclude<INPUT_CONFIG['size'], undefined> | 'none']: string } = {
     none: "",
     sm: "h-3 w-3",
     md: "h-4 w-4",
@@ -95,29 +92,28 @@ let getInputSize = (
   };
 
   if (type == "file") {
-    return fileInputSizes[config.size];
+    return fileInputSizes[config.size??"none"];
   }
   if (type == "checkbox" || type == "radio") {
-    // console.log(config.size, binaryInputSizes[config.size])
-    return binaryInputSizes[config.size];
+    return binaryInputSizes[config.size ?? "none"];
   }
-  return defaultInputSizes[config.variant == "flat" ? "flat" : "nonFlat"][config.size];
+  return defaultInputSizes[config.variant == "flat" ? "flat" : "nonFlat"][config.size ?? "none"];
 };
 
 let getDefaultInputTheme = (config : INPUT_CONFIG, type: INPUT_TYPES) => {
-  let theme: { [variant in INPUT_CONFIG['variant']]: string } = {
+  let theme: { [variant in Exclude<INPUT_CONFIG['variant'], undefined>]: string } = {
     bordered: "border border-gray-100 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
     filled: "bg-gray-50 dark:bg-gray-800 focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
     flat: (type !== "file" ? "border-0 border-b-2 border-gray-100 dark:border-gray-700 bg-transparent focus:ring-0" : "border-0 focus:ring-0")
   }
-  return `${theme[config.variant]}${(type == "radio" ? getRounded("full") : (config.variant == "flat" ? getRounded("none") : getRounded(config.rounded)))}`;
+  return `${theme[config.variant ?? "bordered"]}${(type == "radio" ? getRounded("full") : (config.variant == "flat" ? getRounded("none") : getRounded(config.rounded)))}`;
 }
 
 let defaultInputClasses = (config: INPUT_CONFIG) => ` outline-transparent ring-transparent block w-full${getAnimate(config?.animate)}`
 
-let fileInputClasses = (config: INPUT_CONFIG) => ` file:mr-4 file:bg-brand-primary-100 file:text-brand-primary-500 file:cursor-pointer cursor-pointer file:border-0${getRoundedFileBtn(config?.rounded)}${getRounded(config?.rounded)}`;
+let fileInputClasses = (config: INPUT_CONFIG) => ` file:mr-4 file:bg-brand-primary-50 file:text-brand-primary-600 dark:file:bg-brand-primary-700 dark:file:text-brand-primary-100 file:cursor-pointer cursor-pointer file:border-0${getRoundedFileBtn(config?.rounded)}${getRounded(config?.rounded)}`;
 
-let radioAndCheckboxClasses = (config: INPUT_CONFIG) => " bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-200/20 text-brand-primary-500 focus-within:ring-brand-primary-500 dark:checked:bg-brand-primary-500 !ring-offset-primary peer";
+let radioAndCheckboxClasses = () => " bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-200/20 text-brand-primary-500 focus-within:ring-brand-primary-500 !ring-offset-primary";
 
 export let getAttributesClasses = (attributes: any) => {
   if (attributes?.disabled) {
@@ -130,11 +126,9 @@ export let getAttributesClasses = (attributes: any) => {
 }
 
 // Generale Functions
-export let getKey = (obj: Record<string, any>, key: string): any =>
-  obj[key] || "_NULL_";
+export let getKey = (obj: Record<string, any>, key: string): any => obj[key] || "_NULL_";
 
-export let getRandomNum = (min: number = 10, max: number = 99): number =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
+export let getRandomNum = (min: number = 10, max: number = 99): number => Math.floor(Math.random() * (max - min + 1)) + min;
 
 export let generateToken = (prefix: string = "_id"): string => {
   let n = Date.now();

@@ -1,10 +1,10 @@
 <script lang="ts">
-  import {Offcanvas} from "$lib"
+  import {Drawer} from "$lib"
   import {Container, Button} from "$lib"
 </script>
 
 <Container>
-  <Offcanvas>
+  <Drawer>
     <Button slot="offcanvasButton" label="Click"/>
     <div slot="offcanvasContent" class="p-8">
       Offcanvas content
@@ -49,5 +49,5 @@
     <div slot="offcanvasContent" class="p-8">
       Static backdrop
     </div>
-  </Offcanvas>
+  </Drawer>
 </Container>

@@ -21,12 +21,12 @@
             <NavLink href="/button">Button</NavLink>
             <NavLink href="/chips">Chips</NavLink>
             <NavLink href="/collapse">Collapse</NavLink>
+            <NavLink href="/drawer">Drawer</NavLink>
             <NavLink href="/dropdown">Dropdown</NavLink>
             <NavLink href="/modal">Modal</NavLink>
-            <NavLink href="/notification">Notification</NavLink>
           </div>
           <div>
-            <NavLink href="/offcanvas">Offcanvas</NavLink>
+            <NavLink href="/notification">Notification</NavLink>
             <NavLink href="/pagination">Pagination</NavLink>
             <NavLink href="/popup">Popup</NavLink>
             <NavLink href="/progress-bar">Progress bar</NavLink>
@@ -36,11 +36,23 @@
           </div>
         </div>
       </NavDropdown>
-      <NavLink href="/form">Form</NavLink>
-      <NavDropdown label="Form" megaMenu={true}>
-        <NavLink href="/form/file">File</NavLink>
-        <NavLink href="/form/editor">Editor</NavLink>
+      <NavDropdown label="Form & Inputs" animation='fade'>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <NavLink href="/form/checkbox">Checkbox</NavLink>
+            <NavLink href="/form/editor">Editor</NavLink>
+            <NavLink href="/form/file-input">File input</NavLink>
+            <NavLink href="/form/input">Text input</NavLink>
+          </div>
+          <div>
+            <NavLink href="/form/label">Label</NavLink>
+            <NavLink href="/form/radio-button">Radio button</NavLink>
+            <NavLink href="/form/select">Select</NavLink>
+            <NavLink href="/form/toggle">Toggle</NavLink>
+          </div>
+        </div>
       </NavDropdown>
+      <NavLink href="/form">Form</NavLink>
     </NavContainer>
     <NavContainer align="right">
       <NavLink href="/">About</NavLink>

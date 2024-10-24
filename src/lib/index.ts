@@ -19,7 +19,7 @@ export { default as DropdownItem } from "./Dropdown/DropdownItem.svelte";
 export { default as Modal } from "./Modal/Modal.svelte";
 export { default as Notification } from "./Notification/Notification.svelte";
 export { notify } from "./Notification/Store.js";
-export { default as Offcanvas } from "./Offcanvas/Offcanvas.svelte";
+export { default as Drawer } from "./Drawer/Drawer.svelte";
 export { default as Pagination } from "./Pagination/Pagination.svelte";
 export { default as Popup } from "./Popup/Popup.svelte";
 export { default as Progress } from "./Progress/Progress.svelte";

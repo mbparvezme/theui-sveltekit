@@ -4,6 +4,10 @@
 
 <br>
 
+## v1.0.0-beta.60
+- RTL support included!
+- All components refreshed!
+
 ## v1.0.0-beta.59
 - RTL support included!
 - All components refreshed!

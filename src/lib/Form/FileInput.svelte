@@ -53,16 +53,3 @@
 {#if helperText}
   <HelperText>{@html helperText}</HelperText>
 {/if}
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let id : string = generateToken()
-  export let name : string
-  export let value : string = ""
-  export let files : FileList | undefined = undefined
-  export let helperText : string | undefined = undefined
-  export let label : string | null = null
-  export let config : INPUT_CONFIG = {}
--->

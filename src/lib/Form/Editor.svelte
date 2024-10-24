@@ -47,7 +47,7 @@
 
   // Component vars
   const tools: Array<Tools> = ["blockquote", "code", "codeblock", "link", "horizontalLine", "youtube", "highlighter", "color", "redoUndo"];
-  let btnClass = () => twMerge(`bg-slate-300 dark:bg-slate-700 py-2 px-2.5 not-last-child:border-r border-black/10 ${getRounded(C.rounded)}`, editorBtnClass);
+  let btnClass = () => twMerge(`bg-slate-100 dark:bg-slate-900 py-2 px-2.5 not-last-child:border-r border-black/10 ${getRounded(C.rounded)}`, editorBtnClass);
   let containerClass = `overflow-hidden ${getRounded(C.rounded)}`;
   let dropdownCls = "bg-transparent text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800";
 
@@ -101,6 +101,7 @@
       }
     })
   });
+
   onDestroy(() => {if (editor) editor.destroy()});
 
   // Check editors tools
@@ -171,7 +172,7 @@
   {#if editor}
     {#if label}<Label {id} {label}/>{/if}
     <div class="flex flex-wrap editor-toolbar gap-1">
-      <Dropdown animation="fade" align="left" >
+      <Dropdown animation="fade" align="start" >
         <button type="button" slot="label" class={twMerge(btnClass(), "w-10 h-10 rounded-md p-1 flex justify-center items-center")} aria-label="Select text headings"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M11 4.002V12H9.67V8.455H6.33V12H5V4.002h1.33v3.322h3.34V4.002H11Z"/><path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2Zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2Z"/></svg></button>
         <div class="flex flex-col">
           <button type="button" class={dropdownCls} on:click={() => editor.chain().focus().toggleHeading({ level: 1}).run()} class:active={editor.isActive("heading",{level:1})}>Heading 1</button>
@@ -310,7 +311,7 @@
     @apply h-auto min-h-[8rem];
   }
   button.active{
-    @apply bg-slate-500 text-white;
+    @apply bg-slate-400 dark:bg-slate-600 text-white;
   }
   :global(.ProseMirror){
     @apply min-h-[7rem];
