@@ -17,21 +17,31 @@
 
 @layer base {
   :root {
-    --ui-bg-primary: 255 255 255; /* #FFFFFF */
-    --ui-bg-secondary: 243 244 246; /* #F3F4F6 */
-    --ui-bg-tertiary: 229 231 235; /* #E5E7EB */
+    --ui-bg-primary: 250 250 250; /* #FAFAFA */
+    --ui-bg-secondary: 238 238 238; /* #EEEEEE */
+    --ui-bg-tertiary: 224 224 224; /* #E0E0E0 */
+    --ui-bg-primary-alt: 10 10 20; /* #0A0A14 */
+    --ui-bg-secondary-alt: 30 30 40; /* #1E1E28 */
+    --ui-bg-tertiary-alt: 55 55 65; /* #373741 */
 
-    --ui-text-default: 8 8 24; /* #080818 */
-
-    --max-width: 1408px;
+    --ui-text-default: 33 33 33; /* #212121 */
+    --ui-text-alt: 189 189 189; /* #BDBDBD */
+    --ui-text-muted: 117 117 117; /* #757575 */
   }
 
+  /* To change any color for dark mode, change the color below */
   :root.dark {
-    --ui-bg-primary: 8 8 24; /* #080818 */
-    --ui-bg-secondary: 22 22 38; /* #161626 */
-    --ui-bg-tertiary: 32 32 48; /* #202030 */
+    /* Text color on dark mode */
+    --ui-bg-primary: 10 10 20; /* #0A0A14 */
+    --ui-bg-secondary: 30 30 40; /* #1E1E28 */
+    --ui-bg-tertiary: 55 55 65; /* #373741 */
+    --ui-bg-primary-alt: 250 250 250; /* #FAFAFA */
+    --ui-bg-secondary-alt: 238 238 238; /* #EEEEEE */
+    --ui-bg-tertiary-alt: 224 224 224; /* #E0E0E0 */
 
-    --ui-text-default: 229 231 235; /* #E5E7EB */
+    --ui-text-default: 245 245 245; /* #F5F5F5 */
+    --ui-text-alt: 75 75 75; /* #4B4B4B */
+    --ui-text-muted: 175 175 175; /* #AFAFAF */
   }
 
   body {

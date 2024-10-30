@@ -1,6 +1,6 @@
 {
   "name": "theui-svelte",
-  "version": "1.0.0-beta.60",
+  "version": "1.0.0-beta.61",
   "description": "theui-sveltekit A component library by TheUI. Out-of-the-box accessible and easy to customize built with TailwindCSS.",
   "author": {
     "name": "M B Parvez",
@@ -140,6 +140,7 @@
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js"
     },
+    "./style": "./dist/style.postcss",
     "./preset": "./dist/preset.cjs",
     "./Accordion.svelte": {
       "types": "./dist/Accordion\\Accordion.svelte.d.ts",
