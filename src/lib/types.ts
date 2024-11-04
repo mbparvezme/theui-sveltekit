@@ -13,8 +13,11 @@ export type ANIMATE_SPEED =
   | "normal"
   | "fast"
   | "faster";
+
 export type ROUNDED = "sm" | "md" | "lg" | "xl" | "full" | "none" | undefined;
+
 export type SHADOW =
+  | "xs"
   | "sm"
   | "md"
   | "lg"
@@ -27,6 +30,7 @@ export type PRELOAD = "" | "off" | "tap" | "hover";
 export type TABLE_ROW = object | (object | string | string[])[] | undefined;
 export type BUTTON_SIZE = "xs" | "sm" | "md" | "lg" | "xl" | "0";
 export type INPUT_TYPE = 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'reset' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week' | 'search';
+export type INPUT_SIZE = "sm" | "md" | "lg" | "xl";
 export type INPUT_VARIANT = "bordered" | "filled" | "flat";
 export type BREADCRUMB_DATA = Array<{ text: string; url?: string }>;
 export type DROPDOWN_ITEM = {
@@ -75,7 +79,7 @@ export type INPUT_CONFIG = {
   labelClasses?: string;
   reset?: boolean;
   rounded?: ROUNDED;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: INPUT_SIZE;
   variant?: INPUT_VARIANT;
 };
 
@@ -120,3 +124,8 @@ export type TABS_CONTEXT = {
   selectedPanel: Writable<HTMLElement>;
   config: TAB_CONFIG;
 }
+
+
+// Private types
+export type ROUNDED_SIDES = "top" | "end" | "bottom" | "start" | "topStart" | "topEnd" | "bottomStart" | "bottomEnd" | "all";
+export type ROUNDED_ITEM_TYPES = "default" | "fileButton" | "first" | "last";
