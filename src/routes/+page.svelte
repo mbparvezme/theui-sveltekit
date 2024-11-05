@@ -1,10 +1,12 @@
 
 <script lang="ts">
-  import { roundedClass, getInputClasses, fileButtonRoundedClass } from "$lib/functions"
+  import { roundedClass, inputContainerClass, inputClasses, animationClass, shadowClass } from "$lib/functions";
 </script>
 
 <div class="p-8">
-  <button class="p-4 bg-red-600 {roundedClass("xl", "topEnd")}">Hello</button><br><br>
+  <button class="p-4 bg-alt text-alt {roundedClass("xl", "topEnd")}">Hello</button><br><br>
+
+  <input type="text" class={inputClasses({variant: "filled", animate: "normal"}, {})}><br><br>
   <button class="p-4 bg-red-600 {roundedClass("full")}">Hello</button><br><br>
   <div class="p-4 {roundedClass("md", "all", "last")}">
     <button class="p-4 bg-red-600 {roundedClass("lg", "end")}">Hello</button>

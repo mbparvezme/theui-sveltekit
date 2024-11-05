@@ -1,5 +1,6 @@
 import type { ROUNDED, SHADOW, ANIMATE_SPEED, ROUNDED_SIDES, ROUNDED_ITEM_TYPES, INPUT_CONFIG, INPUT_SIZE } from "$lib/types";
-type INPUT_CATEGORY = 'input' | 'file' | 'checkbox' | 'radio' | 'select';
+export type ANIMATION_PROPERTY_TYPE = 'color' | 'opacity' | 'shadow' | 'transform' | 'all' | 'fileButton';
+export type INPUT_CATEGORY = 'input' | 'file' | 'checkbox' | 'radio' | 'select';
 
 type RoundClassesType = {
   [type in ROUNDED_ITEM_TYPES] : {
@@ -272,7 +273,7 @@ export let roundClasses: RoundClassesType = {
   }
 }
 
-export let animationSpeed: { [speed in Exclude<ANIMATE_SPEED, false | undefined>]: string } = {
+export let animationSpeed: { [speed in Exclude<ANIMATE_SPEED, "none">]: string } = {
   slower: " duration-700",
   slow: " duration-500",
   normal: " duration-300",
@@ -288,7 +289,7 @@ export let animationType: any = {
   all: " transition-all",
 };
 
-export let fileButtonAnimation: { [speed in Exclude<ANIMATE_SPEED, false | undefined>]: string } = {
+export let fileButtonAnimation: { [speed in Exclude<ANIMATE_SPEED, "none">]: string } = {
   slower: " file:duration-700 transition-all",
   slow: " file:duration-500 transition-all",
   normal: " file:duration-300 transition-all",
@@ -296,7 +297,7 @@ export let fileButtonAnimation: { [speed in Exclude<ANIMATE_SPEED, false | undef
   faster: " file:duration-100 transition-all",
 };
 
-export let shadowClasses: {[size in Exclude<SHADOW, "none" | undefined>]: string} = {
+export let shadowClasses: {[size in Exclude<SHADOW, "none">]: string} = {
   xs: " shadow-sm",
   sm: " shadow",
   md: " shadow-md",

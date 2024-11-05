@@ -6,8 +6,7 @@ import type { Writable } from "svelte/store"
 
 // Custom types
 export type ANIMATE_SPEED =
-  | undefined
-  | false
+  | "none"
   | "slower"
   | "slow"
   | "normal"
@@ -24,8 +23,7 @@ export type SHADOW =
   | "xl"
   | "2xl"
   | "inner"
-  | "none"
-  | undefined;
+  | "none";
 export type PRELOAD = "" | "off" | "tap" | "hover";
 export type TABLE_ROW = object | (object | string | string[])[] | undefined;
 export type BUTTON_SIZE = "xs" | "sm" | "md" | "lg" | "xl" | "0";
