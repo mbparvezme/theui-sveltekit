@@ -8,8 +8,8 @@
   const CTX: any = getContext("ACCORDION_GROUP") ?? {}
 
   let {
-    title,
-    content,
+    title = undefined,
+    content = undefined,
     id = generateToken(),
     animationSpeed = "fast",
     rounded = "md",
@@ -22,8 +22,8 @@
     titleActiveClass = "",
     ...props
   } : {
-    title: string|Snippet,
-    content: string|Snippet,
+    title: string|Snippet|undefined,
+    content: string|Snippet|undefined,
     id: string,
     animationSpeed : ANIMATE_SPEED,
     rounded : ROUNDED,
