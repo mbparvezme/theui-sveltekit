@@ -5,7 +5,6 @@
 </script>
 
 
-<div class="p-8">
   <AccordionItem title="Title by props" content="This is props content!"/>
   <br>
   <AccordionItem>
@@ -60,7 +59,3 @@
       {#snippet content()} This is snippet content {/snippet}
     </AccordionItem>
   </Accordion>
-
-</div>
-
-
