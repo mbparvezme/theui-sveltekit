@@ -4,7 +4,6 @@
 	import { roundedClass, generateToken } from "$lib/functions"
 	import type { Snippet } from "svelte";
 	import Close from "$lib/Utility/Close.svelte"
-	// import { Close, Svg } from "$lib"
 
 	let {
 		content = undefined,
@@ -24,7 +23,7 @@
 		props: Record<string, any>[] | undefined,
 	} = $props()
 
-	let nodeRef: any = $state();
+	let nodeRef
 
 	let getClass = () => {
 		let cls = "theui-alert flex items-center p-4 mb-4 gap-4 text-sm font-medium "
@@ -61,12 +60,7 @@
 		return cls
 	}
 
-	// let nodeRef: HTMLDivElement
-	// let id: string = generateToken()
-	const toggleAlert = () => {
-		console.log("Close")
-		nodeRef.parentNode?.removeChild(nodeRef)
-	}
+	const toggleAlert = () => nodeRef.parentNode?.removeChild(nodeRef)
 </script>
 
 <div {id} class={twMerge(getClass(), (props?.class || ""))} role="alert" bind:this={nodeRef}>
