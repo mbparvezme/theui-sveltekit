@@ -7,7 +7,6 @@ import { twMerge } from "tailwind-merge";
 let CONFIG: INPUT_CONFIG;
 let ATTRIBUTES: any;
 
-
 /**
  * Generates the base class for the input container based on the provided configuration, attributes, and input type.
  * 

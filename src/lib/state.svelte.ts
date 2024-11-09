@@ -1,4 +1,1 @@
-
-export let stores: any = $state({
-  activeAccordion : undefined,
-});
+export let activeAccordions: { value: string[]} = $state({value: [""]})
