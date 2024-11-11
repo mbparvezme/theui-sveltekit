@@ -45,7 +45,7 @@
     {#snippet title()} Custom accordion title {/snippet}
     {#snippet content()} Custom accordion content {/snippet}
   </AccordionItem>
-  
+  <br>
   <Accordion standalone={true}>
     <AccordionItem title="This is props title" content="This is props content!" />
     <AccordionItem>
