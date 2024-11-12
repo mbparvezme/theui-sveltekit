@@ -3,16 +3,16 @@
 </script>
 
 <h4>Default alert</h4>
-<Alert content="Hello alert!" dismissible/>
-<Alert content="Hello alert!" dismissible type="warning" />
-<Alert content="Hello alert!" dismissible type="info" />
-<Alert content="Hello alert!" dismissible type="success" />
+<Alert icon="danger" content="Hello alert!" dismissible/>
+<Alert icon="warning" content="Hello alert!" dismissible type="warning" />
+<Alert icon="info" content="Hello alert!" dismissible type="info" />
+<Alert icon="success" content="Hello alert!" dismissible type="success" />
 
 <h4>Light theme</h4>
-<Alert content="Hello alert!" theme="light"/>
-<Alert content="Hello alert!" theme="light" type="warning" />
-<Alert content="Hello alert!" theme="light" type="info" />
-<Alert content="Hello alert!" theme="light" type="success" />
+<Alert icon="danger" content="Hello alert!" theme="light"/>
+<Alert icon="warning" content="Hello alert!" theme="light" type="warning" />
+<Alert icon="info" content="Hello alert!" theme="light" type="info" />
+<Alert icon="success" content="Hello alert!" theme="light" type="success" />
 <br>
 <h4>Default border variant</h4>
 <Alert content="Hello alert!" variant="borderTop" />

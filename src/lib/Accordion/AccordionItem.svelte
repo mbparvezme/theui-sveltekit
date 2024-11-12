@@ -5,6 +5,22 @@
   import { generateToken, roundedClass, animationClass } from "$lib/functions"
   import {activeAccordions} from "$lib/state.svelte"
 
+  interface Props {
+    title: string|Snippet|undefined,
+    content: string|Snippet|undefined,
+    id: string,
+    animationSpeed: ANIMATE_SPEED,
+    rounded: ROUNDED,
+    size: "compact" | "default" | "large",
+    containerClass: string,
+    containerActiveClass: string,
+    contentClass: string,
+    contentActiveClass: string,
+    titleClass: string,
+    titleActiveClass: string,
+    [key: string]: unknown // open, flush
+	}
+
   const CTX: any = getContext("ACCORDION_GROUP") ?? {}
 
   let {
@@ -21,21 +37,7 @@
     titleClass = "",
     titleActiveClass = "",
     ...props
-  } : {
-    title: string|Snippet|undefined,
-    content: string|Snippet|undefined,
-    id: string,
-    animationSpeed : ANIMATE_SPEED,
-    rounded : ROUNDED,
-    size : "compact" | "default" | "large",
-    containerClass : string,
-    containerActiveClass : string,
-    contentClass : string,
-    contentActiveClass : string,
-    titleClass : string,
-    titleActiveClass : string,
-    props: Record<string, any>[] | null
-  } = $props()
+  } : Props = $props()
 
   let toggle = () => {
     const accordion = document.getElementById(id)
