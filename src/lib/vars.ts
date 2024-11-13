@@ -1,6 +1,17 @@
-import type { ROUNDED, SHADOW, ANIMATE_SPEED, ROUNDED_SIDES, ROUNDED_ITEM_TYPES, INPUT_CONFIG, INPUT_SIZE } from "$lib/types";
-export type ANIMATION_PROPERTY_TYPE = 'color' | 'opacity' | 'shadow' | 'transform' | 'all' | 'fileButton';
-export type INPUT_CATEGORY = 'input' | 'file' | 'checkbox' | 'radio' | 'select';
+import type {
+  ROUNDED,
+  SHADOW,
+  ANIMATE_SPEED,
+  ROUNDED_SIDES,
+  ROUNDED_ITEM_TYPES,
+  NOTIFICATION_TYPE,
+  INPUT_SIZE
+} from "$lib/types"
+
+export type ANIMATION_PROPERTY_TYPE = 'color' | 'opacity' | 'shadow' | 'transform' | 'all' | 'fileButton'
+export type INPUT_CATEGORY = 'input' | 'file' | 'checkbox' | 'radio' | 'select'
+export type NOTIFICATION_VARIANT = "card" | "cardLight" | "borderTop" | "borderBottom" | "borderStart"
+export type NOTIFICATION_POSITION = "top-right" | "top-center" | "top-left" | "bottom-right" | "bottom-center" | "bottom-left"
 
 type RoundClassesType = {
   [type in ROUNDED_ITEM_TYPES] : {
@@ -349,4 +360,45 @@ export let groupInputSizeClasses: { [size in INPUT_SIZE]: string } = {
   md: "h-4 w-4",
   lg: "h-6 w-6",
   xl: "h-8 w-8",
+};
+
+export const notificationVariantClass: Record<NOTIFICATION_VARIANT, string> = {
+  card: "notification-card",
+  cardLight: "notification-card-light",
+  borderTop: "notification-border-top",
+  borderBottom: "notification-border-bottom",
+  borderStart: "notification-border-start",
+};
+
+export const notificationThemes: Record<NOTIFICATION_VARIANT, Record<NOTIFICATION_TYPE, string>> = {
+  card: {
+    error: "bg-red-600 text-red-50",
+    info: "bg-sky-600 text-sky-50",
+    success: "bg-green-600 text-green-50",
+    warning: "bg-yellow-400 text-yellow-950",
+  },
+  cardLight: {
+    error: "bg-red-200 text-red-950",
+    info: "bg-sky-200 text-sky-950",
+    success: "bg-green-200 text-green-950",
+    warning: "bg-yellow-100 text-yellow-950",
+  },
+  borderTop: {
+    error: "bg-red-200 text-red-950 border-t-4 border-red-500",
+    info: "bg-sky-200 text-sky-950 border-t-4 border-sky-500",
+    success: "bg-green-200 text-green-950 border-t-4 border-green-500",
+    warning: "bg-yellow-100 text-yellow-950 border-t-4 border-yellow-500",
+  },
+  borderBottom: {
+    error: "bg-red-200 text-red-950 border-b-4 border-red-500",
+    info: "bg-sky-200 text-sky-950 border-b-4 border-sky-500",
+    success: "bg-green-200 text-green-950 border-b-4 border-green-500",
+    warning: "bg-yellow-100 text-yellow-950 border-b-4 border-yellow-500",
+  },
+  borderStart: {
+    error: "bg-red-200 text-red-950 border-s-4 border-red-500",
+    info: "bg-sky-200 text-sky-950 border-s-4 border-sky-500",
+    success: "bg-green-200 text-green-950 border-s-4 border-green-500",
+    warning: "bg-yellow-100 text-yellow-950 border-s-4 border-yellow-500",
+  },
 };

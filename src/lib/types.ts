@@ -90,8 +90,9 @@ export type NOTIFICATION_TYPE = "error" | "info" | "success" | "warning";
 export type NOTIFY_CONFIG = {
   removeAfter?: number;
   removeOnClick?: boolean;
-  rounded: ROUNDED;
-  variant: "card" | "cardLight" | "borderTop" | "borderBottom" | "borderStart";
+  animate?: boolean;
+  rounded?: ROUNDED;
+  variant?: "card" | "cardLight" | "borderTop" | "borderBottom" | "borderStart";
 };
 
 export type TABLE_CONFIG = {

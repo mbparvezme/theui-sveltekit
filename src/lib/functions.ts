@@ -1,11 +1,35 @@
-import type { ANIMATE_SPEED, INPUT_CONFIG, ROUNDED, SHADOW, ROUNDED_SIDES, ROUNDED_ITEM_TYPES } from "$lib/types";
-import type { ANIMATION_PROPERTY_TYPE, INPUT_CATEGORY } from "$lib/vars";
+import type {
+  ANIMATE_SPEED,
+  INPUT_CONFIG,
+  ROUNDED,
+  SHADOW,
+  ROUNDED_SIDES,
+  ROUNDED_ITEM_TYPES,
+  NOTIFY_CONFIG,
+  NOTIFICATION_TYPE
+} from "$lib/types"
 
-import { roundClasses, shadowClasses, animationSpeed, animationType, fileButtonAnimation, inputTypeClass, inputSizeClass, defaultInputSizeClasses, fileInputSizeClasses, groupInputSizeClasses } from "$lib/vars";
-import { twMerge } from "tailwind-merge";
+import {
+  roundClasses,
+  shadowClasses,
+  animationSpeed,
+  animationType,
+  fileButtonAnimation,
+  inputTypeClass,
+  inputSizeClass,
+  defaultInputSizeClasses,
+  fileInputSizeClasses,
+  groupInputSizeClasses,
+  notificationVariantClass,
+  notificationThemes,
+  type ANIMATION_PROPERTY_TYPE,
+  type INPUT_CATEGORY,
+} from "$lib/vars"
 
-let CONFIG: INPUT_CONFIG;
-let ATTRIBUTES: any;
+import { twMerge } from "tailwind-merge"
+
+let CONFIG: INPUT_CONFIG
+let ATTRIBUTES: any
 
 /**
  * Generates the base class for the input container based on the provided configuration, attributes, and input type.
@@ -288,3 +312,15 @@ const fileInputClasses = (): string => ` file:mr-4 file:bg-brand-primary-50 file
  * - Uses `focus-within` to set a focus ring on the entire input group container.
  */
 const groupInputClasses = (): string => " bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-200/20 text-brand-primary-500 focus-within:ring-brand-primary-500 !ring-offset-primary";
+
+
+export const notificationClasses = (config: NOTIFY_CONFIG, type: NOTIFICATION_TYPE = "error"): string => {
+  let variant = config?.variant ?? "card"
+  return [
+    "notification",
+    roundedClass(config?.rounded ?? "md"),
+    "px-4 py-3 shadow-2xl shadow-black/50 cursor-pointer",
+    notificationVariantClass[variant],
+    notificationThemes[variant][type]
+  ].join(" ");
+};

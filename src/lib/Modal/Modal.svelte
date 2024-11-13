@@ -97,35 +97,36 @@
 {/if}
 
 {#if content}
-  <div {id} class={twMerge(modalCls(), modalOuterClass)} role="dialog" class:open={modalStatus} class:animate={animate}>
-    {#if backdrop}
-      <div class="backdrop fixed inset-0 bg-black z-[-1]{animationClass(animate)}" onclick={()=>toggle(false)}></div>
+<div {id} class={twMerge(modalCls(), modalOuterClass)} class:open={modalStatus} class:animate={animate} role="dialog" aria-modal="true" aria-hidden={!modalStatus}>
+  {#if backdrop}
+    <div class="backdrop fixed inset-0 bg-black z-[-1]{animationClass(animate)}" onclick={()=>toggle(false)}></div>
+  {/if}
+
+  <div class={twMerge(modalBodyCls(), (size !== "full" ? roundedClass(rounded) : ""), modalBodyClass)} aria-labelledby={header ? `${id}Heading` : `${id}Btn`}>
+
+    {#if header}
+      <div id="{id}Heading" class={twMerge("modal-header flex justify-between w-full gap-8 items-start border-b border-black/10 dark:border-tertiary pb-4 mb-8", modalHeaderClass)}>
+        {@render header?.()}
+        {#if closeBtn!==false}
+          <Close class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity" onclick={()=>toggle()}/>
+        {/if}
+      </div>
+    {:else if closeBtn!==false}
+      <Close class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity absolute top-2 right-2" onclick={()=>toggle()}/>
     {/if}
 
-    <div class={twMerge(modalBodyCls(), (size !== "full" ? roundedClass(rounded) : ""), modalBodyClass)}
-      aria-labelledby={header ? `${id}Heading` : `${id}Btn`} aria-hidden={!modalStatus}>
-      {#if header}
-        <div id="{id}Heading" class={twMerge("modal-header flex justify-between w-full gap-8 items-start border-b border-black/10 dark:border-tertiary pb-4 mb-8", modalHeaderClass)}>
-          {@render header?.()}
-          {#if closeBtn!==false}
-            <Close class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity" onclick={()=>toggle()}/>
-          {/if}
-        </div>
-        {:else if closeBtn!==false}
-          <Close class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity absolute top-2 right-2" onclick={()=>toggle()}/>
-        {/if}
-
-      <div class="w-full">
-        {@render content?.()}
-      </div>
-
-      {#if footer}
-        <div class={twMerge("modal-footer border-t border-black/10 dark:border-tertiary pt-4 mt-8", modalFooterClass)}>
-          {@render footer?.()}
-        </div>
-      {/if}
+    <div class="w-full">
+      {@render content?.()}
     </div>
+
+    {#if footer}
+      <div class={twMerge("modal-footer border-t border-black/10 dark:border-tertiary pt-4 mt-8", modalFooterClass)}>
+        {@render footer?.()}
+      </div>
+    {/if}
+
   </div>
+</div>
 {/if}
 
 <style lang="postcss">

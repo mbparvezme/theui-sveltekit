@@ -6,12 +6,12 @@
 
   interface Props {
     content ?: Snippet|undefined,
-    trigger : 'onEntry' | 'onExit',
-    repeat : boolean | 'page',
-    backdrop : boolean|string,
-    containerClass : string,
-    rounded : ROUNDED,
-    staticBackdrop : boolean,
+    trigger ?: 'onEntry' | 'onExit',
+    repeat ?: boolean | 'page',
+    backdrop ?: boolean|string,
+    containerClass ?: string,
+    rounded ?: ROUNDED,
+    staticBackdrop ?: boolean,
     [key: string]: unknown // class
   }
 
@@ -24,14 +24,7 @@
     rounded = "xl",
     staticBackdrop = false,
     ...props // class
-  } : Props = $props();
-
-  // export let trigger : 'onEntry' | 'onExit' = "onEntry"
-  // export let repeat : boolean | 'page' = true
-  // export let backdrop : boolean|string = true
-  // export let containerClass : string = ""
-  // export let rounded : ROUNDED = "xl"
-  // export let staticBackdrop : boolean = false
+  } : Props = $props()
 
   let popup = $state(false)
 
@@ -43,13 +36,15 @@
           localStorage.setItem("entryPopUp", "true")
         }
         if(repeat === "page"){
-          let epData = JSON.parse(localStorage.getItem("entryPopUp") || "[]");
+          let epData = JSON.parse(localStorage.getItem("entryPopUp") || "[]")
           if (!epData.includes(window.location.href)) {
-              epData.push(window.location.href);
-              localStorage.setItem("entryPopUp", JSON.stringify(epData));
+              epData.push(window.location.href)
+              localStorage.setItem("entryPopUp", JSON.stringify(epData))
           }
         }
-        popup = true
+          console.log("Before popup: ", popup)
+          popup = true
+          console.log("After popup: ", popup)
       }
       onPageLoad()
     }
@@ -81,21 +76,19 @@
       e.preventDefault()
       popup = false
     }
-		return
 	}
 
   let handleBackdrop = () => {
 		if (staticBackdrop === false){
       popup = false
     }
-		return
   }
 </script>
 
 <svelte:body on:keydown={(e)=>handleKeyboard(e)}></svelte:body>
 
 {#if popup}
-<div class="theui-popup !z-[80] fixed inset-0 {twMerge("overflow-y-hidden flex items-center justify-center", containerClass)}" role='dialog'>
+<div class="theui-popup !z-[80] fixed inset-0 {twMerge("overflow-y-hidden flex items-center justify-center", containerClass)}" class:entry-popup={trigger == "onEntry"} class:exit-popup={trigger == "onExit"} role='dialog'>
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   {#if backdrop !== false}
     <!-- svelte-ignore a11y_click_events_have_key_events -->
