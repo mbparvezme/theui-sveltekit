@@ -1,0 +1,11 @@
+<script lang="ts">
+  import type {BREADCRUMB_DATA} from "$lib/types"
+  import Breadcrumb from "$lib/Breadcrumb/Breadcrumb.svelte"
+  let BreadcrumbData: BREADCRUMB_DATA = [
+    { text: "Home", url: "#", },
+    { text: "About", url: "#", },
+    { text: "Contact" },
+  ]
+</script>
+
+<Breadcrumb data={BreadcrumbData} />

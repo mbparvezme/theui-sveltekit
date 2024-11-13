@@ -66,7 +66,7 @@
 	const toggleAlert = () => nodeRef.parentNode?.removeChild(nodeRef)
 </script>
 
-<div {id} class={twMerge(getClass(), (props?.class || "") as string)} role="alert" bind:this={nodeRef}>
+<div {id} class={twMerge(getClass(), (props?.class ?? "") as string)} role="alert" bind:this={nodeRef}>
 	<!-- Alert Icon -->
 	{#if props?.icon && ["error", "info", "success", "warning"].includes(type)}
 		<Svg size={1.25}>

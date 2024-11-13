@@ -115,11 +115,11 @@
     id='{id}Heading'
     class='accordion-title'
     aria-controls={id}
-    aria-label={`${title||""} Accordion`}
+    aria-label={`${title ?? ""} Accordion`}
     aria-expanded={activeAccordions.value.includes(id)}
   >
 
-  <button
+    <button
     class={twMerge(getTitleClasses(), activeAccordions.value.includes(id) && 'accordion-active')}
     class:accordion-active={activeAccordions.value.includes(id)}
     on:click={()=>toggle()}>

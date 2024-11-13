@@ -12,7 +12,7 @@ export default {
   content: [
     "./node_modules/theui-sveltekit/**/*.{html,js,svelte,ts}",
   ],
-  darkMode: "class",
+  darkMode: "selector",
   theme: {
     screens: {
       nano: "360px",
@@ -21,10 +21,10 @@ export default {
     },
     extend: {
       colors: {
-        "brand-primary": twShades('#536DFE'),
+        "brand-primary": twShades('#E93E3A'),
         "on-brand-primary": twShades('#FFFFFF'),
-        "brand-secondary": twShades('#FDE68A'),
-        "on-brand-secondary": twShades('#080818'),
+        "brand-secondary": twShades('#E8E838'),
+        "on-brand-secondary": twShades('#2E2105'),
         error: twShades("#E53935"),
         info: twShades("#29B6F6"),
         success: twShades("#00C853"),
