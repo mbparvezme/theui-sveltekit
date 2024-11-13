@@ -30,7 +30,7 @@ export type BUTTON_SIZE = "xs" | "sm" | "md" | "lg" | "xl" | "0";
 export type INPUT_TYPE = 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'reset' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week' | 'search';
 export type INPUT_SIZE = "sm" | "md" | "lg" | "xl";
 export type INPUT_VARIANT = "bordered" | "filled" | "flat";
-export type BREADCRUMB_DATA = Array<{ text: string; url?: string }>;
+export type BREADCRUMB_DATA = { text: string; url?: string };
 export type DROPDOWN_ITEM = {
   active?: boolean;
   url?: string;

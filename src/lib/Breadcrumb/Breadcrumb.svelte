@@ -3,7 +3,7 @@
   import { roundedClass } from "$lib/functions"
 
   interface Props {
-    data : BREADCRUMB_DATA,
+    data : Array<BREADCRUMB_DATA>,
     activeLinkClass ?: string,
     linkClass ?: string,
     round ?: ROUNDED,
@@ -27,16 +27,21 @@
 <nav aria-label="breadcrumb" class={navClasses} style="--breadcrumb-separator: '{separator}';">
   <ol class="breadcrumb-list flex">
     {#each data as item, i}
-      <li class="breadcrumb-item {getLinkCls(item.url)}" class:before:px-2={i!=0} class:active={!item.url}>
-        {#if !item.url}
-          {item.text}
-        {:else}
-          <a href={item.url}>{item.text}</a>
-        {/if}
-      </li>
+      {@render breadcrumbLink(item, i)}
     {/each}
   </ol>
 </nav>
+
+<!-- Component Snippet -->
+{#snippet breadcrumbLink(item: BREADCRUMB_DATA, i: number)}
+  <li class="breadcrumb-item {getLinkCls(item.url)}" class:before:px-2={i!=0} class:active={!item.url}>
+    {#if !item.url}
+      {item.text}
+    {:else}
+      <a href={item.url}>{item.text}</a>
+    {/if}
+  </li>
+{/snippet}
 
 <style lang="postcss">
   .theui-breadcrumb .breadcrumb-item:not(:first-child)::before {

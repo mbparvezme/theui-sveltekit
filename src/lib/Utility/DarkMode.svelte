@@ -2,7 +2,7 @@
   import { onMount, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
 
-  let {darkMode = true, icon = undefined, ...props} : {darkMode: boolean | 'system' | 'all', icon: Snippet|undefined, [key: string]: unknown} = $props()
+  let {darkMode = true, icon = undefined, ...props} : {darkMode?: boolean | 'system' | 'all', icon?: Snippet|undefined, [key: string]: unknown} = $props()
   let toggleTheme: () => void = () => {}
 
   onMount((): void => {

@@ -3,8 +3,8 @@
   import { twMerge } from "tailwind-merge"
 
 	interface Props {
-    icon : Snippet|undefined,
-    size : number,
+    icon ?: Snippet|undefined,
+    size ?: number,
     viewBox ?: string,
     focusable ?: "true"|"false",
     [key: string]: unknown // dismissible, icon

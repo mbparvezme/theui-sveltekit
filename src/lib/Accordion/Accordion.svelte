@@ -3,9 +3,9 @@
   import { generateToken } from "$lib/functions"
 
   interface Props {
-    size : "compact" | "default" | "large",
-    standalone: boolean,
-    id: string,
+    size ?: "compact" | "default" | "large",
+    standalone ?: boolean,
+    id ?: string,
     children: Snippet
 	}
 

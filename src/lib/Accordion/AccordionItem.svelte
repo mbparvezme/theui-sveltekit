@@ -3,21 +3,21 @@
   import { getContext, onMount, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
   import { generateToken, roundedClass, animationClass } from "$lib/functions"
-  import {activeAccordions} from "$lib/state.svelte"
+  import { activeAccordions } from "$lib/state.svelte"
 
   interface Props {
-    title: string|Snippet|undefined,
-    content: string|Snippet|undefined,
-    id: string,
-    animationSpeed: ANIMATE_SPEED,
-    rounded: ROUNDED,
-    size: "compact" | "default" | "large",
-    containerClass: string,
-    containerActiveClass: string,
-    contentClass: string,
-    contentActiveClass: string,
-    titleClass: string,
-    titleActiveClass: string,
+    title ?: string|Snippet|undefined,
+    content ?: string|Snippet|undefined,
+    id ?: string,
+    animationSpeed ?: ANIMATE_SPEED,
+    rounded ?: ROUNDED,
+    size ?: "compact" | "default" | "large",
+    containerClass ?: string,
+    containerActiveClass ?: string,
+    contentClass ?: string,
+    contentActiveClass ?: string,
+    titleClass ?: string,
+    titleActiveClass ?: string,
     [key: string]: unknown // open, flush
 	}
 
@@ -75,7 +75,7 @@
       }
     }
   }
-
+ 
   onMount(() => {
     if(props?.open){
       if(CTX?.standalone) activeAccordions.value = [""]
@@ -97,9 +97,9 @@
   let getTitleClasses = () => {
     let cls = `accordion-title flex items-center w-full${animationClass(animationSpeed)} `;
     if(props?.flush){
-      cls += activeAccordions.value.includes(id) ? "border-b border-brand-primary-200 bg-brand-primary-50 text-brand-primary-500 dark:text-on-brand-primary-500 " : "border-b border-gray-300 dark:border-gray-700 ";
+      cls += activeAccordions.value.includes(id) ? "border-b border-brand-primary-200 bg-brand-primary-50 text-brand-primary-500 dark:border-brand-primary-700 dark:bg-brand-primary-900 dark:text-on-brand-primary-500 " : "border-b border-gray-300 dark:border-gray-700 ";
     }else{
-      cls += activeAccordions.value.includes(id) ? "bg-brand-primary-500 text-on-brand-primary-500 " : " ";
+      cls += activeAccordions.value.includes(id) ? "bg-brand-primary-500 text-on-brand-primary-300 dark:bg-brand-primary-700" : " ";
     }
     return activeAccordions.value.includes(id) ? twMerge(cls, titleActiveClass) : twMerge(cls, titleClass);
   }
@@ -110,47 +110,39 @@
   }
 </script>
 
+<!-- Main component -->
 <div class={getContainerClasses()}>
-  <div
-    id='{id}Heading'
-    class='accordion-title'
-    aria-controls={id}
-    aria-label={`${title ?? ""} Accordion`}
-    aria-expanded={activeAccordions.value.includes(id)}
-  >
-
-    <button
-    class={twMerge(getTitleClasses(), activeAccordions.value.includes(id) && 'accordion-active')}
-    class:accordion-active={activeAccordions.value.includes(id)}
-    on:click={()=>toggle()}>
-      {#if typeof title === "string"}
-        {@html title}
-      {:else}
-        {@render title?.()}
-      {/if}
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ms-auto" class:transition-transform={animationSpeed} class:transform={!animationSpeed} class:-rotate-180={activeAccordions.value.includes(id)} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-      </svg>
-    </button>
+  <div id='{id}Heading' class='accordion-title' aria-controls={id} aria-label={`${title ?? ""} Accordion`} aria-expanded={activeAccordions.value.includes(id)}>
+    {@render accordionHeading()}
   </div>
-
-  <div
-    {id}
-    class='accordion-body{animationClass(animationSpeed)}'
-    class:accordion-close={!activeAccordions.value.includes(id)}
-    class:open={activeAccordions.value.includes(id)}
-    aria-labelledby='{id}Heading'
-    aria-hidden={!activeAccordions.value.includes(id)}
-  >
-    <div class={getContentClasses()}>
-      {#if typeof content === "string"}
-        {@html content}
-      {:else}
-        {@render content?.()}
-      {/if}
-    </div>
+  <div {id} class='accordion-body{animationClass(animationSpeed)}' class:accordion-close={!activeAccordions.value.includes(id)} class:open={activeAccordions.value.includes(id)} aria-labelledby='{id}Heading' aria-hidden={!activeAccordions.value.includes(id)}>
+    {@render accordionContent()}
   </div>
 </div>
+
+<!-- Component Snippet -->
+{#snippet accordionHeading()}
+  <button class={twMerge(getTitleClasses(), activeAccordions.value.includes(id) && 'accordion-active')} class:accordion-active={activeAccordions.value.includes(id)} on:click={()=>toggle()}>
+    {#if typeof title === "string"}
+      {@html title}
+    {:else}
+      {@render title?.()}
+    {/if}
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ms-auto" class:transition-transform={animationSpeed} class:transform={!animationSpeed} class:-rotate-180={activeAccordions.value.includes(id)} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+{/snippet}
+
+{#snippet accordionContent()}
+  <div class={getContentClasses()}>
+    {#if typeof content === "string"}
+      {@html content}
+    {:else}
+      {@render content?.()}
+    {/if}
+  </div>
+{/snippet}
 
 <style lang='postcss'>
   .theui-accordion.space-compact:not(.accordion-flush) .accordion-title button, .theui-accordion.space-compact .accordion-content{

@@ -1,11 +1,11 @@
 <script lang="ts">
   import { twMerge } from "tailwind-merge"
-	import Svg from "$lib/Utility/Svg.svelte"
+	import { Svg } from "$lib"
 
   interface Props {
-    size?: number,
-    ariaLabel: string,
-    onclick: any,
+    size ?: number,
+    ariaLabel ?: string,
+    onclick ?: any,
     [key: string]: unknown // dismissible, icon
 	}
 
