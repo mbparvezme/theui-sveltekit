@@ -5,7 +5,7 @@ export let activeAccordions: { value: string[]} = $state({value: [""]})
 export let notifications: { value: any } = $state({ value: [] })
 
 export let notify = (msg: string, type: NOTIFICATION_TYPE = "error", config: NOTIFY_CONFIG = {}): string => {
-  let defaultConfig: NOTIFY_CONFIG = { animate: true, removeOnClick: true, removeAfter: 5000, rounded: "md", variant: "card" }
+  let defaultConfig: NOTIFY_CONFIG = { animate: true, removeOnClick: true, removeAfter: 50000, rounded: "md", theme: "default", variant: "card" }
   const C: NOTIFY_CONFIG & { id: string } = { ...defaultConfig, ...config, id: generateToken() };
 
   notifications.value.push({ msg, type, CONFIG: C });
@@ -18,6 +18,4 @@ export let notify = (msg: string, type: NOTIFICATION_TYPE = "error", config: NOT
   return C.id
 }
 
-export let removeNotification = (id: string) => {
-  notifications.value = notifications.value.filter((n: any) => n.CONFIG.id !== id)
-};
+export let removeNotification = (id: string) => notifications.value = notifications.value.filter((n: any) => n.CONFIG.id !== id)

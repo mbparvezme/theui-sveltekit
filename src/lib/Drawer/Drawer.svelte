@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ANIMATE_SPEED } from "$lib/types"
   import { twMerge } from "tailwind-merge"
-  import { animationClass, generateToken } from "$lib/functions"
+  import { animationClass, generateToken, backdropClasses } from "$lib/functions"
 	import { Close } from "$lib"
 	import type { Snippet } from "svelte";
 
@@ -11,7 +11,7 @@
     id ?: string,
     label ?: string,
     animate ?: ANIMATE_SPEED,
-    backdrop ?: boolean,
+    backdrop ?: boolean|string,
     closeOnEsc ?: boolean,
     position ?: 'top' | 'end' | 'bottom' | 'start',
     staticBackdrop ?: boolean,
@@ -59,7 +59,7 @@
     return positions[position] || "drawer-start"
   }
 
-  let getClass = () => `drawer-body fixed bg-white dark:bg-secondary ${animationClass(animate)}`;
+  let getClass = twMerge(`drawer-body fixed bg-white dark:bg-secondary${animationClass(animate)}`, (props?.class ?? "") as string)
 </script>
 
 <svelte:body onkeydown={(e)=>handleKeyboard(e)}></svelte:body>
@@ -74,10 +74,10 @@
   <div {id} class="theui-drawer fixed inset-0 z-40 {animationClass(animate)} {positionCls()}" role="dialog" class:animate={animate}>
 
     {#if backdrop}
-      <div class="backdrop fixed inset-0 bg-black z-[-1] {animationClass(animate)}" onclick={()=>staticBackdrop ? false : toggle(id)}></div>
+      <div class={backdropClasses(backdrop)} onclick={()=>staticBackdrop ? false : toggle(id)}></div>
     {/if}
 
-    <div id="{id}Drawer" class={twMerge(getClass(), (props?.class ?? "") as string)} aria-labelledby="{id}Btn" aria-hidden={!active}>
+    <div id="{id}Drawer" class={getClass} aria-labelledby="{id}Btn" aria-hidden={!active}>
       <Close class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity absolute top-2 right-4" onclick={()=>toggle(id)}/>
       {@render content?.()}
     </div>

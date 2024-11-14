@@ -20,8 +20,8 @@ import {
   defaultInputSizeClasses,
   fileInputSizeClasses,
   groupInputSizeClasses,
-  notificationVariantClass,
-  notificationThemes,
+  messageTheme,
+  messageBorderTheme,
   type ANIMATION_PROPERTY_TYPE,
   type INPUT_CATEGORY,
 } from "$lib/vars"
@@ -314,13 +314,17 @@ const fileInputClasses = (): string => ` file:mr-4 file:bg-brand-primary-50 file
 const groupInputClasses = (): string => " bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-200/20 text-brand-primary-500 focus-within:ring-brand-primary-500 !ring-offset-primary";
 
 
-export const notificationClasses = (config: NOTIFY_CONFIG, type: NOTIFICATION_TYPE = "error"): string => {
-  let variant = config?.variant ?? "card"
-  return [
-    "notification",
-    roundedClass(config?.rounded ?? "md"),
-    "px-4 py-3 shadow-2xl shadow-black/50 cursor-pointer",
-    notificationVariantClass[variant],
-    notificationThemes[variant][type]
-  ].join(" ");
-};
+export const notificationClasses = (config: NOTIFY_CONFIG, type: NOTIFICATION_TYPE = "error", props: any = null): string => {
+  let theme = config?.theme ?? "default"
+  let baseClass = `theui-notification px-4 py-3 shadow-2xl shadow-black/50 cursor-pointer ${messageTheme[theme][type]}`
+  const variantClasses = {
+    card: roundedClass(config?.rounded ?? "md"),
+    borderTop: `${roundedClass(config?.rounded ?? "md", "bottom")} ${messageBorderTheme[theme][type]} border-t-4`,
+    borderBottom: `${roundedClass(config?.rounded ?? "md", "top")} ${messageBorderTheme[theme][type]} border-b-4`,
+    borderStart: `${roundedClass(config?.rounded ?? "md")} ${messageBorderTheme[theme][type]} border-s-4`
+  }
+  return twMerge(`${baseClass} ${variantClasses[config?.variant ?? "card"]}`, (props?.class || "") as string);
+}
+
+export let backdropClasses = (backdrop: string|boolean) =>
+  `backdrop fixed inset-0 ${twMerge("bg-black/50 z-[-1]", (typeof backdrop == "string" ? backdrop : ""))}`

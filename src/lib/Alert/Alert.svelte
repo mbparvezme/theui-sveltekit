@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { ROUNDED } from "$lib/types"
+	import type { Snippet } from "svelte"
 	import { twMerge } from "tailwind-merge"
 	import { roundedClass, generateToken } from "$lib/functions"
-	import type { Snippet } from "svelte"
+	import { messageTheme, messageBorderTheme } from "$lib/vars"
 	import { Close, Svg } from "$lib"
 
 	interface Props {
@@ -28,47 +29,21 @@
 	let nodeRef: HTMLDivElement
 
 	let getClass = () => {
-		let cls = "theui-alert flex items-center p-4 mb-4 gap-4 text-sm font-medium dark:font-normal "
-		if(theme == "default"){
-			cls +=	type == "info"		?	"bg-info-600 text-info-50 dark:bg-info-700" :
-							type == "success" ? "bg-success-600 text-success-50 dark:bg-success-700" :
-							type == "warning" ? "bg-warning-300 text-warning-900 dark:bg-warning-600 dark:text-warning-50" :
-																	"bg-error-400 text-error-50 dark:bg-error-600"
-
-			if(variant != "card"){
-				cls +=	type == "info"		?	" border-info-200 dark:border-info-800" :
-								type == "success" ? " border-success-200 dark:border-success-800" :
-								type == "warning" ? " border-warning-500 dark:border-warning-700" :
-																		" border-error-200 dark:border-error-800"
-			}
+		let baseClass = `theui-alert flex items-center p-4 mb-4 gap-4 text-sm font-medium dark:font-normal ${messageTheme[theme][type]}`
+		const variantClasses = {
+			card: roundedClass(round),
+			borderTop: `${roundedClass(round, "bottom")} ${messageBorderTheme[theme][type]} border-t-4`,
+			borderBottom: `${roundedClass(round, "top")} ${messageBorderTheme[theme][type]} border-b-4`,
+			borderStart: `${roundedClass(round)} ${messageBorderTheme[theme][type]} border-s-4`
 		}
-
-		if(theme == "light"){
-			cls +=	type == "info"		? "bg-info-100 text-info-900 dark:bg-info-900 dark:text-info-200" :
-							type == "success" ? "bg-success-100 text-success-900 dark:bg-success-900 dark:text-success-200" :
-							type == "warning" ? "bg-warning-100 text-warning-900 dark:bg-warning-900 dark:text-warning-200" :
-																	"bg-error-100 text-error-900 dark:bg-error-800 dark:text-error-200"
-
-			if(variant != "card"){
-				cls +=	type == "info"		?	" border-info-300 dark:border-info-800" :
-								type == "success" ? " border-success-300 dark:border-success-800" :
-								type == "warning" ? " border-warning-500 dark:border-warning-800" :
-																		" border-error-400 dark:border-error-700"
-			}
-		}
-
-		if(variant == "card")					cls += roundedClass(round)
-		if(variant == "borderTop")		cls += roundedClass(round, "bottom") + " border-t-4"
-		if(variant == "borderBottom")	cls += roundedClass(round, "top") + " border-b-4"
-		if(variant == "borderStart")	cls += roundedClass(round) + " border-l-4"
-
-		return cls
+		const variantClass = variantClasses[variant] || ""
+		return twMerge(`${baseClass} ${variantClass}`, (props?.class || "") as string);
 	}
 
 	const toggleAlert = () => nodeRef.parentNode?.removeChild(nodeRef)
 </script>
 
-<div {id} class={twMerge(getClass(), (props?.class ?? "") as string)} role="alert" bind:this={nodeRef}>
+<div {id} class={getClass()} role="alert" bind:this={nodeRef}>
 	<!-- Alert Icon -->
 	{#if props?.icon && ["error", "info", "success", "warning"].includes(type)}
 		{@render commonIcons()}

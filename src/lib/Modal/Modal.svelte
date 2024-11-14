@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
   import { twMerge } from "tailwind-merge"
-  import { animationClass, roundedClass, generateToken } from "$lib/functions"
+  import { animationClass, roundedClass, generateToken, backdropClasses } from "$lib/functions"
   import { Close } from "$lib"
 	import type { Snippet } from "svelte"
 
@@ -14,7 +14,7 @@
     label ?: string,
     animate ?: ANIMATE_SPEED,
     animation ?: 'slide-down' | 'slide-up' | 'fade' | 'zoom-in' | 'zoom-out',
-    backdrop ?: boolean,
+    backdrop ?: boolean|string,
     closeBtn ?: boolean,
     closeOnEsc ?: boolean,
     modalFooterClass ?: string,
@@ -71,21 +71,20 @@
 	}
 
   let sizes = {
-    sm : "modal-sm",
-    md : "modal-md",
-    lg : "modal-lg",
-    full : "modal-full",
+    sm : "modal-sm w-full sm:w-96",
+    md : "modal-md w-full md:w-[640px]",
+    lg : "modal-lg w-full lg:w-[960px]",
+    full : "modal-full w-full min-h-screen",
   }
 
   let positionClass = {
-    top : "modal-top",
-    center : "modal-center",
-    bottom : "modal-bottom",
+    top : "modal-top mb-auto",
+    center : "modal-center my-auto",
+    bottom : "modal-bottom mt-auto",
   }
 
-  let modalCls = $derived(() => `theui-modal z-50 ${sizes[size]} ${positionClass[position]} ${animationClass(animate)}`);
-  let modalBodyCls = $derived(() => `modal-content bg-white dark:bg-secondary ${animationClass(animate)} ${((animate && animation) ? animation : "")}`);
-
+  let modalCls = $derived(() => `theui-modal z-50 flex fixed inset-0 visible opacity-100 ${animationClass(animate)}`);
+  let modalBodyCls = $derived(() => `modal-content flex flex-col p-8 relative mx-auto bg-white dark:bg-secondary ${sizes[size]} ${positionClass[position]} ${animationClass(animate)} ${((animate && animation) ? animation : "")}`)
 </script>
 
 <svelte:body onkeydown={(e)=>handleKeyboard(e)}></svelte:body>
@@ -99,7 +98,7 @@
 {#if content}
 <div {id} class={twMerge(modalCls(), modalOuterClass)} class:open={modalStatus} class:animate={animate} role="dialog" aria-modal="true" aria-hidden={!modalStatus}>
   {#if backdrop}
-    <div class="backdrop fixed inset-0 bg-black z-[-1]{animationClass(animate)}" onclick={()=>toggle(false)}></div>
+    <div class={backdropClasses(backdrop)} onclick={()=>toggle(false)}></div>
   {/if}
 
   <div class={twMerge(modalBodyCls(), (size !== "full" ? roundedClass(rounded) : ""), modalBodyClass)} aria-labelledby={header ? `${id}Heading` : `${id}Btn`}>
@@ -130,30 +129,11 @@
 {/if}
 
 <style lang="postcss">
-  .theui-modal{
-    @apply fixed inset-0 flex justify-center visible opacity-100;
-  }
   .theui-modal:not(.open){
     @apply invisible opacity-0;
   }
   .theui-modal:not(.modal-full){
     @apply p-8;
-  }
-  .theui-modal .modal-content{
-    @apply flex flex-col p-8 relative;
-  }
-  .theui-modal.modal-sm .modal-content{
-    @apply w-full sm:w-96;
-    /* @apply xs:w-72; */
-  }
-  .theui-modal.modal-md .modal-content{
-    @apply w-full md:w-[640px];
-  }
-  .theui-modal.modal-lg .modal-content{
-    @apply w-full lg:w-[960px];
-  }
-  .theui-modal.modal-full .modal-content{
-    @apply w-full min-h-screen;
   }
   .theui-modal.theui-animate .backdrop{
     @apply opacity-0;

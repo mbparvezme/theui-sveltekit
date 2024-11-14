@@ -92,7 +92,8 @@ export type NOTIFY_CONFIG = {
   removeOnClick?: boolean;
   animate?: boolean;
   rounded?: ROUNDED;
-  variant?: "card" | "cardLight" | "borderTop" | "borderBottom" | "borderStart";
+  theme ?: "default" | "light"
+  variant?: "card" | "borderTop" | "borderBottom" | "borderStart";
 };
 
 export type TABLE_CONFIG = {

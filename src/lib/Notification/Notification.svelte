@@ -1,6 +1,5 @@
 <script lang="ts">
   import { fade, fly } from "svelte/transition"
-  import { twMerge } from "tailwind-merge"
   import { notifications, removeNotification } from "$lib/state.svelte"
   import type { NOTIFICATION_POSITION } from "$lib/vars"
   import { notificationClasses } from "$lib/functions"
@@ -12,7 +11,7 @@
   }
 
   let {
-    position = "top-right",
+    position = "top-end",
     animate = true,
     ...props
   } : Props = $props()
@@ -24,11 +23,11 @@
   {#each notifications.value as notification}
   <li class="notification">
     {#if animate}
-      <div class={twMerge(notificationClasses(notification.CONFIG, notification.type), (props?.class || "") as string)} role="alert" aria-live="assertive" aria-atomic="true" in:fly={{ y: 16 }} out:fade onclick={() => {notification.CONFIG.removeOnClick===false ? false : removeNotification(notification.CONFIG.id)}}>
+      <div class={notificationClasses(notification.CONFIG, notification.type)} role="alert" aria-live="assertive" aria-atomic="true" in:fly={{ y: 16 }} out:fade onclick={() => {notification.CONFIG.removeOnClick===false ? false : removeNotification(notification.CONFIG.id)}}>
         <span role="alert" aria-live="assertive" aria-atomic="true">{@html notification.msg}</span>
       </div>
     {:else}
-      <div class={twMerge(notificationClasses(notification.CONFIG, notification.type), (props?.class || "") as string)} role="alert" aria-live="assertive" aria-atomic="true" onclick={() => {notification.CONFIG.removeOnClick === false ? false : removeNotification(notification.CONFIG.id)}}>
+      <div class={notificationClasses(notification.CONFIG, notification.type)} role="alert" aria-live="assertive" aria-atomic="true" onclick={() => {notification.CONFIG.removeOnClick === false ? false : removeNotification(notification.CONFIG.id)}}>
         <span role="alert" aria-live="assertive" aria-atomic="true">{@html notification.msg}</span>
       </div>
     {/if}
@@ -41,25 +40,25 @@
   .theui-notifications{
     @apply fixed list-none flex flex-col p-4;
   }
-  .theui-notifications.top-left, .theui-notifications.top-center, .theui-notifications.top-right{
+  .theui-notifications.top-start, .theui-notifications.top-center, .theui-notifications.top-end{
     @apply justify-start top-0;
   }
-  .theui-notifications.bottom-left, .theui-notifications.bottom-center, .theui-notifications.bottom-right{
+  .theui-notifications.bottom-start, .theui-notifications.bottom-center, .theui-notifications.bottom-end{
     @apply justify-end bottom-0;
   }
   .theui-notifications.bottom-center, .theui-notifications.top-center{
-    @apply items-center left-0 right-0 w-full;
+    @apply items-center start-0 end-0 w-full;
   }
-  .theui-notifications.bottom-right, .theui-notifications.top-right{
-    @apply items-end right-0;
+  .theui-notifications.bottom-end, .theui-notifications.top-end{
+    @apply items-end end-0;
   }
-  .theui-notifications.bottom-left, .theui-notifications.top-left{
-    @apply items-start left-0;
+  .theui-notifications.bottom-start, .theui-notifications.top-start{
+    @apply items-start start-0;
   }
-  .theui-notifications.top-left .notification, .theui-notifications.top-center .notification, .theui-notifications.top-right .notification{
+  .theui-notifications.top-start .notification, .theui-notifications.top-center .notification, .theui-notifications.top-end .notification{
     @apply mb-4;
   }
-  .theui-notifications.bottom-left .notification, .theui-notifications.bottom-center .notification, .theui-notifications.bottom-right .notification{
+  .theui-notifications.bottom-start .notification, .theui-notifications.bottom-center .notification, .theui-notifications.bottom-end .notification{
     @apply mt-4;
   }
 </style>
