@@ -26,7 +26,7 @@ export type SHADOW =
   | "none";
 export type PRELOAD = "" | "off" | "tap" | "hover";
 export type TABLE_ROW = object | (object | string | string[])[] | undefined;
-export type BUTTON_SIZE = "xs" | "sm" | "md" | "lg" | "xl" | "0";
+export type BUTTON_SIZE = "xs" | "sm" | "md" | "lg" | "xl" | "auto";
 export type INPUT_TYPE = 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'reset' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week' | 'search';
 export type INPUT_SIZE = "sm" | "md" | "lg" | "xl";
 export type INPUT_VARIANT = "bordered" | "filled" | "flat";
@@ -126,6 +126,6 @@ export type TABS_CONTEXT = {
 }
 
 
+export type ROUNDED_ITEM_TYPES = "default" | "fileButton" | "first" | "last";
 // Private types
 export type ROUNDED_SIDES = "top" | "end" | "bottom" | "start" | "topStart" | "topEnd" | "bottomStart" | "bottomEnd" | "all";
-export type ROUNDED_ITEM_TYPES = "default" | "fileButton" | "first" | "last";

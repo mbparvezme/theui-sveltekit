@@ -363,12 +363,14 @@ export let groupInputSizeClasses: { [size in INPUT_SIZE]: string } = {
 
 export let messageTheme = {
   default: {
+    brand: "bg-brand-primary-500 text-on-brand-primary-500",
     error: "bg-error-400 text-error-50 dark:bg-error-600",
     info: "bg-info-600 text-info-50 dark:bg-info-700",
     success: "bg-success-600 text-success-50 dark:bg-success-700",
-    warning: "bg-warning-300 text-warning-900 dark:bg-warning-600 dark:text-warning-50",
+    warning: "bg-warning-300 dark:bg-warning-600 text-warning-900 dark:text-warning-50",
   },
   light: {
+    brand: "bg-brand-primary-100 text-brand-primary-800",
     error: "bg-error-100 text-error-900 dark:bg-error-800 dark:text-error-200",
     info: "bg-info-100 text-info-900 dark:bg-info-900 dark:text-info-200",
     success: "bg-success-100 text-success-900 dark:bg-success-900 dark:text-success-200",
@@ -378,12 +380,14 @@ export let messageTheme = {
 
 export let messageBorderTheme = {
   default: {
+    brand: "border-brand-primary-200 dark:border-brand-primary-800",
     error: "border-error-200 dark:border-error-800",
     info: "border-info-200 dark:border-info-800",
     success: "border-success-200 dark:border-success-800",
     warning: "border-warning-500 dark:border-warning-700",
   },
   light: {
+    brand: "border-brand-primary-300 dark:border-brand-primary-700",
     error: "border-error-300 dark:border-error-700",
     info: "border-info-300 dark:border-info-800",
     success: "border-success-300 dark:border-success-800",
