@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Collapse from '$lib/Collapse/Collapse.svelte'
+  import {Collapse} from '$lib'
 </script>
 
 <Collapse ariaLabel="COLLAPSE">

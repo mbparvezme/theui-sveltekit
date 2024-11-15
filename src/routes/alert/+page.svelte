@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Alert from "$lib/Alert/Alert.svelte"
+  import {Alert} from "$lib"
 </script>
 
 <h4>Default alert</h4>

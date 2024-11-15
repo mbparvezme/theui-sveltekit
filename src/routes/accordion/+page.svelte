@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Accordion from "$lib/Accordion/Accordion.svelte";
-  import AccordionItem from "$lib/Accordion/AccordionItem.svelte"
+  import { Accordion, AccordionItem } from "$lib";
 </script>
 
 

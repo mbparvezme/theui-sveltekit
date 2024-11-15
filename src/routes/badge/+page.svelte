@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Badge from "$lib/Badge/Badge.svelte"
+	import {Badge} from "$lib"
 </script>
 
 <h3 class="text-2xl mb-4 relative">This is title <Badge/></h3>

@@ -11,24 +11,24 @@
 	})
 </script>
 
-<nav class="grid grid-cols-10 gap-4 px-8 mb-8 font-semibold bg-gray-200 uppercase text-center">
-	<a class="px-6 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/">Home</a>
-	<a class="px-6 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/accordion">Accordion</a>
-	<a class="px-6 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/alert">Alert</a>
-	<a class="px-6 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/badge">Badge</a>
-	<a class="px-3 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/breadcrumb">Breadcrumb</a>
-	<a class="px-3 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/button">Button</a>
-	<a class="px-3 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/chips">Chips</a>
-	<a class="px-3 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/collapse">Collapse</a>
-	<a class="px-3 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/drawer">Drawer</a>
-	<a class="px-3 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/modal">Modal</a>
-	<a class="px-3 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/notification">Notification</a>
-	<a class="px-3 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/popup">Popup</a>
-	<a class="px-3 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/tooltip">Tooltip</a>
+<nav class="grid grid-cols-12 gap-x-4 px-8 mb-8 font-semibold bg-gray-200 uppercase text-center fixed text-xs">
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/">Home</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/accordion">Accordion</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/alert">Alert</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/badge">Badge</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/breadcrumb">Breadcrumb</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/button">Button</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/chips">Chips</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/collapse">Collapse</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/drawer">Drawer</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/modal">Modal</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/notification">Notification</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/popup">Popup</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/tooltip">Tooltip</a>
 	<DarkMode />
-	<button class="px-3 py-6 active:bg-brand-primary-500 active:text-on-brand-primary-500" id="toggleDirection">RTL/LTR</button>
+	<button class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" id="toggleDirection">RTL/LTR</button>
 </nav>
 
-<div class="px-8 pt-16 pb-48">
+<div class="px-8 pt-32 pb-48">
 	{@render children()}
 </div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Chips from '$lib/Chips/Chips.svelte'
+  import {Chips} from '$lib'
 </script>
 
 <Chips content="Hello" imgUrl="https://mdbootstrap.com/img/Photos/Avatars/avatar-6.jpg"/>

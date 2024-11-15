@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Popup from "$lib/Popup/Popup.svelte"
+  import {Popup} from "$lib"
 </script>
 
 <Popup trigger="onEntry">
