@@ -25,6 +25,8 @@
 	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/notification">Notification</a>
 	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/popup">Popup</a>
 	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/tooltip">Tooltip</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/pagination">Pagination</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/progress">Progress</a>
 	<DarkMode />
 	<button class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" id="toggleDirection">RTL/LTR</button>
 </nav>

@@ -328,3 +328,12 @@ export const notificationClasses = (config: NOTIFY_CONFIG, type: NOTIFICATION_TY
 
 export let backdropClasses = (backdrop: string|boolean) =>
   `backdrop fixed inset-0 ${twMerge("bg-black/50 z-[-1]", (typeof backdrop == "string" ? backdrop : ""))}`
+
+export let isLocalUrl = (url: string) : boolean => {
+  try {
+    const parsedUrl = new URL(url, window.location.origin)
+    return parsedUrl.origin === window.location.origin
+  } catch (error) {
+    return false
+  }
+}

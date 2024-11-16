@@ -5,7 +5,7 @@
   import { roundedClass } from "$lib/functions"
 
   interface Props {
-    buttons : Snippet,
+    children : Snippet,
     stacked  ?: boolean,
     variant  ?: 'bordered' | 'flat',
     animate ?: ANIMATE_SPEED,
@@ -22,7 +22,7 @@
   }
 
   let {
-    buttons,
+    children,
     stacked = false,
     variant = "bordered",
     ariaLabel = "Button group",
@@ -57,5 +57,5 @@
 </script>
 
 <div class={getClass} class:flex-col={stacked} class:theui-btn-stacked={stacked} role="group" aria-label={ariaLabel}>
-  {@render buttons?.()}
+  {@render children?.()}
 </div>

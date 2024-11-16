@@ -2,7 +2,7 @@
   import type { ANIMATE_SPEED, ROUNDED, SHADOW, BUTTON_SIZE } from "$lib/types"
   import { getContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { animationClass, roundedClass, shadowClass } from "$lib/functions"
+  import { animationClass, isLocalUrl, roundedClass, shadowClass } from "$lib/functions"
   import { Svg } from "$lib"
   const CTX: any = getContext('BUTTON_GROUP_CTX')
   interface Props {
@@ -15,7 +15,6 @@
     href ?: string|undefined,
     isActive ?: boolean, // Not tested
     outline ?: boolean,
-    preload ?: 'hover' | 'tap' | undefined, // Not tested
     rounded ?: ROUNDED,
     shadow ?: SHADOW,
     size ?: BUTTON_SIZE,
@@ -57,7 +56,6 @@
     href = undefined,
     isActive = false,
     outline = CTX?.outline ?? false,
-    preload = href ? "hover" : undefined,
     rounded = CTX?.rounded ?? "md",
     shadow = "md",
     size = CTX?.size ?? "md",
@@ -165,12 +163,10 @@
   }
 </script>
 
-<!-- on:click on:keydown on:keyup on:touchstart|passive on:touchend on:touchcancel on:mouseenter on:mouseleave -->
 <svelte:element
   this={href ? "a" : "button"}
   {href}
   {...props}
-  data-sveltekit-preload-data={preload}
   class={twMerge(getButtonClass(), (props.class ?? "") as string)}
   type={href ? undefined : type}
   role={href ? "link" : "button"}

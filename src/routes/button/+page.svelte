@@ -90,17 +90,17 @@
     <Button label="Button type reset" type="reset" />
     
     <h3 class="mt-4 mb-2 text-2xl">Link Button</h3>
-    <Button label="Button type default" color="error" href="/" ariaLabel="This is aria-label" />
-    <Button label="Button type button" color="info" href="/" />
-    <Button label="Button type submit" color="success" href="/" />
-    <Button label="Button type reset" color="warning" href="/" />
+    <Button label="Button link" color="error" href="/alert" ariaLabel="This is aria-label" />
+    <Button label="Button link" color="info" href="/alert" />
+    <Button label="Button link" color="success" href="/alert" />
+    <Button label="Button link" color="warning" href="/alert" />
     
     <h3 class="mt-4 mb-2 text-2xl">Link with external icon</h3>
-    <Button label="Button type default" color="error" href="/" target="_blank" />
-    <Button label="Button type button" color="info" href="/" target="_blank" />
-    <Button label="Button type submit" color="success" href="/" target="_blank" />
-    <Button label="Button type reset" color="warning" href="/" target="_blank" />
-    
+    <Button label="Button link" color="error" href="/alert" target="_blank" />
+    <Button label="Button link" color="info" href="/alert" target="_blank" />
+    <Button label="Button link" color="success" href="/alert" target="_blank" />
+    <Button label="Button link" color="warning" href="/alert" target="_blank" />
+
     <h3 class="mt-4 mb-2 text-2xl">Before & After element</h3>
     <Button>
       {#snippet beforeLabel()}
