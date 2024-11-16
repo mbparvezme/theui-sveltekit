@@ -18,7 +18,7 @@
     theme ?: 'default' | 'light' | 'gradient'
     color ?: 'brand' | 'error' | 'info' | 'success' | 'warning',
     gradientColors ?: 'brand' | 'error' | 'info' | 'success' | 'warning',
-    [key: string]: unknown // dismissible, icon
+    [key: string]: unknown // any props
   }
 
   let {
@@ -42,7 +42,6 @@
     group: true,
     stacked,
     variant,
-
     animate,
     buttonClass,
     color,

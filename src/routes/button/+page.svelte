@@ -1,17 +1,25 @@
 <script lang="ts">
   import {Button, ButtonGroup} from "$lib"
+
+  let test = () => {
+    alert("Hello")
+  }
+
+  let test2 = () => {
+    alert("Hello key")
+  }
 </script>
 
 <div class="grid grid-cols-2">
   <div>
     <h3 class="mb-2 text-2xl">Default button sizes</h3>
-    <Button label="Button default" /><br>
+    <Button label="Button default" onclick={()=>test()} onkeydown={()=>test2()} /><br>
     <Button label="Button xs" size="xs" color="error"/>
     <Button label="Button sm" size="sm" color="info" />
     <Button label="Button md" size="md" color="success" />
     <Button label="Button lg" size="lg" color="warning" />
     <Button label="Button xl" size="xl" color="info" />
-    
+
     <h3 class="mt-4 mb-2 text-2xl">Outline button sizes</h3>
     <Button label="Button default" outline /><br>
     <Button label="Button xs" outline size="xs" color="error" />
@@ -19,7 +27,7 @@
     <Button label="Button md" outline size="md" color="success" />
     <Button label="Button lg" outline size="lg" color="warning" />
     <Button label="Button xl" outline size="xl" color="info" />
-    
+
     <h3 class="mt-4 mb-2 text-2xl">Default square buttons</h3>
     <Button label="df" square/><br>
     <Button label="xs" square size="xs" color="error" />
@@ -27,7 +35,7 @@
     <Button label="md" square size="md" color="success" />
     <Button label="lg" square size="lg" color="warning" />
     <Button label="xl" square size="xl" color="info" />
-    
+
     <h3 class="mt-4 mb-2 text-2xl">Outline square buttons</h3>
     <Button label="df" outline square/><br>
     <Button label="xs" outline square size="xs" color="error" />
@@ -35,7 +43,7 @@
     <Button label="md" outline square size="md" color="success" />
     <Button label="lg" outline square size="lg" color="warning" />
     <Button label="xl" outline square size="xl" color="info" />
-    
+
     <h3 class="mt-4 mb-2 text-2xl">Theme light button sizes</h3>
     <Button label="Button default" theme="light" /><br>
     <Button label="Button xs" theme="light" size="xs" color="error" />
@@ -110,17 +118,17 @@
   </div>
   <div>
     <h3 class="mb-2 text-2xl">Default button group</h3>
-    <ButtonGroup>
+    <ButtonGroup color="warning">
       {#snippet buttons()}
       <Button label="Button" />
       <Button label="Button" />
-      <Button label="Button" color="warning" />
+      <Button label="Button" />
       <Button label="Button" />
       <Button label="Button" />
       {/snippet}
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Stacked button group</h3>
-    <ButtonGroup color="success" stacked>
+    <ButtonGroup color="warning" stacked>
       {#snippet buttons()}
       <Button label="Button" />
       <Button label="Button" />
@@ -189,7 +197,16 @@
       {/snippet}
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Theme light button group</h3>
-    <ButtonGroup color="info" size="xl" theme="light">
+    <ButtonGroup size="xl" theme="light">
+      {#snippet buttons()}
+      <Button label="Brand" />
+      <Button label="Brand" />
+      <Button label="Brand" color="warning" />
+      <Button label="Brand" />
+      <Button label="Brand" />
+      {/snippet}
+    </ButtonGroup>
+    <ButtonGroup size="xl" theme="light" color="warning">
       {#snippet buttons()}
       <Button label="Button" />
       <Button label="Button" />
@@ -199,7 +216,7 @@
       {/snippet}
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Theme gradient button group</h3>
-    <ButtonGroup color="success" size="xl" theme="gradient">
+    <ButtonGroup size="xl" theme="gradient" gradientColors="error">
       {#snippet buttons()}
       <Button label="Button" />
       <Button label="Button" />
@@ -209,7 +226,7 @@
       {/snippet}
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Theme gradient button group</h3>
-    <ButtonGroup color="success" size="xl" stacked theme="gradient" gradientColors="warning">
+    <ButtonGroup size="xl" stacked theme="gradient" gradientColors="error">
       {#snippet buttons()}
       <Button label="Button" />
       <Button label="Button" />
