@@ -25,7 +25,7 @@ export type SHADOW =
   | "inner"
   | "none";
 export type PRELOAD = "" | "off" | "tap" | "hover";
-export type TABLE_ROW = object | (object | string | string[])[] | undefined;
+export type TABLE_ROW = ArrayLike<unknown>;
 export type BUTTON_SIZE = "xs" | "sm" | "md" | "lg" | "xl" | "auto";
 export type INPUT_TYPE = 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'reset' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week' | 'search';
 export type INPUT_SIZE = "sm" | "md" | "lg" | "xl";
@@ -35,8 +35,7 @@ export type DROPDOWN_ITEM = {
   active?: boolean;
   url?: string;
   text?: string;
-  type?: "link" | "divider" | "header";
-  preload?: PRELOAD;
+  type?: "button" | "divider" | "header" | "link"
 };
 export type DROPDOWN_ITEM_CONFIG = {
   activeClass?: string;
@@ -103,7 +102,6 @@ export type TABLE_CONFIG = {
   hover: boolean | string;
   space: "compact" | "default" | "comfortable" | string;
   stripe: boolean | string;
-  containerClass: string;
   trClass: string;
 };
 

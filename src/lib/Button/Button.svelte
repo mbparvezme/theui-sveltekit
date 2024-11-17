@@ -2,7 +2,7 @@
   import type { ANIMATE_SPEED, ROUNDED, SHADOW, BUTTON_SIZE } from "$lib/types"
   import { getContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { animationClass, isLocalUrl, roundedClass, shadowClass } from "$lib/functions"
+  import { animationClass, roundedClass, shadowClass } from "$lib/functions"
   import { Svg } from "$lib"
   const CTX: any = getContext('BUTTON_GROUP_CTX')
   interface Props {

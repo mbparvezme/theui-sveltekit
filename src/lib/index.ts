@@ -11,8 +11,8 @@ export { default as Collapse } from "./Collapse/Collapse.svelte";
 export { default as Container } from "./Utility/Container.svelte";
 export { default as DarkMode } from "./Utility/DarkMode.svelte";
 export { default as Svg } from "./Utility/Svg.svelte";
-// export { default as Dropdown, DROPDOWN } from "./Dropdown/Dropdown.svelte";
-// export { default as DropdownItem } from "./Dropdown/DropdownItem.svelte";
+export { default as Dropdown } from "./Dropdown/Dropdown.svelte";
+export { default as DropdownItem } from "./Dropdown/DropdownItem.svelte";
 export { default as Modal } from "./Modal/Modal.svelte";
 export { default as Notification } from "./Notification/Notification.svelte";
 export { notify } from "./state.svelte.ts";
@@ -51,9 +51,9 @@ export { default as Tooltip } from "./Tooltip/Tooltip.svelte";
 // export { default as TabPanel } from "./Tabs/TabPanel.svelte";
 
 // Table components
-// export { default as Table, TABLE } from "./Table/Table.svelte";
-// export { default as THead } from "./Table/THead.svelte";
+export { default as Table } from "./Table/Table.svelte";
+export { default as THead } from "./Table/THead.svelte";
 // export { default as TBody } from "./Table/TBody.svelte";
-// export { default as TR } from "./Table/TR.svelte";
+export { default as TR } from "./Table/TR.svelte";
 // export { default as TH } from "./Table/TH.svelte";
 // export { default as TD } from "./Table/TD.svelte";

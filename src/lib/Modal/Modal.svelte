@@ -6,7 +6,7 @@
 	import type { Snippet } from "svelte"
 
   interface Props{
-    button ?: Snippet<[any, string]>|undefined,
+    button ?: Snippet|undefined,
     content ?: Snippet|undefined,
     header ?: Snippet|undefined,
     footer ?: Snippet|undefined,
@@ -51,14 +51,6 @@
     modalStatus = false,
   } : Props = $props()
 
-  let attr = $derived({
-		"id" : `${id}Btn`,
-		"aria-label" : label,
-		"aria-haspopup" : "true",
-		"aria-controls" : id,
-		"aria-expanded" : modalStatus
-	})
-
   let toggle = ( closeBtn = true ) => {
     modalStatus = !(document.getElementById(id)?.classList.contains('open') && (closeBtn || (!closeBtn && !staticBackdrop)))
   }
@@ -90,15 +82,25 @@
 <svelte:body onkeydown={(e)=>handleKeyboard(e)}></svelte:body>
 
 {#if button}
-  <span role="button" onclick={()=>toggle()}>
-    {@render button?.(attr, label)}
+  <!-- svelte-ignore a11y_click_events_have_key_events -->
+  <!-- svelte-ignore a11y_interactive_supports_focus -->
+  <span
+    id="{id}Btn"
+    role="button"
+    onclick={()=>toggle()}
+    aria-haspopup="dialog"
+		aria-label=label
+		aria-controls=id
+		aria-expanded={modalStatus}
+  >
+    {@render button?.()}
   </span>
 {/if}
 
 {#if content}
 <div {id} class={twMerge(modalCls(), modalOuterClass)} class:open={modalStatus} class:animate={animate} role="dialog" aria-modal="true" aria-hidden={!modalStatus}>
   {#if backdrop}
-    <div class={backdropClasses(backdrop)} onclick={()=>toggle(false)}></div>
+    <div class={backdropClasses(backdrop)} onclick={()=>toggle(false)} aria-hidden="true"></div>
   {/if}
 
   <div class={twMerge(modalBodyCls(), (size !== "full" ? roundedClass(rounded) : ""), modalBodyClass)} aria-labelledby={header ? `${id}Heading` : `${id}Btn`}>
