@@ -25,7 +25,7 @@ export type SHADOW =
   | "inner"
   | "none";
 export type PRELOAD = "" | "off" | "tap" | "hover";
-export type TABLE_ROW = ArrayLike<unknown>;
+export type TABLE_ROW = string[] | Record<string, unknown>[];
 export type BUTTON_SIZE = "xs" | "sm" | "md" | "lg" | "xl" | "auto";
 export type INPUT_TYPE = 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'reset' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week' | 'search';
 export type INPUT_SIZE = "sm" | "md" | "lg" | "xl";

@@ -3,14 +3,13 @@
 	import { setContext, type Snippet } from "svelte"
   import { generateToken } from "$lib/functions"
   import { twMerge } from "tailwind-merge"
-  import { THead, TBody } from "$lib"
+  import { THead } from "$lib"
 
   interface Props {
-    head          ?: Snippet,
-    body          ?: Snippet,
-    headers       ?: string[]|Record<string, unknown>,
+    headers       ?: Snippet|string[],
     data          ?: TABLE_ROW,
-    keys          ?: string[],
+    keys          ?: string[]|undefined,
+
     id            ?: string,
     animate       ?: ANIMATE_SPEED,
     border        ?: 'x' | 'y' | 'both' | 'none',
@@ -23,11 +22,9 @@
   }
 
   let {
-    head,
-    body,
     headers,
-    data,
-    keys,
+    data = undefined,
+    keys = undefined,
     id = generateToken(),
     animate = "normal",
     border = "both",
@@ -53,22 +50,18 @@
 </script>
 
 <div class="table-container w-full overflow-x-auto">
-  {JSON.stringify(headers)}
   <table {id} {...props} class={cls}>
-    {#if head}
-      {@render head?.()}
-    {:else}
-      {#if headers && Object.prototype.toString.call(headers) === "[object Object]"}
-        <THead {headers} {keys} />
+    {#if headers}
+      {#if typeof headers === "function"}
+        {@render headers?.()}
+      {/if}
+      {#if typeof headers === "object"}
+        <THead {headers}/>
       {/if}
     {/if}
-
-    {#if body}
-      {@render body?.()}
-    {:else}
-      {#if data}
-        <TBody {data} {keys}/>
-      {/if}
-    {/if}
+<!-- 
+    {#if data}
+      <TBody {data} {keys}/>
+    {/if} -->
   </table>
 </div>
