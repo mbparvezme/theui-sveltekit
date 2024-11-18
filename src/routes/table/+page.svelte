@@ -12,12 +12,16 @@
   ]
 </script>
 
-<!-- {"<Table headers={headers} />"}
+{"<Table headers={headers} />"}
 <Table headers={headers} />
 <br>
-{"<Table headers={headers} data={data} keys={keys} stripe hover />"}
-<Table headers={headers} data={data} keys={keys} stripe hover />
-<br> -->
+{"<Table headers={headers} data={data} keys={keys} stripe hover space='compact' />"}
+<Table headers={headers} data={data} keys={keys} stripe hover space="compact" />
+{"<Table headers={headers} data={data} keys={keys} stripe hover space='comfortable' />"}
+<Table headers={headers} data={data} keys={keys} stripe hover space="comfortable" />
+{"<Table headers={headers} data={data} keys={keys} stripe hover space='p-12' />"}
+<Table headers={headers} data={data} keys={keys} stripe hover space="custom" />
+<br>
 {"{#snippet head()} && {#snippet body()}"}
 <Table keys={keys} stripe hover>
   {#snippet head()}
@@ -101,9 +105,15 @@
   {#snippet body()}
     <TBody>
       {#snippet children()}
-        <TR data={data[0]} {keys} />
-        <TR data={data[1]} {keys} />
-        <TR data={data[2]} {keys} />
+        {#each data as d}
+          <TR>
+            {#snippet children()}
+              {#each keys as k}
+                <Cell data={(d as Record<string, string>)[k]} />
+              {/each}
+            {/snippet}
+          </TR>
+        {/each}
       {/snippet}
     </TBody>
   {/snippet}

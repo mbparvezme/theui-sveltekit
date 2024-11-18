@@ -16,9 +16,11 @@
     border        ?: 'x' | 'y' | 'both' | 'none',
     borderColor   ?: string,
     hover         ?: boolean | string,
-    space         ?: 'compact' | 'default' | 'comfortable' | string,
+    space         ?: 'compact' | 'default' | 'comfortable',
     stripe        ?: boolean | string,
-    trClass       ?: string,
+    trClasses     ?: string,
+    thClasses     ?: string,
+    tdClasses     ?: string,
     [key: string] : unknown
   }
 
@@ -35,7 +37,9 @@
     hover = false,
     space = "default",
     stripe = false,
-    trClass = "",
+    trClasses = "",
+    thClasses = "",
+    tdClasses = "",
     ...props
   } : Props = $props()
 
@@ -46,19 +50,20 @@
     hover,
     space,
     stripe,
-    trClass,
+    trClasses,
+    thClasses,
+    tdClasses,
   })
 
-  let cls = twMerge(`theui-table w-full text-start border-collapse ${border=="x" ? `border-x ${borderColor}` : ""}`, (props?.class??"") as string)
+  let cls = `theui-table w-full text-start border-collapse ${border=="x" ? `border-x ${borderColor}` : ""}`
 </script>
 
 <div class="table-container w-full overflow-x-auto">
-  {JSON.stringify(headers)}
-  <table {id} {...props} class={cls}>
+  <table {id} {...props} class={twMerge(cls, props?.class as string)}>
     {#if head}
       {@render head?.()}
     {:else}
-      {#if headers && Object.prototype.toString.call(headers) === "[object Object]"}
+      {#if headers && (Object.prototype.toString.call(headers) === "[object Object]" || Array.isArray(headers))}
         <THead {headers} {keys} />
       {/if}
     {/if}

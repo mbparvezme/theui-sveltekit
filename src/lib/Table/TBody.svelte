@@ -10,7 +10,7 @@
 </script>
 
 {#if data || children}
-<tbody {...props} class={twMerge("text-left", props?.class as string)}>
+<tbody {...props} class={twMerge("text-start", props?.class as string)}>
   {#if children}
     {@render children?.()}
   {:else if data}

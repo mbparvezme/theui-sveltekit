@@ -4,7 +4,7 @@
   import {TR} from "$lib"
 
   interface Props{headers?: Snippet|string[]|Record<string, unknown>, keys?: string[], [key: string]: unknown}
-  let{headers, keys, ...props} : Props = $props()
+  let {headers, keys, ...props} : Props = $props()
 </script>
 
 {#if headers}
