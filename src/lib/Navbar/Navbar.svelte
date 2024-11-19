@@ -6,17 +6,18 @@
   import { animationClass, roundedClass, generateToken } from "$lib/functions";
   import { ST_MOBILE_NAV } from "$lib/state.svelte";
 
-  type RESPONSIVE_NAV_ON = { xl: string; md: string; lg: string };
+  type RESPONSIVE_NAV_ON = { xl: string; lg: string; md: string; sm: string; };
   type MOBILE_NAV_ON = keyof RESPONSIVE_NAV_ON;
 
   interface Props {
     segment ?: string,
     activeLinkStyle ?: string,
     animate ?: ANIMATE_SPEED,
-    height ?: 'sm' | 'md' | 'lg' | 'xl',
+    height ?: 'sm' | 'md' | 'lg' | 'xl' | 'string',
     linkStyle ?: string,
     mobileNavOn ?: 'md' | 'lg' | 'xl' | false,
     navInnerClasses ?: string,
+    navCollapseClasses ?: string,
     rounded ?: ROUNDED,
     scrollAmountToHide ?: number,
     scrollAmountToShrink ?: number,
@@ -27,41 +28,40 @@
 
   let {
     segment = "/",
-    activeLinkStyle = "p-3 text-default text-sm",
+    activeLinkStyle = "",
     animate = "fast",
     height = "md",
-    linkStyle = "p-3 text-gray-700 dark:text-gray-300 hover:text-default text-sm",
+    linkStyle = "",
     mobileNavOn = "lg",
     navInnerClasses = "",
+    navCollapseClasses = "",
     rounded = "none",
     scrollAmountToHide = 64,
     scrollAmountToShrink = 32,
     scrollBehavior = "shrinkAndHide",
-    scrollClass = "bg-white dark:bg-secondary shadow-black/10 shadow-2xl md:px-4",
+    scrollClass = "",
     ...props
   } : Props = $props()
 
+  let heightCls = {sm: "h-12", lg: " h-20", xl: " h-24", md: " h-16"}
+  let miniNav = $state(false)
+  let hideNav = $state(false)
+  let id: string = generateToken()
+  let scrollPos = 0
+
   let config: Exclude<Props, typeof segment> = {
-    activeLinkStyle,
+    activeLinkStyle : twMerge("p-3 text-default text-sm", activeLinkStyle),
     animate,
     height,
     navInnerClasses,
-    linkStyle,
+    linkStyle: twMerge("p-3 text-gray-700 dark:text-gray-300 hover:text-default text-sm", linkStyle),
     mobileNavOn,
     rounded,
     scrollAmountToHide,
     scrollAmountToShrink,
     scrollBehavior,
-    scrollClass : "bg-white dark:bg-secondary shadow-black/10 shadow-2xl md:px-4",
-  };
-
-  let heightCls = () => height == "sm" ? " h-12" : height == "lg" ? " h-20" : height == "xl" ? " h-24" : " h-16";
-
-  let miniNav = $state(false);
-  let hideNav = $state(false);
-
-  let id: string = generateToken();
-  let scrollPos = 0;
+    scrollClass: twMerge("bg-white dark:bg-secondary shadow-black/10 shadow-2xl md:px-4", scrollClass),
+  }
 
   onMount(() => {
     // let navbar = document.querySelector(".theui-navbar")
@@ -84,27 +84,32 @@
       }
     })
   })
-  setContext('NAV', {config, id, ST_MOBILE_NAV});
 
-  let navClass = () => `bg-primary left-0 top-0 w-full flex items-center justify-center ${animationClass(animate)} ${(miniNav||(hideNav===false && scrollPos!==0) ? scrollClass : "")}`;
-  let navInnerClass = () => `nav-inner w-full max-w-[var(--max-width)] flex grow gap-x-8 items-center justify-between relative ${heightCls()} ${animationClass(animate)} ${(miniNav||(hideNav===false && scrollPos!==0) ? " px-4" : " px-8")}`;
+  setContext('NAV', {config, id, ST_MOBILE_NAV})
 
-  // Determine mobile nav responsive classes
-  let responsiveClassesByBreakPoints: RESPONSIVE_NAV_ON = {
-    "xl" : "xl-collapse 2xl:flex-row 2xl:items-center 2xl:basis-auto 2xl:static 2xl:left-auto 2xl:right-auto 2xl:top-auto 2xl:flex 2xl:overflow-visible 2xl:shadow-none 2xl:px-0 2xl:py-0 2xl:bg-transparent ",
-    "md" : "md-collapse lg:flex-row lg:items-center lg:basis-auto lg:static lg:left-auto lg:right-auto lg:top-auto lg:flex lg:overflow-visible lg:shadow-none lg:py-0 lg:bg-transparent lg:px-0 ",
-    "lg" : "lg-collapse xl:flex-row xl:items-center xl:basis-auto xl:static xl:left-auto xl:right-auto xl:top-auto xl:flex xl:overflow-visible xl:shadow-none xl:px-0 xl:py-0 xl:bg-transparent "
-  };
-  let responsiveBasedClasses: string;
-  if (config.mobileNavOn) {
-    responsiveBasedClasses = " flex-col basis-full absolute left-0 right-0 top-full order-last lg:order-none shadow-lg px-8 py-4 ";
-    if(responsiveClassesByBreakPoints[config.mobileNavOn as MOBILE_NAV_ON])
-      responsiveBasedClasses += responsiveClassesByBreakPoints[config.mobileNavOn as MOBILE_NAV_ON];
-  }else{
-    responsiveBasedClasses = " flex-row items-center relative overflow-visible";
+  let navClass = $derived(`bg-primary left-0 top-0 w-full flex items-center justify-center ${animationClass(animate)} 
+                  ${(miniNav||(hideNav===false && scrollPos!==0) ? scrollClass : "")}${roundedClass(config?.rounded)}`);
+
+  let navInnerClass = $derived(`nav-inner w-full max-w-[var(--max-width)] flex grow gap-x-8 items-center justify-between relative
+                      ${heightCls[height as "sm" | "md" | "lg" | "xl"] ?? height as string}
+                      ${animationClass(animate)} ${(miniNav||(hideNav===false && scrollPos!==0) ? " px-4" : " px-8")}`)
+
+  let responsiveClasses = () => {
+    // Determine mobile nav responsive classes
+    let responsiveClassesByBreakPoints: RESPONSIVE_NAV_ON = {
+      xl : "xl-collapse 2xl:flex-row 2xl:items-center 2xl:basis-auto 2xl:static 2xl:left-auto 2xl:right-auto 2xl:top-auto 2xl:flex 2xl:overflow-visible 2xl:shadow-none 2xl:px-0 2xl:py-0 2xl:bg-transparent ",
+      lg : "lg-collapse xl:flex-row xl:items-center xl:basis-auto xl:static xl:left-auto xl:right-auto xl:top-auto xl:flex xl:overflow-visible xl:shadow-none xl:px-0 xl:py-0 xl:bg-transparent ",
+      md : "md-collapse lg:flex-row lg:items-center lg:basis-auto lg:static lg:left-auto lg:right-auto lg:top-auto lg:flex lg:overflow-visible lg:shadow-none lg:py-0 lg:bg-transparent lg:px-0 ",
+      sm : "sm-collapse md:flex-row md:items-center md:basis-auto md:static md:left-auto md:right-auto md:top-auto md:flex md:overflow-visible md:shadow-none md:py-0 md:bg-transparent md:px-0 ",
+    }
+    let navMobileStatusClasses = {
+      on: "flex-col basis-full absolute left-0 right-0 top-full order-last lg:order-none shadow-lg px-8 py-4",
+      off: "flex-row items-center relative overflow-visible"
+    }
+    return config.mobileNavOn ? `${navMobileStatusClasses["on"]} ${responsiveClassesByBreakPoints[config.mobileNavOn as MOBILE_NAV_ON] ?? ""}` : navMobileStatusClasses["off"]
   }
 
-  let navCollapseClasses = () => "theui-navbar-collapse flex-grow z-[1]" + responsiveBasedClasses + twMerge(("max-h-[80vh] bg-primary" + roundedClass(config?.rounded)), props?.class as string);
+  let collapseClasses = `theui-navbar-collapse flex-grow z-[1] ${responsiveClasses()}${roundedClass(config?.rounded)} ${twMerge("max-h-[80vh] bg-primary", navCollapseClasses)}`
 </script>
 
 <nav
@@ -112,16 +117,16 @@
   class:navbar-mini={miniNav}
   class:-top-full={hideNav}
   class:fixed={scrollBehavior !== "default"}
-  class="theui-navbar z-20 {twMerge(navClass(), props?.class as string)}"
+  class="theui-navbar z-20 {twMerge(navClass, props?.class as string)}"
 >
-  <div class={twMerge(navInnerClass(), navInnerClasses)}>
+  <div class={twMerge(navInnerClass, navInnerClasses)}>
     <div
-        class={navCollapseClasses()}
+        class={collapseClasses}
         class:flex={!config.mobileNavOn || ST_MOBILE_NAV.value.includes(id)}
         class:hidden={config.mobileNavOn != false && !ST_MOBILE_NAV.value.includes(id)}
         class:overflow-hidden={config.mobileNavOn != false && !ST_MOBILE_NAV.value.includes(id)}
         class:overflow-auto={config.mobileNavOn != false && ST_MOBILE_NAV.value.includes(id)}>
-        <slot {segment}></slot>
+
     </div>
   </div>
 </nav>

@@ -23,6 +23,7 @@
 	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/dropdown">Dropdown</a>
 	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/drawer">Drawer</a>
 	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/modal">Modal</a>
+	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/navbar">Navbar</a>
 	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/notification">Notification</a>
 	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/popup">Popup</a>
 	<a class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" href="/table">Table</a>
