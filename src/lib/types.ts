@@ -86,6 +86,9 @@ export type Tools = "blockquote" | "code" | "codeblock" | "link" | "horizontalLi
 
 export type NOTIFICATION_TYPE = "error" | "info" | "success" | "warning";
 
+export type RESPONSIVE_NAV_ON = { sm: string; md: string; lg: string; xl: string; }
+export type MOBILE_NAV_ON = keyof RESPONSIVE_NAV_ON
+
 export type NOTIFY_CONFIG = {
   removeAfter?: number;
   removeOnClick?: boolean;
@@ -122,7 +125,6 @@ export type TABS_CONTEXT = {
   selectedPanel: Writable<HTMLElement>;
   config: TAB_CONFIG;
 }
-
 
 export type ROUNDED_ITEM_TYPES = "default" | "fileButton" | "first" | "last";
 // Private types

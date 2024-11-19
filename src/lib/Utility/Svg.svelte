@@ -3,7 +3,7 @@
   import { twMerge } from "tailwind-merge"
 
 	interface Props {
-    icon ?: Snippet|undefined,
+    children ?: Snippet|undefined,
     size ?: number,
     viewBox ?: string,
     focusable ?: "true"|"false",
@@ -11,7 +11,7 @@
 	}
 
   let {
-    icon = undefined,
+    children = undefined,
     size = 1,
     viewBox = "0 0 16 16",
     focusable = "true",
@@ -21,7 +21,7 @@
   let cls = $derived("theui-svg-icon shrink-0 " + (props?.stroke ? "stroke-current fill-transparent" : "fill-current"))
 </script>
 
-{#if icon}
+{#if children}
 <svg
   width="{size}rem" height="{size}rem"
   {viewBox}
@@ -32,6 +32,6 @@
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
 >
-  {@render icon?.()}
+  {@render children?.()}
 </svg>
 {/if}

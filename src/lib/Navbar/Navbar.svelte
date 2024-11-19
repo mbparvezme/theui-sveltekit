@@ -1,15 +1,13 @@
 <script lang="ts">
-  import type { ANIMATE_SPEED, ROUNDED } from "$lib/types";
-	import { setContext } from "svelte";
-  import { onMount } from "svelte";
-  import { twMerge } from "tailwind-merge";
-  import { animationClass, roundedClass, generateToken } from "$lib/functions";
-  import { ST_MOBILE_NAV } from "$lib/state.svelte";
-
-  type RESPONSIVE_NAV_ON = { xl: string; lg: string; md: string; sm: string; };
-  type MOBILE_NAV_ON = keyof RESPONSIVE_NAV_ON;
+  import type { ANIMATE_SPEED, ROUNDED, RESPONSIVE_NAV_ON, MOBILE_NAV_ON } from "$lib/types"
+	import { setContext, type Snippet } from "svelte"
+  import { onMount } from "svelte"
+  import { twMerge } from "tailwind-merge"
+  import { animationClass, roundedClass, generateToken } from "$lib/functions"
+  import { ST_MOBILE_NAV } from "$lib/state.svelte"
 
   interface Props {
+    children: Snippet,
     segment ?: string,
     activeLinkStyle ?: string,
     animate ?: ANIMATE_SPEED,
@@ -27,6 +25,7 @@
   }
 
   let {
+    children,
     segment = "/",
     activeLinkStyle = "",
     animate = "fast",
@@ -43,18 +42,19 @@
     ...props
   } : Props = $props()
 
-  let heightCls = {sm: "h-12", lg: " h-20", xl: " h-24", md: " h-16"}
+  let heightCls = {sm: "h-12", md: " h-16", lg: " h-20", xl: " h-24"}
   let miniNav = $state(false)
   let hideNav = $state(false)
   let id: string = generateToken()
   let scrollPos = 0
 
-  let config: Exclude<Props, typeof segment> = {
+  let config: Exclude<Props, typeof segment | typeof children> = {
     activeLinkStyle : twMerge("p-3 text-default text-sm", activeLinkStyle),
     animate,
     height,
     navInnerClasses,
-    linkStyle: twMerge("p-3 text-gray-700 dark:text-gray-300 hover:text-default text-sm", linkStyle),
+    navCollapseClasses,
+    linkStyle: twMerge("p-3 text-gray-700 dark:text-gray-300 hover:text-default text-sm", linkStyle, heightCls[height], roundedClass(rounded)),
     mobileNavOn,
     rounded,
     scrollAmountToHide,
@@ -85,8 +85,6 @@
     })
   })
 
-  setContext('NAV', {config, id, ST_MOBILE_NAV})
-
   let navClass = $derived(`bg-primary left-0 top-0 w-full flex items-center justify-center ${animationClass(animate)} 
                   ${(miniNav||(hideNav===false && scrollPos!==0) ? scrollClass : "")}${roundedClass(config?.rounded)}`);
 
@@ -109,7 +107,9 @@
     return config.mobileNavOn ? `${navMobileStatusClasses["on"]} ${responsiveClassesByBreakPoints[config.mobileNavOn as MOBILE_NAV_ON] ?? ""}` : navMobileStatusClasses["off"]
   }
 
-  let collapseClasses = `theui-navbar-collapse flex-grow z-[1] ${responsiveClasses()}${roundedClass(config?.rounded)} ${twMerge("max-h-[80vh] bg-primary", navCollapseClasses)}`
+  
+
+  setContext('NAV', {config, id, ST_MOBILE_NAV})
 </script>
 
 <nav
@@ -120,13 +120,6 @@
   class="theui-navbar z-20 {twMerge(navClass, props?.class as string)}"
 >
   <div class={twMerge(navInnerClass, navInnerClasses)}>
-    <div
-        class={collapseClasses}
-        class:flex={!config.mobileNavOn || ST_MOBILE_NAV.value.includes(id)}
-        class:hidden={config.mobileNavOn != false && !ST_MOBILE_NAV.value.includes(id)}
-        class:overflow-hidden={config.mobileNavOn != false && !ST_MOBILE_NAV.value.includes(id)}
-        class:overflow-auto={config.mobileNavOn != false && ST_MOBILE_NAV.value.includes(id)}>
-
-    </div>
+    {@render children()}
   </div>
 </nav>

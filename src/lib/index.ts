@@ -38,8 +38,9 @@ export { default as Tooltip } from "./Tooltip/Tooltip.svelte";
 
 // Navbar components
 export { default as Navbar} from "./Navbar/Navbar.svelte";
+export { default as NavCollapse } from "./Navbar/NavCollapse.svelte";
 export { default as NavBrand } from "./Navbar/NavBrand.svelte";
-export { default as NavContainer } from "./Navbar/NavContainer.svelte";
+export { default as NavLinkGroup } from "./Navbar/NavLinkGroup.svelte";
 export { default as NavDropdown } from "./Navbar/NavDropdown.svelte";
 export { default as NavLink } from "./Navbar/NavLink.svelte";
 export { default as NavToggle } from "./Navbar/NavToggle.svelte";
