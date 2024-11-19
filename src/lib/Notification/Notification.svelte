@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fade, fly } from "svelte/transition"
-  import { notifications, removeNotification } from "$lib/state.svelte"
+  import { ST_NOTIFICATIONS, removeNotification } from "$lib/state.svelte"
   import type { NOTIFICATION_POSITION } from "$lib/vars"
   import { notificationClasses } from "$lib/functions"
 
@@ -18,15 +18,19 @@
 
 </script>
 
-{#if notifications?.value?.length}
+{#if ST_NOTIFICATIONS?.value?.length}
 <ul class="theui-notifications z-[70] {position}">
-  {#each notifications.value as notification}
+  {#each ST_NOTIFICATIONS.value as notification}
   <li class="notification">
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
     {#if animate}
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
+      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
       <div class={notificationClasses(notification.CONFIG, notification.type)} role="alert" aria-live="assertive" aria-atomic="true" in:fly={{ y: 16 }} out:fade onclick={() => {notification.CONFIG.removeOnClick===false ? false : removeNotification(notification.CONFIG.id)}}>
         <span role="alert" aria-live="assertive" aria-atomic="true">{@html notification.msg}</span>
       </div>
     {:else}
+      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
       <div class={notificationClasses(notification.CONFIG, notification.type)} role="alert" aria-live="assertive" aria-atomic="true" onclick={() => {notification.CONFIG.removeOnClick === false ? false : removeNotification(notification.CONFIG.id)}}>
         <span role="alert" aria-live="assertive" aria-atomic="true">{@html notification.msg}</span>
       </div>

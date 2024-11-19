@@ -20,17 +20,7 @@
 {"<Table headers={headers} data={data} keys={keys} stripe hover space='comfortable' />"}
 <Table headers={headers} data={data} keys={keys} stripe hover space="comfortable" />
 {"<Table headers={headers} data={data} keys={keys} stripe hover space='p-12' />"}
-<Table headers={headers} data={data} keys={keys} stripe hover space="custom" />
-<br>
-{"{#snippet head()} && {#snippet body()}"}
-<Table keys={keys} stripe hover>
-  {#snippet head()}
-    <THead  headers={headers} />
-  {/snippet}
-  {#snippet body()}
-    <TBody data={data} {keys} />
-  {/snippet}
-</Table>
+<Table headers={headers} data={data} keys={keys} stripe hover />
 <br>
 {"{#snippet head()} && {#snippet body()}"}
 <Table keys={keys} stripe hover>

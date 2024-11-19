@@ -37,12 +37,12 @@ export { default as Tooltip } from "./Tooltip/Tooltip.svelte";
 // export { default as Toggle } from "./Form/Toggle.svelte";
 
 // Navbar components
-// export { default as Navbar, NAV } from "./Navbar/Navbar.svelte";
-// export { default as NavBrand } from "./Navbar/NavBrand.svelte";
-// export { default as NavContainer } from "./Navbar/NavContainer.svelte";
-// export { default as NavDropdown } from "./Navbar/NavDropdown.svelte";
-// export { default as NavLink } from "./Navbar/NavLink.svelte";
-// export { default as NavToggle } from "./Navbar/NavToggle.svelte";
+export { default as Navbar} from "./Navbar/Navbar.svelte";
+export { default as NavBrand } from "./Navbar/NavBrand.svelte";
+export { default as NavContainer } from "./Navbar/NavContainer.svelte";
+export { default as NavDropdown } from "./Navbar/NavDropdown.svelte";
+export { default as NavLink } from "./Navbar/NavLink.svelte";
+export { default as NavToggle } from "./Navbar/NavToggle.svelte";
 
 // Tabs
 // export { default as Tabs, TABS } from "./Tabs/Tabs.svelte";
@@ -56,5 +56,3 @@ export { default as THead } from "./Table/THead.svelte";
 export { default as TBody } from "./Table/TBody.svelte";
 export { default as TR } from "./Table/TR.svelte";
 export { default as Cell } from "./Table/Cell.svelte";
-// export { default as TH } from "./Table/TH.svelte";
-// export { default as TD } from "./Table/TD.svelte";

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ANIMATE_SPEED, TABLE_ROW } from "$lib/types"
 	import { setContext, type Snippet } from "svelte"
-  import { generateToken } from "$lib/functions"
+  import { generateToken, animationClass } from "$lib/functions"
   import { twMerge } from "tailwind-merge"
   import { THead, TBody } from "$lib"
 
@@ -19,7 +19,7 @@
     space         ?: 'compact' | 'default' | 'comfortable',
     stripe        ?: boolean | string,
     trClasses     ?: string,
-    thClasses     ?: string,
+    trHeadClasses ?: string,
     tdClasses     ?: string,
     [key: string] : unknown
   }
@@ -38,10 +38,29 @@
     space = "default",
     stripe = false,
     trClasses = "",
-    thClasses = "",
+    trHeadClasses = "",
     tdClasses = "",
     ...props
   } : Props = $props()
+
+  let rowClasses = () => {
+    const borderClasses = border === "both" || border === "y" ? `border-y ${borderColor}` : borderColor || "";
+    const hoverClasses = hover ? `${animationClass(animate)} hover:bg-gray-200 dark:hover:bg-gray-800` : "";
+    const stripeClasses =
+      stripe === true || stripe === "true" || props?.stripe
+        ? `even:bg-gray-100 dark:even:bg-gray-900 ${borderColor}`
+        : typeof stripe === "string" && stripe !== "true"
+        ? stripe
+        : "";
+    return twMerge(borderClasses, hoverClasses, stripeClasses, trClasses);
+  }
+
+  let headerRowClasses = () => {
+    let trClasses = rowClasses().replace("border-y ", "")
+      .replace("hover:bg-gray-200 dark:hover:bg-gray-800", "")
+      .replace(new RegExp(animationClass(animate).replace(/\s+/g, '\\s+'), 'g'), "")
+    return twMerge(trClasses, trHeadClasses)
+  }
 
   setContext('TABLE', {
     animate,
@@ -50,8 +69,8 @@
     hover,
     space,
     stripe,
-    trClasses,
-    thClasses,
+    trHeadClasses : headerRowClasses(),
+    trClasses : rowClasses(),
     tdClasses,
   })
 
