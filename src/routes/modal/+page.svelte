@@ -3,10 +3,6 @@
 </script>
 
 <Modal label="Default modal">
-  {#snippet button()}
-    <span {...attr}>{label}</span>
-  {/snippet}
-
   {#snippet header()}
     <h3>This is modal title</h3>
   {/snippet}
@@ -17,10 +13,6 @@
 </Modal>
 
 <Modal animation="slide-up" label="Slide-up modal" position="top" size="sm">
-  {#snippet button()}
-    <span {...attr}>{label}</span>
-  {/snippet}
-
   {#snippet header()}
     <h3>This is modal title</h3>
   {/snippet}
@@ -31,10 +23,6 @@
 </Modal>
 
 <Modal animation="slide-up" label="Center modal" position="bottom" size="lg">
-  {#snippet button()}
-    <span {...attr}>{label}</span>
-  {/snippet}
-
   {#snippet header()}
     <h3>This is modal title</h3>
   {/snippet}
