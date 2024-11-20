@@ -46,10 +46,10 @@ export { default as NavLink } from "./Navbar/NavLink.svelte";
 export { default as NavToggle } from "./Navbar/NavToggle.svelte";
 
 // Tabs
-// export { default as Tabs, TABS } from "./Tabs/Tabs.svelte";
+export { default as Tabs } from "./Tabs/Tabs.svelte";
 // export { default as TabList } from "./Tabs/TabList.svelte";
-// export { default as Tab } from "./Tabs/Tab.svelte";
-// export { default as TabPanel } from "./Tabs/TabPanel.svelte";
+export { default as Tab } from "./Tabs/Tab.svelte";
+export { default as TabPanel } from "./Tabs/TabPanel.svelte";
 
 // Table components
 export { default as Table } from "./Table/Table.svelte";

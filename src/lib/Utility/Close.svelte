@@ -17,7 +17,7 @@
   } : Props = $props()
 </script>
 
-<button class="theui-close {twMerge("opacity-60 dark:opacity-50 hover:opacity-100 transition-opacity", (props?.class || "") as string)}" aria-label={ariaLabel} {onclick}>
+<button class="theui-close {twMerge("opacity-60 dark:opacity-50 hover:opacity-100 transition-opacity", (props?.class || "") as string)}" aria-label={ariaLabel} {onclick} tabindex="-1">
   <span class="sr-only">{ariaLabel}</span>
   <Svg {size}>
     {#snippet children()}

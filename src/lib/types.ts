@@ -111,9 +111,9 @@ export type TABLE_CONFIG = {
 export type TAB_CONFIG = {
   activeTabClasses?: string;
   animate?: ANIMATE_SPEED;
-  border: boolean,
-  inactiveTabClasses?: string;
+  tabClasses?: string;
   tabPanelClasses?: string;
+  borderClasses ?: boolean | string;
   variant: 'tabs' | 'pills';
 };
 
@@ -121,8 +121,8 @@ export type TABS_CONTEXT = {
   registerTab: (param: HTMLElement) => void;
   registerPanel: (param: HTMLElement) => void;
   selectTab: (param: HTMLElement) => void;
-  selectedTab: Writable<HTMLElement>;
-  selectedPanel: Writable<HTMLElement>;
+  selectedTab: Writable<{ value: HTMLElement | null }>;
+  selectedPanel: Writable<{ value: HTMLElement | null }>;
   config: TAB_CONFIG;
 }
 

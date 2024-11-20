@@ -122,7 +122,7 @@
 
 <!-- Component Snippet -->
 {#snippet accordionHeading()}
-  <button class={twMerge(getTitleClasses(), ST_ACTIVE_ACCORDIONS.value.includes(id) && 'accordion-active')} class:accordion-active={ST_ACTIVE_ACCORDIONS.value.includes(id)} on:click={()=>toggle()}>
+  <button class={twMerge(getTitleClasses(), ST_ACTIVE_ACCORDIONS.value.includes(id) && 'accordion-active')} class:accordion-active={ST_ACTIVE_ACCORDIONS.value.includes(id)} onclick={()=>toggle()}>
     {#if typeof title === "string"}
       {@html title}
     {:else}

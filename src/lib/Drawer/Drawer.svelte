@@ -65,7 +65,7 @@
 <svelte:body onkeydown={(e)=>handleKeyboard(e)}></svelte:body>
 
 {#if button}
-<span role="button" onclick={()=>toggle(id)} id="{id}Btn">
+<span role="button" onclick={()=>toggle(id)} onkeydown={(e)=>handleKeyboard(e)} id="{id}Btn" tabindex="-1">
   {@render button?.(attr)}
 </span>
 {/if}
@@ -74,7 +74,7 @@
   <div {id} class="theui-drawer fixed inset-0 z-40 {animationClass(animate)} {positionCls()}" role="dialog" class:animate={animate}>
 
     {#if backdrop}
-      <div class={backdropClasses(backdrop)} onclick={()=>staticBackdrop ? false : toggle(id)}></div>
+      <div role="presentation" class={backdropClasses(backdrop)} onclick={()=>staticBackdrop ? false : toggle(id)}></div>
     {/if}
 
     <div id="{id}Drawer" class={getClass} aria-labelledby="{id}Btn" aria-hidden={!active}>
