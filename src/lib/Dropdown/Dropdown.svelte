@@ -21,6 +21,7 @@
     containerClasses ?: string,
     dropdownClasses ?: string,
     id ?: string,
+    dropdownEvent ?: 'hover' | 'click',
     label : string|Snippet,
     rounded ?: ROUNDED
     size ?: 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom'
@@ -40,6 +41,7 @@
     containerClasses = "",
     dropdownClasses = "",
     id = generateToken(),
+    dropdownEvent = 'click',
     label,
     rounded = "md",
     size = "auto",
@@ -57,8 +59,17 @@
 	let isOpen: boolean = $state(false)
 
 	let toggle = $derived(() => {
-		let currentDD = document.getElementById(id)
-		isOpen = !currentDD?.classList.contains('open')
+    if(dropdownEvent !== "hover"){
+			let currentDD = document.getElementById(id)
+			isOpen = !currentDD?.classList.contains('open')
+		}
+	})
+
+	let handleMouse = $derived((e: MouseEvent) => {
+    if(dropdownEvent === "hover"){
+			e.preventDefault()
+			isOpen = !isOpen
+		}
 	})
 
 	let handleKeyboard = $derived((e: KeyboardEvent) => {
@@ -76,14 +87,6 @@
 		if (closeOnBlur && currentDD?.classList.contains('open') && e.target instanceof Element && !e.target.closest("#"+id)) {
 			isOpen = false
 		}
-	})
-
-	let attr = $derived({
-		"id" : `${id}Heading`,
-		"aria-label" : typeof label === "string" ? label : "Dropdown button",
-		"aria-haspopup" : "true",
-		"aria-controls" : `${id}Body`,
-		"aria-expanded" : isOpen
 	})
 
 	const getContainerClasses = () => twMerge(`theui-dropdown relative inline-block ${align === "end" ? "dropdown-end" : ""} ${sizeClasses[size] || "dropdown-custom"} ${animationClass(animate)}`, containerClasses)
@@ -106,14 +109,14 @@
 	setContext('DROPDOWN_CTX', config)
 </script>
 
-<svelte:window on:click={(e: MouseEvent)=>handleBlur(e)} />
+<svelte:window onclick={(e: MouseEvent)=>handleBlur(e)} />
 
 <div {id} class={getContainerClasses()} class:open={isOpen}>
   {#if typeof label == "string"}
-    <Button id={`${id}-trigger`} {label} ariaLabel={label + " dropdown"} onclick={()=>toggle()} onkeydown={(e: KeyboardEvent)=>handleKeyboard(e)} aria-controls={`${id}-dropdown`} aria-expanded={isOpen} aria-haspopup="menu" />
+    <Button id={`${id}-trigger`} {label} ariaLabel={label + " dropdown"} onmouseenter={(e: MouseEvent)=>handleMouse(e)} onmouseleave={(e: MouseEvent)=>handleMouse(e)} onclick={()=>toggle()} onkeydown={(e: KeyboardEvent)=>handleKeyboard(e)} aria-controls={`${id}-dropdown`} aria-expanded={isOpen} aria-haspopup="menu" />
   {:else}
     <!-- svelte-ignore a11y_interactive_supports_focus -->
-    <span id={`${id}-trigger`} class="relative dropdown-btn select-none" role="button" onclick={()=>toggle()} onkeydown={(e: KeyboardEvent)=>handleKeyboard(e)} aria-controls={`${id}-dropdown`} aria-expanded={isOpen} aria-haspopup="menu">
+    <span id={`${id}-trigger`} class="relative dropdown-btn select-none" role="button" onmouseenter={(e: MouseEvent)=>handleMouse(e)} onmouseleave={(e: MouseEvent)=>handleMouse(e)} onclick={()=>toggle()} onkeydown={(e: KeyboardEvent)=>handleKeyboard(e)} aria-controls={`${id}-dropdown`} aria-expanded={isOpen} aria-haspopup="menu">
       {@render label?.()}
     </span>
   {/if}

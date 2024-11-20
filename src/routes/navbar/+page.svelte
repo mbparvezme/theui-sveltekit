@@ -2,7 +2,7 @@
   import {Navbar, NavCollapse, NavBrand, NavToggle, NavLinkGroup, NavLink, NavDropdown} from "$lib"
 </script>
 
-<Navbar class="bg-brand-primary-100" navInnerClasses="py-0" scrollBehavior="default" mobileNavOn="lg">
+<Navbar class="bg-brand-primary-100" navInnerClasses="py-0" scrollBehavior="default" mobileNavOn="lg" dropdownEvent="hover">
   {#snippet children()}
     <NavBrand href="/">
       {#snippet children()}

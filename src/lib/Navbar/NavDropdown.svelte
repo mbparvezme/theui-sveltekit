@@ -3,7 +3,9 @@
   import { twMerge } from "tailwind-merge"
   import { animationClass, roundedClass, generateToken } from "$lib/functions"
   import { Svg } from "$lib"
-	import type { MOBILE_NAV_ON, RESPONSIVE_NAV_ON } from "$lib/types";
+	import type { MOBILE_NAV_ON, RESPONSIVE_NAV_ON } from "$lib/types"
+
+  const { config } = getContext('NAV') as any
 
   interface Props {
     label : Snippet | string,
@@ -13,6 +15,7 @@
     align?: 'start'|'end',
     size?: 'sm'|'md'|'lg',
     animation?: 'fade'|'slide-up'|'zoom-in',
+    dropdownEvent ?: 'hover' | 'click',
     [key: string]: unknown
   }
 
@@ -24,22 +27,11 @@
     align = "start",
     size = "md",
     animation = "zoom-in",
+    dropdownEvent = config.dropdownEvent,
     ...props
   } : Props = $props()
 
   let id: string = generateToken();
-  const { config } = getContext('NAV') as any
-
-  let toggle = () => {
-    let dd = document.getElementById(id)
-    if(dd?.classList.contains("hide")){
-      let activeDd = document.querySelectorAll(".theui-nav-dropdown-container:not(.hide)")
-      activeDd.forEach(elm => elm.classList.add("hide"))
-      dd.classList.remove("hide")
-    }else{
-      dd?.classList.add("hide")
-    }
-  }
 
   let nonResCls = "absolute pl-0 flex shadow-xl block w-80 max-h-[80vh] overflow-y-auto"
 
@@ -99,15 +91,35 @@
 
   let dropdownClasses = `nav-dropdown flex-col ps-4 py-2 pe-2 bg-primary top-16 ${!config.mobileNavOn ? nonResCls : resCls()}`
 
+  let toggle = () => {
+    if(dropdownEvent !== "hover"){
+      let dd = document.getElementById(id)
+      if(dd?.classList.contains("hide")){
+        let activeDd = document.querySelectorAll(".theui-nav-dropdown-container:not(.hide)")
+        activeDd.forEach(elm => elm.classList.add("hide"))
+        dd.classList.remove("hide")
+      }else{
+        dd?.classList.add("hide")
+      }
+    }
+  }
+
+  let handleMouse = (e: MouseEvent) => {
+    if(dropdownEvent === "hover"){
+      e.preventDefault()
+      document.getElementById(id)?.classList.toggle("hide")
+    }
+	}
+
   let handleKeyboard = (e: KeyboardEvent) => {
-		if(e.code == "Escape" || e.code == "ArrowUp"){
+    if(e.code == "Escape" || e.code == "ArrowUp"){
       e.preventDefault()
       document.getElementById(id)?.classList.add("hide")
-		}
-		if(e.code == "ArrowDown"){
+    }
+    if(e.code == "ArrowDown"){
       e.preventDefault()
       document.getElementById(id)?.classList.remove("hide")
-		}
+    }
     return
 	}
 
@@ -115,13 +127,14 @@
     if((e.target as HTMLElement).closest("#"+id+":not(.hide)") === null){
       document.getElementById(id)?.classList.add("hide")
     }
+    return
   }
 </script>
 
 <svelte:window on:click={(e)=>handleBlur(e)}/>
 
 <div {id} class="theui-nav-dropdown-container hide z-[1]" class:relative={!megaMenu}>
-  <button class="theui-nav-dropdown-btn gap-x-1 w-full justify-between flex items-center {config.linkStyle}" onkeydown={(e)=>handleKeyboard(e)} onclick={()=>toggle()}>
+  <button class="theui-nav-dropdown-btn gap-x-1 w-full justify-between flex items-center {config.linkStyle}" onmouseenter={(e)=>handleMouse(e)} onmouseleave={(e)=>handleMouse(e)} onkeydown={(e)=>handleKeyboard(e)} onclick={()=>toggle()}>
     {#if typeof label === "string"}
       {@html label}
     {/if}
