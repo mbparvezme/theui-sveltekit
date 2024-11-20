@@ -93,7 +93,11 @@
 		aria-controls=id
 		aria-expanded={modalStatus}
   >
-    {@render button?.()}
+    {#if label}
+      {@html label}
+    {:else if button}
+      {@render button?.()}
+    {/if}
   </span>
 {/if}
 

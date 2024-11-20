@@ -4,15 +4,17 @@
   import { onMount } from "svelte"
   import { twMerge } from "tailwind-merge"
   import { animationClass, roundedClass, generateToken } from "$lib/functions"
-  import { ST_MOBILE_NAV } from "$lib/state.svelte"
+
+  type heightTypes = 'sm' | 'md' | 'lg' | 'xl'
 
   interface Props {
     children: Snippet,
     segment ?: string,
-    activeLinkStyle ?: string,
+    activeLinkClasses ?: string,
     animate ?: ANIMATE_SPEED,
-    height ?: 'sm' | 'md' | 'lg' | 'xl' | 'string',
-    linkStyle ?: string,
+    height ?: heightTypes | 'string',
+    linkClasses ?: string,
+    dropdownLinkClasses ?: string,
     mobileNavOn ?: 'md' | 'lg' | 'xl' | false,
     navInnerClasses ?: string,
     navCollapseClasses ?: string,
@@ -28,10 +30,11 @@
   let {
     children,
     segment = "/",
-    activeLinkStyle = "",
+    activeLinkClasses = "",
     animate = "fast",
     height = "md",
-    linkStyle = "",
+    linkClasses = "",
+    dropdownLinkClasses = "",
     mobileNavOn = "lg",
     navInnerClasses = "",
     navCollapseClasses = "",
@@ -44,19 +47,20 @@
     ...props
   } : Props = $props()
 
-  let heightCls = {sm: "h-12", md: " h-16", lg: " h-20", xl: " h-24"}
+  let heightCls: Record<heightTypes, string>  = {sm: "h-12", md: " h-16", lg: " h-20", xl: " h-24"}
   let miniNav = $state(false)
   let hideNav = $state(false)
   let id: string = generateToken()
   let scrollPos = 0
 
-  let config: Exclude<Props, typeof segment | typeof children> = {
-    activeLinkStyle : twMerge("p-3 text-default text-sm", activeLinkStyle),
+  let config: any = {
+    activeLinkClasses : twMerge("p-3 text-default text-sm", activeLinkClasses),
     animate,
     height,
     navInnerClasses,
     navCollapseClasses,
-    linkStyle: twMerge("p-3 text-gray-700 dark:text-gray-300 hover:text-default text-sm", linkStyle, heightCls[height], roundedClass(rounded)),
+    linkClasses: twMerge("p-3 text-gray-700 dark:text-gray-300 hover:text-default text-sm", heightCls[height as heightTypes], linkClasses, roundedClass(rounded)),
+    dropdownLinkClasses: twMerge("hover:bg-gray-100 dark:hover:bg-gray-700 h-auto", dropdownLinkClasses, animationClass(animate), roundedClass(rounded)),
     mobileNavOn,
     rounded,
     dropdownEvent,
@@ -67,7 +71,6 @@
   }
 
   onMount(() => {
-    // let navbar = document.querySelector(".theui-navbar")
     window.addEventListener("scroll", () => {
       // Shrink Navbar
       if(scrollBehavior === "shrinkOnScrollDown" || scrollBehavior === "shrinkAndHide") {
@@ -112,7 +115,7 @@
 
   
 
-  setContext('NAV', {config, id, ST_MOBILE_NAV})
+  setContext('NAV', {config, id})
 </script>
 
 <nav

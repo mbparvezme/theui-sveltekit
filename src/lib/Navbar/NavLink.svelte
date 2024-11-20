@@ -2,18 +2,22 @@
   import { getContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
   import { animationClass, roundedClass } from "$lib/functions"
+  import { ST_MOBILE_NAV } from "$lib/state.svelte"
 
   interface Props {children?: Snippet, text?: string, href?: string|null, active?: string|boolean, [key: string]: unknown}
   let {children, text, href = null, active = false, ...props}: Props = $props()
 
   const { config, id, mobileNav } = getContext('NAV') as any
 
-  let linkCls = `nav-link flex items-center ${twMerge((active ? config.activeLinkStyle : config.linkStyle), props.class as string)}${roundedClass(config?.rounded)}${animationClass(config?.animate)}`
+  let linkCls = () => {
+    let baseClasses = active ? config.activeLinkClasses : config.linkClasses
+    return `nav-link flex items-center ${twMerge(baseClasses, (config?.isDropdown ? config.dropdownLinkClasses : ""),  props.class as string)}${roundedClass(config?.rounded)}${animationClass(config?.animate)}`
+
+  }
 
   let closeMobileNav = () => {
-    if ($mobileNav.includes(id)) {
-      let D = $mobileNav.filter((i:any) => i !== id)
-			mobileNav.update(() => D)
+    if (ST_MOBILE_NAV.value.includes(id)) {
+      ST_MOBILE_NAV.value = ST_MOBILE_NAV.value.filter((i:any) => i !== id)
     }
   }
 </script>
@@ -27,9 +31,9 @@
 {/snippet}
 
 {#if href}
-  <a {href} class={linkCls} onclick={()=>closeMobileNav()}>{@render content()}</a>
+  <a {href} class={linkCls()} onclick={()=>closeMobileNav()}>{@render content()}</a>
 {:else}
-  <span class="cursor-pointer {linkCls}">{@render content()}</span>
+  <span class="cursor-pointer {linkCls()}">{@render content()}</span>
 {/if}
 
 <style lang="postcss">

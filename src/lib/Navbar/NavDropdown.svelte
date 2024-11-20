@@ -6,6 +6,7 @@
 	import type { MOBILE_NAV_ON, RESPONSIVE_NAV_ON } from "$lib/types"
 
   const { config } = getContext('NAV') as any
+  config.isDropdown = true
 
   interface Props {
     label : Snippet | string,
@@ -13,7 +14,7 @@
     icon?: Snippet|boolean,
     megaMenu?: boolean,
     align?: 'start'|'end',
-    size?: 'sm'|'md'|'lg',
+    size?: MOBILE_NAV_ON,
     animation?: 'fade'|'slide-up'|'zoom-in',
     dropdownEvent ?: 'hover' | 'click',
     [key: string]: unknown
@@ -33,7 +34,7 @@
 
   let id: string = generateToken();
 
-  let nonResCls = "absolute pl-0 flex shadow-xl block w-80 max-h-[80vh] overflow-y-auto"
+  let nonResCls = "absolute pl-0 flex shadow-xl block w-80 max-h-[80vh]"
 
   let dropdownTopPositionClasses: Record<'sm' | 'md' | 'lg' | 'xl', String> = {
     sm: "top-12",
@@ -51,26 +52,30 @@
       xl: "2xl:absolute 2xl:pl-2 2xl:flex 2xl:shadow-xl 2xl:block dark:2xl:bg-tertiary",
     }
 
-    let menuWidthClasses: Record<MOBILE_NAV_ON, Record<NonNullable<Props['size']>, string>> = {
+    let menuWidthClasses: Record<MOBILE_NAV_ON, Record<MOBILE_NAV_ON, string>> = {
       sm: {
         sm: "md:w-64",
         md: "md:w-[460px]",
         lg: "md:w-80",
+        xl: "md:w-96",
       },
       md: {
         sm: "lg:w-64",
         md: "lg:w-[460px]",
         lg: "lg:w-80",
+        xl: "lg:w-96",
       },
       lg: {
         sm: "xl:w-64",
         md: "xl:w-[460px]",
         lg: "xl:w-80",
+        xl: "xl:w-96",
       },
       xl: {
         sm: "2xl:w-64",
         md: "2xl:w-[460px]",
         lg: "2xl:w-80",
+        xl: "2xl:w-96",
       },
     }
 
@@ -89,7 +94,7 @@
             ${megaMenu ? "w-full" : `${menuMaxWidthClasses[config.mobileNavOn as MOBILE_NAV_ON]} ${menuWidthClasses[config.mobileNavOn as MOBILE_NAV_ON][size]}`}`
   }
 
-  let dropdownClasses = `nav-dropdown flex-col ps-4 py-2 pe-2 bg-primary top-16 ${!config.mobileNavOn ? nonResCls : resCls()}`
+  let dropdownClasses = `nav-dropdown flex-col ps-4 py-2 pe-2 bg-primary overflow-y-auto ${dropdownTopPositionClasses[config.height as MOBILE_NAV_ON]} ${!config.mobileNavOn ? nonResCls : resCls()}`
 
   let toggle = () => {
     if(dropdownEvent !== "hover"){
@@ -134,7 +139,7 @@
 <svelte:window on:click={(e)=>handleBlur(e)}/>
 
 <div {id} class="theui-nav-dropdown-container hide z-[1]" class:relative={!megaMenu}>
-  <button class="theui-nav-dropdown-btn gap-x-1 w-full justify-between flex items-center {config.linkStyle}" onmouseenter={(e)=>handleMouse(e)} onmouseleave={(e)=>handleMouse(e)} onkeydown={(e)=>handleKeyboard(e)} onclick={()=>toggle()}>
+  <button class="theui-nav-dropdown-btn gap-x-1 w-full justify-between flex items-center {config.linkClasses}" onmouseenter={(e)=>handleMouse(e)} onmouseleave={(e)=>handleMouse(e)} onkeydown={(e)=>handleKeyboard(e)} onclick={()=>toggle()}>
     {#if typeof label === "string"}
       {@html label}
     {/if}
@@ -151,7 +156,7 @@
   </button>
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div class={twMerge(dropdownClasses, props?.class as string)}
+  <div class="navbar-dropdown {twMerge(dropdownClasses, props?.class as string)}"
         class:fade={animation=="fade"}
         class:slide-up={animation=="slide-up"}
         class:zoom-in={animation=="zoom-in"}
