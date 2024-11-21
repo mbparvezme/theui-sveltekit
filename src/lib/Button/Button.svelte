@@ -4,7 +4,7 @@
   import { twMerge } from "tailwind-merge"
   import { animationClass, roundedClass, shadowClass } from "$lib/functions"
   import { Svg } from "$lib"
-  const CTX: any = getContext('BUTTON_GROUP_CTX')
+  const CTX: any = getContext('BUTTON_GROUP')
   interface Props {
     label : string|Snippet|undefined,
     beforeLabel ?: Snippet|undefined,
@@ -128,7 +128,7 @@
   this={href ? "a" : "button"}
   {href}
   {...props}
-  class={twMerge(getButtonClass(), CTX.buttonClasses, (props.class ?? "") as string)}
+  class={twMerge(getButtonClass(), CTX?.buttonClasses, (props.class ?? "") as string)}
   type={href ? undefined : type}
   role={href ? "link" : "button"}
   aria-disabled={props?.disabled==true}

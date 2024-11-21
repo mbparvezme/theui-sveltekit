@@ -34,21 +34,20 @@ let ATTRIBUTES: any
 /**
  * Generates the base class for the input container based on the provided configuration, attributes, and input type.
  * 
- * @param config - Configuration object of type INPUT_CONFIG which may include settings like reset, size, and other options.
+ * @param config - Configuration object of type INPUT_CONFIG which may include settings like size, and other options.
  * @param attributes - Additional HTML attributes for the input container, like disabled or read-only states.
- * @param type - Specifies the container type, either 'default' or 'group'. Defaults to 'default'.
+ * @param type - Specifies the input type, either 'default' or 'group'. Group input means radio, checkbox. Defaults to 'default'.
  * 
  * @returns A string representing the base class for the input container, with conditional additions based on type and attributes.
  * 
  * @remarks
  * - If `config.reset` is true, the function returns only the base class "theui-input-container" without additional classes.
  */
-export const inputContainerClass = (config: INPUT_CONFIG, attributes: any = {}, type: 'default' | 'group' = "default", propsClass: string = ""): string => {
+export const inputContainerClass = (config: INPUT_CONFIG, attributes: any = {}, type: 'default' | 'group' = "default"): string => {
   CONFIG = config;
   ATTRIBUTES = attributes;
-
   let customClass = type === "group" ? groupInputContainerClass() : defaultInputContainerClasses();
-  return config?.reset ? " theui-input-container" : ` theui-input-container ${twMerge(customClass, propsClass)}`;
+  return config?.reset ? "theui-input-container" : `theui-input-container ${twMerge(customClass, ATTRIBUTES?.class)}`;
 };
 
 
@@ -65,20 +64,20 @@ export const inputContainerClass = (config: INPUT_CONFIG, attributes: any = {}, 
  * @remarks
  * - If `config.reset` is true, the function returns only the base class without additional conditional classes.
  */
-export const inputClasses = (config: INPUT_CONFIG, attr: any = {}, type: INPUT_CATEGORY = "input", propsClass: string = ""): string => {
+export const inputClasses = (config: INPUT_CONFIG, attr: any = {}, type: INPUT_CATEGORY = "input"): string => {
   CONFIG = config;
   ATTRIBUTES = attr;
 
-  const baseClass = `${inputTypeClass[type || "input"]} ${inputSizeClass[config.size || "md"]}`;
+  const baseClass = `${inputTypeClass[type || "input"]} ${inputSizeClass[config.size || "md"]} `;
 
   if (config?.reset) return baseClass;
 
-  let cls = `${inputSizeClasses(type)}${commonInputTheme(type)}${attributesClasses()}`;
-  cls += (type === "input" || type === "select") ? ` ${defaultInputClasses()}` : " ";
+  let cls = `${inputSizeClasses(type)} ${commonInputTheme(type)}${attributesClasses()}`;
+  cls += (type === "input" || type === "select") ? ` ${defaultInputClasses()} ` : " ";
   cls += type === "file" ? fileInputClasses() : " ";
   cls += (type === "checkbox" || type === "radio") ? groupInputClasses() : " ";
 
-  return twMerge(baseClass, cls, propsClass);
+  return twMerge(baseClass, cls, ATTRIBUTES?.class);
 };
 
 
@@ -191,7 +190,7 @@ export const shadowClass = (size?: SHADOW) => (!size || size === "none") ? " " :
  * @remarks
  * - The class `flex-grow` is conditionally applied if `CONFIG.grow` is set to true, making the container take up additional space.
  */
-const defaultInputContainerClasses = (): string => `flex flex-col gap-2 ${CONFIG?.grow ? "flex-grow" : ""}`;
+const defaultInputContainerClasses = (): string => `flex flex-col gap-2`;
 
 
 /**
@@ -206,13 +205,13 @@ const defaultInputContainerClasses = (): string => `flex flex-col gap-2 ${CONFIG
 const groupInputContainerClass = (): string => {
   let attrClass: string = "";
   if (ATTRIBUTES?.disabled) {
-    attrClass += " cursor-not-allowed opacity-50 select-none";
+    attrClass += "cursor-not-allowed opacity-50 select-none";
   }
   if (ATTRIBUTES?.readonly) {
-    attrClass += " pointer-events-none";
+    attrClass += "pointer-events-none";
   }
 
-  return `cursor-pointer${attrClass}`;
+  return `cursor-pointer ${attrClass}`;
 };
 
 
@@ -249,13 +248,13 @@ const inputSizeClasses = (type: INPUT_CATEGORY = "input"): string => {
  */
 const commonInputTheme = (type: INPUT_CATEGORY): string => {
   const themes = {
-    bordered: "border border-gray-100 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
-    filled: "bg-gray-50 dark:bg-gray-800 focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
-    flat: type !== "file" ? "border-0 border-b-2 border-gray-100 dark:border-gray-700 bg-transparent focus:ring-0" : "border-0 focus:ring-0"
+    bordered: "border border-gray-300 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
+    filled: "bg-black/5 dark:bg-white/10 border-0 focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
+    flat: type !== "file" ? "border-0 border-b-2 border-gray-300 dark:border-gray-700 bg-transparent focus:ring-0" : "border-0 focus:ring-0"
   };
   const theme = themes[CONFIG.variant ?? "bordered"];
 
-  return ` ${theme}${type === "radio" ? roundedClass("full") : roundedClass(CONFIG?.rounded)}`;
+  return `${theme}${type === "radio" ? roundedClass("full") : (CONFIG.variant == "flat" ? " " : roundedClass(CONFIG?.rounded))}`;
 };
 
 

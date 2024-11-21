@@ -72,11 +72,11 @@ export type CORE = {
 
 export type INPUT_CONFIG = {
   animate ?: ANIMATE_SPEED;
-  inputGrow ?: boolean;
   labelClasses ?: string | undefined;
   rounded ?: ROUNDED;
-  inputSize ?: INPUT_SIZE;
-  inputVariant ?: INPUT_VARIANT;
+  size ?: INPUT_SIZE;
+  reset ?: boolean;
+  variant ?: INPUT_VARIANT;
 };
 
 export type SELECT_DATA = Array<{ disabled?: boolean, selected?: boolean, text: string, value?: any } | string>;

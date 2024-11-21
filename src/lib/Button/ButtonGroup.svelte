@@ -38,7 +38,7 @@
     ...props
   } : Props = $props()
 
-  setContext('BUTTON_GROUP_CTX', {
+  setContext('BUTTON_GROUP', {
     group: true,
     stacked,
     variant,

@@ -22,8 +22,8 @@
       {#snippet children()}
         <NavLinkGroup>
           {#snippet children()}
-						<NavDropdown label="Dropdown" size="xl">
-              <div class="grid grid-cols-2">	
+						<NavDropdown label="Components" size="xl">
+              <div class="grid grid-cols-2">
 								<NavLink href="/accordion" text="Accordion" />
 								<NavLink href="/alert" text="Alert" />
 								<NavLink href="/badge" text="Badge" />
@@ -43,6 +43,11 @@
 								<NavLink href="/progress" text="Progress" />
               </div>
             </NavDropdown>
+						<NavDropdown label="Form components" size="xl">
+              <div class="grid grid-cols-2">
+								<NavLink href="/form/input" text="Input" />
+							</div>
+						</NavDropdown>
 						{/snippet}
 					</NavLinkGroup>
 					{/snippet}
