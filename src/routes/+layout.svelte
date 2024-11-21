@@ -11,7 +11,7 @@
 	})
 </script>
 
-<Navbar class="bg-brand-primary-100 dark:bg-brand-primary-700" navInnerClasses="py-0" scrollBehavior="default" mobileNavOn="lg">
+<Navbar class="bg-brand-primary-100 dark:bg-brand-primary-700" scrollBehavior="shrinkAndHide" mobileNavOn="lg" height="lg">
   {#snippet children()}
     <NavBrand href="/">
       {#snippet children()}
@@ -48,7 +48,7 @@
 					{/snippet}
 				</NavCollapse>
 			<DarkMode />
-			<button class="p-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" id="toggleDirection">RTL/LTR</button>
+			<button class="px-4 active:bg-brand-primary-500 active:text-on-brand-primary-500" id="toggleDirection">RTL/LTR</button>
     <NavToggle />
   {/snippet}
 </Navbar>

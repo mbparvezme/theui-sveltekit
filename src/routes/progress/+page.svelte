@@ -4,16 +4,23 @@
   let end = $state(40)
 </script>
 
-<Progress {start} {end} thickness="xl"/><br>
-<Progress {start} {end} thickness="xl" label="90%"/>
 <br><br>
-<Progress {start} {end} thickness="px" label="90%"/><br>
-<Progress {start} {end} thickness="sm"/><br>
-<Progress {start} {end} thickness="md" /><br>
-<Progress {start} {end} thickness="lg" /><br>
-<Progress {start} {end} thickness="xl" /><br>
-<br>
-<Progress {start} {end} thickness="xl" label="90%"/>
-<br><br>
+<div class="grid grid-cols-2 gap-4">
+  <div>
+    <Progress {start} {end} thickness="px" label="90"/><br><br>
+    <Progress {start} {end} thickness="sm" label="90"/><br><br>
+    <Progress {start} {end} thickness="md" label="90"/><br><br>
+    <Progress {start} {end} thickness="lg" label="90"/><br><br>
+    <Progress {start} {end} thickness="xl" label="90"/><br><br>
+  </div>
+  <div class="flex gap-8">
+    <Progress {start} {end} vertical={true} thickness="px" label="90"/><br><br>
+    <Progress {start} {end} vertical={true} thickness="sm" label="90"/><br><br>
+    <Progress {start} {end} vertical={true} thickness="md" label="90"/><br><br>
+    <Progress {start} {end} vertical={true} thickness="lg" label="90"/><br><br>
+    <Progress {start} {end} vertical={true} thickness="xl" label="90"/><br><br>
+  </div>
+</div>
+
 <input type="range" bind:value={start} />
 <input type="range" bind:value={end} />

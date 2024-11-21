@@ -119,7 +119,7 @@
   <div>
     <h3 class="mb-2 text-2xl">Default button group</h3>
     <ButtonGroup color="warning">
-      {#snippet buttons()}
+      {#snippet children()}
       <Button label="Button" />
       <Button label="Button" />
       <Button label="Button" />
@@ -129,7 +129,7 @@
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Stacked button group</h3>
     <ButtonGroup color="warning" stacked>
-      {#snippet buttons()}
+      {#snippet children()}
       <Button label="Button" />
       <Button label="Button" />
       <Button label="Button" color="warning" />
@@ -139,7 +139,7 @@
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Outline button group</h3>
     <ButtonGroup outline>
-      {#snippet buttons()}
+      {#snippet children()}
       <Button label="Button" />
       <Button label="Button" />
       <Button label="Button" color="warning" />
@@ -149,7 +149,7 @@
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Outline stacked slower animate ARIA group</h3>
     <ButtonGroup color="success" outline stacked animate="slower" ariaLabel="This is ARIA">
-      {#snippet buttons()}
+      {#snippet children()}
       <Button label="Button" />
       <Button label="Button" />
       <Button label="Button" color="warning" />
@@ -159,7 +159,7 @@
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Rounded button group</h3>
     <ButtonGroup color="success" rounded="full">
-      {#snippet buttons()}
+      {#snippet children()}
       <Button label="Button" />
       <Button label="Button" />
       <Button label="Button" color="warning" />
@@ -169,7 +169,7 @@
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Size button group</h3>
     <ButtonGroup color="success" size="xs">
-      {#snippet buttons()}
+      {#snippet children()}
       <Button label="Button" />
       <Button label="Button" />
       <Button label="Button" color="warning" />
@@ -178,7 +178,7 @@
       {/snippet}
     </ButtonGroup><br>
     <ButtonGroup color="success" size="xl">
-      {#snippet buttons()}
+      {#snippet children()}
       <Button label="Button" />
       <Button label="Button" />
       <Button label="Button" color="warning" />
@@ -188,7 +188,7 @@
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Square button group</h3>
     <ButtonGroup color="success" square size="xl">
-      {#snippet buttons()}
+      {#snippet children()}
       <Button label="Button" />
       <Button label="Button" />
       <Button label="Button" color="warning" />
@@ -198,7 +198,7 @@
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Theme light button group</h3>
     <ButtonGroup size="xl" theme="light">
-      {#snippet buttons()}
+      {#snippet children()}
       <Button label="Brand" />
       <Button label="Brand" />
       <Button label="Brand" color="warning" />
@@ -207,7 +207,7 @@
       {/snippet}
     </ButtonGroup>
     <ButtonGroup size="xl" theme="light" color="warning">
-      {#snippet buttons()}
+      {#snippet children()}
       <Button label="Button" />
       <Button label="Button" />
       <Button label="Button" color="warning" />
@@ -217,7 +217,7 @@
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Theme gradient button group</h3>
     <ButtonGroup size="xl" theme="gradient" gradientColors="error">
-      {#snippet buttons()}
+      {#snippet children()}
       <Button label="Button" />
       <Button label="Button" />
       <Button label="Button" color="warning" />
@@ -227,7 +227,7 @@
     </ButtonGroup>
     <h3 class="mb-2 text-2xl">Theme gradient button group</h3>
     <ButtonGroup size="xl" stacked theme="gradient" gradientColors="error">
-      {#snippet buttons()}
+      {#snippet children()}
       <Button label="Button" />
       <Button label="Button" />
       <Button label="Button" color="warning" />
