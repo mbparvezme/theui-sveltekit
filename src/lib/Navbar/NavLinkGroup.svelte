@@ -39,7 +39,7 @@
 </script>
 
 {#if children}
-<div class="nav-links flex flex-col {twMerge(navContainerClasses, props?.class as string)}">
+<div {...props} class="nav-links flex flex-col {twMerge(navContainerClasses, props?.class as string)}">
   {@render children()}
 </div>
 {/if}

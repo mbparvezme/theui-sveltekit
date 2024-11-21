@@ -13,7 +13,7 @@
 <div class="grid grid-cols-2">
   <div>
     <h3 class="mb-2 text-2xl">Default button sizes</h3>
-    <Button label="Button default" onclick={()=>test()} onkeydown={()=>test2()} /><br>
+    <Button label="Button default" onclick={()=>test()} onmouseover={()=>test2()} /><br>
     <Button label="Button xs" size="xs" color="error"/>
     <Button label="Button sm" size="sm" color="info" />
     <Button label="Button md" size="md" color="success" />

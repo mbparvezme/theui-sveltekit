@@ -23,26 +23,6 @@
     color ?: 'brand' | 'error' | 'info' | 'success' | 'warning',
     gradientColors ?: 'brand' | 'error' | 'info' | 'success' | 'warning',
     type ?: 'button' | 'submit' | 'reset',
-    onclick ?: any,
-    ondblclick ?: any,
-    onmousedown ?: any,
-    onmouseup ?: any,
-    oncontextmenu ?: any,
-    onpointerdown ?: any,
-    onpointerup ?: any,
-    ontouchstart ?: any,
-    ontouchend ?: any,
-    ontouchmove ?: any,
-    ontouchcancel ?: any,
-    onfocus ?: any,
-    onblur ?: any,
-    onfocusin ?: any,
-    onfocusout ?: any,
-    onchange ?: any,
-    onkeydown ?: any,
-    onkeyup ?: any,
-    onmouseenter ?: any,
-    onmouseleave ?: any,
     [key: string]: unknown // Any props
   }
 
@@ -64,25 +44,6 @@
     color = CTX?.color ?? "brand",
     gradientColors = CTX?.gradientColors ?? "brand",
     type = "button",
-    onclick,
-    ondblclick,
-    onmousedown,
-    onmouseup,
-    oncontextmenu,
-    onpointerdown,
-    onpointerup,
-    ontouchstart,
-    ontouchend,
-    ontouchmove,
-    ontouchcancel,
-    onfocus,
-    onblur,
-    onfocusin,
-    onfocusout,
-    onkeydown,
-    onkeyup,
-    onmouseenter,
-    onmouseleave,
     ...props
   } : Props = $props()
 
@@ -167,31 +128,12 @@
   this={href ? "a" : "button"}
   {href}
   {...props}
-  class={twMerge(getButtonClass(), (props.class ?? "") as string)}
+  class={twMerge(getButtonClass(), CTX.buttonClasses, (props.class ?? "") as string)}
   type={href ? undefined : type}
   role={href ? "link" : "button"}
   aria-disabled={props?.disabled==true}
   aria-label={ariaLabel}
-  {onclick}
-  {ondblclick}
-  {onmousedown}
-  {onmouseup}
-  {oncontextmenu}
-  {onpointerdown}
-  {onpointerup}
-  {ontouchstart}
-  {ontouchend}
-  {ontouchmove}
-  {ontouchcancel}
-  {onfocus}
-  {onblur}
-  {onfocusin}
-  {onfocusout}
-  {onkeydown}
-  {onkeyup}
-  {onmouseenter}
-  {onmouseleave}
->
+  >
 
   {#if beforeLabel}
     <span>{@render beforeLabel?.()}</span>

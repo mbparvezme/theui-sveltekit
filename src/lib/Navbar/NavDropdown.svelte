@@ -138,7 +138,7 @@
 
 <svelte:window on:click={(e)=>handleBlur(e)}/>
 
-<div {id} class="theui-nav-dropdown-container hide z-[1]" class:relative={!megaMenu}>
+<div {id} {...props} class="theui-nav-dropdown-container hide z-[1]" class:relative={!megaMenu}>
   <button class="theui-nav-dropdown-btn gap-x-1 w-full justify-between flex items-center {config.linkClasses}" onmouseenter={(e)=>handleMouse(e)} onmouseleave={(e)=>handleMouse(e)} onkeydown={(e)=>handleKeyboard(e)} onclick={()=>toggle()}>
     {#if typeof label === "string"}
       {@html label}

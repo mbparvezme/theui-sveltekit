@@ -42,7 +42,7 @@
                         twMerge(`bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 text-default hover:text-default ${variant == "bordered" ? "border-gray-200 dark:border-gray-600" : `border-y-0 border-s-0 last:border-e-0 ${roundedClass(rounded)}`}`, buttonClasses)
 </script>
 
-<div class={"theui-pagination " + twMerge("flex", classes)} class:justify-center={align=="center"} class:justify-end={align=="end"}>
+<div class={`theui-pagination ${twMerge("flex", classes)}`} class:justify-center={align=="center"} class:justify-end={align=="end"}>
   <ButtonGroup label="Pagination" {size} {variant} {rounded} outline={true}>
     {#snippet children()}
       {#if showPrevNext}

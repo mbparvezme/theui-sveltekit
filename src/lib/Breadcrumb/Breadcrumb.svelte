@@ -4,8 +4,8 @@
 
   interface Props {
     data : Array<BREADCRUMB_DATA>,
-    activeLinkClass ?: string,
-    linkClass ?: string,
+    activeLinkClasses ?: string,
+    linkClasses ?: string,
     round ?: ROUNDED,
     separator ?: string,
     [key: string]: unknown // dismissible, icon
@@ -13,15 +13,15 @@
 
   let {
     data = [],
-    activeLinkClass = "text-gray-400",
-    linkClass = "text-brand-primary-500",
+    activeLinkClasses = "text-gray-400",
+    linkClasses = "text-brand-primary-500",
     round = "md",
     separator = "/",
     ...props
   } : Props = $props();
 
   let navClasses = "theui-breadcrumb " + (props?.class ?? "") + roundedClass(round)
-  let getLinkCls = (url: any) => `before:text-gray-300 dark:before:text-gray-500 ${url?linkClass:activeLinkClass}${roundedClass(round)}`
+  let getLinkCls = (url: any) => `before:text-gray-300 dark:before:text-gray-500 ${url?linkClasses:activeLinkClasses}${roundedClass(round)}`
 </script>
 
 <nav aria-label="breadcrumb" class={navClasses} style="--breadcrumb-separator: '{separator}';">

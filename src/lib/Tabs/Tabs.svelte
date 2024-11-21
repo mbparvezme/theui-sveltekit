@@ -63,7 +63,7 @@
 	setContext('TAB', config)
 </script>
 
-<div {id} class="theui-tabs {twMerge("-mb-0.5", props?.class as string)}">
+<div {id} {...props} class="theui-tabs {twMerge("-mb-0.5", props?.class as string)}">
 	{#if tabList}
     <div class="theui-tab-list {twMerge((borderClasses ? "" : "mb-4") , tabListClasses)}">
       {@render tabList?.()}

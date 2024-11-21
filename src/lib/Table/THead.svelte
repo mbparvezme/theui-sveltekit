@@ -1,6 +1,7 @@
 <script lang="ts">
   import { twMerge } from "tailwind-merge"
   import {TR} from "$lib"
+	import type { Snippet } from "svelte"
 
   interface Props{headers?: Snippet|string[]|Record<string, unknown>, keys?: string[], [key: string]: unknown}
   let {headers, keys, ...props} : Props = $props()

@@ -5,14 +5,12 @@
   interface Props {
     size ?: number,
     ariaLabel ?: string,
-    onclick ?: any,
     [key: string]: unknown // dismissible, icon
 	}
 
   let {
     size = 1.5,
     ariaLabel = "Close button",
-    onclick = undefined,
     ...props // dismissible, icon
   } : Props = $props()
 </script>

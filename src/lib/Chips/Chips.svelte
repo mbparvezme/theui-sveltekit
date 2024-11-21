@@ -10,7 +10,7 @@
     close     ?: boolean,
     fill      ?: boolean,
     imgUrl    ?: string | undefined,
-    imgClass  ?: string,
+    imgClasses  ?: string,
     imgAlt    ?: string,
     round     ?: ROUNDED,
     size      ?: 'sm' | 'md' | 'lg',
@@ -22,7 +22,7 @@
     close  = true,
     fill   = true,
     imgUrl = undefined,
-    imgClass = "",
+    imgClasses = "",
     imgAlt = "",
     round  = "full",
     size   = "md",
@@ -39,7 +39,7 @@
 
   let chipsImgClass = twMerge([
     "max-w-none", size === "sm" ? "w-9 h-9" : size === "lg" ? "w-14 h-14" : "w-11 h-11", roundedClass(round)
-  ].join(" "), imgClass);
+  ].join(" "), imgClasses);
 
   const hideChips = () => nodeRef.parentNode?.removeChild(nodeRef)
 </script>

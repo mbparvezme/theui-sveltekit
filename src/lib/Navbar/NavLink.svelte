@@ -7,7 +7,7 @@
   interface Props {children?: Snippet, text?: string, href?: string|null, active?: string|boolean, [key: string]: unknown}
   let {children, text, href = null, active = false, ...props}: Props = $props()
 
-  const { config, id, mobileNav } = getContext('NAV') as any
+  const { config, id } = getContext('NAV') as any
 
   let linkCls = () => {
     let baseClasses = active ? config.activeLinkClasses : config.linkClasses
@@ -31,9 +31,9 @@
 {/snippet}
 
 {#if href}
-  <a {href} class={linkCls()} onclick={()=>closeMobileNav()}>{@render content()}</a>
+  <a {href} {...props} class={linkCls()} onclick={()=>closeMobileNav()}>{@render content()}</a>
 {:else}
-  <span class="cursor-pointer {linkCls()}">{@render content()}</span>
+  <span {...props} class="cursor-pointer {linkCls()}">{@render content()}</span>
 {/if}
 
 <style lang="postcss">

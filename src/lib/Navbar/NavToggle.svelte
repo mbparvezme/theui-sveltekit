@@ -6,7 +6,7 @@
 	import { ST_MOBILE_NAV } from "$lib/state.svelte"
 
   let {children, ...props}: {children ?: Snippet, [key: string]: unknown} = $props()
-  const { config, id, mobileNav } = getContext("NAV") as any
+  const { config, id } = getContext("NAV") as any
 
   let hiddenClasses: RESPONSIVE_NAV_ON = {sm: "md:hidden", md: "lg:hidden", lg: "xl:hidden", xl: "2xl:hidden"}
 
@@ -22,7 +22,7 @@
 </script>
 
 {#if config.mobileNavOn !== false}
-<button type="button" onclick={()=>toggle()} class={twMerge(getClass, props?.class as string)} aria-label="Toggle nav bar">
+<button {...props} type="button" onclick={()=>toggle()} class={twMerge(getClass, props?.class as string)} aria-label="Toggle nav bar">
   {#if children}
     {@render children()}
   {:else}

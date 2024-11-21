@@ -129,6 +129,6 @@
     @apply translate-y-full;
   }
   .theui-drawer.animate.drawer-top.open .drawer-body, .theui-drawer.animate.drawer-bottom.open .drawer-body{
-    @apply translate-y-0
+    @apply translate-y-0;
   }
 </style>

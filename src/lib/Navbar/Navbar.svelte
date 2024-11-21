@@ -23,7 +23,7 @@
     scrollAmountToHide ?: number,
     scrollAmountToShrink ?: number,
     scrollBehavior ?: 'fixed' | 'default' | 'shrinkOnScrollDown' | 'hideOnScrollDown' | 'shrinkAndHide',
-    scrollClass ?: string,
+    scrollClasses ?: string,
     [key: string] : unknown
   }
 
@@ -43,7 +43,7 @@
     scrollAmountToHide = 128,
     scrollAmountToShrink = 32,
     scrollBehavior = "shrinkAndHide",
-    scrollClass = "",
+    scrollClasses = "",
     ...props
   } : Props = $props()
 
@@ -68,7 +68,7 @@
     scrollAmountToHide,
     scrollAmountToShrink,
     scrollBehavior,
-    scrollClass: twMerge(`bg-white dark:bg-secondary shadow-black/10 shadow-2xl ${paddingHeightOnShrinkCls[height as heightTypes]}`, scrollClass),
+    scrollClasses: twMerge(`bg-white dark:bg-secondary shadow-black/10 shadow-2xl ${paddingHeightOnShrinkCls[height as heightTypes]}`, scrollClasses),
   }
 
   onMount(() => {
@@ -93,7 +93,7 @@
 
   let navClass = $derived(`bg-primary left-0 top-0 w-full flex items-center justify-center ${animationClass(animate)} 
                   ${paddingHeightCls[height as "sm" | "md" | "lg" | "xl"] ?? height as string}
-                  ${((miniNav||(hideNav===false && scrollPos!==0)) && (config.scrollBehavior == "shrinkOnScrollDown" || config.scrollBehavior == "shrinkAndHide") ? config.scrollClass : "")}${roundedClass(config?.rounded)}`)
+                  ${((miniNav||(hideNav===false && scrollPos!==0)) && (config.scrollBehavior == "shrinkOnScrollDown" || config.scrollBehavior == "shrinkAndHide") ? config.scrollClasses : "")}${roundedClass(config?.rounded)}`)
 
   let navInnerClass = $derived(`nav-inner w-full max-w-[var(--max-width)] flex grow gap-x-8 items-center justify-between relative
                       ${animationClass(animate)} ${(miniNav||(hideNav===false && scrollPos!==0) ? " px-4" : " px-8")}`)

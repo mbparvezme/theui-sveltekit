@@ -18,6 +18,6 @@
   let getClass = $derived(`${(CTX.variant == "pills" ? "theui-tab-pill" : "theui-tab")} px-8 py-3 text-center font-medium ${(ST_TABS.selectedTab == id ? CTX?.activeTabClasses : CTX?.tabClasses)} ${roundedClass("md", (CTX.variant == "tabs" ? "top" : (CTX.borderClasses ? "top" : "all")))} ${animationClass(CTX.animate)}`)
 </script>
 
-<button class={twMerge(getClass, props?.class as string)} class:theui-tab-selected={ST_TABS.selectedTab === id} onclick={() => selectTabL(id)}>
+<button {...props} class={twMerge(getClass, props?.class as string)} class:theui-tab-selected={ST_TABS.selectedTab === id} onclick={() => selectTabL(id)}>
   {@render children?.()}
 </button>

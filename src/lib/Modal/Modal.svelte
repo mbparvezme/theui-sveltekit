@@ -17,10 +17,10 @@
     backdrop ?: boolean|string,
     closeBtn ?: boolean,
     closeOnEsc ?: boolean,
-    modalFooterClass ?: string,
-    modalHeaderClass ?: string,
-    modalBodyClass ?: string,
-    modalOuterClass ?: string,
+    modalFooterClasses ?: string,
+    modalHeaderClasses ?: string,
+    modalBodyClasses ?: string,
+    modalOuterClasses ?: string,
     position ?: 'top' | 'center' | 'bottom',
     rounded ?: ROUNDED,
     size ?: 'sm' | 'md' | 'lg' | 'full',
@@ -40,10 +40,10 @@
     backdrop = true,
     closeBtn = true,
     closeOnEsc = true,
-    modalFooterClass = "",
-    modalHeaderClass = "",
-    modalBodyClass = "",
-    modalOuterClass = "",
+    modalFooterClasses = "",
+    modalHeaderClasses = "",
+    modalBodyClasses = "",
+    modalOuterClasses = "",
     position = "center",
     rounded = "md",
     size = "md",
@@ -102,15 +102,15 @@
 {/if}
 
 {#if content}
-<div {id} class={twMerge(modalCls(), modalOuterClass)} class:open={modalStatus} class:animate={animate} role="dialog" aria-modal="true" aria-hidden={!modalStatus}>
+<div {id} class={twMerge(modalCls(), modalOuterClasses)} class:open={modalStatus} class:animate={animate} role="dialog" aria-modal="true" aria-hidden={!modalStatus}>
   {#if backdrop}
     <div class={backdropClasses(backdrop)} onclick={()=>toggle(false)} aria-hidden="true"></div>
   {/if}
 
-  <div class={twMerge(modalBodyCls(), (size !== "full" ? roundedClass(rounded) : ""), modalBodyClass)} aria-labelledby={header ? `${id}Heading` : `${id}Btn`}>
+  <div class={twMerge(modalBodyCls(), (size !== "full" ? roundedClass(rounded) : ""), modalBodyClasses)} aria-labelledby={header ? `${id}Heading` : `${id}Btn`}>
 
     {#if header}
-      <div id="{id}Heading" class={twMerge("modal-header flex justify-between w-full gap-8 items-start border-b border-black/10 dark:border-tertiary pb-4 mb-8", modalHeaderClass)}>
+      <div id="{id}Heading" class={twMerge("modal-header flex justify-between w-full gap-8 items-start border-b border-black/10 dark:border-tertiary pb-4 mb-8", modalHeaderClasses)}>
         {@render header?.()}
         {#if closeBtn!==false}
           <Close class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity" onclick={()=>toggle()}/>
@@ -125,7 +125,7 @@
     </div>
 
     {#if footer}
-      <div class={twMerge("modal-footer border-t border-black/10 dark:border-tertiary pt-4 mt-8", modalFooterClass)}>
+      <div class={twMerge("modal-footer border-t border-black/10 dark:border-tertiary pt-4 mt-8", modalFooterClasses)}>
         {@render footer?.()}
       </div>
     {/if}

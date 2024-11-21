@@ -18,27 +18,6 @@
     preload ?: PRELOAD,
     type ?: 'link' | 'divider' | 'header' | 'button'
     active ?: boolean,
-    classes ?: string,
-    onclick ?: any,
-    ondblclick ?: any,
-    onmousedown ?: any,
-    onmouseup ?: any,
-    oncontextmenu ?: any,
-    onpointerdown ?: any,
-    onpointerup ?: any,
-    ontouchstart ?: any,
-    ontouchend ?: any,
-    ontouchmove ?: any,
-    ontouchcancel ?: any,
-    onfocus ?: any,
-    onblur ?: any,
-    onfocusin ?: any,
-    onfocusout ?: any,
-    onchange ?: any,
-    onkeydown ?: any,
-    onkeyup ?: any,
-    onmouseenter ?: any,
-    onmouseleave ?: any,
     [key: string]: unknown
   }
 
@@ -50,26 +29,7 @@
     preload = "hover",
     type = "link",
     active = false,
-    classes = "",
-    onclick,
-    ondblclick,
-    onmousedown,
-    onmouseup,
-    oncontextmenu,
-    onpointerdown,
-    onpointerup,
-    ontouchstart,
-    ontouchend,
-    ontouchmove,
-    ontouchcancel,
-    onfocus,
-    onblur,
-    onfocusin,
-    onfocusout,
-    onkeydown,
-    onkeyup,
-    onmouseenter,
-    onmouseleave,
+    ...props
   } : Props = $props()
 
   let itemClass = (t: Props['type']) => {
@@ -79,7 +39,7 @@
       header: CTX.headerClass,
       divider: CTX.dividerClass,
     }
-    return t ? twMerge(typeClasses[t], classes) : "";
+    return t ? twMerge(typeClasses[t], props?.class as string) : "";
   }
 </script>
 
@@ -104,7 +64,7 @@
         {@render content()}
       </h6>
     {:else if type == "button"}
-      <button class={itemClass(type)} {onclick} {ondblclick} {onmousedown} {onmouseup} {oncontextmenu} {onpointerdown} {onpointerup} {ontouchstart} {ontouchend} {ontouchmove} {ontouchcancel} {onfocus} {onblur} {onfocusin} {onfocusout} {onkeydown} {onkeyup} {onmouseenter} {onmouseleave}>
+      <button class={itemClass(type)}>
         {@render content()}
       </button>
     {:else}

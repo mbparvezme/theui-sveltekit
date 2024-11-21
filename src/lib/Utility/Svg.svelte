@@ -18,7 +18,7 @@
 	  ...props // dismissible, icon
   } : Props = $props()
 
-  let cls = $derived("theui-svg-icon shrink-0 " + (props?.stroke ? "stroke-current fill-transparent" : "fill-current"))
+  let cls = $derived(`theui-svg-icon shrink-0 ${(props?.stroke ? "stroke-current fill-transparent" : "fill-current")}`)
 </script>
 
 {#if children}

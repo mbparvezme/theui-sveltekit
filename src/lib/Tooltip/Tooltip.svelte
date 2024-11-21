@@ -101,6 +101,7 @@
 
 <span
   bind:this={tooltip}
+  {...props}
   class={tooltipClasses()}
   class:show={showTooltip}
   class:inline-block={showTooltip}

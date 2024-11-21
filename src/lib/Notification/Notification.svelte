@@ -19,7 +19,7 @@
 </script>
 
 {#if ST_NOTIFICATIONS?.value?.length}
-<ul class="theui-notifications z-[70] {position}">
+<ul {...props} class="theui-notifications z-[70] {position}">
   {#each ST_NOTIFICATIONS.value as notification}
   <li class="notification">
     <!-- svelte-ignore a11y_click_events_have_key_events -->

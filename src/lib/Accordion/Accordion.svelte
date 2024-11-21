@@ -9,7 +9,7 @@
     children: Snippet
 	}
 
-  let {size = "default", standalone = true, id = generateToken(), children} : Props = $props()
+  let {children, size = "default", standalone = true, id = generateToken()} : Props = $props()
   setContext("ACCORDION_GROUP", {group: true, id, size, standalone})
 </script>
 

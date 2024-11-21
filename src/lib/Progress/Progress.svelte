@@ -100,7 +100,7 @@
   })
 </script>
 
-<div {id} class="theui-progress relative {twMerge(`text-on-brand-primary text-xs bg-secondary`,trackCls(), props?.class as string)}">
+<div {id} {...props} class="theui-progress relative {twMerge(`text-on-brand-primary text-xs bg-secondary`,trackCls(), props?.class as string)}">
   <div class={barCls()}>
     {#if label}<span class={twMerge(labelCls(), bubbleClasses)}><b>{label}</b></span>{/if}
   </div>
