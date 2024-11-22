@@ -5,8 +5,11 @@
 <Form floatingLabel={true}>
   {#snippet children()}
   <Input label="NAME" name="test" variant="flat" helperText="This is helper text inside form!" />
+  <Input label="NAME" name="test" variant="flat" helperText="This is helper text inside form!" />
   <Input label="NAME" name="test" variant="bordered" helperText="This is helper text inside form!" />
-  <Input label="NAME" name="test" variant="filled" helperText="This is helper text inside form!" />
+  <Input type="textarea" label="NAME" name="test" variant="filled" helperText="This is helper text inside textarea!" />
+  <Input type="textarea" label="NAME" name="test" variant="flat" helperText="This is helper text inside textarea!" />
+  <Input type="textarea" label="NAME" name="test" helperText="This is helper text inside textarea!" />
   {/snippet}
 </Form>
 <br>

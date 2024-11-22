@@ -102,10 +102,10 @@ export const labelClasses = (config: INPUT_CONFIG & {type: INPUT_CATEGORY}, attr
   let floatingLabelClasses = ""
 
   if(config?.floatingLabel){
-    floatingLabelClasses = `peer-placeholder-shown:text-base absolute top-1/2 transform cursor-text peer-placeholder-shown:-translate-y-1/2 -translate-y-[2.75em] peer-placeholder-shown:text-gray-500 peer-focus:text-xs text-xs peer-focus:-translate-y-[2.75em] peer-focus:text-brand-primary-600 ${animationClass(config?.animate)}
+    floatingLabelClasses = `peer-placeholder-shown:text-base transform cursor-text absolute top-0 peer-placeholder-shown:top-1/2 peer-focus:top-0 -translate-y-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:-translate-y-1/2 peer-placeholder-shown:text-gray-500 peer-focus:text-xs text-xs peer-focus:text-default ${animationClass(config?.animate)}
     ${config?.variant !== "flat" ? `${labelSizeClass[config?.size as INPUT_SIZE]}` : "start-0"}
-    ${config?.variant == "bordered" ? `bg-primary start-2  ` : ""}
-    ${config?.variant == "filled" ? `bg-gray-100 dark:bg-gray-900 start-2` : ""}`
+    ${config?.variant == "bordered" ? `bg-primary` : ""}
+    ${config?.variant == "filled" ? `bg-gray-100 dark:bg-gray-900` : ""}`
 
   }
 

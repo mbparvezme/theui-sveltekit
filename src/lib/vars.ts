@@ -333,10 +333,10 @@ export let inputSizeClass: { [size in INPUT_SIZE]: string } = {
 };
 
 export let labelSizeClass: { [size in INPUT_SIZE]: string } = {
-  sm: "px-2",
-  md: "px-3",
-  lg: "px-4",
-  xl: "px-5"
+  sm: "px-1 start-2",
+  md: "px-2 start-3",
+  lg: "px-3 start-4",
+  xl: "px-4 start-5"
 };
 
 export let defaultInputSizeClasses: { [type in 'flat' | 'nonFlat']: { [size in INPUT_SIZE]: string } } = {
@@ -347,10 +347,10 @@ export let defaultInputSizeClasses: { [type in 'flat' | 'nonFlat']: { [size in I
     xl: "px-0 py-5 text-2xl",
   },
   nonFlat: {
-    sm: "p-2 text-sm",
-    md: "p-3",
-    lg: "p-4 text-xl",
-    xl: "p-5 text-2xl",
+    sm: "px-3 py-2 text-sm",
+    md: "px-4 py-3",
+    lg: "px-5 py-4 text-xl",
+    xl: "px-6 py-5 text-2xl",
   }
 };
 

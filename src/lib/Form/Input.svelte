@@ -51,7 +51,11 @@
         {@render label?.()}
       {/if}
     {/if}
-    <input {...props} class={inputClasses(C, props)} {id} {name} placeholder={props?.placeholder ?? " "} bind:value use:setType/>
+    {#if type == "textarea"}
+      <textarea {...props} class={inputClasses(C, props)} {id} {name} placeholder={props?.placeholder ?? " "} rows=1 bind:value></textarea>
+    {:else}
+      <input {...props} class={inputClasses(C, props)} {id} {name} placeholder={props?.placeholder ?? " "} bind:value use:setType/>
+    {/if}
   
     {#if label && floatingLabel}
       {#if typeof label == "string"}
