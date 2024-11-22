@@ -5,7 +5,7 @@
 
   interface Props {
     children : Snippet,
-    method : 'GET' | 'POST',
+    method ?: 'GET' | 'POST',
     [key: string] : unknown
   }
 
@@ -13,15 +13,16 @@
     children,
     method = "POST",
     animate = "normal",
+    variant = "bordered",
+    floatingLabel = variant == "flat",
     labelClasses = undefined,
     rounded = "md",
     size = "md",
-    variant = "bordered",
     reset = false,
     ...props
   } : Props & Exclude<INPUT_CONFIG, "inputGrow"> = $props()
 
-  setContext('FORM', {animate, size, labelClasses, rounded, variant, reset})
+  setContext('FORM', {animate, size, floatingLabel, labelClasses, rounded, variant, reset})
 </script>
 
 <form {...props} {method} class={twMerge("flex flex-col gap-4", props?.class as string)}>

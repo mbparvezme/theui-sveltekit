@@ -2,7 +2,6 @@
   import type { INPUT_CONFIG, INPUT_TYPE } from "$lib/types"
 	import { generateToken, inputContainerClass, inputClasses } from "$lib/functions"
   import { getContext, setContext, type Snippet } from "svelte"
-  // import { generateToken, getInputBoxClasses, getInputClasses } from "$lib/functions"
   import { HelperText, Label } from "$lib"
 
   interface Props {
@@ -24,8 +23,8 @@
     name = "",
     type = "text",
     value = null,
-
     animate = CTX?.animate ?? "normal",
+    floatingLabel = CTX?.floatingLabel ?? CTX?.variant == "flat" ?? false,
     labelClasses = CTX?.labelClasses ?? "",
     rounded = CTX?.rounded ?? "md",
     size = CTX?.size ?? "md",
@@ -34,39 +33,42 @@
     ...props
   } : Props & INPUT_CONFIG = $props()
 
-  let C:INPUT_CONFIG & {id: string} = {animate, labelClasses, rounded, size, variant, reset, id}
+  let C:INPUT_CONFIG & {id: string, type: "input"} = {animate, floatingLabel, labelClasses, rounded, size, variant, reset, id, type: "input"}
+
   setContext('FORM', C)
 
   let setType: any = (node: HTMLInputElement) => node.type = type
 </script>
 
 <div class={inputContainerClass(C, props )}>
-  {#if label && variant !== "flat"}
-    {#if typeof label == "string"}
-      <Label {id} {label} />
+  
+  <div class="relative flex focus-within">
+    {#if label && !floatingLabel}
+      {#if typeof label == "string"}
+        <Label {id} {label} />
+      {/if}
+      {#if typeof label == "function"}
+        {@render label?.()}
+      {/if}
     {/if}
-    {#if typeof label == "function"}
-      {@render label?.()}
+    <input {...props} class={inputClasses(C, props)} {id} {name} placeholder={props?.placeholder ?? " "} bind:value use:setType/>
+  
+    {#if label && floatingLabel}
+      {#if typeof label == "string"}
+        <Label {id} {label} />
+      {/if}
+      {#if typeof label == "function"}
+        {@render label?.()}
+      {/if}
     {/if}
-  {/if}
+  </div>
 
-  <input {...props} class={inputClasses(C, props)} {id} {name} placeholder={props?.placeholder ?? "A"} bind:value use:setType/>
-
-  {#if label && variant === "flat"}
-    {#if typeof label == "string"}
-      <Label {id} {label} />
+  {#if helperText}
+    {#if typeof helperText == "string"}
+      <HelperText text={helperText} />
     {/if}
-    {#if typeof label == "function"}
-      {@render label?.()}
+    {#if typeof helperText == "function"}
+      {@render helperText?.()}
     {/if}
   {/if}
 </div>
-
-{#if helperText}
-  {#if typeof helperText == "string"}
-    <HelperText text={helperText} />
-  {/if}
-  {#if typeof helperText == "function"}
-    {@render helperText?.()}
-  {/if}
-{/if}

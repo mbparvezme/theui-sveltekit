@@ -6,7 +6,8 @@ import type {
   ROUNDED_SIDES,
   ROUNDED_ITEM_TYPES,
   NOTIFY_CONFIG,
-  NOTIFICATION_TYPE
+  NOTIFICATION_TYPE,
+  INPUT_SIZE
 } from "$lib/types"
 
 import {
@@ -24,6 +25,7 @@ import {
   messageBorderTheme,
   type ANIMATION_PROPERTY_TYPE,
   type INPUT_CATEGORY,
+  labelSizeClass,
 } from "$lib/vars"
 
 import { twMerge } from "tailwind-merge"
@@ -46,8 +48,8 @@ let ATTRIBUTES: any
 export const inputContainerClass = (config: INPUT_CONFIG, attributes: any = {}, type: 'default' | 'group' = "default"): string => {
   CONFIG = config;
   ATTRIBUTES = attributes;
-  let customClass = type === "group" ? groupInputContainerClass() : defaultInputContainerClasses(config);
-  return config?.reset ? "theui-input-container" : `theui-input-container ${twMerge(customClass, ATTRIBUTES?.class)}`;
+  let customClass = type === "group" ? groupInputContainerClass() : defaultInputContainerClasses();
+  return CONFIG?.reset ? "theui-input-container" : `theui-input-container ${twMerge(customClass, ATTRIBUTES?.class)}`;
 };
 
 
@@ -68,9 +70,9 @@ export const inputClasses = (config: INPUT_CONFIG, attr: any = {}, type: INPUT_C
   CONFIG = config;
   ATTRIBUTES = attr;
 
-  const baseClass = `${inputTypeClass[type || "input"]} ${inputSizeClass[config.size || "md"]} `;
+  const baseClass = `${inputTypeClass[type || "input"]} ${inputSizeClass[CONFIG.size || "md"]} `;
 
-  if (config?.reset) return baseClass;
+  if (CONFIG?.reset) return baseClass;
 
   let cls = `${inputSizeClasses(type)} ${commonInputTheme(type)}${attributesClasses()}`;
   cls += (type === "input" || type === "select") ? ` ${defaultInputClasses()} ` : " ";
@@ -78,6 +80,36 @@ export const inputClasses = (config: INPUT_CONFIG, attr: any = {}, type: INPUT_C
   cls += (type === "checkbox" || type === "radio") ? groupInputClasses() : " ";
 
   return twMerge(baseClass, cls, ATTRIBUTES?.class);
+};
+
+
+/**
+ * Builds the complete set of classes for an input element based on its configuration, attributes, type, and any additional classes.
+ * 
+ * @param config - Configuration object of type INPUT_CONFIG, which may include settings like size, reset, and other styling options.
+ * @param attr - Additional HTML attributes for the input element, like disabled or read-only states.
+ * @param type - Specifies the input category such as 'input', 'file', 'checkbox', 'radio', or 'select'. Defaults to 'input'.
+ * @param propsClass - Optional string for additional classes passed to the input component.
+ * 
+ * @returns A string representing the classes for the input element, based on input type, config, and attributes.
+ * 
+ * @remarks
+ * - If `config.reset` is true, the function returns only the base class without additional conditional classes.
+ */
+export const labelClasses = (config: INPUT_CONFIG & {type: INPUT_CATEGORY}, attr: any = {}): string => {
+  let baseClasses = `font-medium inline-flex text-sm`
+
+  let floatingLabelClasses = ""
+
+  if(config?.floatingLabel){
+    floatingLabelClasses = `peer-placeholder-shown:text-base absolute top-1/2 transform cursor-text peer-placeholder-shown:-translate-y-1/2 -translate-y-[2.75em] peer-placeholder-shown:text-gray-500 peer-focus:text-xs text-xs peer-focus:-translate-y-[2.75em] peer-focus:text-brand-primary-600 ${animationClass(config?.animate)}
+    ${config?.variant !== "flat" ? `${labelSizeClass[config?.size as INPUT_SIZE]}` : "start-0"}
+    ${config?.variant == "bordered" ? `bg-primary start-2  ` : ""}
+    ${config?.variant == "filled" ? `bg-gray-100 dark:bg-gray-900 start-2` : ""}`
+
+  }
+
+  return config?.reset ? (attr?.class ?? "") : twMerge(baseClasses, floatingLabelClasses, attr?.class);
 };
 
 
@@ -190,7 +222,7 @@ export const shadowClass = (size?: SHADOW) => (!size || size === "none") ? " " :
  * @remarks
  * - The class `flex-grow` is conditionally applied if `CONFIG.grow` is set to true, making the container take up additional space.
  */
-const defaultInputContainerClasses = (config: INPUT_CONFIG): string => `flex flex-col gap-2 ${config.variant == "flat" ? "relative group focus-within" : ""}`;
+const defaultInputContainerClasses = (): string => `flex flex-col gap-2`;
 
 
 /**
@@ -249,7 +281,7 @@ const inputSizeClasses = (type: INPUT_CATEGORY = "input"): string => {
 const commonInputTheme = (type: INPUT_CATEGORY): string => {
   const themes = {
     bordered: "border border-gray-300 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
-    filled: "bg-black/5 dark:bg-white/10 border-0 focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
+    filled: "bg-gray-100 dark:bg-gray-900 border-0 focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
     flat: type !== "file" ? "border-0 border-b-2 border-gray-300 dark:border-gray-700 bg-transparent focus:ring-0" : "border-0 focus:ring-0"
   };
   const theme = themes[CONFIG.variant ?? "bordered"];
@@ -267,7 +299,7 @@ const commonInputTheme = (type: INPUT_CATEGORY): string => {
  * - Includes `outline-transparent` and `ring-transparent` to manage input outline and focus ring appearance.
  * - Uses `animationClass` to add animation based on the configuration.
  */
-const defaultInputClasses = (): string => `outline-transparent ring-transparent block w-full ${CONFIG?.variant == "flat" ? "peer" : ""} ${animationClass(CONFIG?.animate)}`;
+const defaultInputClasses = (): string => `outline-transparent ring-transparent block w-full ${CONFIG?.floatingLabel ? "peer placeholder-transparent" : ""} ${animationClass(CONFIG?.animate)}`;
 
 
 /**

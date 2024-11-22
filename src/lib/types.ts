@@ -73,6 +73,7 @@ export type CORE = {
 export type INPUT_CONFIG = {
   animate ?: ANIMATE_SPEED;
   labelClasses ?: string | undefined;
+  floatingLabel ?: boolean,
   rounded ?: ROUNDED;
   size ?: INPUT_SIZE;
   reset ?: boolean;

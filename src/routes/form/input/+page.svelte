@@ -1,8 +1,18 @@
 <script lang="ts">
-  import { Input, Label, HelperText } from "$lib"
+  import { Form, Input, Label, HelperText } from "$lib"
 </script>
 
-<Input label="Name" name="test" variant="flat" helperText="This is helper text!" />
+<Form floatingLabel={true}>
+  {#snippet children()}
+  <Input label="NAME" name="test" variant="flat" helperText="This is helper text inside form!" />
+  <Input label="NAME" name="test" variant="bordered" helperText="This is helper text inside form!" />
+  <Input label="NAME" name="test" variant="filled" helperText="This is helper text inside form!" />
+  {/snippet}
+</Form>
+<br>
+<br>
+
+<Input label="Name" name="test" variant="flat" helperText="This is helper text!" floatingLabel={true} />
 <br>
 <br>
 <Input name="test" variant="flat" helperText="This is helper text!" id="as1">

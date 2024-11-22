@@ -332,6 +332,13 @@ export let inputSizeClass: { [size in INPUT_SIZE]: string } = {
   xl: "theui-input-xl"
 };
 
+export let labelSizeClass: { [size in INPUT_SIZE]: string } = {
+  sm: "px-2",
+  md: "px-3",
+  lg: "px-4",
+  xl: "px-5"
+};
+
 export let defaultInputSizeClasses: { [type in 'flat' | 'nonFlat']: { [size in INPUT_SIZE]: string } } = {
   flat: {
     sm: "px-0 py-2 text-sm",
