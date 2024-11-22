@@ -46,7 +46,7 @@ let ATTRIBUTES: any
 export const inputContainerClass = (config: INPUT_CONFIG, attributes: any = {}, type: 'default' | 'group' = "default"): string => {
   CONFIG = config;
   ATTRIBUTES = attributes;
-  let customClass = type === "group" ? groupInputContainerClass() : defaultInputContainerClasses();
+  let customClass = type === "group" ? groupInputContainerClass() : defaultInputContainerClasses(config);
   return config?.reset ? "theui-input-container" : `theui-input-container ${twMerge(customClass, ATTRIBUTES?.class)}`;
 };
 
@@ -190,7 +190,7 @@ export const shadowClass = (size?: SHADOW) => (!size || size === "none") ? " " :
  * @remarks
  * - The class `flex-grow` is conditionally applied if `CONFIG.grow` is set to true, making the container take up additional space.
  */
-const defaultInputContainerClasses = (): string => `flex flex-col gap-2`;
+const defaultInputContainerClasses = (config: INPUT_CONFIG): string => `flex flex-col gap-2 ${config.variant == "flat" ? "relative group focus-within" : ""}`;
 
 
 /**
@@ -267,7 +267,7 @@ const commonInputTheme = (type: INPUT_CATEGORY): string => {
  * - Includes `outline-transparent` and `ring-transparent` to manage input outline and focus ring appearance.
  * - Uses `animationClass` to add animation based on the configuration.
  */
-const defaultInputClasses = (): string => `outline-transparent ring-transparent block w-full ${animationClass(CONFIG?.animate)}`;
+const defaultInputClasses = (): string => `outline-transparent ring-transparent block w-full ${CONFIG?.variant == "flat" ? "peer" : ""} ${animationClass(CONFIG?.animate)}`;
 
 
 /**
