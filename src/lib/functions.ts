@@ -280,9 +280,9 @@ const inputSizeClasses = (type: INPUT_CATEGORY = "input"): string => {
  */
 const commonInputTheme = (type: INPUT_CATEGORY): string => {
   const themes = {
-    bordered: "border border-gray-300 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
-    filled: "bg-gray-100 dark:bg-gray-900 border-0 focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
-    flat: type !== "file" ? "border-0 border-b-2 border-gray-300 focus:border-brand-primary-500 dark:border-gray-700 bg-transparent focus:ring-0" : "border-0 focus:ring-0"
+    bordered: `border border-gray-300 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500 ${type == "select" ? "dark:bg-gray-900" : "bg-transparent"}`,
+    filled: "border-0 focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500 bg-gray-100 dark:bg-gray-900",
+    flat: type !== "file" ? `border-0 border-b-2 border-gray-300 focus:border-brand-primary-500 dark:border-gray-700 bg-transparent focus:ring-0 ${type == "select" ? "dark:bg-gray-900" : "bg-transparent"}` : "border-0 focus:ring-0"
   };
   const theme = themes[CONFIG.variant ?? "bordered"];
 

@@ -23,7 +23,7 @@
         <NavLinkGroup>
           {#snippet children()}
 						<NavDropdown label="Components">
-              <div class="grid grid-cols-2">
+              <div class="grid grid-cols-1">
 								<NavLink href="/accordion" text="Accordion" />
 								<NavLink href="/alert" text="Alert" />
 								<NavLink href="/badge" text="Badge" />
@@ -44,11 +44,12 @@
               </div>
             </NavDropdown>
 						<NavDropdown label="Form components">
-              <div class="grid grid-cols-2">
+              <div class="grid grid-cols-1">
 								<NavLink href="/form/fieldset" text="Fieldset" />
 								<NavLink href="/form/input" text="Input" />
 								<NavLink href="/form/checkbox" text="Checkbox" />
 								<NavLink href="/form/radio" text="Radio" />
+								<NavLink href="/form/select" text="Select" />
 								<NavLink href="/form/toggle" text="Toggle" />
 							</div>
 						</NavDropdown>

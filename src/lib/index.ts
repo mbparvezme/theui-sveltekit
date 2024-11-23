@@ -32,7 +32,7 @@ export { default as HelperText } from "./Form/Helper.svelte";
 export { default as Input } from "./Form/Input.svelte";
 export { default as Label } from "./Form/Label.svelte";
 export { default as Radio } from "./Form/Radio.svelte";
-// export { default as Select } from "./Form/Select.svelte";
+export { default as Select } from "./Form/Select.svelte";
 export { default as Toggle } from "./Form/Toggle.svelte";
 
 // Navbar components

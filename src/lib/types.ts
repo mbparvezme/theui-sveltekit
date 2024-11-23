@@ -80,7 +80,7 @@ export type INPUT_CONFIG = {
   variant ?: INPUT_VARIANT;
 };
 
-export type SELECT_DATA = Array<{ disabled?: boolean, selected?: boolean, text: string, value?: any } | string>;
+export type SELECT_DATA = {disabled?: boolean, selected?: boolean, text: string, value?: string|number} | string;
 
 export type Tools = "blockquote" | "code" | "codeblock" | "link" | "horizontalLine" | "youtube" | "highlighter" | "color" | "redoUndo";
 

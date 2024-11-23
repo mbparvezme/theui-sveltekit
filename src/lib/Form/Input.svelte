@@ -5,7 +5,7 @@
   import { HelperText, Label } from "$lib"
 
   interface Props {
-    label: Snippet|string,
+    label?: Snippet|string|undefined,
     helperText ?: Snippet|string|undefined,
     id ?: string,
     name : string,

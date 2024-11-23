@@ -354,6 +354,21 @@ export let defaultInputSizeClasses: { [type in 'flat' | 'nonFlat']: { [size in I
   }
 };
 
+// export let defaultSelectInputSizeClasses: { [type in 'flat' | 'nonFlat']: { [size in INPUT_SIZE]: string } } = {
+//   flat: {
+//     sm: "px-2 py-2 text-sm",
+//     md: "px-2 py-3",
+//     lg: "px-2 py-4 text-xl",
+//     xl: "px-3 py-5 text-2xl",
+//   },
+//   nonFlat: {
+//     sm: "px-3 py-2 text-sm",
+//     md: "px-4 py-3",
+//     lg: "px-5 py-4 text-xl",
+//     xl: "px-6 py-5 text-2xl",
+//   }
+// };
+
 export let fileInputSizeClasses: { [size in INPUT_SIZE]: string } = {
   sm: "file:px-4 file:py-2 file:text-sm",
   md: "file:px-6 file:py-3",

@@ -36,25 +36,8 @@
 </script>
 
 <div class="flex items-start gap-2">
-	<input
-		{id}
-		use:setType
-		class={twMerge(classes, props?.class as string)}
-	/>
+	<input {id} {name} use:setType class={twMerge(classes, props?.class as string)} />
 	{#if label}
 		<label for={id}>{label}</label>
 	{/if}
 </div>
-
-<!-- <style lang="postcss">
-	input:after{
-		content: "";
-		@apply w-3 h-3 bg-white transition-all ease-in-out duration-300;
-	}
-	input:checked:after{
-		@apply translate-x-[14px];
-	}
-	input,input:checked{
-		background-image: none;
-	}
-</style> -->
