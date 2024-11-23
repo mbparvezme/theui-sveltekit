@@ -105,7 +105,7 @@ export const labelClasses = (config: INPUT_CONFIG & {type: INPUT_CATEGORY}, attr
     floatingLabelClasses = `peer-placeholder-shown:text-base transform cursor-text absolute top-0 peer-placeholder-shown:top-1/2 peer-focus:top-0 -translate-y-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:-translate-y-1/2 peer-placeholder-shown:text-gray-500 peer-focus:text-xs text-xs peer-focus:text-default ${animationClass(config?.animate)}
     ${config?.variant !== "flat" ? `${labelSizeClass[config?.size as INPUT_SIZE]}` : "start-0"}
     ${config?.variant == "bordered" ? `bg-primary` : ""}
-    ${config?.variant == "filled" ? `bg-gray-100 dark:bg-gray-900` : ""}`
+    ${config?.variant == "filled" ? `bg-gray-100 dark:bg-gray-900 ${roundedClass(config?.rounded)}` : ""}`
 
   }
 
@@ -222,7 +222,7 @@ export const shadowClass = (size?: SHADOW) => (!size || size === "none") ? " " :
  * @remarks
  * - The class `flex-grow` is conditionally applied if `CONFIG.grow` is set to true, making the container take up additional space.
  */
-const defaultInputContainerClasses = (): string => `flex flex-col gap-2`;
+const defaultInputContainerClasses = (): string => `flex flex-col ${CONFIG?.variant !== "flat" ? "gap-2" : ""}`;
 
 
 /**
@@ -282,7 +282,7 @@ const commonInputTheme = (type: INPUT_CATEGORY): string => {
   const themes = {
     bordered: "border border-gray-300 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
     filled: "bg-gray-100 dark:bg-gray-900 border-0 focus:ring-1 focus:ring-brand-primary-500 focus:border-brand-primary-500",
-    flat: type !== "file" ? "border-0 border-b-2 border-gray-300 dark:border-gray-700 bg-transparent focus:ring-0" : "border-0 focus:ring-0"
+    flat: type !== "file" ? "border-0 border-b-2 border-gray-300 focus:border-brand-primary-500 dark:border-gray-700 bg-transparent focus:ring-0" : "border-0 focus:ring-0"
   };
   const theme = themes[CONFIG.variant ?? "bordered"];
 

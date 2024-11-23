@@ -60,8 +60,8 @@
     height,
     navInnerClasses,
     navCollapseClasses,
-    linkClasses: twMerge("p-3 text-gray-700 dark:text-gray-300 hover:text-default text-sm", linkClasses, roundedClass(rounded)),
-    dropdownLinkClasses: twMerge("hover:bg-gray-100 dark:hover:bg-gray-700 h-auto", dropdownLinkClasses, animationClass(animate), roundedClass(rounded)),
+    linkClasses: twMerge("p-3 text-gray-700 dark:text-gray-300 hover:text-default text-sm", roundedClass(rounded), animationClass(animate), linkClasses),
+    dropdownLinkClasses: twMerge("hover:bg-gray-100 dark:hover:bg-gray-700 h-auto px-4 py-2", animationClass(animate), roundedClass(rounded), dropdownLinkClasses),
     mobileNavOn,
     rounded,
     dropdownEvent,
@@ -80,13 +80,11 @@
       // Set / Reset Navbar
       if(scrollBehavior === "hideOnScrollDown" || scrollBehavior === "shrinkAndHide") {
         if (document.body.getBoundingClientRect().top > scrollPos) {
-          // miniNav = true
           hideNav = false
         } else {
           hideNav = scrollPos !== 0 || window.scrollY > scrollAmountToHide!
         }
         scrollPos = window.scrollY >= scrollAmountToHide! ? document.body.getBoundingClientRect().top : 0
-        console.log(hideNav, scrollPos)
       }
     })
   })

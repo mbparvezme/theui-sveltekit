@@ -11,7 +11,7 @@
 	})
 </script>
 
-<Navbar class="bg-brand-primary-100 dark:bg-brand-primary-700" scrollBehavior="shrinkAndHide" mobileNavOn="lg" height="lg">
+<Navbar class="bg-brand-primary-100 dark:bg-brand-primary-700" scrollBehavior="shrinkAndHide" mobileNavOn="md">
   {#snippet children()}
     <NavBrand href="/">
       {#snippet children()}
@@ -22,7 +22,7 @@
       {#snippet children()}
         <NavLinkGroup>
           {#snippet children()}
-						<NavDropdown label="Components" size="xl">
+						<NavDropdown label="Components">
               <div class="grid grid-cols-2">
 								<NavLink href="/accordion" text="Accordion" />
 								<NavLink href="/alert" text="Alert" />
@@ -43,9 +43,13 @@
 								<NavLink href="/progress" text="Progress" />
               </div>
             </NavDropdown>
-						<NavDropdown label="Form components" size="xl">
+						<NavDropdown label="Form components">
               <div class="grid grid-cols-2">
+								<NavLink href="/form/fieldset" text="Fieldset" />
 								<NavLink href="/form/input" text="Input" />
+								<NavLink href="/form/checkbox" text="Checkbox" />
+								<NavLink href="/form/radio" text="Radio" />
+								<NavLink href="/form/toggle" text="Toggle" />
 							</div>
 						</NavDropdown>
 						{/snippet}

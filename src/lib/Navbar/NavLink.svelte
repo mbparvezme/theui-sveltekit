@@ -1,4 +1,4 @@
-<script lang="ts">
+ <script lang="ts">
   import { getContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
   import { animationClass, roundedClass } from "$lib/functions"

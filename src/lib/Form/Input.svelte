@@ -5,7 +5,7 @@
   import { HelperText, Label } from "$lib"
 
   interface Props {
-    label ?: Snippet|string,
+    label: Snippet|string,
     helperText ?: Snippet|string|undefined,
     id ?: string,
     name : string,
@@ -40,30 +40,27 @@
   let setType: any = (node: HTMLInputElement) => node.type = type
 </script>
 
+{#snippet labelContent()}
+  {#if typeof label == "string"}
+    <Label {id} {label} />
+  {/if}
+  {#if typeof label == "function"}
+    {@render label?.()}
+  {/if}
+{/snippet}
+
 <div class={inputContainerClass(C, props )}>
-  
+  {#if label && !floatingLabel}
+    {@render labelContent()}
+  {/if}
   <div class="relative flex focus-within">
-    {#if label && !floatingLabel}
-      {#if typeof label == "string"}
-        <Label {id} {label} />
-      {/if}
-      {#if typeof label == "function"}
-        {@render label?.()}
-      {/if}
-    {/if}
     {#if type == "textarea"}
       <textarea {...props} class={inputClasses(C, props)} {id} {name} placeholder={props?.placeholder ?? " "} rows=1 bind:value></textarea>
     {:else}
       <input {...props} class={inputClasses(C, props)} {id} {name} placeholder={props?.placeholder ?? " "} bind:value use:setType/>
     {/if}
-  
     {#if label && floatingLabel}
-      {#if typeof label == "string"}
-        <Label {id} {label} />
-      {/if}
-      {#if typeof label == "function"}
-        {@render label?.()}
-      {/if}
+      {@render labelContent()}
     {/if}
   </div>
 
