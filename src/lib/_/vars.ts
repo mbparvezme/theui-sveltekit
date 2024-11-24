@@ -5,7 +5,7 @@ import type {
   ROUNDED_SIDES,
   ROUNDED_ITEM_TYPES,
   INPUT_SIZE
-} from "$lib/types"
+} from "$lib/_/types"
 
 export type ANIMATION_PROPERTY_TYPE = 'color' | 'opacity' | 'shadow' | 'transform' | 'all' | 'fileButton'
 export type INPUT_CATEGORY = 'input' | 'file' | 'checkbox' | 'radio' | 'select'

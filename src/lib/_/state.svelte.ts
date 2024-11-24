@@ -1,5 +1,5 @@
-import type {NOTIFY_CONFIG, NOTIFICATION_TYPE} from "$lib/types"
-import {generateToken} from "$lib/functions"
+import type {NOTIFY_CONFIG, NOTIFICATION_TYPE} from "$lib/_/types"
+import {generateToken} from "$lib/_/functions"
 
 export let ST_ACTIVE_ACCORDIONS: { value: string[]} = $state({value: [""]})
 export let ST_MOBILE_NAV: { value: string[]} = $state({value: []})

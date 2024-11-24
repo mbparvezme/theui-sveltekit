@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { ROUNDED, BREADCRUMB_DATA } from "$lib/types"
-  import { roundedClass } from "$lib/functions"
+  import type { ROUNDED, BREADCRUMB_DATA } from "$lib/_/types"
+  import { roundedClass } from "$lib/_/functions"
 
   interface Props {
     data : Array<BREADCRUMB_DATA>,

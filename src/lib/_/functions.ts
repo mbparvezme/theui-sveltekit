@@ -8,7 +8,7 @@ import type {
   NOTIFY_CONFIG,
   NOTIFICATION_TYPE,
   INPUT_SIZE
-} from "$lib/types"
+} from "$lib/_/types"
 
 import {
   roundClasses,
@@ -26,7 +26,7 @@ import {
   type ANIMATION_PROPERTY_TYPE,
   type INPUT_CATEGORY,
   labelSizeClass,
-} from "$lib/vars"
+} from "$lib/_/vars"
 
 import { twMerge } from "tailwind-merge"
 
