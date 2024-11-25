@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { ROUNDED } from "$lib/_/types"
+  import type { ROUNDED } from "$lib/types"
   import { twMerge } from "tailwind-merge"
-  import { roundedClass } from "$lib/_/functions"
+  import { roundedClass } from "$lib/function.core"
 
   interface Props {
     text ?: string | undefined,

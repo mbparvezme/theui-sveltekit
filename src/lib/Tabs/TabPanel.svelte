@@ -3,7 +3,7 @@
 	import { twMerge } from "tailwind-merge"
 	import { fade } from "svelte/transition"
 	import { ST_TABS } from "$lib/state.svelte"
-	import { generateToken } from "$lib/functions"
+	import { generateToken } from "$lib/function.core"
 
   let {children, ...props} : {children : Snippet, [key: string] : unknown} = $props()
 	const CTX = getContext("TAB") as any

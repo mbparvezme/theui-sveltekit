@@ -33,5 +33,5 @@
 <Select label="Select Obj variant FLAT" variant="flat" name="select_obj" options={selectObj} placeholder="-- Select --" floatingLabel value={5} />
 <br>
 <br>
-<Select label="Select Obj variant FLAT" variant="filled" name="select_obj" options={selectObj} placeholder="-- Select --" floatingLabel value={5} />
+<Select label="Select Obj variant FLAT" name="select_obj" options={selectObj} placeholder="-- Select --" floatingLabel value={5} />
 <br>

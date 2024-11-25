@@ -2,7 +2,7 @@
   import type { ANIMATE_SPEED } from "$lib/types"
   import { onMount } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { animationClass, roundedClass } from "$lib/functions"
+  import { animationClass, roundedClass } from "$lib/function.core"
 
   type TOOLTIP_POSITION = 'left' | 'top' | 'right' | 'bottom';
   type TOOLTIP_ANIMATION = 'fade' | 'slide' | 'zoom-in' | 'zoom-out';

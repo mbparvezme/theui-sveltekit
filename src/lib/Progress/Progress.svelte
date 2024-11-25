@@ -1,6 +1,6 @@
 <script lang="ts">
   import { twMerge } from "tailwind-merge"
-  import { roundedClass, generateToken } from "$lib/functions"
+  import { roundedClass, generateToken } from "$lib/function.core"
 	import { onMount } from "svelte";
 
   interface Props {

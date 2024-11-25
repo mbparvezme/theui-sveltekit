@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { INPUT_CONFIG } from "$lib/types"
   import { getContext, type Snippet } from "svelte"
-  import { generateToken, inputContainerClass, inputClasses } from "$lib/functions"
+	import { generateToken } from "$lib/function.core"
+	import { inputContainerClass, inputClasses } from "$lib/function.form"
   import { HelperText } from "$lib"
 
   interface Props {

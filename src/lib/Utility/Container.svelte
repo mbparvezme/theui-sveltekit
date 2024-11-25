@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Snippet } from "svelte";
+	import type { Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
   let { children, ...props } : {children : Snippet, [key:string] : unknown} = $props()
 </script>

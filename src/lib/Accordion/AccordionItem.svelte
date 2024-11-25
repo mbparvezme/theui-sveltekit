@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { ANIMATE_SPEED, ROUNDED } from "$lib/_helpers/types"
+  import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
   import { getContext, onMount, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { generateToken, roundedClass, animationClass } from "$lib/_/functions"
-  import { ST_ACTIVE_ACCORDIONS } from "$lib/_/state.svelte"
+  import { generateToken, roundedClass, animationClass } from "$lib/function.core"
+  import { ST_ACTIVE_ACCORDIONS } from "$lib/state.svelte"
 
   interface Props {
     title ?: string|Snippet|undefined,

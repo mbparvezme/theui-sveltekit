@@ -1,9 +1,8 @@
 <script lang="ts">
-	import type { ROUNDED } from "$lib/_/types"
+	import type { ROUNDED } from "$lib/types"
 	import type { Snippet } from "svelte"
 	import { twMerge } from "tailwind-merge"
-	import { roundedClass, generateToken } from "$lib/_/functions"
-	import { messageTheme, messageBorderTheme } from "$lib/_/vars"
+	import { roundedClass, generateToken, messageTheme, messageBorderTheme } from "$lib/function.core"
 	import { Close, Svg } from "$lib"
 
 	interface Props {

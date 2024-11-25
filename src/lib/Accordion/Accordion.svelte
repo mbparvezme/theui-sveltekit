@@ -1,6 +1,6 @@
 <script lang="ts">
   import { setContext, type Snippet } from "svelte"
-  import { generateToken } from "$lib/_/functions"
+  import { generateToken } from "$lib/function.core"
 
   interface Props {
     size ?: "compact" | "default" | "large",

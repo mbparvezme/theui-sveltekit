@@ -1,9 +1,5 @@
 import type { Writable } from "svelte/store"
 
-// export interface 1rData {
-//   [key: string]: any;
-// }
-
 // Custom types
 export type ANIMATE_SPEED =
   | "none"
@@ -29,7 +25,8 @@ export type TABLE_ROW = string[] | Record<string, unknown>[];
 export type BUTTON_SIZE = "xs" | "sm" | "md" | "lg" | "xl" | "auto";
 export type INPUT_TYPE = 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'reset' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week' | 'search' | 'textarea';
 export type INPUT_SIZE = "sm" | "md" | "lg" | "xl";
-export type INPUT_VARIANT = "bordered" | "filled" | "flat";
+// export type INPUT_VARIANT = "bordered" | "filled" | "flat";
+export type INPUT_VARIANT = "bordered" | "flat";
 export type BREADCRUMB_DATA = { text: string; url?: string };
 export type DROPDOWN_ITEM = {
   active?: boolean;

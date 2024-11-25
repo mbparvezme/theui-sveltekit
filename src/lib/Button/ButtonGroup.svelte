@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { ANIMATE_SPEED, ROUNDED, BUTTON_SIZE } from "$lib/_/types"
+  import type { ANIMATE_SPEED, ROUNDED, BUTTON_SIZE } from "$lib/types"
   import { setContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { roundedClass } from "$lib/_/functions"
+  import { roundedClass } from "$lib/function.core"
 
   interface Props {
     children : Snippet,

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
   import { twMerge } from "tailwind-merge"
-  import { animationClass, roundedClass, generateToken, backdropClasses } from "$lib/functions"
+  import { animationClass, roundedClass, generateToken, backdropClasses } from "$lib/function.core"
   import { Close } from "$lib"
 	import type { Snippet } from "svelte"
 

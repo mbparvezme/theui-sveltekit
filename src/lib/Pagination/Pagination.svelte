@@ -2,7 +2,7 @@
   import type { ANIMATE_SPEED, BUTTON_SIZE, ROUNDED } from "$lib/types"
   import { twMerge } from "tailwind-merge"
   import { Button, ButtonGroup } from "$lib"
-	import { roundedClass } from "$lib/functions";
+	import { roundedClass } from "$lib/function.core";
 
   interface Props {
     data ?: Array<{url: string, active?: boolean}>,

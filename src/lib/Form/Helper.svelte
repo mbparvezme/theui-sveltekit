@@ -4,7 +4,7 @@
   let {children, text, ...props} : {text ?: string|Snippet, [key: string] : unknown} = $props()
 </script>
 
-<p {...props} class={twMerge("text-sm text-gray-500 dark:text-gray-700", props?.class as string)}>
+<p {...props} class={twMerge("text-sm text-gray-500 dark:text-gray-600", props?.class as string)}>
   {#if text}
     {#if typeof text == "string"}
       {@html text}

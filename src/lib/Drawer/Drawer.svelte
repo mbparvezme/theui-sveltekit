@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ANIMATE_SPEED } from "$lib/types"
   import { twMerge } from "tailwind-merge"
-  import { animationClass, generateToken, backdropClasses } from "$lib/functions"
+  import { animationClass, generateToken, backdropClasses } from "$lib/function.core"
 	import { Close } from "$lib"
 	import type { Snippet } from "svelte";
 

@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { INPUT_CONFIG, INPUT_TYPE } from "$lib/types"
-	import { generateToken, inputContainerClass, inputClasses } from "$lib/functions"
+	import { generateToken } from "$lib/function.core"
+	import { inputContainerClass, inputClasses } from "$lib/function.form"
   import { getContext, setContext, type Snippet } from "svelte"
   import { HelperText, Label } from "$lib"
 
@@ -55,7 +56,7 @@
   {/if}
   <div class="relative flex focus-within">
     {#if type == "textarea"}
-      <textarea {...props} class={inputClasses(C, props)} {id} {name} placeholder={props?.placeholder ?? " "} rows=1 bind:value></textarea>
+      <textarea {...props} class={inputClasses(C, props)} {id} {name} placeholder={(props?.placeholder ?? " ") as string} rows=1 bind:value></textarea>
     {:else}
       <input {...props} class={inputClasses(C, props)} {id} {name} placeholder={props?.placeholder ?? " "} bind:value use:setType/>
     {/if}

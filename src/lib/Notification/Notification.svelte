@@ -1,8 +1,8 @@
 <script lang="ts">
   import { fade, fly } from "svelte/transition"
   import { ST_NOTIFICATIONS, removeNotification } from "$lib/state.svelte"
-  import type { NOTIFICATION_POSITION } from "$lib/vars"
-  import { notificationClasses } from "$lib/functions"
+  import { type NOTIFICATION_POSITION } from "$lib/function.core"
+  import { notificationClasses } from "$lib/function.core"
 
   interface Props {
     position?: NOTIFICATION_POSITION

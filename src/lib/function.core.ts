@@ -1,26 +1,18 @@
-import type {
-  ROUNDED,
-  SHADOW,
-  ANIMATE_SPEED,
-  ROUNDED_SIDES,
-  ROUNDED_ITEM_TYPES,
-  INPUT_SIZE
-} from "$lib/_/types"
-
 export type ANIMATION_PROPERTY_TYPE = 'color' | 'opacity' | 'shadow' | 'transform' | 'all' | 'fileButton'
-export type INPUT_CATEGORY = 'input' | 'file' | 'checkbox' | 'radio' | 'select'
-export type NOTIFICATION_VARIANT = "card" | "cardLight" | "borderTop" | "borderBottom" | "borderStart"
 export type NOTIFICATION_POSITION = "top-end" | "top-center" | "top-start" | "bottom-end" | "bottom-center" | "bottom-start"
 
 type RoundClassesType = {
-  [type in ROUNDED_ITEM_TYPES] : {
+  [type in ROUNDED_ITEM_TYPES]: {
     [side in ROUNDED_SIDES]: {
       [size in Exclude<ROUNDED, "none" | undefined>]: string;
-    };
+    }
   }
-};
- 
-export let roundClasses: RoundClassesType = {
+}
+
+import type {ANIMATE_SPEED, ROUNDED, SHADOW, ROUNDED_SIDES, ROUNDED_ITEM_TYPES, NOTIFY_CONFIG, NOTIFICATION_TYPE} from "$lib/types"
+import { twMerge } from "tailwind-merge"
+
+let roundClasses: RoundClassesType = {
   default: {
     all: {
       sm: " rounded",
@@ -283,31 +275,31 @@ export let roundClasses: RoundClassesType = {
   }
 }
 
-export let animationSpeed: { [speed in Exclude<ANIMATE_SPEED, "none">]: string } = {
-  slower: " duration-700",
-  slow: " duration-500",
-  normal: " duration-300",
-  fast: " duration-150",
-  faster: " duration-100",
-};
+let animationSpeed: { [speed in Exclude<ANIMATE_SPEED, "none">]: string } = {
+  slower: "duration-700",
+  slow: "duration-500",
+  normal: "duration-300",
+  fast: "duration-150",
+  faster: "duration-100",
+}
 
-export let animationType: any = {
-  color: " transition-colors",
-  opacity: " transition-opacity",
-  shadow: " transition-shadow",
-  transform: " transition-transform",
-  all: " transition-all",
-};
+let animationType: any = {
+  color: "transition-colors",
+  opacity: "transition-opacity",
+  shadow: "transition-shadow",
+  transform: "transition-transform",
+  all: "transition-all",
+}
 
-export let fileButtonAnimation: { [speed in Exclude<ANIMATE_SPEED, "none">]: string } = {
-  slower: " file:duration-700 transition-all",
-  slow: " file:duration-500 transition-all",
-  normal: " file:duration-300 transition-all",
-  fast: " file:duration-150 transition-all",
-  faster: " file:duration-100 transition-all",
-};
+let fileButtonAnimation: { [speed in Exclude<ANIMATE_SPEED, "none">]: string } = {
+  slower: "file:duration-700 transition-all",
+  slow: "file:duration-500 transition-all",
+  normal: "file:duration-300 transition-all",
+  fast: "file:duration-150 transition-all",
+  faster: "file:duration-100 transition-all",
+}
 
-export let shadowClasses: {[size in Exclude<SHADOW, "none">]: string} = {
+let shadowClasses: { [size in Exclude<SHADOW, "none">]: string } = {
   xs: " shadow-sm",
   sm: " shadow",
   md: " shadow-md",
@@ -315,73 +307,7 @@ export let shadowClasses: {[size in Exclude<SHADOW, "none">]: string} = {
   xl: " shadow-xl",
   "2xl": " shadow-2xl",
   inner: " shadow-inner"
-};
-
-export let inputTypeClass: { [type in INPUT_CATEGORY] : string} = {
-  input: "theui-input",
-  file: "theui-file-input",
-  checkbox: "theui-checkbox",
-  radio: "theui-radio-button",
-  select: "theui-select"
-};
-
-export let inputSizeClass: { [size in INPUT_SIZE]: string } = {
-  sm: "theui-input-sm",
-  md: "theui-input-md",
-  lg: "theui-input-lg",
-  xl: "theui-input-xl"
-};
-
-export let labelSizeClass: { [size in INPUT_SIZE]: string } = {
-  sm: "px-1 start-2",
-  md: "px-2 start-3",
-  lg: "px-3 start-4",
-  xl: "px-4 start-5"
-};
-
-export let defaultInputSizeClasses: { [type in 'flat' | 'nonFlat']: { [size in INPUT_SIZE]: string } } = {
-  flat: {
-    sm: "px-0 py-2 text-sm",
-    md: "px-0 py-3",
-    lg: "px-0 py-4 text-xl",
-    xl: "px-0 py-5 text-2xl",
-  },
-  nonFlat: {
-    sm: "px-3 py-2 text-sm",
-    md: "px-4 py-3",
-    lg: "px-5 py-4 text-xl",
-    xl: "px-6 py-5 text-2xl",
-  }
-};
-
-// export let defaultSelectInputSizeClasses: { [type in 'flat' | 'nonFlat']: { [size in INPUT_SIZE]: string } } = {
-//   flat: {
-//     sm: "px-2 py-2 text-sm",
-//     md: "px-2 py-3",
-//     lg: "px-2 py-4 text-xl",
-//     xl: "px-3 py-5 text-2xl",
-//   },
-//   nonFlat: {
-//     sm: "px-3 py-2 text-sm",
-//     md: "px-4 py-3",
-//     lg: "px-5 py-4 text-xl",
-//     xl: "px-6 py-5 text-2xl",
-//   }
-// };
-
-export let fileInputSizeClasses: { [size in INPUT_SIZE]: string } = {
-  sm: "file:px-4 file:py-2 file:text-sm",
-  md: "file:px-6 file:py-3",
-  lg: "file:px-6 file:py-4 file:text-xl",
-  xl: "file:px-8 file:py-5 file:text-2xl",
-};
-
-export let groupInputSizeClasses: { [size in INPUT_SIZE]: string } = {
-  sm: "h-3 w-3",
-  md: "h-4 w-4",
-  lg: "h-6 w-6",
-  xl: "h-8 w-8",
-};
+}
 
 export let messageTheme = {
   default: {
@@ -415,4 +341,132 @@ export let messageBorderTheme = {
     success: "border-success-300 dark:border-success-800",
     warning: "border-warning-500 dark:border-warning-800",
   },
+}
+
+/**
+ * Checks if a key exists in an object and returns a boolean indicating its presence.
+ * 
+ * @param obj - The object to check.
+ * @param key - The key to verify.
+ * @returns `true` if the key exists in the object, otherwise `false`.
+ * 
+ * @example
+ * const data = { name: "Alice", age: 30 };
+ * isKeyExist(data, "name"); // Returns true
+ * isKeyExist(data, "height"); // Returns false
+ */
+export const isKeyExist = (obj: Record<string, any>, key: string): boolean => key in obj
+
+
+/**
+ * Generates a random integer within a given range.
+ * 
+ * @param min - The minimum value (inclusive). Defaults to 10.
+ * @param max - The maximum value (inclusive). Defaults to 99.
+ * @returns A random integer between `min` and `max`, inclusive.
+ * 
+ * @example
+ * generateRandomNum(1, 100); // Random number between 1 and 100
+ * generateRandomNum(); // Random number between 10 and 99
+ */
+export const generateRandomNum = (min = 10, max = 99): number => Math.floor(Math.random() * (max - min + 1)) + min
+
+
+/**
+ * Generates a unique alphanumeric token with a prefix, timestamp, and random number.
+ * 
+ * @param prefix - Optional string prefix for the token, defaults to "_id".
+ * @returns A unique token string combining the prefix, current timestamp, and randomness.
+ * 
+ * @example
+ * generateToken("user_"); // Example output: "user_lk9vby43j24"
+ * generateToken();        // Example output: "_id_k9vmzct08f"
+ */
+export const generateToken = (prefix: string = "_id"): string => `${prefix}${(Date.now() + 1).toString(36)}${generateRandomNum()}`
+
+
+/**
+ * Generates CSS classes for animations based on the speed and property type.
+ *
+ * @param animate - Animation speed (e.g., "slow", "fast"), or undefined to disable animation.
+ * @param type - Animation property type (e.g., "all", "color"), defaults to "all".
+ * @returns A string with the computed CSS animation classes.
+ */
+export const animationClass = (animate: ANIMATE_SPEED | undefined, type: ANIMATION_PROPERTY_TYPE = "all"): string => {
+  if (!animate || animate === "none") return " "
+  return  ` theui-animate ease-in-out ${type === "fileButton" ?
+            (fileButtonAnimation?.[animate] || "") : `${animationSpeed?.[animate] || ""} ${animationType?.[type] || ""}`}`
+}
+
+
+/**
+ * Generates CSS classes for rounded corners based on size, side, and item type.
+ *
+ * @param value - Rounded size (e.g., "sm", "lg"), defaults to "md". Use "none" to disable rounding.
+ * @param side - Sides to apply the rounding (e.g., "all", "top"), defaults to "all".
+ * @param type - Item type (e.g., "default", "fileButton"), defaults to "default".
+ * @returns A string with the computed Tailwind CSS rounded classes.
+ */
+export const roundedClass = (value: ROUNDED = "md", side: ROUNDED_SIDES = "all", type: ROUNDED_ITEM_TYPES = "default"): string =>
+  value && value !== "none" ? roundClasses[type]?.[side]?.[value] || " " : " "
+
+
+/**
+ * Generates CSS classes for shadow effects based on the shadow size.
+ *
+ * @param size - Shadow intensity (e.g., "sm", "lg"), optional. Use "none" or leave undefined to disable shadow.
+ * @returns A string with the computed Tailwind CSS shadow classes.
+ */
+export const shadowClass = (size?: SHADOW): string => size && size !== "none" ? shadowClasses[size] || "" : ""
+
+
+/**
+ * Checks if a given URL belongs to the same origin as the current window location.
+ *
+ * @param url - The URL to check.
+ * @returns `true` if the URL is local, otherwise `false`.
+ */
+export const isLocalUrl = (url: string): boolean => {
+  try {
+    const parsedUrl = new URL(url, window.location.origin)
+    return parsedUrl.origin === window.location.origin
+  } catch {
+    return false
+  }
+}
+
+
+/**
+ * Generates CSS classes for notifications based on configuration, type, and additional properties.
+ *
+ * @param config - Notification configuration, including theme, rounded corners, and variant.
+ * @param type - Notification type (e.g., `error`, `success`). Defaults to `error`.
+ * @param props - Additional properties, such as a custom class.
+ * @returns A string of merged classes for the notification.
+ */
+export const notificationClasses = (config: NOTIFY_CONFIG, type: NOTIFICATION_TYPE = "error", props: Record<string, any> = {}): string => {
+  const theme = config?.theme || "default"
+  const baseClass = `theui-notification px-4 py-3 shadow-2xl shadow-black/50 cursor-pointer ${messageTheme[theme][type]}`
+
+  const variantClasses: Record<string, string> = {
+    card: roundedClass(config?.rounded || "md"),
+    borderTop: `${roundedClass(config?.rounded || "md", "bottom")} ${messageBorderTheme[theme][type]} border-t-4`,
+    borderBottom: `${roundedClass(config?.rounded || "md", "top")} ${messageBorderTheme[theme][type]} border-b-4`,
+    borderStart: `${roundedClass(config?.rounded || "md")} ${messageBorderTheme[theme][type]} border-s-4`,
+  }
+
+  return twMerge(baseClass, variantClasses[config?.variant || "card"], props.class || "")
+}
+
+
+/**
+ * Generates CSS classes for a backdrop element.
+ *
+ * @param backdrop - A string for custom classes or a boolean for default styling.
+ * @returns A string of merged classes for the backdrop.
+ */
+export const backdropClasses = (backdrop: string | boolean): string => {
+  const defaultClasses = "backdrop fixed inset-0 bg-black/50 z-[-1]"
+  const customClasses = typeof backdrop === "string" ? backdrop : ""
+  return twMerge(defaultClasses, customClasses)
 }
