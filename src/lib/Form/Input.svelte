@@ -6,9 +6,9 @@
   import { HelperText, Label } from "$lib"
 
   interface Props {
-    label?: Snippet|string|undefined,
     helperText ?: Snippet|string|undefined,
     id ?: string,
+    label?: Snippet|string|undefined,
     name : string,
     type ?: INPUT_TYPE,
     value ?: any,
@@ -24,6 +24,7 @@
     name = "",
     type = "text",
     value = null,
+
     animate = CTX?.animate ?? "normal",
     floatingLabel = CTX?.floatingLabel ?? CTX?.variant == "flat" ?? false,
     labelClasses = CTX?.labelClasses ?? "",

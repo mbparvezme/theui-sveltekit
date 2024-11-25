@@ -46,6 +46,7 @@
 						<NavDropdown label="Form components">
               <div class="grid grid-cols-1">
 								<NavLink href="/form/fieldset" text="Fieldset" />
+								<NavLink href="/form/file-input" text="File input" />
 								<NavLink href="/form/input" text="Input" />
 								<NavLink href="/form/checkbox" text="Checkbox" />
 								<NavLink href="/form/radio" text="Radio" />
