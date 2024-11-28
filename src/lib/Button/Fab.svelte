@@ -9,7 +9,7 @@
     children?: Snippet,
     animate?: ANIMATE_SPEED,
     size?: 'sm' | 'md' | 'lg' | 'xl',
-    position?: 'start' | 'end',
+    align?: 'start' | 'end',
     rounded?: ROUNDED,
     href?: string|undefined,
     trigger?: 'click' | 'hover',
@@ -23,7 +23,7 @@
     children,
     animate = "normal",
     size = "md",
-    position = "end",
+    align = "end",
     rounded = size == "xl" || size == "lg" ? "lg" : "md",
     href = undefined,
     trigger = "hover",
@@ -46,13 +46,13 @@
   //   }
   // });
 
-  let positionClasses = {start: "fab-start start-6 bottom-6", end: "fab-end end-6 bottom-6"}
-  let btnSizeClasses  = {sm: "w-10 h-10", md: "w-12 h-12", lg: "w-14 h-14", xl: "w-16 h-16"}
-  let iconSizeClasses = {sm: "w-[1.5em] h-[1.5em]", md: "w-[1.5em] h-[1.5em]", lg: "w-[1.75em] h-[1.75em]", xl: "w-[2em] h-[2em]"}
+  let alignClasses = {start: "fab-start start-6 bottom-6", end: "fab-end end-6 bottom-6"}
+  let btnSizeClasses  = {sm: "w-12 h-12", md: "w-14 h-14", lg: "w-16 h-16", xl: "w-20 h-20"}
+  let iconSizeClasses = {sm: "w-[1.25em] h-[1.25em]", md: "w-[1.5em] h-[1.5em]", lg: "w-[1.75em] h-[1.75em]", xl: "w-[2em] h-[2em]"}
 
-  let fabContainerClasses = `theui-fab fixed flex ${positionClasses[position]}${animationClass(animate)} ${direction=="horizontal" ? "flex-row" : "flex-col"}`
+  let fabContainerClasses = `theui-fab fixed flex ${alignClasses[align]}${animationClass(animate)} ${direction=="horizontal" ? "flex-row" : "flex-col"}`
 
-  let fabButtonClasses = `theui-fab-trigger ${twMerge(`static flex items-center justify-center bg-primary shadow-2xl hover:bg-secondary ${btnSizeClasses[size]}${roundedClass(rounded)}${animationClass(animate)}`, btnClasses)}`
+  let fabButtonClasses = `theui-fab-trigger ${twMerge(`static flex items-center justify-center bg-brand-primary-500 text-on-brand-primary-500 shadow-2xl hover:bg-brand-primary-600 ${btnSizeClasses[size]}${roundedClass(rounded)}${animationClass(animate)}`, btnClasses)}`
 
   let fabIconClasses = `fab-icon ${twMerge(iconSizeClasses[size], iconClasses)}`
 
