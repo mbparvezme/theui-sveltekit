@@ -34,17 +34,14 @@
   } : Props = $props()
 
   let id: string = `${generateToken()}-fab-trigger`
+  let open = $state(false)
 
   // onMount(() => {
   //   let elem = document.getElementById(id)
-  //   if(trigger == "hover"){
-  //     elem?.addEventListener("mouseenter", () => elem.classList.add("open"))
-  //     elem?.addEventListener("mouseleave", () => elem.classList.remove("open"))
-  //   }
-  //   if(trigger == "click"){
-  //     elem?.addEventListener("click", () => elem.classList.toggle("open"))
-  //   }
   // });
+
+
+  let toggle = (id: string) => document.getElementById(id)?.classList.toggle("open")
 
   let alignClasses = {start: "fab-start start-6 bottom-6", end: "fab-end end-6 bottom-6"}
   let btnSizeClasses  = {sm: "w-12 h-12", md: "w-14 h-14", lg: "w-16 h-16", xl: "w-20 h-20"}
@@ -59,18 +56,27 @@
   setContext('FAB', {fabButtonClasses, fabIconClasses})
 </script>
 
-<div {id} class={twMerge(fabContainerClasses, props?.class as string)}>
+
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div {id} class={twMerge(fabContainerClasses, props?.class as string)} onclick={()=>toggle(id)} >
   {#if children}
-  <div class="theui-fab-items {animationClass(animate)}" class:fab-vertical={direction == "vertical"} class:fab-horizontal={direction == "horizontal"}>
+  <div
+    class="theui-fab-items {animationClass(animate)}"
+    class:fab-vertical={direction == "vertical"}
+    class:fab-horizontal={direction == "horizontal"}
+    class:open class:pointer-events-none={!open}
+    class:group-hover:pointer-events-auto={open}
+  >
     {@render children?.()}
   </div>
   {/if}
-  <FabButton {href} />
+  <FabButton {href}/>
 </div>
 
 <style lang="postcss">
   .theui-fab-items{
-    @apply flex gap-4 opacity-0;
+    @apply gap-4 opacity-0 hidden;
   }
   .theui-fab-items.fab-vertical{
     @apply flex-col pb-4 translate-y-2;
@@ -79,13 +85,13 @@
     @apply flex-row pr-4 translate-x-2;
   }
 
-  .theui-fab-box.open .theui-fab-items.fab-vertical, .theui-fab-box.open .theui-fab-items.fab-horizontal{
-    @apply opacity-100 ease-out;
+  .theui-fab.open .theui-fab-items.fab-vertical, .theui-fab.open .theui-fab-items.fab-horizontal{
+    @apply opacity-100 ease-out flex;
   }
-  .theui-fab-box.open .theui-fab-items.fab-vertical{
+  .theui-fab.open .theui-fab-items.fab-vertical{
     @apply translate-y-0;
   }
-  .theui-fab-box.open .theui-fab-items.fab-horizontal{
+  .theui-fab.open .theui-fab-items.fab-horizontal{
     @apply translate-x-0;
   }
 </style>

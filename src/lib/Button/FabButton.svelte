@@ -9,10 +9,10 @@
   let id: string = `${generateToken()}-fab-trigger`
   let CTX: any = getContext('FAB') as any
 
-  onMount(() => {
-    let elem = document.getElementById(id)
-    elem?.addEventListener("click", () => elem.classList.toggle("open"))
-  })
+  // onMount(() => {
+  //   let elem = document.getElementById(id)
+  //   elem?.addEventListener("click", () => elem.classList.toggle("open"))
+  // })
 </script>
 
 <svelte:element {id} this={href ? "a" : "button"} {href} role={href ? "link" : "button"} class={twMerge(CTX?.fabButtonClasses, props?.class as string)} aria-label={"button"} {...props}>
