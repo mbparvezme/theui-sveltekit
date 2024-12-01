@@ -49,7 +49,7 @@
   <div>
     <h3>Animation speed</h3>
     <div class="flex flex-wrap gap-8">
-      <Dropdown label="Animate faster" align="start" animation="zoom-out" headerClasses="text-brand-primary-500" dropdownEvent="hover">
+      <Dropdown label="Animate faster" align="start" animation="slide-up" headerClasses="text-brand-primary-500">
         {#each data as dd}
           <DropdownItem type={dd?.type} url={dd?.url} text={dd.text} />
         {/each}

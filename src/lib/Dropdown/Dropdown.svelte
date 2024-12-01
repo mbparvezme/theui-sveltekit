@@ -111,12 +111,12 @@
 
 <svelte:window onclick={(e: MouseEvent)=>handleBlur(e)} />
 
-<div {id} class={getContainerClasses()} class:open={isOpen}>
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div {id} class={getContainerClasses()} class:open={isOpen} onmouseenter={(e: MouseEvent)=>handleMouse(e)} onmouseleave={(e: MouseEvent)=>handleMouse(e)} onclick={()=>toggle()} onkeydown={(e: KeyboardEvent)=>handleKeyboard(e)}>
   {#if typeof label == "string"}
-    <Button id={`${id}-trigger`} {label} ariaLabel={label + " dropdown"} onmouseenter={(e: MouseEvent)=>handleMouse(e)} onmouseleave={(e: MouseEvent)=>handleMouse(e)} onclick={()=>toggle()} onkeydown={(e: KeyboardEvent)=>handleKeyboard(e)} aria-controls={`${id}-dropdown`} aria-expanded={isOpen} aria-haspopup="menu" />
+    <Button id={`${id}-trigger`} {label} ariaLabel={label + " dropdown"} aria-controls={`${id}-dropdown`} aria-expanded={isOpen} aria-haspopup="menu" />
   {:else}
-    <!-- svelte-ignore a11y_interactive_supports_focus -->
-    <span id={`${id}-trigger`} class="relative dropdown-btn select-none" role="button" onmouseenter={(e: MouseEvent)=>handleMouse(e)} onmouseleave={(e: MouseEvent)=>handleMouse(e)} onclick={()=>toggle()} onkeydown={(e: KeyboardEvent)=>handleKeyboard(e)} aria-controls={`${id}-dropdown`} aria-expanded={isOpen} aria-haspopup="menu">
+    <span id={`${id}-trigger`} class="relative dropdown-btn select-none" role="button" aria-controls={`${id}-dropdown`} aria-expanded={isOpen} aria-haspopup="menu">
       {@render label?.()}
     </span>
   {/if}

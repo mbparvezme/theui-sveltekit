@@ -1,12 +1,15 @@
 <script lang="ts">
+  import { fade, fly } from 'svelte/transition'
   import {Dropdown} from "$lib"
+  let visible = $state(false)
+
 
 
 
   let mainBtn = "flex items-center justify-center w-16 h-16 bg-indigo-500 text-white rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
-  let fabContainerBtn = "flex absolute transform scale-95 opacity-100 group-hover:scale-100 transition-all duration-300 ease-in-out group-hover:pointer-events-none pointer-events-auto group-hover:opacity-0 "
-  let fabYContainerBtn = "flex-col bottom-16 end-1/2 translate-x-1/2 space-y-3 group-hover:translate-y-4 translate-y-0 mb-4"
-  let fabXContainerBtn = "flex-row    end-16 top-1/2 -translate-y-1/2 space-x-3 group-hover:translate-x-4 translate-x-0 me-4"
+  let fabContainerBtn = "flex absolute "
+  let fabYContainerBtn = "flex-col bottom-16 end-1/2 translate-x-1/2 space-y-3 mb-4"
+  let fabXContainerBtn = "flex-row end-16 top-1/2 -translate-y-1/2 space-x-3 me-4"
 
   let btn = "flex items-center justify-center w-12 h-12 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-green-300"
 
@@ -18,19 +21,23 @@
 
 
 
-<div class="fixed bottom-6 end-6 group hover:overflow-hidden overflow-visible">
-  <button class={mainBtn} aria-label="Main FAB"></button>
-  <div class={fabContainerBtn + fabYContainerBtn}>
+<div class="fixed bottom-6 end-6">
+  <button class={mainBtn} aria-label="Main FAB" onclick={()=> visible = !visible}></button>
+  {#if visible}
+  <div class={fabContainerBtn + fabYContainerBtn} in:fly={{ y: 16, duration: 200 }}>
     <button class="hover:bg-green-600 bg-green-500 {btn}" aria-label="Action 1"></button>
     <button class="bg-red-500 text-white hover:bg-red-600 {btn}" aria-label="Action 2"></button>
     <button class="bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-yellow-300 {btn}" aria-label="Action 3"></button>
   </div>
+  {/if}
 
-  <div class={fabContainerBtn + fabXContainerBtn}>
+  {#if visible}
+  <div class={fabContainerBtn + fabXContainerBtn} in:fly={{ x: 16, duration: 200 }}>
     <button class="hover:bg-green-600 bg-green-500 {btn}" aria-label="Action 1"></button>
     <button class="bg-red-500 text-white hover:bg-red-600 {btn}" aria-label="Action 2"></button>
     <button class="bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-yellow-300 {btn}" aria-label="Action 3"></button>
   </div>
+  {/if}
 </div>
 
 

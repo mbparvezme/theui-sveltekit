@@ -14,7 +14,7 @@
     startItem ?: Snippet,
     endItem ?: Snippet,
     text ?: string|Snippet,
-    url ?: string,
+    url ?: string|undefined,
     preload ?: PRELOAD,
     type ?: 'link' | 'divider' | 'header' | 'button'
     active ?: boolean,
@@ -25,7 +25,7 @@
     startItem,
     endItem,
     text,
-    url = "/",
+    url = undefined,
     preload = "hover",
     type = "link",
     active = false,
@@ -63,14 +63,16 @@
       <h6 class={itemClass(type)}>
         {@render content()}
       </h6>
-    {:else if type == "button"}
-      <button class={itemClass(type)}>
-        {@render content()}
-      </button>
     {:else}
-      <a href={url} class={itemClass(type)} data-sveltekit-preload-data={preload||preload}>
-        {@render content()}
-      </a>
+      {#if url}
+        <a href={url} class={itemClass(type)} data-sveltekit-preload-data={preload||preload}>
+          {@render content()}
+        </a>
+      {:else}
+        <button class={itemClass(type)}>
+          {@render content()}
+        </button>
+      {/if}
     {/if}
   </li>
 {/if}

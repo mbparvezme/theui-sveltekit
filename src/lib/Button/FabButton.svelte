@@ -1,22 +1,46 @@
 <script lang="ts">
-  import { getContext, onMount, type Snippet } from "svelte"
+  import { getContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { generateToken } from "$lib/function.core"
+  import { animationClass, generateToken, roundedClass } from "$lib/function.core"
+	import type { ANIMATE_SPEED, ROUNDED } from "$lib/types";
 
-  interface Props {children?:Snippet, href?: string|undefined, iconClasses?: string, [key: string]: unknown}
-
-  let {children, href = undefined, iconClasses = "", ...props} : Props = $props()
-  let id: string = `${generateToken()}-fab-trigger`
+  interface Props {
+    children?:Snippet,
+    animate?: ANIMATE_SPEED,
+    href?: string|undefined,
+    size?: 'sm' | 'md' | 'lg' | 'xl',
+    rounded?: ROUNDED,
+    iconClasses?: string,
+    [key: string]: unknown
+  }
+  
   let CTX: any = getContext('FAB') as any
+  let {
+    children,
+    animate = "normal",
+    href = undefined,
+    size = CTX?.size ?? "md",
+    rounded = CTX?.rounded ?? "full",
+    iconClasses = "",
+    ...props
+  } : Props = $props()
 
-  // onMount(() => {
-  //   let elem = document.getElementById(id)
-  //   elem?.addEventListener("click", () => elem.classList.toggle("open"))
-  // })
+  let id: string = `${generateToken()}-fab-btn`
+
+  let fabItemSize  = {sm: "w-10 h-10", md: "w-12 h-12", lg: "w-14 h-14", xl: "w-16 h-16"}
+  let iconSizeClasses = {sm: "w-[1em] h-[1em]", md: "w-[1.25em] h-[1.25em]", lg: "w-[1.5em] h-[1.5em]", xl: "w-[1.75em] h-[1.75em]"}
+
+  let fabItemClasses = `flex items-center justify-center bg-brand-primary-500 text-on-brand-primary-500 shadow-2xl hover:bg-brand-primary-600 ${fabItemSize[size]}${roundedClass(rounded)}${animationClass(animate)}`
 </script>
 
-<svelte:element {id} this={href ? "a" : "button"} {href} role={href ? "link" : "button"} class={twMerge(CTX?.fabButtonClasses, props?.class as string)} aria-label={"button"} {...props}>
-  <span class={twMerge(CTX?.fabIconClasses, iconClasses)}>
+<svelte:element
+  {id}
+  {href}
+  this={href ? "a" : "button"}
+  role={href ? "link" : "button"}
+  class={twMerge(fabItemClasses, props?.class as string)}
+  aria-label={"button"} {...props}>
+  <span class={twMerge(CTX?.iconClasses, iconSizeClasses[size])}>
     {#if children}
       {@render children?.()}
     {:else}
