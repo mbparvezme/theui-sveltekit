@@ -98,7 +98,7 @@
             ${size == "megaMenu" ? "w-full" : `${menuMaxWidthClasses[config.mobileNavOn as MOBILE_NAV_ON]} ${menuWidthClasses[config.mobileNavOn as MOBILE_NAV_ON][size]}`}`
   }
 
-  let dropdownClasses = `nav-dropdown flex-col py-2 bg-primary dark:bg-secondary overflow-y-auto ${dropdownTopPositionClasses[config.height as MOBILE_NAV_ON]} ${!config.mobileNavOn ? nonResCls : resCls()} ${animationClass(config?.animate)} ${roundedClass(config?.round)}`
+  let dropdownClasses = `nav-dropdown flex-col py-2 bg-primary dark:bg-secondary overflow-y-auto ${dropdownTopPositionClasses[config.height as MOBILE_NAV_ON]} ${!config.mobileNavOn ? nonResCls : resCls()} ${animationClass(config?.animate)} ${roundedClass(config?.rounded)}`
 
   let toggle = () => {
     if(dropdownEvent !== "hover"){

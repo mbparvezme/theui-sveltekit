@@ -6,7 +6,7 @@
     data : Array<BREADCRUMB_DATA>,
     activeLinkClasses ?: string,
     linkClasses ?: string,
-    round ?: ROUNDED,
+    rounded ?: ROUNDED,
     separator ?: string,
     [key: string]: unknown // dismissible, icon
 	}
@@ -15,13 +15,13 @@
     data = [],
     activeLinkClasses = "text-gray-400",
     linkClasses = "text-brand-primary-500",
-    round = "md",
+    rounded = "md",
     separator = "/",
     ...props
   } : Props = $props();
 
-  let navClasses = "theui-breadcrumb " + (props?.class ?? "") + roundedClass(round)
-  let getLinkCls = (url: any) => `before:text-gray-300 dark:before:text-gray-500 ${url?linkClasses:activeLinkClasses}${roundedClass(round)}`
+  let navClasses = "theui-breadcrumb " + (props?.class ?? "") + roundedClass(rounded)
+  let getLinkCls = (url: any) => `before:text-gray-300 dark:before:text-gray-500 ${url?linkClasses:activeLinkClasses}${roundedClass(rounded)}`
 </script>
 
 <nav aria-label="breadcrumb" class={navClasses} style="--breadcrumb-separator: '{separator}';">

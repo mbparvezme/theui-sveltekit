@@ -33,6 +33,7 @@
 								<NavLink href="/collapse" text="Collapse" />
 								<NavLink href="/dropdown" text="Dropdown" />
 								<NavLink href="/drawer" text="Drawer" />
+								<NavLink href="/list-group" text="List group" />
 								<NavLink href="/modal" text="Modal" />
 								<NavLink href="/notification" text="Notification" />
 								<NavLink href="/popup" text="Popup" />

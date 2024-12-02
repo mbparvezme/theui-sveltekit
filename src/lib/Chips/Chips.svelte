@@ -12,7 +12,7 @@
     imgUrl    ?: string | undefined,
     imgClasses  ?: string,
     imgAlt    ?: string,
-    round     ?: ROUNDED,
+    rounded   ?: ROUNDED,
     size      ?: 'sm' | 'md' | 'lg',
     [key: string]: unknown // dismissible, icon
   }
@@ -24,7 +24,7 @@
     imgUrl = undefined,
     imgClasses = "",
     imgAlt = "",
-    round  = "full",
+    rounded  = "full",
     size   = "md",
     ...props
   } : Props = $props();
@@ -34,11 +34,11 @@
   let chipsClasses = [
     "flex items-center w-max gap-4 cursor-pointer pe-4",
     fill ? "text-gray-500 bg-brand-primary-50 font-semibold text-sm" : "border border-gray-100",
-    roundedClass(round)
+    roundedClass(rounded)
   ].join(" ");
 
   let chipsImgClass = twMerge([
-    "max-w-none", size === "sm" ? "w-9 h-9" : size === "lg" ? "w-14 h-14" : "w-11 h-11", roundedClass(round)
+    "max-w-none", size === "sm" ? "w-9 h-9" : size === "lg" ? "w-14 h-14" : "w-11 h-11", roundedClass(rounded)
   ].join(" "), imgClasses);
 
   const hideChips = () => nodeRef.parentNode?.removeChild(nodeRef)

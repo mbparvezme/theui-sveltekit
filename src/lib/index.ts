@@ -15,6 +15,8 @@ export { default as Dropdown } from "./Dropdown/Dropdown.svelte";
 export { default as DropdownItem } from "./Dropdown/DropdownItem.svelte";
 export { default as Fab } from "./Button/Fab.svelte";
 export { default as FabButton } from "./Button/FabButton.svelte";
+export { default as ListGroup } from "./ListGroup/ListGroup.svelte";
+export { default as ListItem } from "./ListGroup/ListItem.svelte";
 export { default as Modal } from "./Modal/Modal.svelte";
 export { default as Notification } from "./Notification/Notification.svelte";
 export { notify } from "./state.svelte.ts";

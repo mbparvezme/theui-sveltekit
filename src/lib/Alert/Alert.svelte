@@ -7,7 +7,7 @@
 
 	interface Props {
 		content ?: string|Snippet|undefined,
-		round ?: ROUNDED,
+		rounded ?: ROUNDED,
 		type ?: 'error' | 'info' | 'success' | 'warning',
 		theme ? : 'default'|'light',
 		variant ?: 'card' | 'borderTop'| 'borderBottom'| 'borderStart',
@@ -17,7 +17,7 @@
 
 	let {
 		content = undefined,
-		round = "md",
+		rounded = "md",
 		type = "error",
 		theme = "default",
 		variant = "card",
@@ -30,10 +30,10 @@
 	let getClass = () => {
 		let baseClass = `theui-alert flex items-center p-4 mb-4 gap-4 text-sm font-medium dark:font-normal ${messageTheme[theme][type]}`
 		const variantClasses = {
-			card: roundedClass(round),
-			borderTop: `${roundedClass(round, "bottom")} ${messageBorderTheme[theme][type]} border-t-4`,
-			borderBottom: `${roundedClass(round, "top")} ${messageBorderTheme[theme][type]} border-b-4`,
-			borderStart: `${roundedClass(round)} ${messageBorderTheme[theme][type]} border-s-4`
+			card: roundedClass(rounded),
+			borderTop: `${roundedClass(rounded, "bottom")} ${messageBorderTheme[theme][type]} border-t-4`,
+			borderBottom: `${roundedClass(rounded, "top")} ${messageBorderTheme[theme][type]} border-b-4`,
+			borderStart: `${roundedClass(rounded)} ${messageBorderTheme[theme][type]} border-s-4`
 		}
 		const variantClass = variantClasses[variant] || ""
 		return twMerge(`${baseClass} ${variantClass}`, (props?.class || "") as string);
