@@ -1,6 +1,13 @@
 <script lang="ts">
-  import {Slider} from "$lib"
+  import {Slider, Slide} from "$lib"
 </script>
 
 
-<Slider />
+<Slider>
+  {#snippet children()}
+    <Slide />
+    <Slide />
+    <Slide />
+    <Slide />
+  {/snippet}
+</Slider>
