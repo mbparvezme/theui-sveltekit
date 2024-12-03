@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+<div class="slider relative overflow-hidden w-full">
+  <div class="list flex transition-transform duration-500">
+    <!-- Duplicate last slide at the beginning -->
+    <div class="item flex-shrink-0 w-full h-64 bg-red-500 flex items-center justify-center text-white">
+      Slide 3
+    </div>
+
+    <!-- Original slides -->
+    <div class="item flex-shrink-0 w-full h-64 bg-blue-500 flex items-center justify-center text-white">
+      Slide 1
+    </div>
+    <div class="item flex-shrink-0 w-full h-64 bg-green-500 flex items-center justify-center text-white">
+      Slide 2
+    </div>
+    <div class="item flex-shrink-0 w-full h-64 bg-red-500 flex items-center justify-center text-white">
+      Slide 3
+    </div>
+
+    <!-- Duplicate first slide at the end -->
+    <div class="item flex-shrink-0 w-full h-64 bg-blue-500 flex items-center justify-center text-white">
+      Slide 1
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <button id="prev" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full">
+    ←
+  </button>
+  <button id="next" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full">
+    →
+  </button>
+</div>
+
+<script lang="ts">
+ document.addEventListener("DOMContentLoaded", () => {
+    const slider = document.querySelector(".slider .list");
+    const items = document.querySelectorAll(".slider .list .item");
+    const next = document.getElementById("next");
+    const prev = document.getElementById("prev");
+
+    if (!slider || items.length === 0) {
+      console.error("Slider or items not found in the DOM.");
+      return;
+    }
+
+    const totalItems = items.length;
+    const realItemsCount = totalItems - 2; // Exclude duplicate slides
+    const slideWidth = items[0].clientWidth; // Width of one slide
+    let activeIndex = 1; // Start from the first real slide (index 1)
+
+    function reloadSlider() {
+      const offset = -activeIndex * slideWidth;
+      slider.style.transition = "transform 0.5s ease";
+      slider.style.transform = `translateX(${offset}px)`;
+    }
+
+    function handleLoop() {
+      if (activeIndex === realItemsCount + 1) {
+        slider.style.transition = "none";
+        activeIndex = 1;
+        slider.style.transform = `translateX(${-activeIndex * slideWidth}px)`;
+      } else if (activeIndex === 0) {
+        slider.style.transition = "none";
+        activeIndex = realItemsCount;
+        slider.style.transform = `translateX(${-activeIndex * slideWidth}px)`;
+      }
+    }
+
+    next.addEventListener("click", () => {
+      activeIndex++;
+      reloadSlider();
+      setTimeout(handleLoop, 500);
+    });
+
+    prev.addEventListener("click", () => {
+      activeIndex--;
+      reloadSlider();
+      setTimeout(handleLoop, 500);
+    });
+
+    window.addEventListener("resize", () => {
+      slideWidth = items[0].clientWidth;
+      reloadSlider();
+    });
+
+    reloadSlider();
+  });
+</script>
+
+</body>
+</html>

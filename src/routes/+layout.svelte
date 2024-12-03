@@ -31,17 +31,18 @@
 								<NavLink href="/button" text="Button" />
 								<NavLink href="/chips" text="Chips" />
 								<NavLink href="/collapse" text="Collapse" />
-								<NavLink href="/dropdown" text="Dropdown" />
 								<NavLink href="/drawer" text="Drawer" />
+								<NavLink href="/dropdown" text="Dropdown" />
 								<NavLink href="/list-group" text="List group" />
 								<NavLink href="/modal" text="Modal" />
 								<NavLink href="/notification" text="Notification" />
+								<NavLink href="/pagination" text="Pagination" />
 								<NavLink href="/popup" text="Popup" />
+								<NavLink href="/progress" text="Progress" />
+								<NavLink href="/slider" text="Slider" />
 								<NavLink href="/tab" text="Tab" />
 								<NavLink href="/table" text="Table" />
 								<NavLink href="/tooltip" text="Tooltip" />
-								<NavLink href="/pagination" text="Pagination" />
-								<NavLink href="/progress" text="Progress" />
               </div>
             </NavDropdown>
 						<NavDropdown label="Form components">
