@@ -10,7 +10,7 @@
     slideDuration?: number,
     stopOnHover?: boolean,
     transitionType?: 'fade'|'slide',
-    activeIndex?: number,
+    activeSlide?: number,
     animate?: ANIMATE_SPEED,
     [key: string] : unknown
   }
@@ -22,10 +22,10 @@
     slideDuration = 5000,
     stopOnHover = true,
     transitionType = 'fade',
-    activeIndex = 1,
+    activeSlide = 1,
     ...props
   } : Props = $props()
-  
+
   const id = generateToken()
 
   onMount(() => {
@@ -36,16 +36,35 @@
 
   let handleNext = () => {
     const totalSlides = ST_SLIDER.slides.length;
+    let activeSlideIndex = ST_SLIDER.slides.indexOf(ST_SLIDER.activeSlide);
+    activeSlideIndex = (activeSlideIndex + 1) % totalSlides;
+    ST_SLIDER.activeSlide = ST_SLIDER.slides[activeSlideIndex];
+    slideTransition();
+  }
 
-    const activeSlideIndex = ST_SLIDER.slides.indexOf(ST_SLIDER.activeSlide);
+  let handlePrevious = () => {
+    const totalSlides = ST_SLIDER.slides.length;
+    let activeSlideIndex = ST_SLIDER.slides.indexOf(ST_SLIDER.activeSlide);
+    slideTransition();
+    activeSlideIndex = (activeSlideIndex - 1 + totalSlides) % totalSlides;
+    ST_SLIDER.activeSlide = ST_SLIDER.slides[activeSlideIndex];
+  }
 
-    const previousSlideIndex = (activeSlideIndex === 0) ? totalSlides - 1 : activeSlideIndex - 1;
-    const nextSlideIndex = (activeSlideIndex + 1) % totalSlides;
+  let slideTransition = () => {
+    let currentItem = document.getElementById(ST_SLIDER.activeSlide as string);
+    let translate = currentItem?.getAttribute("data-translate");
+    let track = document.getElementById(`${id}-items`);
 
-    ST_SLIDER.activeSlide = ST_SLIDER.slides[nextSlideIndex];
-    
-    ST_SLIDER.previousSlide = ST_SLIDER.slides[previousSlideIndex];
-    ST_SLIDER.nextSlide = ST_SLIDER.slides[nextSlideIndex];
+    console.log(ST_SLIDER.activeSlide, translate);
+    if (track && translate) {
+      const translateValue = parseFloat(translate);
+      if (!isNaN(translateValue)) {
+        track.style.transform = `translateX(${translateValue}px)`;
+        track.style.transition = "transform 0.3s ease";
+      } else {
+        console.warn("Invalid translate value:", translate);
+      }
+    }
   }
 
 	setContext('SLIDER', ST_SLIDER)
@@ -53,14 +72,14 @@
 
 {#if children}
 <div {id} class="slider relative overflow-hidden w-full">
-  <div class="list flex transition-transform duration-500">
+  <div id={`${id}-items`} class="list flex transition-transform duration-500">
     {@render children()}
   </div>
 
-  <button id="{id}-prev" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full">
+  <button id="{id}-prev" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 w-10 h-10 rounded-full" onclick={()=>handlePrevious()}>
     ←
   </button>
-  <button id="{id}-next" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full" onclick={()=>handleNext()}>
+  <button id="{id}-next" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 w-10 h-10 rounded-full" onclick={()=>handleNext()}>
     →
   </button>
 </div>

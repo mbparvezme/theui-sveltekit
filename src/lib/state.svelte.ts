@@ -9,7 +9,7 @@ export let ST_TABS: {tabs: string[], panels: string[], selectedTab: string | nul
 export let selectedTab: { value: string | null } = $state({ value: null })
 export let selectedPanel: { value: string | null } = $state({ value: null })
 
-export let ST_SLIDER: { slides: any[], activeSlide: number | null, previousSlide: string, nextSlide: string } = $state({ slides: [], activeSlide: null, previousSlide: "", nextSlide: "" })
+export let ST_SLIDER: { slides: any[], activeSlide: string | null, previousSlide: string, nextSlide: string } = $state({ slides: [], activeSlide: null, previousSlide: "", nextSlide: "" })
 
 export let notify = (msg: string, type: NOTIFICATION_TYPE = "error", config: NOTIFY_CONFIG = {}): string => {
   let defaultConfig: NOTIFY_CONFIG = { animate: true, removeOnClick: true, removeAfter: 50000, rounded: "md", theme: "default", variant: "card" }
