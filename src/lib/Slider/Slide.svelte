@@ -15,6 +15,6 @@
   CTX.slides.push(id)
 </script>
 
-<div {id} class="item flex-shrink-0 w-full h-64 bg-blue-500 flex items-center justify-center text-white" data-translate={translate}>
+<div class="item flex-shrink-0 w-full h-64 bg-blue-500 flex items-center justify-center text-white" data-translate={translate}>
   {id}
 </div>
