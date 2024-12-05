@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { ANIMATE_SPEED } from "$lib/types"
 	import { setContext, type Snippet, onMount } from "svelte"
 	import { twMerge } from "tailwind-merge"
 	import { generateToken } from "$lib/function.core"
@@ -7,26 +6,28 @@
 
   interface Props {
     children : Snippet,
-    slideDuration?: number,
+    autoPlay?: boolean,
     stopOnHover?: boolean,
-    transitionType?: 'fade'|'slide',
+    slideDuration?: number,
+    transitionDuration?: number,
     activeSlide?: number,
-    animate?: ANIMATE_SPEED,
+    slideClasses?: string,
     [key: string] : unknown
   }
 
   let {
     children,
-    borderClasses = true,
-    animate = "normal",
-    slideDuration = 5000,
+    autoPlay = true,
     stopOnHover = true,
-    transitionType = 'fade',
+    slideDuration = 5000,
+    transitionDuration = 500,
     activeSlide = 1,
+    slideClasses = "",
     ...props
   } : Props = $props()
 
   const id = generateToken()
+  let autoPlayInterval: number
 
   onMount(() => {
     if (!ST_SLIDER.slides?.length) {
@@ -37,11 +38,13 @@
     cloneSlides()
 
     if (!ST_SLIDER.activeSlide) {
-      ST_SLIDER.activeSlide = ST_SLIDER.slides[1]
+      ST_SLIDER.activeSlide = ST_SLIDER.slides[activeSlide]
     }
 
-    updateTrackPosition("next")
-    setInterval(()=>changeSlide('next'), 5000)
+    updateTrackPosition()
+    if(autoPlay){
+      startAutoPlay()
+    }
   })
 
   let cloneSlides = () => {
@@ -65,7 +68,15 @@
     }
   }
 
-  let slideTransition = (updateType: 'next'|'prev') => {
+  let addTransitionListener = (track: HTMLElement, callback: Function) => {
+    const handler = () => {
+      callback();
+      track.removeEventListener("transitionend", handler)
+    }
+    track.addEventListener("transitionend", handler)
+  }
+
+  let slideTransition = () => {
     const track = document.getElementById(`${id}-items`)
     const slides = ST_SLIDER.slides
     const totalSlides = slides.length
@@ -74,25 +85,21 @@
     if (track) {
       const translateValue = -slideIndex * track.clientWidth
       track.style.transform = `translateX(${translateValue}px)`
-      track.style.transition = "transform 0.5s ease"
+      track.style.transition = `transform ${transitionDuration}ms ease`
 
-      track.addEventListener(
-        "transitionend",
-        () => {
-          if (slideIndex === 0) {
-            ST_SLIDER.activeSlide = slides[totalSlides - 2]
-            updateTrackPosition(updateType)
-          } else if (slideIndex === totalSlides - 1) {
-            ST_SLIDER.activeSlide = slides[1]
-            updateTrackPosition(updateType)
-          }
-        },
-        { once: true }
-      );
+      addTransitionListener(track, () => {
+        if (slideIndex === 0) {
+          ST_SLIDER.activeSlide = slides[totalSlides - 2]
+          updateTrackPosition()
+        } else if (slideIndex === totalSlides - 1) {
+          ST_SLIDER.activeSlide = slides[1]
+          updateTrackPosition()
+        }
+      })
     }
   }
 
-  let updateTrackPosition = (updateType: 'next'|'prev') => {
+  let updateTrackPosition = () => {
     const track = document.getElementById(`${id}-items`)
     const slides = ST_SLIDER.slides
     const slideIndex = slides.indexOf(ST_SLIDER.activeSlide)
@@ -116,15 +123,34 @@
   let changeSlide = (updateType: 'next'|'prev') => {
     const newIndex = calculateNextSlideIndex(updateType)
     ST_SLIDER.activeSlide = ST_SLIDER.slides[newIndex]
-    slideTransition(updateType)
+    slideTransition()
   }
 
-  setContext('SLIDER', ST_SLIDER)
+  let startAutoPlay = () => {
+    autoPlayInterval = setInterval(() => changeSlide("next"), 5000);
+  }
+
+  let stopAutoPlay = () => clearInterval(autoPlayInterval);
+
+  const handleMouseEnter = () => {
+    if (stopOnHover && autoPlay) {
+      stopAutoPlay()
+    }
+  }
+
+  const handleMouseLeave = () => {
+    if (stopOnHover && autoPlay) {
+      startAutoPlay();
+    }
+  }
+
+  setContext('SLIDER', {...ST_SLIDER, slideClasses})
 </script>
 
 {#if children}
-<div {id} class="slider relative overflow-hidden w-full">
-  <div id={`${id}-items`} class="list flex transition-transform duration-500">
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div {id} class="slider relative overflow-hidden w-full" onmouseenter={()=>handleMouseEnter()} onmouseleave={()=>handleMouseLeave()}>
+  <div id={`${id}-items`} class="slides flex {props?.class ?? ""}">
     {@render children()}
   </div>
 
