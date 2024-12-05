@@ -9,5 +9,10 @@
     <Slide />
     <Slide />
     <Slide />
+    <Slide />
+    <Slide />
   {/snippet}
 </Slider>
+
+<br>
+<br>

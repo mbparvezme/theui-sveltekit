@@ -34,82 +34,90 @@
       return
     }
 
-    cloneSlides();
+    cloneSlides()
 
     if (!ST_SLIDER.activeSlide) {
       ST_SLIDER.activeSlide = ST_SLIDER.slides[1]
     }
+
+    updateTrackPosition("next")
+    setInterval(()=>changeSlide('next'), 5000)
   })
 
   let cloneSlides = () => {
-    const itemsContainer = document.getElementById(`${id}-items`);
+    const itemsContainer = document.getElementById(`${id}-items`)
     if (itemsContainer) {
-      const firstSlide = itemsContainer.children[0];
-      const lastSlide = itemsContainer.children[itemsContainer.children.length - 1];
-      if (firstSlide && lastSlide) {
-        const firstClone = firstSlide.cloneNode(true) as HTMLElement;
-        const lastClone = lastSlide.cloneNode(true) as HTMLElement;
+      const slides = Array.from(itemsContainer.children)
+      if (slides.length) {
+        const firstSlide = slides[0]
+        const lastSlide = slides[slides.length - 1]
+        const firstClone = firstSlide.cloneNode(true) as HTMLElement
+        const lastClone = lastSlide.cloneNode(true) as HTMLElement
 
-        firstClone.setAttribute("data-clone", "true");
-        lastClone.setAttribute("data-clone", "true");
+        firstClone.setAttribute("data-clone", "true")
+        lastClone.setAttribute("data-clone", "true")
 
-        itemsContainer.appendChild(firstClone);
-        itemsContainer.insertBefore(lastClone, firstSlide);
+        itemsContainer.appendChild(firstClone)
+        itemsContainer.insertBefore(lastClone, firstSlide)
+
+        ST_SLIDER.slides = [...[lastClone], ...slides, ...[firstClone]]
       }
     }
   }
 
-  let updateTrackPosition = () => {
-    const track = document.getElementById(`${id}-items`);
-    const slideIndex = ST_SLIDER.slides.indexOf(ST_SLIDER.activeSlide);
-    if (track) {
-      const translateValue = -slideIndex * track.offsetWidth; // Adjust to match the current slide
-      track.style.transform = `translateX(${translateValue}px)`;
-      track.style.transition = "none"; // Instantly position the track
-    }
-  }
-
-  let slideTransition = () => {
+  let slideTransition = (updateType: 'next'|'prev') => {
     const track = document.getElementById(`${id}-items`)
-    const slideIndex = ST_SLIDER.slides.indexOf(ST_SLIDER.activeSlide)
+    const slides = ST_SLIDER.slides
+    const totalSlides = slides.length
+    const slideIndex = slides.indexOf(ST_SLIDER.activeSlide)
+
     if (track) {
-      const translateValue = -slideIndex * track.offsetWidth
+      const translateValue = -slideIndex * track.clientWidth
       track.style.transform = `translateX(${translateValue}px)`
       track.style.transition = "transform 0.5s ease"
 
-      // Handle seamless looping
       track.addEventListener(
         "transitionend",
         () => {
-          if (ST_SLIDER.activeSlide === ST_SLIDER.slides[0]) {
-            ST_SLIDER.activeSlide = ST_SLIDER.slides[ST_SLIDER.slides.length - 1]
-            updateTrackPosition()
-          } else if (
-            ST_SLIDER.activeSlide ===
-            ST_SLIDER.slides[ST_SLIDER.slides.length - 1]
-          ) {
-            // If at the last cloned slide, jump to the real first slide
-            ST_SLIDER.activeSlide = ST_SLIDER.slides[0]
-            updateTrackPosition()
+          if (slideIndex === 0) {
+            ST_SLIDER.activeSlide = slides[totalSlides - 2]
+            updateTrackPosition(updateType)
+          } else if (slideIndex === totalSlides - 1) {
+            ST_SLIDER.activeSlide = slides[1]
+            updateTrackPosition(updateType)
           }
         },
         { once: true }
-      )
+      );
     }
   }
 
-  let calculateNextSlideIndex = (updateType: 'next' | 'prev') => {
-    const totalSlides = ST_SLIDER.slides.length
-    const currentSlide = ST_SLIDER.slides.indexOf(ST_SLIDER.activeSlide)
-    return (currentSlide + (updateType === "next" ? 1 : -1) + totalSlides) % totalSlides
+  let updateTrackPosition = (updateType: 'next'|'prev') => {
+    const track = document.getElementById(`${id}-items`)
+    const slides = ST_SLIDER.slides
+    const slideIndex = slides.indexOf(ST_SLIDER.activeSlide)
+    if (track) {
+      const translateValue = -slideIndex * track.clientWidth
+      track.style.transform = `translateX(${translateValue}px)`
+      track.style.transition = "none"
+    }
   }
 
-  let changeSlide = (updateType: 'next' | 'prev') => {
+  let calculateNextSlideIndex = (updateType: 'next'|'prev') => {
+    const totalSlides = ST_SLIDER.slides.length
+    const currentSlideIndex = ST_SLIDER.slides.indexOf(ST_SLIDER.activeSlide)
+    if (updateType === "next") {
+      return (currentSlideIndex + 1) % totalSlides
+    } else {
+      return (currentSlideIndex - 1 + totalSlides) % totalSlides
+    }
+  }
+
+  let changeSlide = (updateType: 'next'|'prev') => {
     const newIndex = calculateNextSlideIndex(updateType)
     ST_SLIDER.activeSlide = ST_SLIDER.slides[newIndex]
-    slideTransition()
+    slideTransition(updateType)
   }
-
 
   setContext('SLIDER', ST_SLIDER)
 </script>
