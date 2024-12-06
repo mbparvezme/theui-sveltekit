@@ -30,6 +30,56 @@ export class Slider {
     this.slideClasses = slideClasses;
   }
 
+  cloneSlides() {
+    const itemsContainer = document.getElementById(`${this.id}-items`)
+    if (itemsContainer) {
+      const slides = Array.from(itemsContainer.children)
+      if (slides.length) {
+        const firstSlide = slides[0]
+        const lastSlide = slides[slides.length - 1]
+        const firstClone = firstSlide.cloneNode(true) as HTMLElement
+        const lastClone = lastSlide.cloneNode(true) as HTMLElement
+
+        firstClone.setAttribute("data-clone", "true")
+        lastClone.setAttribute("data-clone", "true")
+
+        itemsContainer.appendChild(firstClone)
+        itemsContainer.insertBefore(lastClone, firstSlide)
+
+        ST_SLIDER.slides = [...[lastClone], ...slides, ...[firstClone]]
+      }
+    }
+  }
+
+  changeSlide(updateType: 'next' | 'prev') {
+    const newIndex = this.calculateNextSlideIndex(updateType)
+    ST_SLIDER.activeSlide = ST_SLIDER.slides[newIndex]
+    this.slideTransition()
+  }
+
+  slideTransition() {
+    const track = document.getElementById(`${this.id}-items`)
+    const slides = ST_SLIDER.slides
+    const totalSlides = slides.length
+    const slideIndex = slides.indexOf(ST_SLIDER.activeSlide)
+
+    if (track) {
+      const translateValue = -slideIndex * track.clientWidth
+      track.style.transform = `translateX(${translateValue}px)`
+      track.style.transition = `transform ${this.transitionDuration}ms ease`
+
+      this.addTransitionListener(track, () => {
+        if (slideIndex === 0) {
+          ST_SLIDER.activeSlide = slides[totalSlides - 2]
+          this.updateTrackPosition()
+        } else if (slideIndex === totalSlides - 1) {
+          ST_SLIDER.activeSlide = slides[1]
+          this.updateTrackPosition()
+        }
+      })
+    }
+  }
+
   addTransitionListener (track: HTMLElement, callback: Function) {
     const handler = () => {
       callback();
@@ -79,64 +129,29 @@ export class Slider {
     clearInterval(this.autoPlayInterval);
   }
 
-  changeSlide (updateType: 'next' | 'prev') {
-    const newIndex = this.calculateNextSlideIndex(updateType)
-    ST_SLIDER.activeSlide = ST_SLIDER.slides[newIndex]
-    this.slideTransition()
+  getSliderClasses() {
+
   }
 
-  cloneSlides () {
-    const itemsContainer = document.getElementById(`${this.id}-items`)
-    if (itemsContainer) {
-      const slides = Array.from(itemsContainer.children)
-      if (slides.length) {
-        const firstSlide = slides[0]
-        const lastSlide = slides[slides.length - 1]
-        const firstClone = firstSlide.cloneNode(true) as HTMLElement
-        const lastClone = lastSlide.cloneNode(true) as HTMLElement
+  getSlideClasses() {
 
-        firstClone.setAttribute("data-clone", "true")
-        lastClone.setAttribute("data-clone", "true")
-
-        itemsContainer.appendChild(firstClone)
-        itemsContainer.insertBefore(lastClone, firstSlide)
-
-        ST_SLIDER.slides = [...[lastClone], ...slides, ...[firstClone]]
-      }
-    }
   }
 
-  slideTransition () {
-    const track = document.getElementById(`${this.id}-items`)
-    const slides = ST_SLIDER.slides
-    const totalSlides = slides.length
-    const slideIndex = slides.indexOf(ST_SLIDER.activeSlide)
+  getImageClasses() {
 
-    if (track) {
-      const translateValue = -slideIndex * track.clientWidth
-      track.style.transform = `translateX(${translateValue}px)`
-      track.style.transition = `transform ${this.transitionDuration}ms ease`
-
-      this.addTransitionListener(track, () => {
-        if (slideIndex === 0) {
-          ST_SLIDER.activeSlide = slides[totalSlides - 2]
-          this.updateTrackPosition()
-        } else if (slideIndex === totalSlides - 1) {
-          ST_SLIDER.activeSlide = slides[1]
-          this.updateTrackPosition()
-        }
-      })
-    }
   }
 
+  getButtonClasses() {
+
+  }
+
+  getIndicatorContainerClasses() {
+
+  }
+
+  getIndicatorClasses() {
+
+  }
 }
 
 
-
-export let getSlideClasses = (props: any) => {
-
-}
-
-export let getImageClasses = (props: any) => {
-
-}

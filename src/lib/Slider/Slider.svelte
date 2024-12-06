@@ -13,6 +13,8 @@
     transitionDuration?: number,
     activeSlide?: number,
     slideClasses?: string,
+    hideControls?: boolean,
+    hideIndicator?: boolean,
 
     controlButtonClasses?: string,
     indicatorContainerClasses?: string,
@@ -31,6 +33,8 @@
     transitionDuration = 500,
     activeSlide = 1,
     slideClasses = "",
+    hideControls = false,
+    hideIndicator = false,
 
     controlButtonClasses = "",
     indicatorContainerClasses = "",
@@ -69,11 +73,21 @@
     {@render children()}
   </div>
 
-  <button id="{obj.id}-prev" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 w-10 h-10 rounded-full" onclick={()=>obj.changeSlide("prev")}>
-    ←
+  {#if !hideControls}
+  <button id="{obj.id}-prev" class="prev-slide-button absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 w-10 h-10 rounded-full" onclick={()=>obj.changeSlide("prev")}>
+    {#if prevButton}
+      {@render prevButton()}
+    {:else}
+      ←
+    {/if}
   </button>
-  <button id="{obj.id}-next" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 w-10 h-10 rounded-full" onclick={()=>obj.changeSlide("next")}>
-    →
+  <button id="{obj.id}-next" class="next-slide-button absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 w-10 h-10 rounded-full" onclick={()=>obj.changeSlide("next")}>
+    {#if nextButton}
+      {@render nextButton()}
+    {:else}
+      →
+    {/if}
   </button>
+  {/if}
 </div>
 {/if}
