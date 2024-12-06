@@ -6,12 +6,12 @@
 <Slider>
   {#snippet children()}
     <Slide class="text-red-500">
-      1
+      111 111111 1111
     </Slide>
     <Slide href="/google">
-      2
+      222 222222 222 22 2 22 2222
     </Slide>
-    <Slide type="img" src="hkjkjk" href="/google">
+    <Slide href="/google">
       3
     </Slide>
   {/snippet}

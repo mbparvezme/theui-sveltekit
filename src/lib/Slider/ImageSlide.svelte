@@ -2,7 +2,6 @@
 	import { generateToken } from "$lib/function.core"
 	import { getContext, type Snippet } from "svelte"
 	import { twMerge } from "tailwind-merge";
-
   interface Props {
     src: string,
     alt: string,

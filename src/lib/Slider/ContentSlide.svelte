@@ -22,9 +22,11 @@
   CTX.slides.push(id)
 </script>
 
+{#if children}
 <svelte:element this={type} {...props} class="slide {twMerge('relative flex-shrink-0 w-full h-48 flex items-center justify-center', CTX?.slideClasses, props?.class as string)}">
-  <enhanced:img src={props?.src as string} alt={props?.alt as string ?? "TheUI image slider"} {...props} />
+  {@render children()}
   {#if href}
     <a class="absolute inset-0" aria-hidden="true" href={href}></a>
   {/if}
 </svelte:element>
+{/if}
