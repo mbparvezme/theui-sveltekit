@@ -34,8 +34,8 @@
     nextButton,
     autoPlay = true,
     stopOnHover = true,
-    slideDuration = 3000,
-    transitionDuration = 500,
+    slideDuration = 5000,
+    transitionDuration = 750,
     activeSlide = 1,
     indicatorClasses = "",
     indicatorActiveClasses = "",
@@ -111,7 +111,7 @@
   {/if}
 
   {#if !indicator}
-    <div id="{obj.id}-indicators" class="slide-indicators z-[1] bg-gray-100 {obj.getIndicatorContainerClasses(indicatorContainerClasses)}"></div>
+    <div id="{obj.id}-indicators" class="slide-indicators absolute z-[1] {obj.getIndicatorContainerClasses(indicatorContainerClasses)}"></div>
   {/if}
 
 </div>

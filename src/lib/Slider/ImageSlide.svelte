@@ -2,6 +2,7 @@
 	import { generateToken } from "$lib/function.core"
 	import { getContext, type Snippet } from "svelte"
 	import { getSlideClasses } from "./slider"
+	import { twMerge } from "tailwind-merge";
 
   interface Props {
     src: string,
@@ -19,7 +20,7 @@
 </script>
 
 <div class="slide {getSlideClasses(CTX?.slideClasses, "")}">
-  <enhanced:img {src} {alt} {...props} />
+  <img {src} {alt} {...props} class={twMerge("block w-full", props?.class as string)} />
   {#if href}
     <a class="absolute inset-0" aria-hidden="true" href={href}></a>
   {/if}
