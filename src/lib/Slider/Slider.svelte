@@ -2,6 +2,7 @@
 	import { setContext, type Snippet, onMount } from "svelte"
   import { ST_SLIDER } from "$lib/state.svelte"
 	import { Slider } from "./slider"
+	import { twMerge } from "tailwind-merge";
 
   interface Props {
     children: Snippet,
@@ -12,13 +13,17 @@
     slideDuration?: number,
     transitionDuration?: number,
     activeSlide?: number,
-    slideClasses?: string,
-    hideControls?: boolean,
-    hideIndicator?: boolean,
+    controls?: boolean,
+    indicator?: boolean,
+    timer?: boolean,
+    indicatorClasses?: string,
+    indicatorActiveClasses?: string,
 
+    slideContainerClasses?: string,
+    slideClasses?: string,
     controlButtonClasses?: string,
     indicatorContainerClasses?: string,
-    indicatorClasses?: string,
+    timerClasses?: string,
 
     [key: string] : unknown
   }
@@ -29,41 +34,52 @@
     nextButton,
     autoPlay = true,
     stopOnHover = true,
-    slideDuration = 5000,
+    slideDuration = 3000,
     transitionDuration = 500,
     activeSlide = 1,
-    slideClasses = "",
-    hideControls = false,
-    hideIndicator = false,
+    indicatorClasses = "",
+    indicatorActiveClasses = "",
 
+    controls = false,
+    timer = true,
+    indicator = false,
+    slideContainerClasses = "",
+    slideClasses = "",
     controlButtonClasses = "",
     indicatorContainerClasses = "",
-    indicatorClasses = "",
+    timerClasses = "",
     ...props
   } : Props = $props()
 
-  const obj = new Slider(autoPlay, stopOnHover, slideDuration, transitionDuration, activeSlide, slideClasses);
+  const obj = new Slider({
+    autoPlay,
+    stopOnHover,
+    slideDuration,
+    transitionDuration,
+    activeSlide,
+    indicatorClasses,
+    indicatorActiveClasses
+  });
 
   onMount(() => {
     if (!ST_SLIDER.slides?.length) {
       console.error("ST_SLIDER.slides is not defined or empty.")
       return
     }
-
+    obj.createIndicator()
     obj.cloneSlides()
-
     if (!ST_SLIDER.activeSlide) {
       ST_SLIDER.activeSlide = ST_SLIDER.slides[activeSlide]
     }
-
+    obj.updateActiveIndicator(activeSlide-1)
     obj.updateTrackPosition()
-
-    if(obj.autoPlay){
+    if(obj.config.autoPlay){
+      obj.startTimerAnimation()
       obj.startAutoPlay()
     }
   })
 
-  setContext('SLIDER', {...ST_SLIDER, slideClasses: obj.slideClasses})
+  setContext('SLIDER', {...ST_SLIDER, slideClasses})
 </script>
 
 {#if children}
@@ -73,15 +89,15 @@
     {@render children()}
   </div>
 
-  {#if !hideControls}
-  <button id="{obj.id}-prev" class="prev-slide-button absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 w-10 h-10 rounded-full" onclick={()=>obj.changeSlide("prev")}>
+  {#if !controls}
+  <button id="{obj.id}-prev" class="prev-slide-button {obj.getButtonClasses(controlButtonClasses, "prev")}" onclick={()=>obj.changeSlide("prev")}>
     {#if prevButton}
       {@render prevButton()}
     {:else}
       ←
     {/if}
   </button>
-  <button id="{obj.id}-next" class="next-slide-button absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 w-10 h-10 rounded-full" onclick={()=>obj.changeSlide("next")}>
+  <button id="{obj.id}-next" class="next-slide-button {obj.getButtonClasses(controlButtonClasses, "next")}" onclick={()=>obj.changeSlide("next")}>
     {#if nextButton}
       {@render nextButton()}
     {:else}
@@ -89,5 +105,14 @@
     {/if}
   </button>
   {/if}
+
+  {#if timer}
+  <div id="{obj.id}-timer" class="slide-timer absolute {twMerge("top-0 start-0 h-1 bg-gray-500 opacity-50", timerClasses)}"></div>
+  {/if}
+
+  {#if !indicator}
+    <div id="{obj.id}-indicators" class="slide-indicators z-[1] bg-gray-100 {obj.getIndicatorContainerClasses(indicatorContainerClasses)}"></div>
+  {/if}
+
 </div>
 {/if}

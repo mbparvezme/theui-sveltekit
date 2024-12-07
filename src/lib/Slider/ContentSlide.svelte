@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { generateToken } from "$lib/function.core"
 	import { getContext, type Snippet } from "svelte"
-	import { twMerge } from "tailwind-merge";
+  import { getSlideClasses } from "./slider"
 
   interface Props {
     children?: Snippet,
@@ -10,12 +10,7 @@
     [key: string] : unknown
   }
 
-  let {
-    children,
-    type = 'div',
-    href,
-    ...props
-  } : Props = $props()
+  let {children, type = 'div', href, ...props} : Props = $props()
 
   let id: string = generateToken()
   let CTX = getContext('SLIDER') as any
@@ -23,7 +18,7 @@
 </script>
 
 {#if children}
-<svelte:element this={type} {...props} class="slide {twMerge('relative flex-shrink-0 w-full h-48 flex items-center justify-center', CTX?.slideClasses, props?.class as string)}">
+<svelte:element this={type} {...props} class="slide {getSlideClasses(CTX?.slideClasses, props?.class as string)}">
   {@render children()}
   {#if href}
     <a class="absolute inset-0" aria-hidden="true" href={href}></a>

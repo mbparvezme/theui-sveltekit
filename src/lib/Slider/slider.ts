@@ -2,32 +2,33 @@ import { generateToken } from "$lib/function.core";
 import { ST_SLIDER } from "$lib/state.svelte"
 import { twMerge } from "tailwind-merge"
 
-export class Slider {
+export interface SliderConfig {
   autoPlay: boolean;
   stopOnHover: boolean;
   slideDuration: number;
   transitionDuration: number;
   activeSlide: number;
-  slideClasses: string;
+  indicatorClasses: string;
+  indicatorActiveClasses: string;
+}
 
+export class Slider {
+
+  config: SliderConfig;
+  autoPlayInterval!: number;
   id: string = generateToken();
 
-  autoPlayInterval!: number;
-
-  constructor(
-    autoPlay: boolean,
-    stopOnHover: boolean,
-    slideDuration: number,
-    transitionDuration: number,
-    activeSlide: number,
-    slideClasses: string
-  ) {
-    this.autoPlay = autoPlay;
-    this.stopOnHover = stopOnHover;
-    this.slideDuration = slideDuration;
-    this.transitionDuration = transitionDuration;
-    this.activeSlide = activeSlide;
-    this.slideClasses = slideClasses;
+  constructor(config: Partial<SliderConfig>) {
+    const defaultConfig: SliderConfig = {
+      autoPlay: true,
+      stopOnHover: true,
+      slideDuration: 5000,
+      transitionDuration: 300,
+      activeSlide: 1,
+      indicatorClasses: "",
+      indicatorActiveClasses: "",
+    };
+    this.config = { ...defaultConfig, ...config };
   }
 
   cloneSlides() {
@@ -45,7 +46,6 @@ export class Slider {
 
         itemsContainer.appendChild(firstClone)
         itemsContainer.insertBefore(lastClone, firstSlide)
-
         ST_SLIDER.slides = [...[lastClone], ...slides, ...[firstClone]]
       }
     }
@@ -53,6 +53,10 @@ export class Slider {
 
   changeSlide(updateType: 'next' | 'prev') {
     const newIndex = this.calculateNextSlideIndex(updateType)
+    if (this.config.autoPlay){
+      this.startTimerAnimation()
+    }
+    this.updateActiveIndicator(this.calculateNextIndicatorIndex(newIndex));
     ST_SLIDER.activeSlide = ST_SLIDER.slides[newIndex]
     this.slideTransition()
   }
@@ -66,7 +70,7 @@ export class Slider {
     if (track) {
       const translateValue = -slideIndex * track.clientWidth
       track.style.transform = `translateX(${translateValue}px)`
-      track.style.transition = `transform ${this.transitionDuration}ms ease`
+      track.style.transition = `transform ${this.config.transitionDuration}ms ease`
 
       this.addTransitionListener(track, () => {
         if (slideIndex === 0) {
@@ -98,6 +102,15 @@ export class Slider {
     }
   }
 
+  calculateNextIndicatorIndex(newIndex: number) {
+    const totalSlides = ST_SLIDER.slides.length - 2;
+    return newIndex === 0
+      ? totalSlides - 1 // Map to last original slide
+      : newIndex === ST_SLIDER.slides.length - 1
+        ? 0 // Map to first original slide
+        : newIndex - 1; // Adjust for the first clone
+  }
+
   updateTrackPosition () {
     const track = document.getElementById(`${this.id}-items`)
     const slides = ST_SLIDER.slides
@@ -110,14 +123,16 @@ export class Slider {
   }
 
   handleMouseEnter () {
-    if (this.stopOnHover && this.autoPlay) {
+    if (this.config.stopOnHover && this.config.autoPlay) {
       this.stopAutoPlay()
+      this.stopTimerAnimation();
     }
   }
 
   handleMouseLeave (){
-    if (this.stopOnHover && this.autoPlay) {
+    if (this.config.stopOnHover && this.config.autoPlay) {
       this.startAutoPlay();
+      this.startTimerAnimation();
     }
   }
 
@@ -129,29 +144,77 @@ export class Slider {
     clearInterval(this.autoPlayInterval);
   }
 
-  getSliderClasses() {
-
+  createIndicator() {
+    const itemsContainer = document.getElementById(`${this.id}-items`)
+    if (itemsContainer){
+      const slides = Array.from(itemsContainer.children)
+      if (slides.length) {
+        const indicatorContainer = document.getElementById(`${this.id}-indicators`)
+        if (indicatorContainer) {
+          for (let i = 0; i < slides.length; i++){
+            const button = document.createElement('button')
+            button.className = `slide-indicator ${twMerge("w-5 h-1 bg-gray-700 dark:bg-gray-200 opacity-50", this.config.indicatorClasses)}`
+            button.type = "button"
+            button.setAttribute("aria-label", "Slide indicator")
+            button.addEventListener('click', ()=>this.changeSlideByIndicator(i))
+            indicatorContainer.appendChild(button);
+          }
+        }
+      }
+    }
   }
 
-  getSlideClasses() {
-
+  changeSlideByIndicator(index: number) {
+    this.updateActiveIndicator(index)
+    ST_SLIDER.activeSlide = ST_SLIDER.slides[index + 1]
+    this.slideTransition()
   }
 
-  getImageClasses() {
+  updateActiveIndicator(index: number) {
+    const indicatorContainer = document.getElementById(`${this.id}-indicators`)
+    if (!indicatorContainer) return
 
+    const buttons = indicatorContainer.querySelectorAll<HTMLButtonElement>('.slide-indicator')
+    buttons.forEach(button => {
+      button.className = `slide-indicator ${twMerge("w-5 h-1 bg-gray-500 dark:bg-gray-200 opacity-50", this.config.indicatorClasses)}`
+    })
+
+    if (buttons[index]) {
+      buttons[index].className = `slide-indicator ${twMerge("w-5 h-1 bg-gray-500 dark:bg-gray-200 opacity-100", this.config.indicatorActiveClasses)}`
+    }
   }
 
-  getButtonClasses() {
+  startTimerAnimation() {
+    const timerElement = document.getElementById(`${this.id}-timer`);
+    if (!timerElement) return;
 
+    timerElement.style.width = "0";
+    timerElement.style.transition = "none";
+
+    void timerElement.offsetWidth;
+
+    timerElement.style.transition = `width ${this.config.slideDuration}ms linear`;
+    timerElement.style.width = "100%";
   }
 
-  getIndicatorContainerClasses() {
-
+  stopTimerAnimation() {
+    const timerElement = document.getElementById(`${this.id}-timer`);
+    if (timerElement) {
+      const computedStyle = window.getComputedStyle(timerElement);
+      timerElement.style.width = computedStyle.width;
+      timerElement.style.transition = "none";
+    }
   }
 
-  getIndicatorClasses() {
+  getButtonClasses(classes: string, type: 'prev' | 'next') {
+    return twMerge(`absolute top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 w-10 h-10 rounded-full ${type == "next" ? 'right-4' : 'left-4'}`, classes)
+  }
 
+  getIndicatorContainerClasses(classes: string) {
+    return twMerge("absolute bottom-0 inset-x-0 flex justify-center gap-3 pb-4", classes)
   }
 }
 
-
+export let getSlideClasses = (slideClasses: string, classes: string) => {
+  return twMerge('relative flex-shrink-0 w-full h-48 flex items-center justify-center', slideClasses, classes)
+}
