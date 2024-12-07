@@ -29,6 +29,7 @@
 								<NavLink href="/badge" text="Badge" />
 								<NavLink href="/breadcrumb" text="Breadcrumb" />
 								<NavLink href="/button" text="Button" />
+								<NavLink href="/card" text="Card" />
 								<NavLink href="/chips" text="Chips" />
 								<NavLink href="/collapse" text="Collapse" />
 								<NavLink href="/drawer" text="Drawer" />

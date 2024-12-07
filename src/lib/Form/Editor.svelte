@@ -404,17 +404,3 @@
     @apply !rounded-none
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let id = generateToken()
-  export let config : INPUT_CONFIG = {}
-  export let label  : string|undefined = undefined
-  export let name   : string
-  export let placeholder   : string = "Write something …"
-  export let value  : string = ""
-  export let editorBtnClass = ""
-  export let exclude: Tools[] = []
--->
