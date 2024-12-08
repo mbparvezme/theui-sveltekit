@@ -7,7 +7,7 @@
 
   interface Props {
     head          ?: Snippet,
-    body          ?: Snippet,
+    children      ?: Snippet,
     headers       ?: string[]|Record<string, unknown>,
     data          ?: TABLE_ROW,
     keys          ?: string[],
@@ -26,7 +26,7 @@
 
   let {
     head,
-    body,
+    children,
     headers,
     data,
     keys,
@@ -79,6 +79,7 @@
 
 <div class="table-container w-full overflow-x-auto">
   <table {id} {...props} class={twMerge(cls, props?.class as string)}>
+
     {#if head}
       {@render head?.()}
     {:else}
@@ -87,12 +88,13 @@
       {/if}
     {/if}
 
-    {#if body}
-      {@render body?.()}
-    {:else}
-      {#if data}
-        <TBody {data} {keys}/>
-      {/if}
+    {#if data}
+      <TBody {data} {keys}/>
     {/if}
+
+    {#if children}
+      {@render children?.()}
+    {/if}
+
   </table>
 </div>

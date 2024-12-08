@@ -13,7 +13,8 @@
   interface Props {
     startItem ?: Snippet,
     endItem ?: Snippet,
-    text ?: string|Snippet,
+    children ?: Snippet,
+    text ?: string,
     url ?: string|undefined,
     preload ?: PRELOAD,
     type ?: 'link' | 'divider' | 'header' | 'button'
@@ -24,6 +25,7 @@
   let {
     startItem,
     endItem,
+    children,
     text,
     url = undefined,
     preload = "hover",
@@ -45,13 +47,15 @@
 
 {#snippet content()}
   {@render startItem?.()}
-  {#if typeof text === "string"}
-    {@html text}
-  {:else}
-    {@render text?.()}
-  {/if}
+
+  {#if text}
+		{@html text}
+	{:else if children}
+		{@render children()}
+	{/if}
+
   {#if endItem}
-    <div class="ms-auto flex items-center">{@render endItem?.()}</div>
+    <div class="ms-auto flex items-center">{@render endItem()}</div>
   {/if}
 {/snippet}
 

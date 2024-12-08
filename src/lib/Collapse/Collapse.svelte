@@ -4,8 +4,9 @@
   import { animationClass, generateToken } from "$lib/function.core"
 
   interface Props {
+    children?: Snippet,
     title ?: Snippet|string|undefined,
-    content ?: Snippet|string|undefined,
+    content ?: string,
     animation ?: ANIMATE_SPEED,
     id ?: string,
     ariaLabel ?: string,
@@ -14,8 +15,9 @@
   }
 
   let {
+    children,
     title = undefined,
-    content = undefined,
+    content,
     animation = "fast",
     id = generateToken(),
     ariaLabel = "",
@@ -52,13 +54,13 @@
 </span>
 {/if}
 
-{#if content}
+{#if content || children}
 <div {id} class="theui-collapse-body overflow-hidden {classes}" class:invisible={!isOpen} class:collapse-open={isOpen} aria-labelledby="{id}Collapse" aria-hidden={!isOpen}>
 	<div>
-    {#if typeof content === "string"}
+    {#if content}
       {@html content}
-    {:else}
-      {@render content?.()}
+    {:else if children}
+      {@render children()}
     {/if}
 	</div>
 </div>

@@ -66,13 +66,13 @@
 <div {id} {...props} class="theui-tabs {twMerge("-mb-0.5", props?.class as string)}">
 	{#if tabList}
     <div class="theui-tab-list {twMerge((borderClasses ? "" : "mb-4") , tabListClasses)}">
-      {@render tabList?.()}
+      {@render tabList()}
       {#if borderClasses !== false}
         <div class="theui-tabs-border -mt-0.5 {twMerge("mb-4 border-b-2 border-gray-500/20", borderClasses as string)}"></div>
       {/if}
     </div>
   {/if}
 	{#if tabPanel}
-    {@render tabPanel?.()}
+    {@render tabPanel()}
   {/if}
 </div>

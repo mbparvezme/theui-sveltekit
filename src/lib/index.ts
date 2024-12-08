@@ -22,6 +22,7 @@ export { default as Notification } from "./Notification/Notification.svelte";
 export { notify } from "./state.svelte.ts";
 export { default as Drawer } from "./Drawer/Drawer.svelte";
 export { default as Pagination } from "./Pagination/Pagination.svelte";
+export { default as Popover } from "./Popover/Popover.svelte";
 export { default as Popup } from "./Popup/Popup.svelte";
 export { default as Progress } from "./Progress/Progress.svelte";
 export { default as Slider } from "./Slider/Slider.svelte";

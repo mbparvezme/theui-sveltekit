@@ -9,8 +9,8 @@
   config.isDropdown = true
 
   interface Props {
-    label : Snippet | string,
     children?: Snippet,
+    label : string,
     icon?: Snippet|boolean,
     // megaMenu?: boolean,
     align?: 'start'|'end',
@@ -144,31 +144,35 @@
 
 <div {id} {...props} class="theui-nav-dropdown-container hide z-[1]" class:relative={size != "megaMenu"}>
   <button class="theui-nav-dropdown-btn gap-x-1 w-full justify-between flex items-center {config.linkClasses}" onmouseenter={(e)=>handleMouse(e)} onmouseleave={(e)=>handleMouse(e)} onkeydown={(e)=>handleKeyboard(e)} onclick={()=>toggle()}>
-    {#if typeof label === "string"}
+
+    {#if label}
       {@html label}
+    {:else if children}
+      {@render children()}
     {/if}
-    {#if typeof label === "function"}
-      {@render label()}
-    {/if}
+
     {#if icon}
-      {#if typeof icon === "function"}
-        {@render icon?.()}
-      {:else}
+      {#if icon === true}
         <Svg stroke={true} viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></Svg>
+      {:else}
+        {@render icon?.()}
       {/if}
     {/if}
+
   </button>
+
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div class="nav-dropdown {twMerge(dropdownClasses, props?.class as string)}"
+  <div  class="nav-dropdown {twMerge(dropdownClasses, props?.class as string)}"
         class:fade={animation=="fade"}
         class:slide-up={animation=="slide-up"}
         class:zoom-in={animation=="zoom-in"}
         onclick={()=>toggle()}>
     {#if children}
-      {@render children?.()}
+      {@render children()}
     {/if}
   </div>
+
 </div>
 
 <style lang="postcss">

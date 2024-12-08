@@ -140,7 +140,7 @@
 >
   {#if children && visible}
   <div class="theui-fab-items flex absolute {fabSpaces[direction][align][size]} {directionClasses[direction]}" in:fly={animObj[direction][align]}>
-    {@render children?.()}
+    {@render children()}
   </div>
   {/if}
   <FabButton class={twMerge(fabClasses, props?.classes as string)} {href} />

@@ -7,7 +7,8 @@
   let CTX = getContext("LISTGROUP") as any
 
   interface Props {
-		content?: string|Snippet|undefined,
+		children?: Snippet,
+		content?: string,
     animate?: ANIMATE_SPEED,
     href?: string,
     type?: 'div'|'li'|'a',
@@ -16,6 +17,7 @@
 	}
 
   let {
+    children,
     content,
     href = undefined,
     type = 'li',
@@ -29,10 +31,12 @@
 
 {#if content}
 <svelte:element this={href ? "a" : (CTX?.childrenType ?? type)} class="list-item {twMerge(itemClasses, CTX?.itemClasses, props?.class as string)}">
-  {#if typeof content == "string"}
-    {@html content}
-  {:else if typeof content == "function"}
-    {@render content?.()}
-  {/if}
+
+	{#if content}
+		{@html content}
+	{:else if children}
+		{@render children()}
+	{/if}
+
 </svelte:element>
 {/if}

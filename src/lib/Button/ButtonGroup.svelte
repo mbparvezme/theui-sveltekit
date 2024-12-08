@@ -56,6 +56,8 @@
   let getClasses = twMerge(`theui-btn-group inline-flex${roundedClass(rounded)}`, (props?.class as string ?? ""))
 </script>
 
+{#if children}
 <div class={getClasses} class:flex-col={stacked} class:theui-btn-stacked={stacked} role="group" aria-label={ariaLabel}>
-  {@render children?.()}
+  {@render children()}
 </div>
+{/if}

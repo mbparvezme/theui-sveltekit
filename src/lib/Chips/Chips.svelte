@@ -6,19 +6,21 @@
 	import { Close } from "$lib"
 
   interface Props {
-    content   ?: Snippet|string|undefined,
-    close     ?: boolean,
-    fill      ?: boolean,
-    imgUrl    ?: string | undefined,
-    imgClasses  ?: string,
-    imgAlt    ?: string,
-    rounded   ?: ROUNDED,
-    size      ?: 'sm' | 'md' | 'lg',
+    children?: Snippet,
+    content?: string,
+    close?: boolean,
+    fill?: boolean,
+    imgUrl?: string | undefined,
+    imgClasses?: string,
+    imgAlt?: string,
+    rounded?: ROUNDED,
+    size?: 'sm' | 'md' | 'lg',
     [key: string]: unknown // dismissible, icon
   }
 
   let {
-    content   = "",
+    children,
+    content,
     close  = true,
     fill   = true,
     imgUrl = undefined,
@@ -47,11 +49,11 @@
 <span class={"theui-chips " + twMerge(chipsClasses, (props?.class ?? "") as string)} class:ps-4={!imgUrl} class:py-2={!imgUrl} bind:this={nodeRef}>
   {#if imgUrl}<img class={chipsImgClass} alt={imgAlt} src={imgUrl}>{/if}
 
-  {#if typeof content === "string"}
-    {@html content}
-  {:else}
-    {@render content?.()}
-  {/if}
+	{#if content}
+		{@html content}
+	{:else if children}
+		{@render children()}
+	{/if}
 
   {#if close}
     <Close ariaLabel="Hide chips" size={1} onclick={hideChips} />

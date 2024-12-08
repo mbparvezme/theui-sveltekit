@@ -6,26 +6,28 @@
   import { ST_ACTIVE_ACCORDIONS } from "$lib/state.svelte"
 
   interface Props {
-    title ?: string|Snippet|undefined,
-    content ?: string|Snippet|undefined,
-    id ?: string,
-    animationSpeed ?: ANIMATE_SPEED,
-    rounded ?: ROUNDED,
-    size ?: "compact" | "default" | "large",
-    containerClasses ?: string,
-    containerActiveClasses ?: string,
-    contentClasses ?: string,
-    contentActiveClasses ?: string,
-    titleClasses ?: string,
-    titleActiveClasses ?: string,
+    children?: Snippet,
+    title?: string|Snippet,
+    content?: string,
+    id?: string,
+    animationSpeed?: ANIMATE_SPEED,
+    rounded?: ROUNDED,
+    size?: "compact" | "default" | "large",
+    containerClasses?: string,
+    containerActiveClasses?: string,
+    contentClasses?: string,
+    contentActiveClasses?: string,
+    titleClasses?: string,
+    titleActiveClasses?: string,
     [key: string] : unknown // open, flush
 	}
 
-  const CTX: any = getContext("ACCORDION_GROUP") ?? {}
+  const CTX: any = getContext("ACCORDION") ?? {}
 
   let {
-    title = undefined,
-    content = undefined,
+    children,
+    title,
+    content,
     id = generateToken(),
     animationSpeed = "fast",
     rounded = "md",
@@ -75,7 +77,7 @@
       }
     }
   }
- 
+
   onMount(() => {
     if(props?.open){
       if(CTX?.standalone) ST_ACTIVE_ACCORDIONS.value = [""]
@@ -136,11 +138,13 @@
 
 {#snippet accordionContent()}
   <div class={getContentClasses()}>
-    {#if typeof content === "string"}
-      {@html content}
-    {:else}
-      {@render content?.()}
-    {/if}
+  {#if content}
+		{@html content}
+	{:else}
+		{#if children}
+			{@render children?.()}
+		{/if}
+	{/if}
   </div>
 {/snippet}
 

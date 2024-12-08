@@ -37,8 +37,8 @@
 
 <svelte:element this={tag} {...props} class={getCellClass()}>
   {#if children}
-    {@render children?.()}
+    {@render children()}
   {:else}
-    {@html data + CTX.test}
+    {@html data}
   {/if}
 </svelte:element>

@@ -6,33 +6,33 @@
 	import type { Snippet } from "svelte"
 
   interface Props{
-    button ?: Snippet|undefined,
-    content ?: Snippet|undefined,
-    header ?: Snippet|undefined,
-    footer ?: Snippet|undefined,
-    id ?: string,
-    label ?: string,
-    animate ?: ANIMATE_SPEED,
-    animation ?: 'slide-down' | 'slide-up' | 'fade' | 'zoom-in' | 'zoom-out',
-    backdrop ?: boolean|string,
-    closeBtn ?: boolean,
-    closeOnEsc ?: boolean,
-    modalFooterClasses ?: string,
-    modalHeaderClasses ?: string,
-    modalBodyClasses ?: string,
-    modalOuterClasses ?: string,
-    position ?: 'top' | 'center' | 'bottom',
-    rounded ?: ROUNDED,
-    size ?: 'sm' | 'md' | 'lg' | 'full',
-    staticBackdrop ?: boolean,
-    modalStatus ?: boolean
+    button?: Snippet,
+    children?: Snippet,
+    header?: Snippet,
+    footer?: Snippet,
+    id?: string,
+    label?: string,
+    animate?: ANIMATE_SPEED,
+    animation?: 'slide-down' | 'slide-up' | 'fade' | 'zoom-in' | 'zoom-out',
+    backdrop?: boolean|string,
+    closeBtn?: boolean,
+    closeOnEsc?: boolean,
+    modalFooterClasses?: string,
+    modalHeaderClasses?: string,
+    modalBodyClasses?: string,
+    modalOuterClasses?: string,
+    position?: 'top' | 'center' | 'bottom',
+    rounded?: ROUNDED,
+    size?: 'sm' | 'md' | 'lg' | 'full',
+    staticBackdrop?: boolean,
+    modalStatus?: boolean
   }
 
   let {
-    button = undefined,
-    content = undefined,
-    header = undefined,
-    footer = undefined,
+    children,
+    button,
+    header,
+    footer,
     id = generateToken() + "Modal",
     label = "",
     animate = "fast",
@@ -101,7 +101,7 @@
   </span>
 {/if}
 
-{#if content}
+{#if children}
 <div {id} class={twMerge(modalCls(), modalOuterClasses)} class:open={modalStatus} class:animate={animate} role="dialog" aria-modal="true" aria-hidden={!modalStatus}>
   {#if backdrop}
     <div class={backdropClasses(backdrop)} onclick={()=>toggle(false)} aria-hidden="true"></div>
@@ -121,7 +121,7 @@
     {/if}
 
     <div class="w-full">
-      {@render content?.()}
+      {@render children()}
     </div>
 
     {#if footer}

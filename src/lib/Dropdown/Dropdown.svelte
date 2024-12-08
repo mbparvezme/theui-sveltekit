@@ -8,23 +8,23 @@
   type DROPDOWN_ANIMATION_TYPE = 'slide-left' | 'slide-up' | 'slide-right' | 'slide-down' | 'fade' | 'zoom-in' | 'zoom-out'
 
   interface Props {
-    children ?: Snippet,
-    activeLinkClasses ?: string,
-    linkClasses ?: string,
-    dividerClasses ?: string,
-    headerClasses ?: string,
-    align ?: 'start' | 'end'
-    animate ?: ANIMATE_SPEED,
-    animation ?: DROPDOWN_ANIMATION_TYPE,
-    backdrop ?: boolean | string,
-    closeOnBlur ?: boolean,
-    containerClasses ?: string,
-    dropdownClasses ?: string,
-    id ?: string,
-    dropdownEvent ?: 'hover' | 'click',
+    children?: Snippet,
+    activeLinkClasses?: string,
+    linkClasses?: string,
+    dividerClasses?: string,
+    headerClasses?: string,
+    align?: 'start' | 'end'
+    animate?: ANIMATE_SPEED,
+    animation?: DROPDOWN_ANIMATION_TYPE,
+    backdrop?: boolean | string,
+    closeOnBlur?: boolean,
+    containerClasses?: string,
+    dropdownClasses?: string,
+    id?: string,
+    dropdownEvent?: 'hover' | 'click',
     label : string|Snippet,
-    rounded ?: ROUNDED
-    size ?: 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom'
+    rounded?: ROUNDED
+    size?: 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom'
   }
 
   let{

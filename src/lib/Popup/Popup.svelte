@@ -5,7 +5,7 @@
   import { twMerge } from "tailwind-merge"
 
   interface Props {
-    content ?: Snippet|undefined,
+    children ?: Snippet|undefined,
     entryContent ?: Snippet|undefined,
     exitContent ?: Snippet|undefined,
     trigger ?: 'onEntry' | 'onExit' | 'onEntryExit',
@@ -18,7 +18,7 @@
   }
 
   let {
-    content = undefined,
+    children = undefined,
     entryContent = undefined,
     exitContent = undefined,
     trigger = "onEntry", 
@@ -109,14 +109,17 @@
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <div class={backdropClasses(backdrop)} onclick={()=>handleBackdrop()}></div>
   {/if}
-  <div class="content overflow-y-auto relative {twMerge("bg-secondary max-w-3xl max-h-screen p-8", (props?.class ?? "") as string)} {roundedClass(rounded)}">
-    {@render content?.()}
+  <div class="popup-content overflow-y-auto relative {twMerge("bg-secondary max-w-3xl max-h-screen p-8", props?.class as string)} {roundedClass(rounded)}">
+    
+    {@render children?.()}
+
     {#if entryPopup}
       {@render entryContent?.()}
     {/if}
     {#if exitPopup}
       {@render exitContent?.()}
     {/if}
+
   </div>
 </div>
 {/if}

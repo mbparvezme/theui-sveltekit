@@ -6,7 +6,8 @@
 	import { Close, Svg } from "$lib"
 
 	interface Props {
-		content ?: string|Snippet|undefined,
+		children ?: Snippet,
+		content?: string,
 		rounded ?: ROUNDED,
 		type ?: 'error' | 'info' | 'success' | 'warning',
 		theme ? : 'default'|'light',
@@ -16,6 +17,7 @@
 	}
 
 	let {
+		children = undefined,
 		content = undefined,
 		rounded = "md",
 		type = "error",
@@ -36,10 +38,13 @@
 			borderStart: `${roundedClass(rounded)} ${messageBorderTheme[theme][type]} border-s-4`
 		}
 		const variantClass = variantClasses[variant] || ""
-		return twMerge(`${baseClass} ${variantClass}`, (props?.class || "") as string);
+		return twMerge(`${baseClass} ${variantClass}`, props?.class as string);
 	}
 
-	const toggleAlert = () => nodeRef.parentNode?.removeChild(nodeRef)
+	const toggleAlert = () => {
+		console.log("Node")
+		nodeRef.parentNode?.removeChild(nodeRef)
+	}
 </script>
 
 <div {id} class={getClass()} role="alert" bind:this={nodeRef}>
@@ -48,17 +53,17 @@
 		{@render commonIcons()}
 	{/if}
 
-	<!-- Alert Content -->
-	{#if typeof content === "string"}
+	<!-- Alert children -->
+	{#if content}
 		{@html content}
-	{:else}
-		{@render content?.()}
+	{:else if children}
+		{@render children()}
 	{/if}
 
 	<!-- Alert Close Button -->
 	{#if props?.dismissible}
 		<div class="ms-auto mb-auto">
-			<Close ariaLabel="Close alert" onclick={()=>toggleAlert()}/>
+			<Close ariaLabel="Close alert" onclick={()=>toggleAlert()} />
 		</div>
 	{/if}
 </div>

@@ -12,7 +12,7 @@
 {#if data || children}
 <tbody {...props} class={twMerge("text-start", props?.class as string)}>
   {#if children}
-    {@render children?.()}
+    {@render children()}
   {:else if data}
     {#if isMultiRows(data)}
       {#if Array.isArray(data) && Object.prototype.toString.call(data[0]) === "[object Object]"}

@@ -7,7 +7,7 @@
 
   interface Props {
     button ?: Snippet<[any]>|undefined,
-    content ?: Snippet|undefined,
+    children ?: Snippet,
     id ?: string,
     label ?: string,
     animate ?: ANIMATE_SPEED,
@@ -19,8 +19,8 @@
   }
 
   let {
-    button = undefined,
-    content = undefined,
+    children,
+    button,
     id = generateToken(),
     label = "",
     animate = "fast",
@@ -70,7 +70,7 @@
 </span>
 {/if}
 
-{#if content}
+{#if children}
   <div {id} class="theui-drawer fixed inset-0 z-40 {animationClass(animate)} {positionCls()}" role="dialog" class:animate={animate}>
 
     {#if backdrop}
@@ -79,7 +79,7 @@
 
     <div id="{id}Drawer" class={getClass} aria-labelledby="{id}Btn" aria-hidden={!active}>
       <Close class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity absolute top-2 right-4" onclick={()=>toggle(id)}/>
-      {@render content?.()}
+      {@render children()}
     </div>
 
   </div>

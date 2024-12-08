@@ -3,7 +3,7 @@
   import { twMerge } from "tailwind-merge"
 
 	interface Props {
-    children ?: Snippet|undefined,
+    children ?: Snippet,
     size ?: number,
     viewBox ?: string,
     focusable ?: "true"|"false",
@@ -11,7 +11,7 @@
 	}
 
   let {
-    children = undefined,
+    children,
     size = 1,
     viewBox = "0 0 16 16",
     focusable = "true",
@@ -32,6 +32,6 @@
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
 >
-  {@render children?.()}
+  {@render children()}
 </svg>
 {/if}

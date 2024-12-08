@@ -6,13 +6,14 @@
   import { Svg } from "$lib"
   const CTX: any = getContext('BUTTON_GROUP')
   interface Props {
-    label : string|Snippet|undefined,
-    beforeLabel ?: Snippet|undefined,
-    afterLabel ?: Snippet|undefined,
-    animate ?: ANIMATE_SPEED,
-    ariaLabel ?: string|undefined,
-    externalLinkIcon ?: boolean,
-    href ?: string|undefined,
+    children?: Snippet,
+    label?: string,
+    beforeLabel?: Snippet|undefined,
+    afterLabel?: Snippet|undefined,
+    animate?: ANIMATE_SPEED,
+    ariaLabel?: string|undefined,
+    externalLinkIcon?: boolean,
+    href?: string|undefined,
     isActive ?: boolean, // Not tested
     outline ?: boolean,
     rounded ?: ROUNDED,
@@ -27,9 +28,10 @@
   }
 
   let {
-    label = undefined,
-    beforeLabel = undefined,
-    afterLabel = undefined,
+    children,
+    label,
+    beforeLabel,
+    afterLabel,
     ariaLabel = typeof label == "string" ? label : "Button",
     animate = CTX?.animate ?? "normal",
     externalLinkIcon = true,
@@ -140,12 +142,10 @@
   {/if}
 
   {#if label}
-    {#if typeof label === "string"}
-      {@html label}
-    {:else}
-      {@render label?.()}
-    {/if}
-  {/if}
+		{@html label}
+	{:else if children}
+		{@render children?.()}
+	{/if}
 
   {#if afterLabel}
     <span>{@render afterLabel?.()}</span>

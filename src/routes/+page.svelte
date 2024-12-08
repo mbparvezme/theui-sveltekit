@@ -6,17 +6,42 @@
 
 <br>
 <br>
-
-<button id="any_id_for_popover_1" class="ml-48 bg-red-200">Click</button>
-<Popover placement="top" trigger="any_id_for_popover_1">
-    Popover content goes here
-</Popover>
 <br>
-<div id="any_id_for_popover_2" class="ml-48">Click</div>
-<Popover placement="top" trigger="any_id_for_popover_2">
-    Popover content goes here
-</Popover>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- Example Usage -->
+<button id="trigger-1" class="px-4 py-2 bg-blue-500 text-white rounded">Trigger 1</button>
+<div
+  data-popover-id="trigger-1"
+  class="popover bg-gray-200 p-2 rounded shadow hidden">
+  Popover 1 Popover 1 Popover 1 Popover 1 
+</div>
+<Popover triggerId="trigger-1" popoverId="trigger-1" />
+
+<button id="trigger-2" class="px-4 py-2 bg-blue-500 text-white rounded">Trigger 2</button>
+<div
+  data-popover-id="trigger-2"
+  class="popover bg-gray-200 p-2 rounded shadow hidden">
+  Popover 2
+</div>
+<Popover triggerId="trigger-2" popoverId="trigger-2" />
 
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>

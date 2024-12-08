@@ -38,6 +38,7 @@
 								<NavLink href="/modal" text="Modal" />
 								<NavLink href="/notification" text="Notification" />
 								<NavLink href="/pagination" text="Pagination" />
+								<NavLink href="/popover" text="Popover" />
 								<NavLink href="/popup" text="Popup" />
 								<NavLink href="/progress" text="Progress" />
 								<NavLink href="/slider" text="Slider" />

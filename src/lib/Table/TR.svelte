@@ -10,7 +10,7 @@
 
 {#if children}
   <tr {...props} class={twMerge(tableHeader ? CTX?.trHeadClasses : CTX.trClasses, props?.class as string)}>
-    {@render children?.()}
+    {@render children()}
   </tr>
 {:else}
   <tr {...props} class={twMerge(tableHeader ? CTX?.trHeadClasses : CTX.trClasses, props?.class as string)}>

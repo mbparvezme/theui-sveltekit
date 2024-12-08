@@ -2,6 +2,12 @@
   import {Alert} from "$lib"
 </script>
 
+<h4>Test alert</h4>
+<Alert icon="danger" dismissible>
+  Test alert!
+</Alert>
+<br>
+<br>
 <h4>Default alert</h4>
 <Alert icon="danger" content="Hello alert!" dismissible/>
 <Alert icon="warning" content="Hello alert!" dismissible type="warning" />

@@ -106,11 +106,7 @@
       {#snippet beforeLabel()}
         BEF
       {/snippet}
-    
-      {#snippet label()}
-        MAIN
-      {/snippet}
-    
+      MAIN  
       {#snippet afterLabel()}
         AFT
       {/snippet}
