@@ -51,7 +51,7 @@
   {/if}
 {/snippet}
 
-<div class={inputContainerClass(C, props )}>
+<div class={inputContainerClass(C, props)}>
   {#if label && !floatingLabel}
     {@render labelContent()}
   {/if}

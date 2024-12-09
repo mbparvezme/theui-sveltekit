@@ -1,61 +1,89 @@
 <script lang="ts">
   // System libraries import
-  import type { INPUT_CONFIG, Tools } from "$lib/types";
-  import { onMount, onDestroy, getContext } from "svelte";
-  import { twMerge } from "tailwind-merge";
-  import { getRounded, generateToken, getInputBoxClasses, getInputClasses } from "$lib/functions";
-  import { FORM_CTX } from "./Form.svelte";
-  import { Label, Dropdown } from "$lib";
-
+  import type { INPUT_CONFIG, Tools } from "$lib/types"
+  import { onMount, onDestroy, getContext } from "svelte"
+  import { twMerge } from "tailwind-merge"
+	import { roundedClass, generateToken } from "$lib/function.core"
+  import { inputContainerClass, inputClasses } from "$lib/function.form"
+  import { Label, Dropdown } from "$lib"
+  // Editor libraries import
+  import { Editor } from "@tiptap/core"
+  import StarterKit from "@tiptap/starter-kit"
+  import Underline from "@tiptap/extension-underline"
+  import Image from "@tiptap/extension-image"
+  import Link from "@tiptap/extension-link"
+  import Placeholder from "@tiptap/extension-placeholder"
+  import TextAlign from "@tiptap/extension-text-align"
+  import Typography from "@tiptap/extension-typography"
+  import Youtube from "@tiptap/extension-youtube"
+  import { Color } from "@tiptap/extension-color"
+  import TextStyle from "@tiptap/extension-text-style"
+  import Highlight from "@tiptap/extension-highlight"
+  import Subscript from "@tiptap/extension-subscript"
+  import Superscript from "@tiptap/extension-superscript"
+  // starter-kit inclides: Blockquote, BulletList, CodeBlock, Document, HardBreak, Heading, HorizontalRule, ListItem, OrderedList, Paragraph, Text, Bold, Code, Italic, Strike, Dropcursor, Gapcursor, History
   // Slot: disabled, readonly, custom, reverse, override, reset, mini
 
-  // Editor libraries import
-  import { Editor } from "@tiptap/core";
-  import StarterKit from "@tiptap/starter-kit";
-  import Underline from "@tiptap/extension-underline";
-  import Image from "@tiptap/extension-image";
-  import Link from "@tiptap/extension-link";
-  import Placeholder from "@tiptap/extension-placeholder";
-  import TextAlign from "@tiptap/extension-text-align";
-  import Typography from "@tiptap/extension-typography";
-  import Youtube from "@tiptap/extension-youtube";
-  import { Color } from "@tiptap/extension-color";
-  import TextStyle from "@tiptap/extension-text-style";
-  import Highlight from "@tiptap/extension-highlight";
-  import Subscript from "@tiptap/extension-subscript";
-  import Superscript from "@tiptap/extension-superscript";
+  interface Props {
+    buttonClasses?: string,
+    helperText?: string | undefined,
+    id?: string,
+    label?: string|undefined,
+    name?: string,
+    value?: string,
+    exclude?: Array<Tools>,
+    animate?: INPUT_CONFIG["animate"],
+    labelClasses?: INPUT_CONFIG["labelClasses"],
+    rounded?: INPUT_CONFIG["rounded"],
+    size?: INPUT_CONFIG["size"],
+    variant?: INPUT_CONFIG["variant"],
+    [key: string]: unknown
+  }
 
-  // Component form exports
-  export let helperText : string | undefined = undefined;
-  export let id : string = generateToken();
-  export let label  : string|undefined = undefined;
-  export let name   : string;
-  export let value  : string = "";
+  const CTX: any = getContext("FORM")
 
-  // Component config export
-  export let editorBtnClass = "";
-  export let exclude: Array<Tools> = [];
-  export let animate: INPUT_CONFIG["animate"] = "normal";
-  export let labelClasses: INPUT_CONFIG["labelClasses"] = "";
-  export let rounded: INPUT_CONFIG["rounded"] = "md";
-  export let size: INPUT_CONFIG["size"] = "md";
-  export let variant: INPUT_CONFIG["variant"] = "bordered";
+  let {
+    name,
+    label,
+    value = "",
+    id = generateToken(),
+    exclude = [],
+    helperText,
+    buttonClasses = "",
+    animate = CTX?.animate || "normal",
+    labelClasses = CTX?.labelClasses || "",
+    rounded = CTX?.rounded || "md",
+    size = CTX?.size || "md",
+    variant = CTX?.variant || "bordered",
+    ...props
+  }: Props = $props()
 
-  // Component config
-  const ctx: any = getContext(FORM_CTX || {});
-  let C:INPUT_CONFIG = {animate, labelClasses, rounded, size, variant, grow: !!$$restProps?.grow, reset: !!$$restProps?.reset};
-  if(!$$restProps?.override) Object.assign(C, ctx?.formConfig);
+  // // Component form exports
+  // export let helperText : string | undefined = undefined
+  // export let id : string = generateToken()
+  // export let label  : string|undefined = undefined
+  // export let name   : string
+  // export let value  : string = ""
+  // // Component config export
+  // export let buttonClasses = "";
+  // export let exclude: Array<Tools> = [];
+  // export let animate: INPUT_CONFIG["animate"] = "normal";
+  // export let labelClasses: INPUT_CONFIG["labelClasses"] = "";
+  // export let rounded: INPUT_CONFIG["rounded"] = "md";
+  // export let size: INPUT_CONFIG["size"] = "md";
+  // export let variant: INPUT_CONFIG["variant"] = "bordered";
 
   // Component vars
   const tools: Array<Tools> = ["blockquote", "code", "codeblock", "link", "horizontalLine", "youtube", "highlighter", "color", "redoUndo"];
-  let btnClass = () => twMerge(`w-10 h-10 flex justify-center items-center bg-slate-300 dark:bg-slate-700 py-2 px-2.5 not-last-child:border-r border-black/10 ${getRounded(C.rounded)}`, editorBtnClass);
-  let containerClass = `overflow-hidden ${getRounded(C.rounded)}`;
-  let dropdownCls = "bg-transparent text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800";
+  let btnClass = () => twMerge(`w-10 h-10 flex justify-center items-center bg-slate-300 dark:bg-slate-700 py-2 px-2.5 not-last-child:border-r border-black/10${roundedClass(rounded)}`, buttonClasses)
 
-  let colorPicker: HTMLInputElement;
-  let pickerToggle: boolean = false;
-  let element: HTMLElement;
-  let editor: any;
+  let containerClass = `overflow-hidden${roundedClass(rounded)}`
+  let dropdownCls = "bg-transparent text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+
+  let colorPicker: HTMLInputElement
+  let pickerToggle: boolean = false
+  let element: HTMLElement
+  let editor: any
 
   const openColorPicker = () => {
     pickerToggle = !pickerToggle;
@@ -159,14 +187,17 @@
       })
     }
   }
+  let C:INPUT_CONFIG & {id: string, type: "input"} = {animate, labelClasses, rounded, size, variant, id, type: "input"}
 </script>
 
-<div class={getInputBoxClasses(C, $$restProps, "default")}>
+<div class={inputContainerClass(C, props)}>
   {#if editor}
     {#if label}<Label {id} {label}/>{/if}
     <div class="flex flex-wrap editor-toolbar gap-1">
-      <Dropdown animation="fade" align="left">
-        <button tabindex="0" type="button" slot="label" class={twMerge(btnClass(), "w-10 h-10 rounded-md p-1 flex justify-center items-center")} aria-label="Select text headings"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M11 4.002V12H9.67V8.455H6.33V12H5V4.002h1.33v3.322h3.34V4.002H11Z"/><path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2Zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2Z"/></svg></button>
+      <Dropdown animation="fade" align="start">
+        {#snippet label()}
+          <button tabindex="0" type="button" class={twMerge(btnClass(), "w-10 h-10 rounded-md p-1 flex justify-center items-center")} aria-label="Select text headings"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M11 4.002V12H9.67V8.455H6.33V12H5V4.002h1.33v3.322h3.34V4.002H11Z"/><path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2Zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2Z"/></svg></button>
+        {/snippet}
         <div class="flex flex-col">
           <button tabindex="0" type="button" class={dropdownCls} on:click={() => editor.chain().focus().toggleHeading({ level: 1}).run()} class:active={editor.isActive("heading",{level:1})}>Heading 1</button>
           <button tabindex="0" type="button" class={dropdownCls} on:click={() => editor.chain().focus().toggleHeading({ level: 2}).run()} class:active={editor.isActive("heading",{level:2})}>Heading 2</button>
@@ -186,8 +217,10 @@
         <button tabindex="0" type="button" class={btnClass()} on:click={() => editor.chain().focus().toggleSubscript().run()} class:active={editor.isActive("subscript") ? "is-active" : ""}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m3.266 12.496.96-2.853H7.76l.96 2.853H10L6.62 3H5.38L2 12.496h1.266Zm2.748-8.063 1.419 4.23h-2.88l1.426-4.23h.035Zm6.132 7.203v-.075c0-.332.234-.618.619-.618.354 0 .618.256.618.58 0 .362-.271.649-.52.898l-1.788 1.832V15h3.59v-.958h-1.923v-.045l.973-1.04c.415-.438.867-.845.867-1.547 0-.8-.701-1.41-1.787-1.41-1.23 0-1.795.8-1.795 1.576v.06h1.146Z"/></svg></button>
         {/if}
       </div>
-      <Dropdown animation="fade" size="custom" style="--dropdown-width: 180px" align="left">
-        <button tabindex="0" type="button" slot="label" class={twMerge(btnClass(), "w-10 h-10 rounded-md p-1 flex justify-center items-center")} aria-label="Select text headings"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg></button>
+      <Dropdown animation="fade" size="custom" style="--dropdown-width: 180px" align="start">
+        {#snippet label()}
+          <button tabindex="0" type="button" class={twMerge(btnClass(), "w-10 h-10 rounded-md p-1 flex justify-center items-center")} aria-label="Select text headings"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg></button>
+        {/snippet}
         <div class="flex flex-row flex-wrap gap-1 justify-start dropdown-action-btn px-1">
           <button tabindex="0" type="button" class={twMerge(btnClass(), "p-2")} on:click={() => editor.chain().focus().setTextAlign("left").run()} class:active={editor.isActive({ textAlign: "left" })?"is-active":""}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg></button>
           <button tabindex="0" type="button" class={twMerge(btnClass(), "p-2")} on:click={() => editor.chain().focus().setTextAlign("center").run()} class:active={editor.isActive({ textAlign: "center" })?"is-active":""}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg></button>
@@ -241,8 +274,10 @@
             </button>
           {/if}
           {#if includeTools("highlighter")}
-            <Dropdown animation="fade" size="custom" style="--dropdown-width: 116px" >
-              <button tabindex="0" type="button" slot="label" class={twMerge(btnClass(), " w-10 h-10 rounded-md p-1 flex justify-center items-center")} aria-label="Select text headings"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.096.644a2 2 0 0 1 2.791.036l1.433 1.433a2 2 0 0 1 .035 2.791l-.413.435-8.07 8.995a.5.5 0 0 1-.372.166h-3a.5.5 0 0 1-.234-.058l-.412.412A.5.5 0 0 1 2.5 15h-2a.5.5 0 0 1-.354-.854l1.412-1.412A.5.5 0 0 1 1.5 12.5v-3a.5.5 0 0 1 .166-.372l8.995-8.07.435-.414Zm-.115 1.47L2.727 9.52l3.753 3.753 7.406-8.254-2.905-2.906Zm3.585 2.17.064-.068a1 1 0 0 0-.017-1.396L13.18 1.387a1 1 0 0 0-1.396-.018l-.068.065 2.85 2.85ZM5.293 13.5 2.5 10.707v1.586L3.707 13.5h1.586Z"/></svg></button>
+            <Dropdown animation="fade" size="custom" style="--dropdown-width: 116px">
+              {#snippet label()}
+                <button tabindex="0" type="button" class={twMerge(btnClass(), " w-10 h-10 rounded-md p-1 flex justify-center items-center")} aria-label="Select text headings"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.096.644a2 2 0 0 1 2.791.036l1.433 1.433a2 2 0 0 1 .035 2.791l-.413.435-8.07 8.995a.5.5 0 0 1-.372.166h-3a.5.5 0 0 1-.234-.058l-.412.412A.5.5 0 0 1 2.5 15h-2a.5.5 0 0 1-.354-.854l1.412-1.412A.5.5 0 0 1 1.5 12.5v-3a.5.5 0 0 1 .166-.372l8.995-8.07.435-.414Zm-.115 1.47L2.727 9.52l3.753 3.753 7.406-8.254-2.905-2.906Zm3.585 2.17.064-.068a1 1 0 0 0-.017-1.396L13.18 1.387a1 1 0 0 0-1.396-.018l-.068.065 2.85 2.85ZM5.293 13.5 2.5 10.707v1.586L3.707 13.5h1.586Z"/></svg></button>
+              {/snippet}
               <div class="flex flex-row flex-wrap gap-1 justify-start dropdown-action-btn highlighter-btn px-1">
                 <button tabindex="0" type="button" class={twMerge(btnClass(), "bg-[var(--bg-color)] dark:bg-[var(--bg-color)] rounded p-0")} style="--bg-color: #fbf719" on:click={() => editor.chain().focus().toggleHighlight({color: "#fbf719"}).run()} class:active={editor.isActive("highlight", {color: "#fbf719"}) ? "is-active" : ""}></button>
                 <button tabindex="0" type="button" class={twMerge(btnClass(), "bg-[var(--bg-color)] dark:bg-[var(--bg-color)] rounded p-0")} style="--bg-color: #dab600" on:click={() => editor.chain().focus().toggleHighlight({color: "#dab600"}).run()} class:active={editor.isActive("highlight", {color: "#dab600"}) ? "is-active" : ""}></button>
@@ -274,7 +309,8 @@
     </div>
   {/if}
 
-  <div id="editor" class={getInputClasses(C, $$restProps, 'editor')} bind:this={element} />
+  <div id="editor" class={inputClasses(C, $$restProps, 'editor')} bind:this={element} />
+
   <textarea class="hidden" {id} {name}
     bind:value
     on:blur

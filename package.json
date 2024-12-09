@@ -35,6 +35,21 @@
 		"vitest": "^2.0.4"
 	},
 	"dependencies": {
+		"@tiptap/core": "^2.10.3",
+		"@tiptap/extension-color": "^2.10.3",
+		"@tiptap/extension-highlight": "^2.10.3",
+		"@tiptap/extension-image": "^2.10.3",
+		"@tiptap/extension-link": "^2.10.3",
+		"@tiptap/extension-placeholder": "^2.10.3",
+		"@tiptap/extension-subscript": "^2.10.3",
+		"@tiptap/extension-superscript": "^2.10.3",
+		"@tiptap/extension-text-align": "^2.10.3",
+		"@tiptap/extension-text-style": "^2.10.3",
+		"@tiptap/extension-typography": "^2.10.3",
+		"@tiptap/extension-underline": "^2.10.3",
+		"@tiptap/extension-youtube": "^2.10.3",
+		"@tiptap/pm": "^2.10.3",
+		"@tiptap/starter-kit": "^2.10.3",
 		"tailwind-merge": "^2.5.4",
 		"tw-color-shades": "^1.0.2"
 	}

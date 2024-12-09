@@ -24,7 +24,8 @@
     dropdownEvent?: 'hover' | 'click',
     label : string|Snippet,
     rounded?: ROUNDED
-    size?: 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom'
+    size?: 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom',
+		[key: string]: unknown
   }
 
   let{
@@ -45,6 +46,7 @@
     label,
     rounded = "md",
     size = "auto",
+		...props
   } : Props = $props()
 
   const sizeClasses = {
@@ -112,7 +114,7 @@
 <svelte:window onclick={(e: MouseEvent)=>handleBlur(e)} />
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div {id} class={getContainerClasses()} class:open={isOpen} onmouseenter={(e: MouseEvent)=>handleMouse(e)} onmouseleave={(e: MouseEvent)=>handleMouse(e)} onclick={()=>toggle()} onkeydown={(e: KeyboardEvent)=>handleKeyboard(e)}>
+<div {id} {...props} class={getContainerClasses()} class:open={isOpen} onmouseenter={(e: MouseEvent)=>handleMouse(e)} onmouseleave={(e: MouseEvent)=>handleMouse(e)} onclick={()=>toggle()} onkeydown={(e: KeyboardEvent)=>handleKeyboard(e)}>
   {#if typeof label == "string"}
     <Button id={`${id}-trigger`} {label} ariaLabel={label + " dropdown"} aria-controls={`${id}-dropdown`} aria-expanded={isOpen} aria-haspopup="menu" />
   {:else}
