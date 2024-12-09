@@ -33,7 +33,7 @@ export { default as Tooltip } from "./Tooltip/Tooltip.svelte";
 // Form components
 export { default as Form } from "./Form/Form.svelte";
 export { default as Checkbox } from "./Form/Checkbox.svelte";
-// export { default as Editor } from "./Form/Editor.svelte";
+export { default as Editor } from "./Form/Editor.svelte";
 export { default as Fieldset } from "./Form/Fieldset.svelte";
 export { default as FileInput } from "./Form/FileInput.svelte";
 export { default as HelperText } from "./Form/Helper.svelte";
