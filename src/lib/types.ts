@@ -79,7 +79,7 @@ export type INPUT_CONFIG = {
 
 export type SELECT_DATA = {disabled?: boolean, selected?: boolean, text: string, value?: string|number} | string;
 
-export type Tools = "blockquote" | "code" | "codeblock" | "link" | "horizontalLine" | "youtube" | "highlighter" | "color" | "redoUndo";
+export type Tools = "strike" | "superscript" | "subscript" | "listItem" | "blockquote" | "code" | "codeblock" | "link" | "horizontalLine" | "youtube" | "highlighter" | "color" | "redoUndo";
 
 export type NOTIFICATION_TYPE = "error" | "info" | "success" | "warning";
 

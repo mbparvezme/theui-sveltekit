@@ -50,7 +50,9 @@
 		"@tiptap/extension-youtube": "^2.10.3",
 		"@tiptap/pm": "^2.10.3",
 		"@tiptap/starter-kit": "^2.10.3",
+		"lucide-svelte": "^0.468.0",
 		"tailwind-merge": "^2.5.4",
+		"tiptap-extension-resize-image": "^1.2.1",
 		"tw-color-shades": "^1.0.2"
 	}
 }
