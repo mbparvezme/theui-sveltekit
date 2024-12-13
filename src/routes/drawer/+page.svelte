@@ -4,43 +4,36 @@
 
 <div class="flex gap-4 justify-items-center">
   <Drawer>
-    {#snippet button(attr)}
-      <button {...attr}>Default (Start) drawer</button>
+    {#snippet trigger()}
+      <button>Default (Start) drawer</button>
     {/snippet}
-    {#snippet content()}
     <div class="p-8">
       Offcanvas content
     </div>
-    {/snippet}
   </Drawer>
+
   <Drawer position="top">
-    {#snippet button()}
+    {#snippet trigger()}
       <button>Top drawer</button>
     {/snippet}
-    {#snippet content()}
     <div class="p-8">
       Offcanvas content
     </div>
-    {/snippet}
   </Drawer>
   <Drawer position="end">
-    {#snippet button()}
+    {#snippet trigger()}
       <button>End drawer</button>
     {/snippet}
-    {#snippet content()}
     <div class="p-8">
       Offcanvas content
     </div>
-    {/snippet}
   </Drawer>
   <Drawer position="bottom">
-    {#snippet button()}
+    {#snippet trigger()}
       <button>Bottom drawer</button>
     {/snippet}
-    {#snippet content()}
     <div class="p-8">
       Offcanvas content
     </div>
-    {/snippet}
   </Drawer>
 </div>

@@ -6,7 +6,7 @@
 	import type { Snippet } from "svelte";
 
   interface Props {
-    button ?: Snippet<[any]>|undefined,
+    trigger ?: Snippet,
     children ?: Snippet,
     id ?: string,
     label ?: string,
@@ -20,7 +20,7 @@
 
   let {
     children,
-    button,
+    trigger,
     id = generateToken(),
     label = "",
     animate = "fast",
@@ -64,9 +64,19 @@
 
 <svelte:body onkeydown={(e)=>handleKeyboard(e)}></svelte:body>
 
-{#if button}
-<span role="button" onclick={()=>toggle(id)} onkeydown={(e)=>handleKeyboard(e)} id="{id}Btn" tabindex="-1">
-  {@render button?.(attr)}
+{#if trigger || label}
+<span role="button" onclick={()=>toggle(id)} onkeydown={(e)=>handleKeyboard(e)}
+  id="{id}Btn"
+  aria-label={label}
+  aria-haspopup="true"
+  aria-controls="{id}Drawer"
+  aria-expanded={active}
+  tabindex="-1">
+  {#if label}
+    {@html label}
+  {:else if typeof trigger === "function"}
+    {@render trigger()}
+  {/if}
 </span>
 {/if}
 

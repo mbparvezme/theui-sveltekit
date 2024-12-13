@@ -6,7 +6,7 @@
 	import type { Snippet } from "svelte"
 
   interface Props{
-    button?: Snippet,
+    trigger?: Snippet,
     children?: Snippet,
     header?: Snippet,
     footer?: Snippet,
@@ -30,7 +30,7 @@
 
   let {
     children,
-    button,
+    trigger,
     header,
     footer,
     id = generateToken() + "Modal",
@@ -81,7 +81,7 @@
 
 <svelte:body onkeydown={(e)=>handleKeyboard(e)}></svelte:body>
 
-{#if button}
+{#if trigger || label}
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_interactive_supports_focus -->
   <span
@@ -95,8 +95,8 @@
   >
     {#if label}
       {@html label}
-    {:else if button}
-      {@render button?.()}
+    {:else if typeof trigger === "function"}
+      {@render trigger()}
     {/if}
   </span>
 {/if}
