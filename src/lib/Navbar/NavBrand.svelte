@@ -7,7 +7,7 @@
 </script>
 
 {#if children}
-  <a {href} {...props} class="navbar-brand {twMerge("flex items-center gap-4 h-full max-w-[180px] font-semibold text-default", props?.class as string)}" aria-label={ariaLabel}>
+  <a {href} class="navbar-brand {twMerge("flex items-center gap-4 h-full max-w-[180px] font-semibold text-default", props?.class as string)}" aria-label={ariaLabel}>
     {@render children()}
   </a>
 {/if}

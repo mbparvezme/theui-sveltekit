@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css'
+	import "$lib/style.css"
 	import {Navbar, NavCollapse, NavBrand, NavToggle, NavLinkGroup, NavLink, NavDropdown, DarkMode} from "$lib"
 	import { onMount } from 'svelte'
 	let { children } = $props()

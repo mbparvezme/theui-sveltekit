@@ -18,7 +18,7 @@
 </script>
 
 {#if children}
-<svelte:element this={type} {...props} class="slide {getSlideClasses(CTX?.slideClasses, props?.class as string)}">
+<svelte:element this={type} class="slide {getSlideClasses(CTX?.slideClasses, props?.class as string)}">
   {@render children()}
   {#if href}
     <a class="absolute inset-0" aria-hidden="true" href={href}></a>

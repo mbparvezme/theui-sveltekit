@@ -2,11 +2,11 @@
   import { twMerge } from "tailwind-merge"
 	import { Svg } from "$lib"
 
-  interface Props {size?: number, ariaLabel?: string, [key: string]: unknown}
-  let {size = 1.5, ariaLabel = "Close button", ...props} : Props = $props()
+  interface Props {size?: number, ariaLabel?: string, [key: string]: unknown, onclick: any}
+  let {size = 1.5, ariaLabel = "Close button", onclick, ...props} : Props = $props()
 </script>
 
-<button {...props} class="theui-close {twMerge("opacity-60 dark:opacity-50 hover:opacity-100 transition-opacity", props?.class as string)}" aria-label={ariaLabel} tabindex="-1">
+<button class="theui-close {twMerge("opacity-60 dark:opacity-50 hover:opacity-100 transition-opacity", props?.class as string)}" aria-label={ariaLabel} tabindex="-1" {onclick}>
   <span class="sr-only">{ariaLabel}</span>
   <Svg {size}>
     {#snippet children()}
