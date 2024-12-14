@@ -2,7 +2,7 @@
 	import { setContext, type Snippet, onMount } from "svelte"
   import { ST_SLIDER } from "$lib/state.svelte"
 	import { Slider } from "./slider"
-	import { twMerge } from "tailwind-merge";
+	import { twMerge } from "tailwind-merge"
 
   interface Props {
     children: Snippet,

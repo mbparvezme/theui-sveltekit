@@ -1,9 +1,9 @@
 <script lang="ts">
+	import type { Snippet } from "svelte"
   import type { ANIMATE_SPEED } from "$lib/types"
   import { twMerge } from "tailwind-merge"
-  import { animationClass, generateToken, backdropClasses } from "$lib/function.core"
+  import { animationClass, generateToken, backdropClasses } from "$lib/function"
 	import { Close } from "$lib"
-	import type { Snippet } from "svelte";
 
   interface Props {
     trigger ?: Snippet,

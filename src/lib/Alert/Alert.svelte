@@ -2,7 +2,7 @@
 	import type { ROUNDED } from "$lib/types"
 	import type { Snippet } from "svelte"
 	import { twMerge } from "tailwind-merge"
-	import { roundedClass, generateToken, messageTheme, messageBorderTheme } from "$lib/function.core"
+	import { roundedClass, generateToken, messageTheme, messageBorderTheme } from "$lib/function"
 	import { Close, Svg } from "$lib"
 
 	interface Props {

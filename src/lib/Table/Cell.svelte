@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  type SizeVariants = "compact" | "comfortable" | "default";
+  type SizeVariants = "compact" | "comfortable" | "default"
 
   interface Props {
     children ?: Snippet,

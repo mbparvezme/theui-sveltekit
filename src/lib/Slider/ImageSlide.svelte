@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { generateToken } from "$lib/function.core"
 	import { getContext, type Snippet } from "svelte"
+	import { generateToken } from "$lib/function"
 	import { getSlideClasses } from "./slider"
-	import { twMerge } from "tailwind-merge";
+	import { twMerge } from "tailwind-merge"
 
   interface Props {
     src: string,

@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { INPUT_CONFIG } from "$lib/types"
-	import { generateToken, roundedClass } from "$lib/function.core"
+	import { generateToken, roundedClass } from "$lib/function"
 	import { getContext, type Snippet } from "svelte"
-	import { twMerge } from "tailwind-merge";
+	import { twMerge } from "tailwind-merge"
 
   interface Props {
     helperText?: string | Snippet | undefined,

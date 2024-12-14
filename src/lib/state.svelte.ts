@@ -1,18 +1,20 @@
-import type {NOTIFY_CONFIG, NOTIFICATION_TYPE, SITE} from "$lib/types"
-import {generateToken} from "$lib/function.core"
+import type {NOTIFY_CONFIG, NOTIFICATION_TYPE} from "$lib/types"
+import {generateToken} from "$lib/function"
 
-export let ST_ACTIVE_ACCORDIONS: { value: string[]} = $state({ value: [""]})
-export let ST_MOBILE_NAV: { value: string[]} = $state({ value: [] })
-export let ST_NOTIFICATIONS: { value: any } = $state({ value: [] })
+type NOTIFICATION_DATA_TYPE = { msg: string, type: NOTIFICATION_TYPE, CONFIG: NOTIFY_CONFIG & { id: string } }
 
-export let ST_TABS: {tabs: string[], panels: string[], selectedTab: string | null, selectedPanel: string | null} =  $state({ tabs: [], panels: [], selectedTab: null, selectedPanel: null })
-export let selectedTab: { value: string | null } = $state({ value: null })
-export let selectedPanel: { value: string | null } = $state({ value: null })
+export const ST_ACTIVE_ACCORDIONS: { value: string[]} = $state({ value: [""]})
+export const ST_MOBILE_NAV: { value: string[]} = $state({ value: [] })
+export const ST_NOTIFICATIONS: { value: NOTIFICATION_DATA_TYPE[]} = $state({ value: [] })
 
-export let ST_SLIDER: { slides: any[], activeSlide: string | null, previousSlide: string, nextSlide: string } = $state({ slides: [], activeSlide: null, previousSlide: "", nextSlide: "" })
+export const ST_TABS: {tabs: string[], panels: string[], selectedTab: string | null, selectedPanel: string | null} =  $state({ tabs: [], panels: [], selectedTab: null, selectedPanel: null })
+export const selectedTab: { value: string | null } = $state({ value: null })
+export const selectedPanel: { value: string | null } = $state({ value: null })
 
-export let notify = (msg: string, type: NOTIFICATION_TYPE = "error", config: NOTIFY_CONFIG = {}): string => {
-  let defaultConfig: NOTIFY_CONFIG = { animate: true, removeOnClick: true, removeAfter: 50000, rounded: "md", theme: "default", variant: "card" }
+export const ST_SLIDER: { slides: HTMLElement[], activeSlide: HTMLElement|null, previousSlide: string, nextSlide: string } = $state({ slides: [], activeSlide: null, previousSlide: "", nextSlide: "" })
+
+export const notify = (msg: string, type: NOTIFICATION_TYPE = "error", config: NOTIFY_CONFIG = {}): string => {
+  const defaultConfig: NOTIFY_CONFIG = { animate: true, removeOnClick: true, removeAfter: 50000, rounded: "md", theme: "default", variant: "card" }
   const C: NOTIFY_CONFIG & { id: string } = { ...defaultConfig, ...config, id: generateToken() };
 
   ST_NOTIFICATIONS.value.push({ msg, type, CONFIG: C });
@@ -25,4 +27,6 @@ export let notify = (msg: string, type: NOTIFICATION_TYPE = "error", config: NOT
   return C.id
 }
 
-export let removeNotification = (id: string) => ST_NOTIFICATIONS.value = ST_NOTIFICATIONS.value.filter((n: any) => n.CONFIG.id !== id)
+export const removeNotification = (id: string) => {
+  ST_NOTIFICATIONS.value = ST_NOTIFICATIONS.value.filter((n: NOTIFICATION_DATA_TYPE) => n.CONFIG.id !== id)
+}

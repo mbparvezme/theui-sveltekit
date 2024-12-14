@@ -10,7 +10,6 @@
 		"sourceMap": true,
 		"strict": true,
 		"allowImportingTsExtensions": true,
-		"module": "NodeNext",
-		"moduleResolution": "NodeNext"
+		"module": "ESNext"
 	}
 }

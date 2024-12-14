@@ -1,9 +1,9 @@
 <script lang="ts">
   import { getContext, type Snippet } from "svelte"
-  import { twMerge } from "tailwind-merge"
-  import { animationClass, roundedClass, generateToken } from "$lib/function.core"
-  import { Svg } from "$lib"
 	import type { MOBILE_NAV_ON, RESPONSIVE_NAV_ON } from "$lib/types"
+  import { twMerge } from "tailwind-merge"
+  import { animationClass, roundedClass, generateToken } from "$lib/function"
+  import { Svg } from "$lib"
 
   const { config } = getContext('NAV') as any
   config.isDropdown = true

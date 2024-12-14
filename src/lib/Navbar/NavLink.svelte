@@ -1,7 +1,7 @@
  <script lang="ts">
   import { getContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { animationClass, roundedClass } from "$lib/function.core"
+  import { animationClass, roundedClass } from "$lib/function"
   import { ST_MOBILE_NAV } from "$lib/state.svelte"
 
   interface Props {children?: Snippet, text?: string, href?: string|null, active?: string|boolean, [key: string]: unknown}

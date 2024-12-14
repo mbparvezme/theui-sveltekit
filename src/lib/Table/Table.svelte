@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { ANIMATE_SPEED, TABLE_ROW } from "$lib/types"
 	import { setContext, type Snippet } from "svelte"
-  import { generateToken, animationClass } from "$lib/function.core"
+  import type { ANIMATE_SPEED, TABLE_ROW } from "$lib/types"
+  import { generateToken, animationClass } from "$lib/function"
   import { twMerge } from "tailwind-merge"
   import { THead, TBody } from "$lib"
 

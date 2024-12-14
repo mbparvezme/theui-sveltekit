@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { getContext, type Snippet } from "svelte"
   import type { PRELOAD } from "$lib/types"
   import { twMerge } from "tailwind-merge"
-  import { getContext, type Snippet } from "svelte"
 
   const CTX : {
 		activeClasses: string,

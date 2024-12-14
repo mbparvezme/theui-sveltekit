@@ -3,7 +3,7 @@
 	import { setContext, type Snippet } from "svelte"
   import { onMount } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { animationClass, roundedClass, generateToken } from "$lib/function.core"
+  import { animationClass, roundedClass, generateToken } from "$lib/function"
 
   type heightTypes = 'sm' | 'md' | 'lg' | 'xl'
 

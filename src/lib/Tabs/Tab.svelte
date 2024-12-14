@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { animationClass, generateToken, roundedClass } from "$lib/function.core"
+  import { animationClass, generateToken, roundedClass } from "$lib/function"
 	import { ST_TABS } from "$lib/state.svelte"
 
   let {children, ...props} : {children : Snippet, [key: string] : unknown} = $props()

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { ANIMATE_SPEED, TAB_CONFIG } from "$lib/types"
 	import { setContext, type Snippet, onMount } from "svelte"
+	import type { ANIMATE_SPEED, TAB_CONFIG } from "$lib/types"
 	import { twMerge } from "tailwind-merge"
-	import { generateToken } from "$lib/function.core"
+	import { generateToken } from "$lib/function"
   import { ST_TABS } from "$lib/state.svelte"
 
   interface Props {

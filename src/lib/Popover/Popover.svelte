@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { animationClass, roundedClass, shadowClass } from '$lib/function.core';
-	import type { ANIMATE_SPEED, ROUNDED, SHADOW } from '$lib/types';
-  import { onMount, type Snippet } from 'svelte'
-	import { twMerge } from 'tailwind-merge';
+	import { animationClass, roundedClass, shadowClass } from "$lib/function"
+	import type { ANIMATE_SPEED, ROUNDED, SHADOW } from "$lib/types"
+  import { onMount, type Snippet } from "svelte"
+	import { twMerge } from "tailwind-merge"
 
-  type PopupPosition = 'top' | 'bottom' | 'left' | 'right';
+  type PopupPosition = 'top' | 'bottom' | 'left' | 'right'
   interface Props {
     children?: Snippet,
     triggerID: string,

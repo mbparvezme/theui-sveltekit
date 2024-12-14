@@ -20,7 +20,7 @@ export { default as ListGroup } from "./ListGroup/ListGroup.svelte";
 export { default as ListItem } from "./ListGroup/ListItem.svelte";
 export { default as Modal } from "./Modal/Modal.svelte";
 export { default as Notification } from "./Notification/Notification.svelte";
-export {            notify } from "./state.svelte.ts";
+export {            notify } from "./state.svelte";
 export { default as Pagination } from "./Pagination/Pagination.svelte";
 export { default as Popover } from "./Popover/Popover.svelte";
 export { default as Popup } from "./Popup/Popup.svelte";

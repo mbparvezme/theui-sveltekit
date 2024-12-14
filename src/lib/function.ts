@@ -9,10 +9,10 @@ type RoundClassesType = {
   }
 }
 
-import type {ANIMATE_SPEED, ROUNDED, SHADOW, ROUNDED_SIDES, ROUNDED_ITEM_TYPES, NOTIFY_CONFIG, NOTIFICATION_TYPE} from "$lib/types"
+import type { ANIMATE_SPEED, ROUNDED, SHADOW, ROUNDED_SIDES, ROUNDED_ITEM_TYPES, NOTIFY_CONFIG, NOTIFICATION_TYPE } from "$lib/types"
 import { twMerge } from "tailwind-merge"
 
-let roundClasses: RoundClassesType = {
+const roundClasses: RoundClassesType = {
   default: {
     all: {
       sm: " rounded",
@@ -275,7 +275,7 @@ let roundClasses: RoundClassesType = {
   }
 }
 
-let animationSpeed: { [speed in Exclude<ANIMATE_SPEED, "none">]: string } = {
+const animationSpeed: { [speed in Exclude<ANIMATE_SPEED, "none">]: string } = {
   slower: "duration-700",
   slow: "duration-500",
   normal: "duration-300",
@@ -283,7 +283,7 @@ let animationSpeed: { [speed in Exclude<ANIMATE_SPEED, "none">]: string } = {
   faster: "duration-100",
 }
 
-let animationType: any = {
+const animationType: any = {
   color: "transition-colors",
   opacity: "transition-opacity",
   shadow: "transition-shadow",
@@ -291,7 +291,7 @@ let animationType: any = {
   all: "transition-all",
 }
 
-let fileButtonAnimation: { [speed in Exclude<ANIMATE_SPEED, "none">]: string } = {
+const fileButtonAnimation: { [speed in Exclude<ANIMATE_SPEED, "none">]: string } = {
   slower: "file:duration-700 transition-all",
   slow: "file:duration-500 transition-all",
   normal: "file:duration-300 transition-all",
@@ -299,7 +299,7 @@ let fileButtonAnimation: { [speed in Exclude<ANIMATE_SPEED, "none">]: string } =
   faster: "file:duration-100 transition-all",
 }
 
-let shadowClasses: { [size in Exclude<SHADOW, "none">]: string } = {
+const shadowClasses: { [size in Exclude<SHADOW, "none">]: string } = {
   xs: " shadow-sm",
   sm: " shadow",
   md: " shadow-md",
@@ -309,7 +309,7 @@ let shadowClasses: { [size in Exclude<SHADOW, "none">]: string } = {
   inner: " shadow-inner"
 }
 
-export let messageTheme = {
+export const messageTheme = {
   default: {
     brand: "bg-brand-primary-500 text-on-brand-primary-500",
     error: "bg-error-400 text-error-50 dark:bg-error-600",
@@ -326,7 +326,7 @@ export let messageTheme = {
   }
 }
 
-export let messageBorderTheme = {
+export const messageBorderTheme = {
   default: {
     brand: "border-brand-primary-200 dark:border-brand-primary-800",
     error: "border-error-200 dark:border-error-800",
@@ -355,7 +355,7 @@ export let messageBorderTheme = {
  * isKeyExist(data, "name"); // Returns true
  * isKeyExist(data, "height"); // Returns false
  */
-export const isKeyExist = (obj: Record<string, any>, key: string): boolean => key in obj
+export const isKeyExist = (obj: Record<string, unknown>, key: string): boolean => key in obj
 
 
 /**
@@ -444,7 +444,7 @@ export const isLocalUrl = (url: string): boolean => {
  * @param props - Additional properties, such as a custom class.
  * @returns A string of merged classes for the notification.
  */
-export const notificationClasses = (config: NOTIFY_CONFIG, type: NOTIFICATION_TYPE = "error", props: Record<string, any> = {}): string => {
+export const notificationClasses = (config: NOTIFY_CONFIG, type: NOTIFICATION_TYPE = "error", props: Record<string, unknown> = {}): string => {
   const theme = config?.theme || "default"
   const baseClass = `theui-notification px-4 py-3 shadow-2xl shadow-black/50 cursor-pointer ${messageTheme[theme][type]}`
 
@@ -455,7 +455,7 @@ export const notificationClasses = (config: NOTIFY_CONFIG, type: NOTIFICATION_TY
     borderStart: `${roundedClass(config?.rounded || "md")} ${messageBorderTheme[theme][type]} border-s-4`,
   }
 
-  return twMerge(baseClass, variantClasses[config?.variant || "card"], props.class || "")
+  return twMerge(baseClass, variantClasses[config?.variant || "card"], props.class as string || "")
 }
 
 

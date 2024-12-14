@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { ANIMATE_SPEED } from "$lib/types"
   import { onMount } from "svelte"
+  import type { ANIMATE_SPEED } from "$lib/types"
   import { twMerge } from "tailwind-merge"
-  import { animationClass, roundedClass } from "$lib/function.core"
+  import { animationClass, roundedClass } from "$lib/function"
 
   type TOOLTIP_POSITION = 'left' | 'top' | 'right' | 'bottom';
   type TOOLTIP_ANIMATION = 'fade' | 'slide' | 'zoom-in' | 'zoom-out';

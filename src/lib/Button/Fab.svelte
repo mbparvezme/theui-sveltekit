@@ -2,7 +2,7 @@
   import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
   import { fly } from 'svelte/transition'
   import { setContext, type Snippet } from "svelte"
-  import { animationClass, generateToken, roundedClass } from "$lib/function.core"
+  import { animationClass, generateToken, roundedClass } from "$lib/function"
   import { twMerge } from "tailwind-merge"
   import {FabButton} from "$lib"
 

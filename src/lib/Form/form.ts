@@ -1,10 +1,10 @@
 import type {INPUT_CONFIG, INPUT_SIZE} from "$lib/types"
 export type INPUT_CATEGORY = 'text' | 'file' | 'checkbox' | 'radio' | 'select'
 import { twMerge } from "tailwind-merge"
-import { animationClass, roundedClass } from "./function.core"
+import { animationClass, roundedClass } from "$lib/function"
 
 
-export let theuiInputClass: {
+export const theuiInputClass: {
   'type': { [type in INPUT_CATEGORY]: string }
   'size': { [type in INPUT_SIZE]: string }
 } = {
@@ -23,14 +23,14 @@ export let theuiInputClass: {
   }
 }
 
-export let labelSizeClass: { [size in INPUT_SIZE]: string } = {
+export const labelSizeClass: { [size in INPUT_SIZE]: string } = {
   sm: "px-1 start-2",
   md: "px-2 start-3",
   lg: "px-3 start-4",
   xl: "px-4 start-5"
 }
 
-export let inputTypeSizeClasses: {
+export const inputTypeSizeClasses: {
   [key in 'default' | 'file' | 'group']: key extends 'default'
   ? { [type in 'flat' | 'nonFlat']: { [size in INPUT_SIZE]: string } }
   : { [size in INPUT_SIZE]: string };
@@ -74,13 +74,13 @@ export let inputTypeSizeClasses: {
  */
 export const inputContainerClass = (
   config: INPUT_CONFIG,
-  attr: Record<string, any> = {},
+  attr: Record<string, unknown> = {},
   type: 'default' | 'group' = "default"
 ): string => {
-  let customClass = type === "group" ?
+  const customClass = type === "group" ?
     `cursor-pointer ${attr?.disabled && `cursor-not-allowed opacity-50 select-none ${attr?.readonly && "pointer-events-none"}`}` :
     `flex flex-col ${config?.variant != "flat" ? "gap-2" : ""}`
-  return `theui-input-container ${config?.reset ? "" : twMerge(customClass, attr?.class)}`
+  return `theui-input-container ${config?.reset ? "" : twMerge(customClass, attr.class as string)}`
 }
 
 
@@ -92,12 +92,12 @@ export const inputContainerClass = (
  * @param type - Type of the input element (e.g., `text`, `file`, `checkbox`, `radio`, `select`). Defaults to `text`.
  * @returns A string containing the computed classes for the input element.
  */
-export const inputClasses = (config: INPUT_CONFIG, attr: Record<string, any> = {}, type: INPUT_CATEGORY = "text"): string => {
+export const inputClasses = (config: INPUT_CONFIG, attr: Record<string, unknown> = {}, type: INPUT_CATEGORY = "text"): string => {
   const baseClass = `theui-input ${theuiInputClass['type'][type]} ${theuiInputClass['size'][config?.size || "md"]}`
   if (config?.reset) return baseClass
 
-  let commonClasses = `${inputSizeClasses(config, type)} ${commonInputTheme(config, type)}${attributesClasses(attr)}`
-  let groupClasses = "bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-200/20 text-brand-primary-500 focus-within:ring-brand-primary-500 !ring-offset-primary"
+  const commonClasses = `${inputSizeClasses(config, type)} ${commonInputTheme(config, type)}${attributesClasses(attr)}`
+  const groupClasses = "bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-200/20 text-brand-primary-500 focus-within:ring-brand-primary-500 !ring-offset-primary"
 
   const typeSpecificClasses: Record<INPUT_CATEGORY, () => string> = {
     text: () => defaultInputClasses(config),
@@ -107,7 +107,7 @@ export const inputClasses = (config: INPUT_CONFIG, attr: Record<string, any> = {
     radio: () => groupClasses,
   }
 
-  return twMerge(baseClass, commonClasses, typeSpecificClasses[type]?.(), attr?.class)
+  return twMerge(baseClass, commonClasses, typeSpecificClasses[type]?.(), attr?.class as string)
 }
 
 
@@ -118,7 +118,7 @@ export const inputClasses = (config: INPUT_CONFIG, attr: Record<string, any> = {
  * @param attr - Additional attributes like `class` for custom styling.
  * @returns A string containing the computed classes for the label element.
  */
-export const labelClasses = (config: INPUT_CONFIG & {type: INPUT_CATEGORY}, attr: any = {}): string => {
+export const labelClasses = (config: INPUT_CONFIG & { type: INPUT_CATEGORY }, attr: Record<string, unknown> = {}): string => {
   const baseClasses = `font-medium inline-flex text-sm`
   const floatingLabelClasses = config?.floatingLabel
     ? `peer-placeholder-shown:text-base transform cursor-text absolute top-0 peer-placeholder-shown:top-1/2 peer-focus:top-0 -translate-y-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:-translate-y-1/2 peer-placeholder-shown:text-gray-500 peer-focus:text-xs text-xs peer-focus:text-default ${animationClass(config?.animate)}
@@ -126,7 +126,7 @@ export const labelClasses = (config: INPUT_CONFIG & {type: INPUT_CATEGORY}, attr
       ${config?.variant === "bordered" ? "bg-primary" : ""}`
     : ""
 
-  return config?.reset ? attr?.class ?? "" : twMerge(baseClasses, floatingLabelClasses, attr?.class)
+  return config?.reset ? (attr?.class as string ?? "") : twMerge(baseClasses, floatingLabelClasses, attr?.class as string)
 }
 
 
@@ -190,7 +190,7 @@ const defaultInputClasses = (config: INPUT_CONFIG): string =>
  * @param attr - Attributes object to determine the state (e.g., `disabled` or `readonly`).
  * @returns A string of state-specific classes or an empty string if no state applies.
  */
-const attributesClasses = (attr: Record<string, any> = {}): string =>
+const attributesClasses = (attr: Record<string, unknown> = {}): string =>
   attr?.disabled
     ? " disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50 disabled:select-none"
     : attr?.readonly

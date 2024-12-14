@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { roundedClass, shadowClass } from "$lib/function.core"
-	import type { ROUNDED, ROUNDED_SIDES, SHADOW } from "$lib/types"
 	import type { Snippet } from "svelte"
+	import type { ROUNDED, ROUNDED_SIDES, SHADOW } from "$lib/types"
+	import { roundedClass, shadowClass } from "$lib/function"
 	import { twMerge } from "tailwind-merge"
 
   interface Props {

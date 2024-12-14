@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { generateToken } from "$lib/function.core"
 	import { getContext, type Snippet } from "svelte"
+	import { generateToken } from "$lib/function"
   import { getSlideClasses } from "./slider"
 
   interface Props {

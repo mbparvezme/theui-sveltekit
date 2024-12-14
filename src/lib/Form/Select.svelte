@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { INPUT_CONFIG, INPUT_TYPE, SELECT_DATA } from "$lib/types"
   import { getContext, setContext, type Snippet } from "svelte"
-	import { generateToken } from "$lib/function.core"
-	import { inputContainerClass, inputClasses } from "$lib/function.form"
+	import { generateToken } from "$lib/function"
+	import { inputContainerClass, inputClasses } from "./form"
   import { Label, HelperText, Input } from "$lib"
 
   const CTX: any = getContext('FORM') ?? {}

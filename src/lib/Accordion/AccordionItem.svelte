@@ -2,7 +2,7 @@
   import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
   import { getContext, onMount, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { generateToken, roundedClass, animationClass } from "$lib/function.core"
+  import { generateToken, roundedClass, animationClass } from "$lib/function"
   import { ST_ACTIVE_ACCORDIONS } from "$lib/state.svelte"
 
   interface Props {

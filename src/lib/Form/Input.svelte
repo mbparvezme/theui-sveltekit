@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { INPUT_CONFIG, INPUT_TYPE } from "$lib/types"
-	import { generateToken } from "$lib/function.core"
-	import { inputContainerClass, inputClasses } from "$lib/function.form"
+	import { generateToken } from "$lib/function"
+	import { inputContainerClass, inputClasses } from "./form"
   import { getContext, setContext, type Snippet } from "svelte"
   import { HelperText, Label } from "$lib"
 

@@ -4,9 +4,9 @@ import aspectRatio from '@tailwindcss/aspect-ratio';
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 
-const defaultTheme = require("tailwindcss/defaultTheme");
-const plugin = require("tailwindcss/plugin");
-const twShades = require('tw-color-shades');
+import defaultTheme from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
+import twShades from 'tw-color-shades';
 
 export default {
   content: [
@@ -67,10 +67,10 @@ export default {
     plugin(({ addComponents }) => {
       addComponents({
         ".sticky,[class$=sticky]": {
-          zIndex: 20,
+          zIndex: "20",
         },
         ".fixed,[class$=fixed]": {
-          zIndex: 30,
+          zIndex: "30",
         },
       });
     }),

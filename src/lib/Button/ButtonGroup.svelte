@@ -2,7 +2,7 @@
   import type { ANIMATE_SPEED, ROUNDED, BUTTON_SIZE } from "$lib/types"
   import { setContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { roundedClass } from "$lib/function.core"
+  import { roundedClass } from "$lib/function"
 
   interface Props {
     children : Snippet,

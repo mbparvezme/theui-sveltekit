@@ -1,4 +1,4 @@
-import { generateToken } from "$lib/function.core"
+import { generateToken } from "$lib/function"
 import { ST_SLIDER } from "$lib/state.svelte"
 import { twMerge } from "tailwind-merge"
 
@@ -14,7 +14,7 @@ export interface SliderConfig {
 
 export class Slider {
   config: SliderConfig
-  autoPlayInterval!: number
+  autoPlayInterval!: ReturnType<typeof setInterval>
   id: string = generateToken()
 
   private indicatorClasses: string = "w-8 h-4 bg-white bg-clip-padding flex border-y-[7px] border-transparent opacity-50 rounded-sm transition duration-1000"
@@ -49,7 +49,7 @@ export class Slider {
 
     itemsContainer.appendChild(firstClone);
     itemsContainer.insertBefore(lastClone, firstSlide);
-    ST_SLIDER.slides = [lastClone, ...slides, firstClone];
+    ST_SLIDER.slides = [lastClone, ...slides as HTMLElement[], firstClone];
   }
 
   changeSlide(updateType: "next" | "prev") {
@@ -67,7 +67,7 @@ export class Slider {
     const track = document.getElementById(`${this.id}-items`);
     const slides = ST_SLIDER.slides;
     const totalSlides = slides.length;
-    const slideIndex = slides.indexOf(ST_SLIDER.activeSlide);
+    const slideIndex = slides.indexOf(ST_SLIDER.activeSlide as HTMLElement);
 
     if (track) {
       const translateValue = -slideIndex * track.clientWidth;
@@ -86,7 +86,7 @@ export class Slider {
     }
   }
 
-  addTransitionListener(track: HTMLElement, callback: Function) {
+  addTransitionListener(track: HTMLElement, callback: () => void) {
     const handler = () => {
       callback();
       track.removeEventListener("transitionend", handler);
@@ -96,7 +96,7 @@ export class Slider {
 
   calculateNextSlideIndex(updateType: "next" | "prev") {
     const totalSlides = ST_SLIDER.slides.length;
-    const currentSlideIndex = ST_SLIDER.slides.indexOf(ST_SLIDER.activeSlide);
+    const currentSlideIndex = ST_SLIDER.slides.indexOf(ST_SLIDER.activeSlide as HTMLElement);
     return updateType === "next"
       ? (currentSlideIndex + 1) % totalSlides
       : (currentSlideIndex - 1 + totalSlides) % totalSlides;
@@ -114,7 +114,7 @@ export class Slider {
   updateTrackPosition() {
     const track = document.getElementById(`${this.id}-items`);
     const slides = ST_SLIDER.slides;
-    const slideIndex = slides.indexOf(ST_SLIDER.activeSlide);
+    const slideIndex = slides.indexOf(ST_SLIDER.activeSlide as HTMLElement);
     if (track) {
       const translateValue = -slideIndex * track.clientWidth;
       track.style.transform = `translateX(${translateValue}px)`;
@@ -226,6 +226,6 @@ export class Slider {
 }
 
 
-export let getSlideClasses = (slideClasses: string, classes: string) => {
+export const getSlideClasses = (slideClasses: string, classes: string) => {
   return twMerge('relative flex-shrink-0 w-full min-h-48   flex items-center justify-center', slideClasses, classes)
 }

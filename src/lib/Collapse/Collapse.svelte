@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ANIMATE_SPEED } from "$lib/types"
 	import { onMount, type Snippet } from "svelte"
-  import { animationClass, generateToken } from "$lib/function.core"
+  import { animationClass, generateToken } from "$lib/function"
 
   interface Props {
     children?: Snippet,

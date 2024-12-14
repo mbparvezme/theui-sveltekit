@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { roundedClass } from "$lib/function.core"
+	import { roundedClass } from "$lib/function"
 	import { ST_MOBILE_NAV } from "$lib/state.svelte"
 	import type { MOBILE_NAV_ON, RESPONSIVE_NAV_ON } from "$lib/types"
   import {getContext, type Snippet} from "svelte"

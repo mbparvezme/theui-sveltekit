@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { animationClass } from "$lib/function.core";
-	import type { ANIMATE_SPEED } from "$lib/types";
-	import { getContext, setContext, type Snippet } from "svelte";
-	import { twMerge } from "tailwind-merge";
+	import type { ANIMATE_SPEED } from "$lib/types"
+	import { animationClass } from "$lib/function"
+	import { getContext, type Snippet } from "svelte"
+	import { twMerge } from "tailwind-merge"
 
   let CTX = getContext("LISTGROUP") as any
 

@@ -2,7 +2,7 @@
   import type { ROUNDED } from "$lib/types"
 	import type { Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { roundedClass } from "$lib/function.core"
+  import { roundedClass } from "$lib/function"
 	import { Close } from "$lib"
 
   interface Props {

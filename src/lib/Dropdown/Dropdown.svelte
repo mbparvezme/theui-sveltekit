@@ -1,9 +1,9 @@
 <script lang="ts">
+  import { setContext, type Snippet } from "svelte"
   import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
-  import { animationClass, roundedClass, generateToken, backdropClasses } from "$lib/function.core"
+  import { animationClass, roundedClass, generateToken, backdropClasses } from "$lib/function"
   import { twMerge } from "tailwind-merge"
   import { Button } from "$lib"
-  import { setContext, type Snippet } from "svelte"
 
   type DROPDOWN_ANIMATION_TYPE = 'slide-left' | 'slide-up' | 'slide-right' | 'slide-down' | 'fade' | 'zoom-in' | 'zoom-out'
 
