@@ -5,24 +5,22 @@
 
   interface Props {
     children?: Snippet,
-    title ?: Snippet|string|undefined,
+    title ?: Snippet|string,
     content ?: string,
     animation ?: ANIMATE_SPEED,
     id ?: string,
     ariaLabel ?: string,
-    isOpen ?: boolean,
-    [key: string]: unknown // dismissible, icon
+    isOpen ?: boolean
   }
 
   let {
     children,
-    title = undefined,
+    title,
     content,
     animation = "fast",
     id = generateToken(),
     ariaLabel = "",
     isOpen = false,
-    ...props
   } : Props = $props();
 
   let classes = animationClass(animation)
@@ -49,20 +47,18 @@
   {#if typeof title === "string"}
     {@html title}
   {:else}
-    {@render title?.()}
+    {@render title()}
   {/if}
 </span>
 {/if}
 
 {#if content || children}
 <div {id} class="theui-collapse-body overflow-hidden {classes}" class:invisible={!isOpen} class:collapse-open={isOpen} aria-labelledby="{id}Collapse" aria-hidden={!isOpen}>
-	<div>
-    {#if content}
-      {@html content}
-    {:else if children}
-      {@render children()}
-    {/if}
-	</div>
+  {#if content}
+    {@html content}
+  {:else if children}
+    {@render children()}
+  {/if}
 </div>
 {/if}
 

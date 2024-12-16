@@ -201,7 +201,7 @@
     }
   })
 
-  let popoverClasses = `p-2 max-w-64 ${roundedClass(rounded)}${animationClass(animate)}${shadowClass(shadow)}`
+  let popoverClasses = `p-2 max-w-64 ${roundedClass(rounded)}${animationClass(animate, "opacity")}${shadowClass(shadow)}`
 </script>
 
 <svelte:window onclick={(e: MouseEvent)=>handleBlur(e)} />
