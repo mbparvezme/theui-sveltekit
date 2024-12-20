@@ -103,7 +103,7 @@ npm run dev
 
 To manually install the component library, follow these steps:
 
-#### **2.1 &nbsp;&nbsp; Install Sveltekit with TailwindCSS**
+#### **2.1 Install Sveltekit with TailwindCSS**
 
 ```bash
 # Install Svelte
@@ -119,7 +119,7 @@ npm i theui-svelte
 
 <br>
 
-#### **2.2 &nbsp;&nbsp; Configuration**
+#### **2.2 Configuration**
 
 Open the TailwindCSS configuration file called `tailwind.config.cjs` and replace all of its existing content with the code provided below.
 
@@ -153,42 +153,71 @@ And thats all. You are ready to start your awesome project now.
 
 <br>
 
-## **Default CSS Variables**
 
-The component library is built on the powerful foundation of TailwindCSS, a tool capable of generating a wide array of CSS styles and a multitude of variables for your design. However, the real question is, do you truly need an extensive array of CSS variables for your design?
+# Colors System
 
-Having the ability to define numerous variables is not the issue. The challenge lies in maintaining design consistency. When you have an overwhelming number of options, it becomes all too easy to lose that consistency, leading to a haphazard and disjointed design.
+## CSS Variable Colors
 
-To address this challenge, the "theui-svelte" component library introduces a set of carefully curated custom variables that seamlessly integrate with those offered by TailwindCSS. You can effortlessly customize your theme using just one line of code by altering the values of these custom variables.
+### Introduction
+CSS Variable Colors in the library allow you to modify the static background and text colors easily using CSS variables. These colors do not have shades and are ideal for defining primary design elements that remain consistent throughout your application. Below are the available variables for background and text customization:
 
-<br>
+**Background color variables:**
+- `--ui-bg-primary`
+- `--ui-bg-secondary`
+- `--ui-bg-alt`
 
-### **Utility Variables**
+**Text color variables:**
+- `--ui-text-default`
+- `--ui-text-alt`
+- `--ui-text-muted`
 
-There `--max-width` CSS variable exclusively used in the `Container` component to ensure that the width of the component remains consistent throughout the entire design. There is no dedicated CSS class for this property. Instead, you can apply it using a Tailwind CSS arbitrary value like `max-w-[var(--max-width)]`.
+### Code Demo
 
-```css
---max-width
-```
+[Space for code demo]
 
-### **Colors Variables**
+### Available Classes
+These colors are directly applied via the CSS variables mentioned above. No additional classes are required.
+
+---
+
+## TailwindCSS Color Classes
+
+### Introduction
+The library integrates seamlessly with the TailwindCSS color system, providing 8 custom color classes that you can fully customize through the `tailwind.config.js` file. These classes come with 11 shades, ranging from 50 to 950, and can be used for background, text, borders, outlines, fills, strokes, and more.
+
+**Custom classes:**
+- `brand-primary`
+- `brand-secondary`
+- `error`
+- `info`
+- `success`
+- `warning`
+
+### Code Demo
+
+[Space for code demo]
+
+### Available Classes
+Each custom class offers the following shades:
+- **Shades:** 50, 100-900, 950
+- **Usage:** These shades can be used with any Tailwind utility, like `bg-brand-primary-500`, `text-error-700`, or `border-info-300`.
+
+
+
+
+## **Colors System**
 
 The "theui-svelte" component library offers the following CSS variables and their default values. Each CSS variable is prefixed with "ui" to prevent conflicts with other variables.
 
 ```css
-  /* Brand colors */
-  --ui-brand
-  --ui-brand-active
-  --ui-brand-secondary
-  --ui-brand-secondary-active
-  /* Text colors */
-  --ui-text-on-brand
-  --ui-text-on-brand-secondary
-  --ui-text-default
-  /* Background colors */
-  --ui-bg-primary
-  --ui-bg-secondary
-  --ui-bg-tertiary
+/* Background colors */
+--ui-bg-primary
+--ui-bg-secondary
+--ui-bg-alt
+/* Text colors */
+--ui-text-default
+--ui-text-alt
+--ui-text-muted
 ```
 
 > Brand colors are universally accessible, ready to be used in various parts of your design. However, it's important to note that text colors are distinct from background colors, and vice versa. This separation ensures that you have the appropriate colors for both text and background elements, allowing for effective and visually pleasing design combinations.
@@ -233,6 +262,28 @@ Congratulations! With this simple change, all the components using the brand col
 TailwindCSS allows you to easily adjust the opacity of colors using utility classes like "bg-opacity-50" to set a 50% opacity background. These utility classes are designed to work with color values expressed in the format you mentioned, "255 0 0," and not with conventional RGB codes like "rgb(255, 255, 266)."
 
 By adhering to this format, you ensure that you can seamlessly leverage TailwindCSS's opacity utilities to control the transparency of your colors, providing a consistent and flexible approach to design customization.
+
+<br>
+
+
+
+## **Default CSS Variables**
+
+The component library is built on the powerful foundation of TailwindCSS, a tool capable of generating a wide array of CSS styles and a multitude of variables for your design. However, the real question is, do you truly need an extensive array of CSS variables for your design?
+
+Having the ability to define numerous variables is not the issue. The challenge lies in maintaining design consistency. When you have an overwhelming number of options, it becomes all too easy to lose that consistency, leading to a haphazard and disjointed design.
+
+To address this challenge, the "theui-svelte" component library introduces a set of carefully curated custom variables that seamlessly integrate with those offered by TailwindCSS. You can effortlessly customize your theme using just one line of code by altering the values of these custom variables.
+
+<br>
+
+### **Utility Variables**
+
+There `--max-width` CSS variable exclusively used in the `Container` component to ensure that the width of the component remains consistent throughout the entire design. There is no dedicated CSS class for this property. Instead, you can apply it using a Tailwind CSS arbitrary value like `max-w-[var(--max-width)]`.
+
+```css
+--max-width
+```
 
 <br>
 
