@@ -127,14 +127,14 @@ Open the TailwindCSS configuration file called `tailwind.config.cjs` and replace
 const config = {
     content: [
         "./src/**/*.{html,js,svelte,ts}",
-+       "./node_modules/theui-svelte/**/*.{html,js,svelte,ts}",
++       "./node_modules/theui-svelte/**/*.{html,js,svelte,ts}"
     ],
 +   presets: [require("theui-svelte/preset")],
     darkMode: "class",
     theme: {
-        extend: {},
+        extend: {}
     },
-    plugins: [],
+    plugins: []
 };
 
 module.exports = config;
@@ -153,10 +153,49 @@ And thats all. You are ready to start your awesome project now.
 
 <br>
 
+## Colors System
+The color system in TailwindCSS is a powerful tool for developers, and we’ve taken it a step further in our component library! By leveraging TailwindCSS, we’ve introduced additional custom color classes tailored for consistent branding. These new classes work just like Tailwind's native color classes but are specifically designed for branding and come with full support for shades.
 
-# Colors System
+In addition to this, we’ve incorporated CSS variables for background and text colors in our design system. These variables are static and do not support shades, making them ideal for maintaining uniformity in simple use cases.
 
-## CSS Variable Colors
+
+### Available Color Classes
+
+Our component library provides a set of custom classes to make integrating these colors into your designs seamless and flexible. Below is the full list of available classes:
+
+| CLASS                         | Shades            | DESCRIPTION  |
+| ------------------------------|-------------------|------------- |
+| .[T]-brand-primary-[S]        | 50, 100-900, 950  | Use this class to apply the primary brand color, e.g., `.bg-brand-primary-500` for background or `.text-brand-primary-500` for text.|
+| .text-on-brand-primary-[S]    | 50, 100-900, 950  | A foreground color designed to complement `.bg-brand-primary-500` as the background.                                                                                                                                                         |
+| .[T]-brand-secondary-[S]      | 50, 100-900, 950  | Apply the secondary brand color, e.g., `.bg-brand-secondary-500` for background or `.text-brand-secondary-500` for text.    |
+| .text-on-brand-secondary-[S]  | 50, 100-900, 950  | A foreground color specifically for use with `.bg-brand-secondary-500` as the background.                                                                                                                                            |
+| .[T]-error-[S]                | 50, 100-900, 950  | Represent errors in your components with these color classes.                                                                                                                                                          |
+| .[T]-info-[S]                 | 50, 100-900, 950  | Use this class for informational or neutral messages.                                                                                                                                                                                    |
+| .[T]-success-[S]              | 50, 100-900, 950  | Ideal for success messages or positive states in your components.                                                                                                                                                                                        |
+| .[T]-warning-[S]              | 50, 100-900, 950  | Perfect for warning or caution-related messages.                                                                                                                                                                                       |
+| .bg-primary                   | N/A               |  A static background color for primary elements, defined via CSS variables.                                                                                                                                                                                   |
+| .bg-secondary                 | N/A               |  A static background color for secondary elements, defined via CSS variables.                                                                                                                                                                                       |
+| .bg-alt                       | N/A               |  A static background color for alternative sections, defined via CSS variables.                                                                                                                                                                                     |
+| .text-default                 | N/A               |  The default text color in our library, defined via CSS variables.                                                                                                                                                         |
+| .text-alt                     | N/A               |  A static alternative text color, ideal for secondary content.                                                                                                                                                                                      |
+| .text-muted                   | N/A               |  A muted text color for less prominent content.                                                                                                                                                                                      |
+
+> **Legend**<br>
+**T** = **Type** (e.g., `bg`, `text`, `border`, `fill`, etc.)<br>
+**S** = **Shade** (e.g., 50, 100–900, 950)<br>
+**Example**: `bg-brand-primary-500`, `text-on-brand-primary-500`, `bg-error-400`
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### CSS Variable Colors
 
 ### Introduction
 CSS Variable Colors in the library allow you to modify the static background and text colors easily using CSS variables. These colors do not have shades and are ideal for defining primary design elements that remain consistent throughout your application. Below are the available variables for background and text customization:
@@ -201,8 +240,6 @@ The library integrates seamlessly with the TailwindCSS color system, providing 8
 Each custom class offers the following shades:
 - **Shades:** 50, 100-900, 950
 - **Usage:** These shades can be used with any Tailwind utility, like `bg-brand-primary-500`, `text-error-700`, or `border-info-300`.
-
-
 
 
 ## **Colors System**
