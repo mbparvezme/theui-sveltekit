@@ -17,7 +17,7 @@
 The **theui-svelte** is [**TheUI**](https://www.theui.dev)'s component library for [**Svelte 5**](https://kit.svelte.dev), built on top of TailwindCSS. It combines the strength of Svelte and the features of TailwindCSS to create a powerful tool that accelerates your development process.
 <br>
 
-## **Features**
+## **1. Features**
 - Built with ARIA roles and WCAG compliance for better usability.
 - Highly customizable
 - Support LTR/RTL.
@@ -28,61 +28,116 @@ The **theui-svelte** is [**TheUI**](https://www.theui.dev)'s component library f
 - Offers examples, and usage guides tailored for Svelte.
 <br>
 
-## **Components**
+## **2. Components**
 
-- Components
-  - [Accordion](https://www.svelte.theui.dev/accordion)
-  - [Alert](https://www.svelte.theui.dev/alert)
-  - [Badge](https://www.svelte.theui.dev/badge)
-  - [Breadcrumb](https://www.svelte.theui.dev/breadcrumb)
-  - [Button](https://www.svelte.theui.dev/button)
-  - [Button group](https://www.svelte.theui.dev/button-group)
-  - [Quick action button](https://www.svelte.theui.dev/quick-action-button)
-  - [Card](https://www.svelte.theui.dev/card)
-  - [Chips](https://www.svelte.theui.dev/chips)
-  - [Collapse](https://www.svelte.theui.dev/collapse)
-  - [Drawer](https://www.svelte.theui.dev/drawer)
-  - [Dropdown](https://www.svelte.theui.dev/dropdown)
-  - [List group](https://www.svelte.theui.dev/list-group)
-  - [Modal](https://www.svelte.theui.dev/modal)
-  - [Navbar](https://www.svelte.theui.dev/navbar)
-  - [Notification](https://www.svelte.theui.dev/notification)
-  - [Pagination](https://www.svelte.theui.dev/pagination)
-  - [Popover](https://www.svelte.theui.dev/popover)
-  - [Popup (Exit and Entry popup)](https://www.svelte.theui.dev/popup)
-  - [Progress bar](https://www.svelte.theui.dev/progress-bar)
-  - [Slider](https://www.svelte.theui.dev/slider)
-  - [Table](https://www.svelte.theui.dev/table)
-  - [Tabs](https://www.svelte.theui.dev/tabs)
-  - [Tooltip](https://www.svelte.theui.dev/tooltip)
+Last but not least, here is the list of components available in the component library!
 
-- Form controls
-  - [Form](https://www.svelte.theui.dev/form)
-  - [Fieldset](https://www.svelte.theui.dev/fieldset)
-  - [Label](https://www.svelte.theui.dev/label)
-  - [Text input](https://www.svelte.theui.dev/input)
-  - [Select](https://www.svelte.theui.dev/select)
-  - [Check-box](https://www.svelte.theui.dev/check-box)
-  - [Radio button](https://www.svelte.theui.dev/radio-button)
-  - [File input](https://www.svelte.theui.dev/file-input)
-  - [Toggle](https://www.svelte.theui.dev/toggle)
-  - [Helper text](https://www.svelte.theui.dev/helper-text)
-  - [Close](https://www.svelte.theui.dev/close)
 
-- Utilities
-  - [Container](https://www.svelte.theui.dev/container)
-  - [Dark mode](https://www.svelte.theui.dev/dark-mode)
-  - [SVG](https://www.svelte.theui.dev/svg-icon)
+<table style="width:100%;max-width:500px">
+  <tr>
+    <th colspan="2">Components</th>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/accordion">Accordion</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/alert">Alert</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/badge">Badge</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/breadcrumb">Breadcrumb</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/button">Button</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/button-group">Button group</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/quick-action-button">Quick action button</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/card">Card</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/chips">Chips</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/collapse">Collapse</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/drawer">Drawer</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/dropdown">Dropdown</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/list-group">List group</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/modal">Modal</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/navbar">Navbar</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/notification">Notification</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/pagination">Pagination</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/popover">Popover</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/popup">Popup (Exit and Entry popup)</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/progress-bar">Progress bar</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/slider">Slider</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/table">Table</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/tabs">Tabs</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/tooltip">Tooltip</a></td>
+  </tr>
+</table>
+
+
+<table style="width:100%;max-width:500px">
+  <tr>
+    <th colspan="2">Form controls</th>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/form">Form</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/check-box">Check-box</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/fieldset">Fieldset</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/radio-button">Radio button</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/label">Label</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/file-input">File input</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/input">Text input</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/toggle">Toggle</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/select">Select</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/helper-text">Helper text</a></td>
+  </tr>
+</table>
+
+
+<table style="width:100%;max-width:500px">
+  <tr>
+    <th colspan="2">Utilities</th>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/container">Container</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/dark-mode">Dark mode</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/close">Close</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/svg-icon">SVG</a></td>
+  </tr>
+</table>
 
 <br>
 
-## **Installation Guide**
+## **3. Installation Guide**
 To add the Svelte Components library to your project, you can do it in two ways:
 1. Use the boilerplate from GitHub.
 2. Manual installation from scratch.
 <br>
 
-### **1. Use the Boilerplate from GitHub**
+### **3.1 Install using boilerplate from GitHub**
 
 To install the boilerplate template, open your terminal and use the following command, replacing **<project-name>** with your desired project name.
 
@@ -99,11 +154,11 @@ npm run dev
 
 <br>
 
-### **2. Manually Install from Scratch**
+### **3.2. Manually Install from Scratch**
 
 To manually install the component library, follow these steps:
 
-#### **2.1 Install Sveltekit with TailwindCSS**
+### **a. Install Sveltekit with TailwindCSS**
 
 ```bash
 # Install Svelte
@@ -119,7 +174,7 @@ npm i theui-svelte
 
 <br>
 
-#### **2.2 Configuration**
+#### **b. Configuration**
 
 Open the TailwindCSS configuration file called `tailwind.config.cjs` and replace all of its existing content with the code provided below.
 
@@ -153,40 +208,46 @@ And thats all. You are ready to start your awesome project now.
 
 <br>
 
-## Colors System
-The color system in TailwindCSS is a powerful tool for developers, and we’ve taken it a step further in our component library! By leveraging TailwindCSS, we’ve introduced additional custom color classes tailored for consistent branding. These new classes work just like Tailwind's native color classes but are specifically designed for branding and come with full support for shades.
+## **4. Colors System**
+The color system in TailwindCSS is a powerful tool for developers, and we've taken it a step further in our component library! By leveraging TailwindCSS, we've introduced additional custom color classes tailored for consistent branding. These new classes work just like Tailwind's native color classes but are specifically designed for branding and come with full support for shades. Using the built-in color system you can generate both shaded and non-shaded color classes.
 
-In addition to this, we’ve incorporated CSS variables for background and text colors in our design system. These variables are static and do not support shades, making them ideal for maintaining uniformity in simple use cases.
-
-
-### Available Color Classes
-
+### **4.1 Available Color Classes**
 Our component library provides a set of custom classes to make integrating these colors into your designs seamless and flexible. Below is the full list of available classes:
 
-| CLASS                         | Shades            | DESCRIPTION  |
-| ------------------------------|-------------------|------------- |
-| .[T]-brand-primary-[S]        | 50, 100-900, 950  | Use this class to apply the primary brand color, e.g., `.bg-brand-primary-500` for background or `.text-brand-primary-500` for text.|
-| .text-on-brand-primary-[S]    | 50, 100-900, 950  | A foreground color designed to complement `.bg-brand-primary-500` as the background.                                                                                                                                                         |
-| .[T]-brand-secondary-[S]      | 50, 100-900, 950  | Apply the secondary brand color, e.g., `.bg-brand-secondary-500` for background or `.text-brand-secondary-500` for text.    |
-| .text-on-brand-secondary-[S]  | 50, 100-900, 950  | A foreground color specifically for use with `.bg-brand-secondary-500` as the background.                                                                                                                                            |
-| .[T]-error-[S]                | 50, 100-900, 950  | Represent errors in your components with these color classes.                                                                                                                                                          |
-| .[T]-info-[S]                 | 50, 100-900, 950  | Use this class for informational or neutral messages.                                                                                                                                                                                    |
-| .[T]-success-[S]              | 50, 100-900, 950  | Ideal for success messages or positive states in your components.                                                                                                                                                                                        |
-| .[T]-warning-[S]              | 50, 100-900, 950  | Perfect for warning or caution-related messages.                                                                                                                                                                                       |
-| .bg-primary                   | N/A               |  A static background color for primary elements, defined via CSS variables.                                                                                                                                                                                   |
-| .bg-secondary                 | N/A               |  A static background color for secondary elements, defined via CSS variables.                                                                                                                                                                                       |
-| .bg-alt                       | N/A               |  A static background color for alternative sections, defined via CSS variables.                                                                                                                                                                                     |
-| .text-default                 | N/A               |  The default text color in our library, defined via CSS variables.                                                                                                                                                         |
-| .text-alt                     | N/A               |  A static alternative text color, ideal for secondary content.                                                                                                                                                                                      |
-| .text-muted                   | N/A               |  A muted text color for less prominent content.                                                                                                                                                                                      |
-
-> **Legend**<br>
-**T** = **Type** (e.g., `bg`, `text`, `border`, `fill`, etc.)<br>
-**S** = **Shade** (e.g., 50, 100–900, 950)<br>
-**Example**: `bg-brand-primary-500`, `text-on-brand-primary-500`, `bg-error-400`
-
+| CLASS                         | Shades            | DESCRIPTION                                                                                                                           |
+| ------------------------------|-------------------|-------------------------------------------------------------------------------------------------------------------------------------- |
+| .[T]-brand-primary-[S]        | 50, 100-900, 950  | Use this class to apply the primary brand color, e.g., `.bg-brand-primary-500` for background or `.text-brand-primary-500` for text.  |
+| .text-on-brand-primary-[S]    | 50, 100-900, 950  | A foreground color designed to complement `.bg-brand-primary-500` as the background.                                                  |
+| .[T]-brand-secondary-[S]      | 50, 100-900, 950  | Apply the secondary brand color, e.g., `.bg-brand-secondary-500` for background or `.text-brand-secondary-500` for text.              |
+| .text-on-brand-secondary-[S]  | 50, 100-900, 950  | A foreground color specifically for use with `.bg-brand-secondary-500` as the background.                                             |
+| .[T]-error-[S]                | 50, 100-900, 950  | Represent errors in your components with these color classes.                                                                         |
+| .[T]-info-[S]                 | 50, 100-900, 950  | Use this class for informational or neutral messages.                                                                                 |
+| .[T]-success-[S]              | 50, 100-900, 950  | Ideal for success messages or positive states in your components.                                                                     |
+| .[T]-warning-[S]              | 50, 100-900, 950  | Perfect for warning or caution-related messages.                                                                                      |
+| .bg-primary                   | N/A               | A static background color for primary elements, defined via CSS variables.                                                            |
+| .bg-secondary                 | N/A               | A static background color for secondary elements, defined via CSS variables.                                                          |
+| .bg-alt                       | N/A               | A static background color for alternative sections, defined via CSS variables.                                                        |
+| .text-default                 | N/A               | The default text color in our library, defined via CSS variables.                                                                     |
+| .text-alt                     | N/A               | A static alternative text color, ideal for secondary content.                                                                         |
+| .text-muted                   | N/A               | A muted text color for less prominent content.                                                                                        |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 <br>
+
+> **Legend**<br>
+**[T]** = **Type** (e.g., `bg`, `text`, `border`, `fill`, etc.)<br>
+**[S]** = **Shade** (e.g., 50, 100-900, 950)<br>
+**Example**: `bg-brand-primary-500`, `text-on-brand-primary-500`, `bg-error-400`
+
+<br>
+
+### **4.2 Customize Existing Components Colors**
+
+### **4.3 Add New Color**
+
+### **4.4 Remove A Color**
+
+
 <br>
 <br>
 <br>
@@ -258,25 +319,6 @@ The "theui-svelte" component library offers the following CSS variables and thei
 ```
 
 > Brand colors are universally accessible, ready to be used in various parts of your design. However, it's important to note that text colors are distinct from background colors, and vice versa. This separation ensures that you have the appropriate colors for both text and background elements, allowing for effective and visually pleasing design combinations.
-
-<br>
-
-### **Use of Custom Colors**
-
-You have the flexibility to employ custom classes for integrating the custom colors into your design. The components library incorporates the following classes to make this process seamless:
-
-| CLASS                         | DESCRIPTION                                                                                                                                                                                                                                 |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| .[...]-brand                  | Apply the brand color to your component by using the ".bg-brand" class for the background and ".text-brand" for the foreground.                                                                                                             |
-| .[...]-brand-active           | Use these classes to indicate different states, such as active or hover, for an element. For example, apply the brand color with slight variations using ".bg-brand-active" for the background and ".text-brand-active" for the foreground. |
-| .[...]-brand-secondary        | If you wish to use a secondary brand color for your components, you can do so with the ".bg-brand-secondary" class for the background and ".text-brand-secondary" for the foreground. These classes offer additional design flexibility.    |
-| .[...]-brand-secondary-active | Similar to ".[...]-brand-active," but designed for the secondary brand color.                                                                                                                                                               |
-| .text-on-brand                | This class is for the foreground color when using the background color ".bg-brand."                                                                                                                                                         |
-| .text-on-brand-secondary      | This class serves as the foreground color when using the background color ".bg-brand-secondary."                                                                                                                                            |
-| .text-default                 | This class represents the default text/foreground color for the component library.                                                                                                                                                          |
-| .bg-primary                   | Use this class for the default/primary background color.                                                                                                                                                                                    |
-| .bg-secondary                 | Apply this class for the secondary background color.                                                                                                                                                                                        |
-| .bg-tertiary                  | Utilize this class for the tertiary background color.                                                                                                                                                                                       |
 
 <br>
 
