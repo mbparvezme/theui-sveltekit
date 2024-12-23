@@ -214,23 +214,23 @@ The color system in TailwindCSS is a powerful tool for developers, and we've tak
 ### **4.1 Available Color Classes**
 Our component library provides a set of custom classes to make integrating these colors into your designs seamless and flexible. Below is the full list of available classes:
 
-| CLASS                         | Shades            | DESCRIPTION                                                                                                                           |
-| ------------------------------|-------------------|-------------------------------------------------------------------------------------------------------------------------------------- |
-| .[T]-brand-primary-[S]        | 50, 100-900, 950  | Use this class to apply the primary brand color, e.g., `.bg-brand-primary-500` for background or `.text-brand-primary-500` for text.  |
-| .text-on-brand-primary-[S]    | 50, 100-900, 950  | A foreground color designed to complement `.bg-brand-primary-500` as the background.                                                  |
-| .[T]-brand-secondary-[S]      | 50, 100-900, 950  | Apply the secondary brand color, e.g., `.bg-brand-secondary-500` for background or `.text-brand-secondary-500` for text.              |
-| .text-on-brand-secondary-[S]  | 50, 100-900, 950  | A foreground color specifically for use with `.bg-brand-secondary-500` as the background.                                             |
-| .[T]-error-[S]                | 50, 100-900, 950  | Represent errors in your components with these color classes.                                                                         |
-| .[T]-info-[S]                 | 50, 100-900, 950  | Use this class for informational or neutral messages.                                                                                 |
-| .[T]-success-[S]              | 50, 100-900, 950  | Ideal for success messages or positive states in your components.                                                                     |
-| .[T]-warning-[S]              | 50, 100-900, 950  | Perfect for warning or caution-related messages.                                                                                      |
-| .bg-primary                   | N/A               | A static background color for primary elements, defined via CSS variables.                                                            |
-| .bg-secondary                 | N/A               | A static background color for secondary elements, defined via CSS variables.                                                          |
-| .bg-alt                       | N/A               | A static background color for alternative sections, defined via CSS variables.                                                        |
-| .text-default                 | N/A               | The default text color in our library, defined via CSS variables.                                                                     |
-| .text-alt                     | N/A               | A static alternative text color, ideal for secondary content.                                                                         |
-| .text-muted                   | N/A               | A muted text color for less prominent content.                                                                                        |
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| <div style="width:128px">CLASS</div>  | <div style="width:128px">Shades</div> | <div style="width:144px">Default value</div>  | DESCRIPTION                                                                                                                           |
+| --------------------------------------|---------------------------------------|-----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------- |
+| .[T]-brand-primary-[S]                | 50, 100-900, 950                      | #E93E3A                                       | Use this class to apply the primary brand color, e.g., `.bg-brand-primary-500` for background or `.text-brand-primary-500` for text.  |
+| .text-on-brand-primary-[S]            | 50, 100-900, 950                      | #FFFFFF                                       | A foreground color designed to complement `.bg-brand-primary-500` as the background.                                                  |
+| .[T]-brand-secondary-[S]              | 50, 100-900, 950                      | #E8E838                                       | Apply the secondary brand color, e.g., `.bg-brand-secondary-500` for background or `.text-brand-secondary-500` for text.              |
+| .text-on-brand-secondary-[S]          | 50, 100-900, 950                      | #2E2105                                       | A foreground color specifically for use with `.bg-brand-secondary-500` as the background.                                             |
+| .[T]-error-[S]                        | 50, 100-900, 950                      | #E53935                                       | Represent errors in your components with these color classes.                                                                         |
+| .[T]-info-[S]                         | 50, 100-900, 950                      | #29B6F6                                       | Use this class for informational or neutral messages.                                                                                 |
+| .[T]-success-[S]                      | 50, 100-900, 950                      | #00C853                                       | Ideal for success messages or positive states in your components.                                                                     |
+| .[T]-warning-[S]                      | 50, 100-900, 950                      | #FFC107                                       | Perfect for warning or caution-related messages.                                                                                      |
+| .bg-primary                           | N/A                                   | Light: 250 250 250<br>Dark: 10 10 20          | A static background color for primary elements, defined via CSS variables.                                                            |
+| .bg-secondary                         | N/A                                   | Light: 238 238 238<br>Dark: 30 30 40          | A static background color for secondary elements, defined via CSS variables.                                                          |
+| .bg-alt                               | N/A                                   | Light: 10 10 20<br>Dark: 250 250 250          | A static background color for alternative sections, defined via CSS variables.                                                        |
+| .text-default                         | N/A                                   | Light: 33 33 33<br>Dark: 245 245 245          | The default text color in our library, defined via CSS variables.                                                                     |
+| .text-alt                             | N/A                                   | Light: 189 189 189<br>Dark: 245 245 245       | A static alternative text color, ideal for secondary content.                                                                         |
+| .text-muted                           | N/A                                   | Light: 117 117 117<br>Dark: 175 175 175       | A muted text color for less prominent content.                                                                                        |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 <br>
 
@@ -241,12 +241,12 @@ Our component library provides a set of custom classes to make integrating these
 
 <br>
 
-### **4.2 Customize Existing Components Colors**
+### **4.2 Modify Existing Colors**
+There are two ways to modify custom colors of this library. The color "without shades", you can modify it directly in the `./src/app.css` or `./src/app.pcss`! The background colors (`bg-primary`, `bg-secondary`, `bg-alt`) and text colors (`text-default`, `text-alt`, `text-muted`) are without shades and you can modify it using the CSS variables!
 
 ### **4.3 Add New Color**
 
 ### **4.4 Remove A Color**
-
 
 <br>
 <br>
