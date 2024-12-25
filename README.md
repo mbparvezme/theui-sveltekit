@@ -1,10 +1,10 @@
 <h1 align="center">Svelte 5 Component Library by TheUI</h1>
 <div align="center">
 
-[![npm version](https://badgen.net/npm/v/theui-sveltekit?color=red)](https://www.npmjs.com/package/theui-sveltekit)
-[![npm downloads](https://badgen.net/npm/dw/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit)
-[![npm downloads](https://badgen.net/npm/dt/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit)
-[![license](https://badgen.net/npm/license/theui-sveltekit)](https://github.com/mbparvezme/theui-sveltekit/blob/master/license.md)
+  [![npm version](https://badgen.net/npm/v/theui-sveltekit?color=red)](https://www.npmjs.com/package/theui-sveltekit)
+  [![npm downloads](https://badgen.net/npm/dw/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit)
+  [![npm downloads](https://badgen.net/npm/dt/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit)
+  [![license](https://badgen.net/npm/license/theui-sveltekit)](https://github.com/mbparvezme/theui-sveltekit/blob/master/license.md)
 
 </div>
 
@@ -242,7 +242,38 @@ Our component library provides a set of custom classes to make integrating these
 <br>
 
 ### **4.2 Modify Existing Colors**
-There are two ways to modify custom colors of this library. The color "without shades", you can modify it directly in the `./src/app.css` or `./src/app.pcss`! The background colors (`bg-primary`, `bg-secondary`, `bg-alt`) and text colors (`text-default`, `text-alt`, `text-muted`) are without shades and you can modify it using the CSS variables!
+If you ant to modify a color with shades (i.e `brand-primary`, `brand-secondary` etc.), you can do it in `./tailwind.config.ts`. For example, to change the primary brand color to `#FF0000` and secondary brand color to `#FFFF00`, the code is given below:
+
+```js
+// tailwind.config.ts
+import twShades from 'tw-color-shades';
+
+export default {
+  theme: {
+    extend: {
+      colors: {
+        "brand-primary": twShades('#FF0000'),
+        "brand-secondary": twShades('#FFFF00'),
+      },
+    },
+  },
+};
+```
+
+You can modify the background colors, text colors or any other colors without-shades directly in the CSS file using CSS variable. For example, to change the primary background color in light mode to `#FFFAFA` and in dark mode to `#110000` and default text color in light mode to `#110000` and in dark mode to `#FFFAFA`, the code is given below:
+
+```css
+@layer base {
+  :root {
+    --ui-bg-primary: ;
+    --ui-text-default: ;
+  }
+  :root.dark {
+    --ui-bg-primary: ;
+    --ui-text-default: ;
+  }
+}
+```
 
 ### **4.3 Add New Color**
 
@@ -345,14 +376,6 @@ By adhering to this format, you ensure that you can seamlessly leverage Tailwind
 <br>
 
 
-
-## **Default CSS Variables**
-
-The component library is built on the powerful foundation of TailwindCSS, a tool capable of generating a wide array of CSS styles and a multitude of variables for your design. However, the real question is, do you truly need an extensive array of CSS variables for your design?
-
-Having the ability to define numerous variables is not the issue. The challenge lies in maintaining design consistency. When you have an overwhelming number of options, it becomes all too easy to lose that consistency, leading to a haphazard and disjointed design.
-
-To address this challenge, the "theui-svelte" component library introduces a set of carefully curated custom variables that seamlessly integrate with those offered by TailwindCSS. You can effortlessly customize your theme using just one line of code by altering the values of these custom variables.
 
 <br>
 
