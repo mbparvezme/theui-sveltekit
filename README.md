@@ -3,8 +3,8 @@
 
   [![npm version](https://badgen.net/npm/v/theui-sveltekit?color=red)](https://www.npmjs.com/package/theui-sveltekit)
   [![npm downloads](https://badgen.net/npm/dw/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit)
-  [![npm downloads](https://badgen.net/npm/dt/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit)
   [![license](https://badgen.net/npm/license/theui-sveltekit)](https://github.com/mbparvezme/theui-sveltekit/blob/master/license.md)
+  <!-- [![npm downloads](https://badgen.net/npm/dt/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit) -->
 
 </div>
 
@@ -214,7 +214,7 @@ The color system in TailwindCSS is a powerful tool for developers, and we've tak
 ### **4.1 Available Color Classes**
 Our component library provides a set of custom classes to make integrating these colors into your designs seamless and flexible. Below is the full list of available classes:
 
-| <div style="width:128px">CLASS</div>  | <div style="width:128px">Shades</div> | <div style="width:144px">Default value</div>  | DESCRIPTION                                                                                                                           |
+| <div style="width:200px">CLASS</div>  | <div style="width:128px">Shades</div> | <div style="width:144px">Default value</div>  | DESCRIPTION                                                                                                                           |
 | --------------------------------------|---------------------------------------|-----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------- |
 | .[T]-brand-primary-[S]                | 50, 100-900, 950                      | #E93E3A                                       | Use this class to apply the primary brand color, e.g., `.bg-brand-primary-500` for background or `.text-brand-primary-500` for text.  |
 | .text-on-brand-primary-[S]            | 50, 100-900, 950                      | #FFFFFF                                       | A foreground color designed to complement `.bg-brand-primary-500` as the background.                                                  |
@@ -242,140 +242,117 @@ Our component library provides a set of custom classes to make integrating these
 <br>
 
 ### **4.2 Modify Existing Colors**
-If you ant to modify a color with shades (i.e `brand-primary`, `brand-secondary` etc.), you can do it in `./tailwind.config.ts`. For example, to change the primary brand color to `#FF0000` and secondary brand color to `#FFFF00`, the code is given below:
+#### **Shaded Colors**
+If you want to modify a **color with shades** (i.e `brand-primary`, `brand-secondary` etc.), you can do it in `tailwind.config.ts`. For example, to change the primary brand color to `#001A6E` and secondary brand color to `#FFE893`, the code is given below:
 
 ```js
-// tailwind.config.ts
+// Modify colors in tailwind.config.ts
 import twShades from 'tw-color-shades';
 
 export default {
   theme: {
     extend: {
       colors: {
-        "brand-primary": twShades('#FF0000'),
-        "brand-secondary": twShades('#FFFF00'),
-      },
-    },
-  },
+        "brand-primary": twShades('#001A6E'),
+        "brand-secondary": twShades('#FFE893')
+      }
+    }
+  }
 };
 ```
 
-You can modify the background colors, text colors or any other colors without-shades directly in the CSS file using CSS variable. For example, to change the primary background color in light mode to `#FFFAFA` and in dark mode to `#110000` and default text color in light mode to `#110000` and in dark mode to `#FFFAFA`, the code is given below:
+#### **Non-shaded Colors**
+There are some colors like background colors, text colors etc. behave different in light and dark mode! These colors are **shadeless** and can not be handle in the way shows above! For these colors we have use CSS variables! You can modify directly in the CSS file. For example, to change the primary background color in light mode to `rgb(253 247 244)` and in dark mode to `rgb(104 87 82)` and default text color in light mode to `rgb(42 51 53)` and in dark mode to `rgb(253 247 244)`, the code is given below:
 
 ```css
+/* Modify colors in app.css or app.postcss */
 @layer base {
   :root {
-    --ui-bg-primary: ;
-    --ui-text-default: ;
+    --ui-bg-primary: 253 247 244;
+    --ui-text-default: 42 51 53;
   }
   :root.dark {
-    --ui-bg-primary: ;
-    --ui-text-default: ;
+    --ui-bg-primary: 104 87 82;
+    --ui-text-default: 253 247 244;
+  }
+}
+```
+> *Writing the color values in the format provided, such as "253 247 244," rather than the conventional RGB code like "rgb(253 247 244)" is essential because it aligns with TailwindCSS's methodology for applying opacity to colors.*
+
+<br>
+
+### **4.3 Add New Color**
+#### **Shaded Colors**
+If you want to add a new class for **color with shades**, you can do it in `tailwind.config.ts` file. For example, let's say, you want to add a new class in the color system named `brand-tertiary` with the base value `#009990`. Just follow the below steps:
+
+```js
+// Generate new colors in tailwind.config.ts
+import twShades from 'tw-color-shades';
+
+export default {
+  theme: {
+    extend: {
+      colors: {
+        "brand-tertiary": twShades('#009990')
+      }
+    }
+  }
+};
+```
+Now you can access this color with `bg-brand-tertiary-500` or other shades like `bg-brand-tertiary-100` or  `bg-brand-tertiary-800`.
+
+#### **Non-shaded Colors**
+If you want to add a new color that behaves differently in light and dark mode and you do not need "shades" for this colors, you can do this in your CSS file and then generate colors in `tailwind.config.ts`. To add a new color `bg-tertiary` in the color system, you can follow the below process:
+
+```css
+/* define colors in app.css or app.postcss */
+@layer base {
+  :root {
+    --my-bg-tertiary: 233 237 234;
+  }
+  :root.dark {
+    --my-bg-tertiary: 114 97 92;
   }
 }
 ```
 
-### **4.3 Add New Color**
+```js
+// Generate the colors in tailwind.config.ts
+import twShades from 'tw-color-shades';
+
+export default {
+  theme: {
+    extend: {
+      backgroundColor: {
+        tertiary: twShades("--my-bg-tertiary")
+      }
+    }
+  }
+};
+```
+
+<br>
 
 ### **4.4 Remove A Color**
+To remove a color follow the Tailwind CSS way, just set the color to `undefined` in the `tailwind.config.ts`.
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-### CSS Variable Colors
-
-### Introduction
-CSS Variable Colors in the library allow you to modify the static background and text colors easily using CSS variables. These colors do not have shades and are ideal for defining primary design elements that remain consistent throughout your application. Below are the available variables for background and text customization:
-
-**Background color variables:**
-- `--ui-bg-primary`
-- `--ui-bg-secondary`
-- `--ui-bg-alt`
-
-**Text color variables:**
-- `--ui-text-default`
-- `--ui-text-alt`
-- `--ui-text-muted`
-
-### Code Demo
-
-[Space for code demo]
-
-### Available Classes
-These colors are directly applied via the CSS variables mentioned above. No additional classes are required.
-
----
-
-## TailwindCSS Color Classes
-
-### Introduction
-The library integrates seamlessly with the TailwindCSS color system, providing 8 custom color classes that you can fully customize through the `tailwind.config.js` file. These classes come with 11 shades, ranging from 50 to 950, and can be used for background, text, borders, outlines, fills, strokes, and more.
-
-**Custom classes:**
-- `brand-primary`
-- `brand-secondary`
-- `error`
-- `info`
-- `success`
-- `warning`
-
-### Code Demo
-
-[Space for code demo]
-
-### Available Classes
-Each custom class offers the following shades:
-- **Shades:** 50, 100-900, 950
-- **Usage:** These shades can be used with any Tailwind utility, like `bg-brand-primary-500`, `text-error-700`, or `border-info-300`.
-
-
-## **Colors System**
-
-The "theui-svelte" component library offers the following CSS variables and their default values. Each CSS variable is prefixed with "ui" to prevent conflicts with other variables.
-
-```css
-/* Background colors */
---ui-bg-primary
---ui-bg-secondary
---ui-bg-alt
-/* Text colors */
---ui-text-default
---ui-text-alt
---ui-text-muted
+```js
+// Remove colors in tailwind.config.ts
+export default {
+  theme: {
+    extend: {
+      colors: {
+        "brand-secondary": undefined
+      },
+      backgroundColor: {
+        secondary: undefined
+      }
+    }
+  }
+};
 ```
 
-> Brand colors are universally accessible, ready to be used in various parts of your design. However, it's important to note that text colors are distinct from background colors, and vice versa. This separation ensures that you have the appropriate colors for both text and background elements, allowing for effective and visually pleasing design combinations.
-
-<br>
-
-### **Color Customization**
-
-The process of customizing colors in the components library is straightforward and requires just a single line of code. To change the value of a specific CSS variable, follow these steps:
-
-- Identify the CSS variable you wish to customize. For instance, let's say you want to set your brand color to "rgb(255, 0, 0)" and change the default text color to "rgb(0, 0, 0)."
-- Open the `./src/app.css` or `./src/app.postcss` file in your project, which contains your TailwindCSS styles and add the following lines to the file:
-
-```css
---ui-brand: 255 0 0;
---ui-text-default: 0 0 0;
-```
-
-Congratulations! With this simple change, all the components using the brand color and the default text color will automatically adapt to the new color values. No further adjustments are necessary.
-
-> Writing the color values in the format provided, such as "255 0 0," rather than the conventional RGB code like "rgb(255, 255, 266," is essential because it aligns with TailwindCSS's methodology for applying opacity to colors.
-
-TailwindCSS allows you to easily adjust the opacity of colors using utility classes like "bg-opacity-50" to set a 50% opacity background. These utility classes are designed to work with color values expressed in the format you mentioned, "255 0 0," and not with conventional RGB codes like "rgb(255, 255, 266)."
-
-By adhering to this format, you ensure that you can seamlessly leverage TailwindCSS's opacity utilities to control the transparency of your colors, providing a consistent and flexible approach to design customization.
-
-<br>
-
-
+This will remove all the `brand-secondary` color classes and `bg-secondary` class from the application build!
 
 <br>
 

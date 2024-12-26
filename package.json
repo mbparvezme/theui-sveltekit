@@ -58,7 +58,7 @@
 		"@tailwindcss/typography": "^0.5.15",
 		"svelte-package": "^0.1.0",
 		"tailwind-merge": "^2.5.4",
-		"tw-color-shades": "^1.0.2"
+		"tw-color-shades": "^1.1.0"
 	},
 	"peerDependencies": {
 		"svelte": "^5.0.0"
