@@ -34,100 +34,114 @@ The **theui-svelte** is [**TheUI**](https://www.theui.dev)'s component library f
 Last but not least, here is the list of components available in the component library!
 
 
-<table style="width:100%;max-width:500px">
-  <tr>
-    <th colspan="2">Components</th>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/accordion">Accordion</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/alert">Alert</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/badge">Badge</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/breadcrumb">Breadcrumb</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/button">Button</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/button-group">Button group</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/quick-action-button">Quick action button</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/card">Card</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/chips">Chips</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/collapse">Collapse</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/drawer">Drawer</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/dropdown">Dropdown</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/list-group">List group</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/modal">Modal</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/navbar">Navbar</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/notification">Notification</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/pagination">Pagination</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/popover">Popover</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/popup">Popup (Exit and Entry popup)</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/progress-bar">Progress bar</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/slider">Slider</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/table">Table</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/tabs">Tabs</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/tooltip">Tooltip</a></td>
-  </tr>
+<table style="width: 100%;">
+  <thead style="width: 100%;">
+    <tr>
+      <th colspan="2">Components</th>
+    </tr>
+  </thead>
+  <tbody style="width: 100%;">
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/accordion">Accordion</a></td>
+      <td><a href="https://www.svelte.theui.dev/alert">Alert</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/badge">Badge</a></td>
+      <td><a href="https://www.svelte.theui.dev/breadcrumb">Breadcrumb</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/button">Button</a></td>
+      <td><a href="https://www.svelte.theui.dev/button-group">Button group</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/quick-action-button">Quick action button</a></td>
+      <td><a href="https://www.svelte.theui.dev/card">Card</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/chips">Chips</a></td>
+      <td><a href="https://www.svelte.theui.dev/collapse">Collapse</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/drawer">Drawer</a></td>
+      <td><a href="https://www.svelte.theui.dev/dropdown">Dropdown</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/list-group">List group</a></td>
+      <td><a href="https://www.svelte.theui.dev/modal">Modal</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/navbar">Navbar</a></td>
+      <td><a href="https://www.svelte.theui.dev/notification">Notification</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/pagination">Pagination</a></td>
+      <td><a href="https://www.svelte.theui.dev/popover">Popover</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/popup">Popup (Exit and Entry popup)</a></td>
+      <td><a href="https://www.svelte.theui.dev/progress-bar">Progress bar</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/slider">Slider</a></td>
+      <td><a href="https://www.svelte.theui.dev/table">Table</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/tabs">Tabs</a></td>
+      <td><a href="https://www.svelte.theui.dev/tooltip">Tooltip</a></td>
+    </tr>
+  </tbody>
 </table>
 
+<br>
 
-<table style="width:100%;max-width:500px">
-  <tr>
-    <th colspan="2">Form controls</th>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/form">Form</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/check-box">Check-box</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/fieldset">Fieldset</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/radio-button">Radio button</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/label">Label</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/file-input">File input</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/input">Text input</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/toggle">Toggle</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/select">Select</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/helper-text">Helper text</a></td>
-  </tr>
+<table style="width: 100%;">
+  <thead style="width: 100%;">
+    <tr>
+      <th colspan="2">Form controls</th>
+    </tr>
+  </thead>
+  <tbody style="width: 100%;">
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/form">Form</a></td>
+      <td><a href="https://www.svelte.theui.dev/check-box">Check-box</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/fieldset">Fieldset</a></td>
+      <td><a href="https://www.svelte.theui.dev/radio-button">Radio button</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/label">Label</a></td>
+      <td><a href="https://www.svelte.theui.dev/file-input">File input</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/input">Text input</a></td>
+      <td><a href="https://www.svelte.theui.dev/toggle">Toggle</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/select">Select</a></td>
+      <td><a href="https://www.svelte.theui.dev/helper-text">Helper text</a></td>
+    </tr>
+  </tbody>
 </table>
 
+<br>
 
-<table style="width:100%;max-width:500px">
-  <tr>
-    <th colspan="2">Utilities</th>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/container">Container</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/dark-mode">Dark mode</a></td>
-  </tr>
-  <tr>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/close">Close</a></td>
-    <td style="width:50%"><a href="https://www.svelte.theui.dev/svg-icon">SVG</a></td>
-  </tr>
+<table style="width: 100%;">
+  <thead style="width: 100%;">
+    <tr>
+      <th colspan="2">Utilities</th>
+    </tr>
+  </thead>
+  <tbody style="width: 100%;">
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/container">Container</a></td>
+      <td><a href="https://www.svelte.theui.dev/dark-mode">Dark mode</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.svelte.theui.dev/close">Close</a></td>
+      <td><a href="https://www.svelte.theui.dev/svg-icon">SVG</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <br>
