@@ -1,39 +1,80 @@
-<script context="module">
-	export const DROPDOWN = {}
-</script>
-
 <script lang="ts">
-	import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
-	import { getAnimate, getRounded, generateToken } from "$lib/functions"
-	import { twMerge } from "tailwind-merge"
-	import { Button } from "$lib"
-	import { setContext } from "svelte"
+  import { setContext, type Snippet } from "svelte"
+  import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
+  import { animationClass, roundedClass, generateToken, backdropClasses } from "$lib/function"
+  import { twMerge } from "tailwind-merge"
+  import { Button } from "$lib"
 
-	export let animate : ANIMATE_SPEED = "fast"
-	export let id: string = generateToken()
-	export let label: string = ""
-	export let animation : 'slide-left' | 'slide-up' | 'slide-right' | 'slide-down' | 'fade' | 'zoom-in' | 'zoom-out' = "slide-up"
-	export let align : 'start' | 'end' = "end"
-	export let backdrop : string|boolean = false
-	export let containerClass : string|undefined = undefined
-	export let closeOnOutsideClick : boolean = true
-	export let rounded : ROUNDED = "md"
-	export let size : 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom' = "auto"
+  type DROPDOWN_ANIMATION_TYPE = 'slide-left' | 'slide-up' | 'slide-right' | 'slide-down' | 'fade' | 'zoom-in' | 'zoom-out'
 
-	export let linkClass: string | undefined = "flex w-full items-center gap-4 py-3 px-4 bg-transparent hover:bg-gray-500/10 text-default"
-	export let activeClass: string | undefined = "flex items-center gap-4 py-3 px-4 bg-gray-500/10"
-	export let dividerClass: string | undefined = "border-b pb-2 mb-2 border-tertiary"
-	export let headerClass: string | undefined = "flex items-center gap-4 p-4 font-semibold text-xs opacity-75 uppercase"
+  interface Props {
+    children?: Snippet,
+    activeLinkClasses?: string,
+    linkClasses?: string,
+    dividerClasses?: string,
+    headerClasses?: string,
+    align?: 'start' | 'end'
+    animate?: ANIMATE_SPEED,
+    animation?: DROPDOWN_ANIMATION_TYPE,
+    backdrop?: boolean | string,
+    closeOnBlur?: boolean,
+    containerClasses?: string,
+    dropdownClasses?: string,
+    id?: string,
+    dropdownEvent?: 'hover' | 'click',
+    label : string|Snippet,
+    rounded?: ROUNDED
+    size?: 'sm' | 'md' | 'lg' | 'full' | 'auto' | 'custom',
+		[key: string]: unknown
+  }
 
-	let isOpen: boolean
-	$: isOpen = false
+  let{
+    children,
+    activeLinkClasses = "",
+    linkClasses = "",
+    dividerClasses = "",
+    headerClasses = "",
+    align = "end",
+    animate = "fast",
+    animation = "slide-up",
+    backdrop = false,
+    closeOnBlur = true,
+    containerClasses = "",
+    dropdownClasses = "",
+    id = generateToken(),
+    dropdownEvent = 'click',
+    label,
+    rounded = "md",
+    size = "auto",
+		...props
+  } : Props = $props()
 
-	$: toggle = () => {
-		let currentDD = document.getElementById(id)
-		isOpen = !currentDD?.classList.contains('open')
-	}
+  const sizeClasses = {
+    sm: "dropdown-sm",
+    md: "dropdown-md",
+    lg: "dropdown-lg",
+    full: "dropdown-full",
+    auto: "dropdown-auto",
+    custom: "dropdown-custom"
+  }
 
-	$: handleKeyboard = (e: KeyboardEvent) => {
+	let isOpen: boolean = $state(false)
+
+	let toggle = $derived(() => {
+    if(dropdownEvent !== "hover"){
+			let currentDD = document.getElementById(id)
+			isOpen = !currentDD?.classList.contains('open')
+		}
+	})
+
+	let handleMouse = $derived((e: MouseEvent) => {
+    if(dropdownEvent === "hover"){
+			e.preventDefault()
+			isOpen = !isOpen
+		}
+	})
+
+	let handleKeyboard = $derived((e: KeyboardEvent) => {
 		e.preventDefault()
 		if (e.code === "Escape" || e.code === "ArrowUp") {
 			isOpen = false
@@ -41,64 +82,53 @@
 		if (e.code === "ArrowDown") {
 			isOpen = true
 		}
+	})
 
-	}
-
-	$: handleBlur = (e: MouseEvent) => {
+	let handleBlur = $derived((e: MouseEvent) => {
 		let currentDD = document.getElementById(id)
-		if (closeOnOutsideClick && currentDD?.classList.contains('open') && e.target instanceof Element && !e.target.closest("#"+id)) {
+		if (closeOnBlur && currentDD?.classList.contains('open') && e.target instanceof Element && !e.target.closest("#"+id)) {
 			isOpen = false
 		}
-	}
+	})
 
-	$: attr = {
-		"id" : `${id}Heading`,
-		"aria-label" : label,
-		"aria-haspopup" : "true",
-		"aria-controls" : `${id}Body`,
-		"aria-expanded" : isOpen
-	}
+	const getContainerClasses = () => twMerge(`theui-dropdown relative inline-block ${align === "end" ? "dropdown-end" : ""} ${sizeClasses[size] || "dropdown-custom"} ${animationClass(animate)}`, containerClasses)
 
-	let getContainerClasses = () => "theui-dropdown relative inline-block " +
-		(align=="end" ? " dropdown-end " : " ") +
-		(size === "sm" ? "dropdown-sm" : size === "md" ? "dropdown-md" : size === "lg" ? "dropdown-lg" : size === "full" ? "dropdown-full" : size === "auto" ? "dropdown-auto" : "dropdown-custom") +
-		getAnimate(animate)
-
-	let getDropdownClasses = () => animation + " dropdown-content absolute list-none z-[11] bg-white dark:bg-secondary text-base shadow-lg py-1 text-nowrap " + getAnimate(animate) + getRounded(rounded)
-
-	let config: {
-		linkClass: string | undefined,
-		activeClass: string | undefined,
-		dividerClass: string | undefined,
-		headerClass: string | undefined
-  } = {
-    linkClass,
-    activeClass,
-    dividerClass,
-    headerClass
+  const getDropdownClasses = () => {
+    return twMerge(`${animation} dropdown-content absolute list-none z-[11] bg-white dark:bg-secondary text-base shadow-lg py-1 text-nowrap ${animationClass(animate)}${roundedClass(rounded)}`, dropdownClasses)
   }
 
-	setContext(DROPDOWN, {config})
+	let config: {
+		activeClasses: string,
+		linkClasses: string,
+		dividerClass: string,
+		headerClass: string
+  } = {
+    linkClasses: twMerge("flex w-full items-center gap-4 py-3 px-4 bg-transparent hover:bg-gray-500/10 text-default", linkClasses),
+    activeClasses: twMerge("flex items-center gap-4 py-3 px-4 bg-gray-500/10", activeLinkClasses),
+    dividerClass: twMerge("border-b pb-2 mb-2 border-tertiary", dividerClasses),
+    headerClass: twMerge("flex items-center gap-4 p-4 font-bold text-sm opacity-50 uppercase", headerClasses)
+  }
+	setContext('DROPDOWN_CTX', config)
 </script>
 
-<svelte:window on:click={(e)=>handleBlur(e)}/>
+<svelte:window onclick={(e: MouseEvent)=>handleBlur(e)} />
 
-<div {...$$restProps} class={twMerge(getContainerClasses(), containerClass)} class:open={isOpen} {id}>
-	<!-- svelte-ignore a11y-interactive-supports-focus -->
-	<span class="relative dropdown-btn select-none" role="button" id={id + "Btn"} on:click={()=>toggle()} on:keydown={(e)=>handleKeyboard(e)} aria-expanded={isOpen}>
-		{#if $$slots.label}
-			<slot name="label" {attr} {label}></slot>
-		{:else}
-			<Button {label} ariaLabel={label + " dropdown"} />
-		{/if}
-	</span>
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	{#if backdrop}<div class={twMerge("fixed inset-0 backdrop z-10 bg-black/50", (typeof backdrop == "string" ? backdrop : "" ))} on:click={()=>toggle()}></div>{/if}
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<ul class={twMerge(getDropdownClasses(), $$props?.class)} aria-labelledby={id + "Btn"}>
-		<slot />
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div {id} {...props} class={getContainerClasses()} class:open={isOpen} onmouseenter={(e: MouseEvent)=>handleMouse(e)} onmouseleave={(e: MouseEvent)=>handleMouse(e)} onclick={()=>toggle()} onkeydown={(e: KeyboardEvent)=>handleKeyboard(e)}>
+  {#if typeof label == "string"}
+    <Button id={`${id}-trigger`} {label} ariaLabel={label + " dropdown"} aria-controls={`${id}-dropdown`} aria-expanded={isOpen} aria-haspopup="menu" />
+  {:else}
+    <span id={`${id}-trigger`} class="relative dropdown-btn select-none" role="button" aria-controls={`${id}-dropdown`} aria-expanded={isOpen} aria-haspopup="menu">
+      {@render label?.()}
+    </span>
+  {/if}
+
+  {#if backdrop}
+    <div class={backdropClasses(backdrop)} onclick={()=>toggle()} aria-hidden="true"></div>
+  {/if}
+
+  <ul id={`${id}-dropdown`} class={getDropdownClasses()} role="menu" aria-labelledby={`${id}-trigger`}>
+		{@render children?.()}
 	</ul>
 </div>
 

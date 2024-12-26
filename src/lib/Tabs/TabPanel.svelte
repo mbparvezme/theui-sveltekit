@@ -1,20 +1,24 @@
 <script lang="ts">
-  import type { TABS_CONTEXT } from "$lib/types"
-	import { getContext } from "svelte"
+	import { getContext, type Snippet } from "svelte"
 	import { twMerge } from "tailwind-merge"
-	import { TABS } from "$lib"
 	import { fade } from "svelte/transition"
+	import { ST_TABS } from "$lib/state.svelte"
+	import { generateToken } from "$lib/function"
 
-	const panel: any = {}
-	const { registerPanel, selectedPanel, config } = getContext<TABS_CONTEXT>(TABS)
-	registerPanel(panel)
+  let {children, ...props} : {children : Snippet, [key: string] : unknown} = $props()
+	const CTX = getContext("TAB") as any
+  const id: string = generateToken()
+  ST_TABS.panels.push(id)
 </script>
 
-{#if $selectedPanel === panel}
-	{#if config.animate}
-		<div class="theui-tab-panel {twMerge("", config.tabPanelClasses, $$props.class)}" in:fade={{duration:150}}><slot></slot></div>
+{#if ST_TABS.selectedPanel === id}
+	{#if CTX.animate}
+		<div {...props} class="theui-tab-panel {twMerge(CTX.tabPanelClasses, props?.class as string)}" in:fade={{duration:150}}>
+      {@render children?.()}
+    </div>
 	{:else}
-		<div class="theui-tab-panel {twMerge("", config.tabPanelClasses, $$props.class)}"><slot></slot></div>
+		<div {...props} class="theui-tab-panel {twMerge(CTX.tabPanelClasses, props?.class as string)}">
+      {@render children?.()}
+    </div>
 	{/if}
 {/if}
-

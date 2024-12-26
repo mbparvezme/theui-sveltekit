@@ -1,55 +1,55 @@
 <script lang="ts">
   import type { INPUT_CONFIG } from "$lib/types"
-  import { getContext } from "svelte"
-  import { generateToken, getInputBoxClasses, getInputClasses } from "$lib/functions"
-  import { FORM_CTX, Label, HelperText } from "$lib"
+	import { generateToken } from "$lib/function"
+	import { inputContainerClass, inputClasses } from "./form"
+  import { getContext, setContext, type Snippet } from "svelte"
+  import { HelperText } from "$lib"
+  
+  interface Props {
+    files ?: any,
+    helperText ?: Snippet|string|undefined,
+    id ?: string,
+    label?: Snippet|string|undefined,
+    name : string,
+    // value ?: any,
+    [key: string] : unknown
+  }
 
-  // Slot: disabled, readonly, custom, reverse, override, reset
+  const CTX: any = getContext('FORM') ?? {}
 
-  // Input attributes
-  export let helperText : string | undefined = undefined
-  export let id : string = generateToken()
-  export let label : string | undefined = undefined
-  export let name : string
-  export let value : any = ""
-  export let files : any = ""
+  let {
+    files = null,
+    helperText = undefined,
+    id = generateToken(),
+    label = undefined,
+    name,
+    // value = null,
 
-  export let animate: INPUT_CONFIG["animate"] = "normal"
-  export let labelClasses: INPUT_CONFIG["labelClasses"] = ""
-  export let rounded: INPUT_CONFIG["rounded"] = "md"
-  export let size: INPUT_CONFIG["size"] = "md"
-  export let variant: INPUT_CONFIG["variant"] = "bordered"
+    // labelClasses = CTX?.labelClasses ?? "",
+    animate = CTX?.animate ?? "normal",
+    reset = CTX?.reset ?? false,
+    rounded = CTX?.rounded ?? "md",
+    size = CTX?.size ?? "md",
+    variant = CTX?.variant ?? "bordered",
+    ...props
+  } : Props & INPUT_CONFIG = $props()
 
-  const ctx: any = getContext(FORM_CTX || {})
-  let C:INPUT_CONFIG = {animate, labelClasses, rounded, size, variant, grow: !!$$restProps?.grow, reset: !!$$restProps?.reset}
-  if(!$$restProps?.override) Object.assign(C, ctx?.formConfig)
+  let C:INPUT_CONFIG & {id: string} = {animate, rounded, size, variant, reset, id}
+
+  setContext('FORM', C)
 </script>
 
-<div class={getInputBoxClasses(C)}>
-  {#if label}
-    <Label {id} {label}/>
+<div class={inputContainerClass(C, props )}>
+  <div class="relative flex focus-within">
+    <input {...props} class={inputClasses(C, props, "file")} {id} {name} type="file" bind:files/>
+  </div>
+
+  {#if helperText}
+    {#if typeof helperText == "string"}
+      <HelperText text={helperText} />
+    {/if}
+    {#if typeof helperText == "function"}
+      {@render helperText?.()}
+    {/if}
   {/if}
-  <input
-    {...$$restProps}
-    class={getInputClasses(C, $$restProps, "file", $$props?.class)}
-    {id}
-    {name}
-    type="file"
-    bind:value
-    bind:files
-    on:blur
-    on:change
-    on:click
-    on:focus
-    on:keydown
-    on:keypress
-    on:keyup
-    on:mouseenter
-    on:mouseleave
-    on:mouseover
-    on:paste
-  />
 </div>
-{#if helperText}
-  <HelperText>{@html helperText}</HelperText>
-{/if}

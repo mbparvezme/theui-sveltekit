@@ -1,97 +1,151 @@
-<h1 align="center"> TheUI Sveltekit Components</h1>
+<h1 align="center">Svelte 5 Component Library by TheUI</h1>
 <div align="center">
 
-[![npm version](https://badgen.net/npm/v/theui-sveltekit?color=red)](https://www.npmjs.com/package/theui-sveltekit)
-[![npm downloads](https://badgen.net/npm/dw/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit)
-[![npm downloads](https://badgen.net/npm/dt/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit)
-[![license](https://badgen.net/npm/license/theui-sveltekit)](https://github.com/mbparvezme/theui-sveltekit/blob/master/license.md)
-
+  [![npm version](https://badgen.net/npm/v/theui-sveltekit?color=red)](https://www.npmjs.com/package/theui-sveltekit)
+  [![npm downloads](https://badgen.net/npm/dw/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit)
+  [![license](https://badgen.net/npm/license/theui-sveltekit)](https://github.com/mbparvezme/theui-sveltekit/blob/master/license.md)
+  <!-- [![npm downloads](https://badgen.net/npm/dt/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit) -->
 </div>
 
-<h2 align="center">A tool for the <b>Sveltekit eco-system</b></h2>
+<h2 align="center">A tool for the <b>Svelte eco-system</b></h2>
 
 <div align="center">
-  <img src="https://theui-beta.vercel.app/img/theui-sveltekit-components.svg" width="400px">
+  <img src="https://theui-sveltekit-doc.vercel.app/img/theui-sveltekit-components.svg" width="400px">
 </div>
 
-The **theui-sveltekit** is [**TheUI**](https://www.theui.dev)'s official component library for [**Sveltekit**](https://kit.svelte.dev), built on top of TailwindCSS. It combines the strength of SvelteKit and the features of TailwindCSS to create a powerful tool that accelerates your development process.
+The **theui-svelte** is [**TheUI**](https://www.theui.dev)'s component library for [**Svelte 5**](https://svelte.dev), built on top of TailwindCSS. It combines the strength of Svelte and the features of TailwindCSS to create a powerful tool that accelerates your development process.
 
 <br>
 
-## **Features**
-
-- Accessible components
-- Easy control of dark and light modes
-- Effortless theming and branding with a single line of CSS
+## **1. Features**
+- Built with ARIA roles and WCAG compliance for better usability.
 - Highly customizable
-- RTL supports (Upcoming)
+- Support LTR/RTL.
+- Easy theming, branding, and dark/light mode control.
+- Optimized for leveraging svelte's reactivity
+- Includes smooth transitions and animations for better user experience.
 - Fully typed for enhanced development
+- Offers examples, and usage guides tailored for Svelte.
 
 <br>
 
-## **Components**
+## **2. Components**
 
-- General Components
+Last but not least, here is the list of components available in the component library!
 
-  - [Accordion](https://www.svelte.theui.dev/accordion)
-  - [Alert](https://www.svelte.theui.dev/alert)
-  - [Badge](https://www.svelte.theui.dev/badge)
-  - [Breadcrumb](https://www.svelte.theui.dev/breadcrumb)
-  - [Button](https://www.svelte.theui.dev/button)
-  - [Button group](https://www.svelte.theui.dev/button-group)
-  - [Chips](https://www.svelte.theui.dev/chips)
-  - [Collapse](https://www.svelte.theui.dev/collapse)
-  - [Container](https://www.svelte.theui.dev/container)
-  - [Dropdown](https://www.svelte.theui.dev/dropdown)
-  - [Modal](https://www.svelte.theui.dev/modal)
-  - [Navbar](https://www.svelte.theui.dev/navbar)
-  - [Notification](https://www.svelte.theui.dev/notification)
-  - [Offcanvas](https://www.svelte.theui.dev/offcanvas)
-  - [Pagination](https://www.svelte.theui.dev/pagination)
-  - [Popup (Exit and Entry popup)](https://www.svelte.theui.dev/popup)
-  - [Progress bar](https://www.svelte.theui.dev/progress-bar)
-  - [SVG](https://www.svelte.theui.dev/svg)
-  - [Table](https://www.svelte.theui.dev/table)
-  - [Tabs](https://www.svelte.theui.dev/tabs)
-  - [Tooltip](https://www.svelte.theui.dev/tooltip)
 
-- Form Components
+<table style="width:100%;max-width:500px">
+  <tr>
+    <th colspan="2">Components</th>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/accordion">Accordion</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/alert">Alert</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/badge">Badge</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/breadcrumb">Breadcrumb</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/button">Button</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/button-group">Button group</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/quick-action-button">Quick action button</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/card">Card</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/chips">Chips</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/collapse">Collapse</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/drawer">Drawer</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/dropdown">Dropdown</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/list-group">List group</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/modal">Modal</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/navbar">Navbar</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/notification">Notification</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/pagination">Pagination</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/popover">Popover</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/popup">Popup (Exit and Entry popup)</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/progress-bar">Progress bar</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/slider">Slider</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/table">Table</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/tabs">Tabs</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/tooltip">Tooltip</a></td>
+  </tr>
+</table>
 
-  - [Form](https://www.svelte.theui.dev/form)
-  - [Fieldset](https://www.svelte.theui.dev/fieldset)
-  - [Helper text](https://www.svelte.theui.dev/helper-text)
-  - [Check-box](https://www.svelte.theui.dev/check-box)
-  - [Text editor](https://www.svelte.theui.dev/text-editor)
-  - [File input](https://www.svelte.theui.dev/file-input)
-  - [Input](https://www.svelte.theui.dev/input)
-  - [Label](https://www.svelte.theui.dev/label)
-  - [Radio button](https://www.svelte.theui.dev/radio-button)
-  - [Select](https://www.svelte.theui.dev/select)
-  - [Textarea](https://www.svelte.theui.dev/textarea)
-  - [Toggle](https://www.svelte.theui.dev/toggle)
 
-- Utility
-  - [Close](https://www.svelte.theui.dev/close)
-  - [Dark mode](https://www.svelte.theui.dev/dark-mode)
+<table style="width:100%;max-width:500px">
+  <tr>
+    <th colspan="2">Form controls</th>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/form">Form</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/check-box">Check-box</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/fieldset">Fieldset</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/radio-button">Radio button</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/label">Label</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/file-input">File input</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/input">Text input</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/toggle">Toggle</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/select">Select</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/helper-text">Helper text</a></td>
+  </tr>
+</table>
+
+
+<table style="width:100%;max-width:500px">
+  <tr>
+    <th colspan="2">Utilities</th>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/container">Container</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/dark-mode">Dark mode</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/close">Close</a></td>
+    <td style="width:50%"><a href="https://www.svelte.theui.dev/svg-icon">SVG</a></td>
+  </tr>
+</table>
 
 <br>
 
-## **Installation Guide**
-
-To add the Sveltekit Components library to your project, you can do it in two ways:
-
+## **3. Installation Guide**
+To add the Svelte Components library to your project, you can do it in two ways:
 1. Use the boilerplate from GitHub.
 2. Manual installation from scratch.
 
 <br>
 
-### **1. Use the Boilerplate from GitHub**
+### **3.1 Install using boilerplate from GitHub**
 
-To install the boilerplate template, open your terminal and use the following command, replacing **<project-name>** with your desired project name.
+To install the boilerplate template, open your terminal and use the following command, replacing **my-app** with your desired project name.
 
 ```bash
 # Clone the project
-git clone https://github.com/mbparvezme/theui-sveltekit-starter.git app-name
+git clone https://github.com/mbparvezme/theui-svelte-starter.git my-app
 
 # Install node modules
 npm i
@@ -102,184 +156,221 @@ npm run dev
 
 <br>
 
-### **2. Manually Install from Scratch**
+### **3.2. Manually Install from Scratch**
 
-To manually install the component library, follow these steps:
+Easily add theui-svelte to your project via a GitHub boilerplate or manual installation. For manual setup:
 
-#### **2.1 &nbsp;&nbsp; Install Svelte/Sveltekit**
+- Install SvelteKit and TailwindCSS.
+- Configure Tailwind by updating `tailwind.config.cjs` and importing `theui-svelte/style` in `+layout.svelte`.
+
+### **a. Install Sveltekit with TailwindCSS**
 
 ```bash
-# Install Sveltekit
-npm create svelte@latest my-app
+# Install Svelte
+npx sv create my-app
 cd my-app
-
-# Add TailwindCSS
-npx svelte-add@latest tailwindcss
 
 # Install node modules
 npm i
 
 # Install theui-svelte
-npm i theui-sveltekit
+npm i theui-svelte
 ```
 
 <br>
 
-#### **2.2 &nbsp;&nbsp; Configuration**
+#### **b. Configuration**
 
 Open the TailwindCSS configuration file called `tailwind.config.cjs` and replace all of its existing content with the code provided below.
 
-```js
-// 1. Update config.content
-// 2. Add config.presets
+```diff
 const config = {
-  content: [
-    "./src/**/*.{html,js,svelte,ts}",
-    "./node_modules/theui-sveltekit/**/*.{html,js,svelte,ts}", // New line
-  ],
-  presets: [require("theui-sveltekit/preset")], // New line
-  darkMode: "class",
-  theme: {
-    extend: {},
-  },
-
-  plugins: [],
+    content: [
+        "./src/**/*.{html,js,svelte,ts}",
++       "./node_modules/theui-svelte/**/*.{html,js,svelte,ts}"
+    ],
++   presets: [require("theui-svelte/preset")],
+    darkMode: "class",
+    theme: {
+        extend: {}
+    },
+    plugins: []
 };
 
 module.exports = config;
 ```
 
-If you wish to use the default colors or desire an instant design without any color customization, you can utilize the `style.postcss` file, which contains all the default CSS variables used in this component library. To do this, open `__layout.svelte` and import the core style file as follows:
+If you wish to use the default colors or desire an instant design without any color customization, you can utilize the `style.postcss` file, which contains all the default CSS variables used in this component library. To do this, open `+layout.svelte` and import the core style file as follows:
 
-```html
+```diff
 <script>
-  import "theui-sveltekit/style"; // Add this line inside script tag
-  import "../app.postcss";
++   import "theui-svelte/style";
+    import "../app.postcss";
 </script>
 ```
 
-The file contains the following CSS codes. If you prefer not to use the default colors, you can copy the following code into your `app.postcss` file and customize it according to your needs.
+And that's all. You are ready to start your awesome project now.
+
+<br>
+
+## **4. Colors System**
+The color system in TailwindCSS is a powerful tool for developers, and we've taken it a step further in our component library! By leveraging TailwindCSS, we've introduced additional custom color classes tailored for consistent branding. These new classes work just like Tailwind's native color classes but are specifically designed for branding and come with full support for shades. Using the built-in color system you can generate both shaded and non-shaded color classes.
+
+### **4.1 Available Color Classes**
+Our component library provides a set of custom classes to make integrating these colors into your designs seamless and flexible. Below is the full list of available classes:
+
+| <div style="width:200px">CLASS</div>  | <div style="width:128px">Shades</div> | <div style="width:144px">Default value</div>  | DESCRIPTION                                                                                                                           |
+| --------------------------------------|---------------------------------------|-----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------- |
+| .[T]-brand-primary-[S]                | 50, 100-900, 950                      | #E93E3A                                       | Use this class to apply the primary brand color, e.g., `.bg-brand-primary-500` for background or `.text-brand-primary-500` for text.  |
+| .text-on-brand-primary-[S]            | 50, 100-900, 950                      | #FFFFFF                                       | A foreground color designed to complement `.bg-brand-primary-500` as the background.                                                  |
+| .[T]-brand-secondary-[S]              | 50, 100-900, 950                      | #E8E838                                       | Apply the secondary brand color, e.g., `.bg-brand-secondary-500` for background or `.text-brand-secondary-500` for text.              |
+| .text-on-brand-secondary-[S]          | 50, 100-900, 950                      | #2E2105                                       | A foreground color specifically for use with `.bg-brand-secondary-500` as the background.                                             |
+| .[T]-error-[S]                        | 50, 100-900, 950                      | #E53935                                       | Represent errors in your components with these color classes.                                                                         |
+| .[T]-info-[S]                         | 50, 100-900, 950                      | #29B6F6                                       | Use this class for informational or neutral messages.                                                                                 |
+| .[T]-success-[S]                      | 50, 100-900, 950                      | #00C853                                       | Ideal for success messages or positive states in your components.                                                                     |
+| .[T]-warning-[S]                      | 50, 100-900, 950                      | #FFC107                                       | Perfect for warning or caution-related messages.                                                                                      |
+| .bg-primary                           | N/A                                   | Light: 250 250 250<br>Dark: 10 10 20          | A static background color for primary elements, defined via CSS variables.                                                            |
+| .bg-secondary                         | N/A                                   | Light: 238 238 238<br>Dark: 30 30 40          | A static background color for secondary elements, defined via CSS variables.                                                          |
+| .bg-alt                               | N/A                                   | Light: 10 10 20<br>Dark: 250 250 250          | A static background color for alternative sections, defined via CSS variables.                                                        |
+| .text-default                         | N/A                                   | Light: 33 33 33<br>Dark: 245 245 245          | The default text color in our library, defined via CSS variables.                                                                     |
+| .text-alt                             | N/A                                   | Light: 189 189 189<br>Dark: 245 245 245       | A static alternative text color, ideal for secondary content.                                                                         |
+| .text-muted                           | N/A                                   | Light: 117 117 117<br>Dark: 175 175 175       | A muted text color for less prominent content.                                                                                        |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<br>
+
+> **Legend**<br>
+**[T]** = **Type** (e.g., `bg`, `text`, `border`, `fill`, etc.)<br>
+**[S]** = **Shade** (e.g., 50, 100-900, 950)<br>
+**Example**: `bg-brand-primary-500`, `text-on-brand-primary-500`, `bg-error-400`
+
+
+**Managing Colors**
+
+- **Modify Colors**: Update shades or use CSS variables for light/dark modes.
+- **Add Colors**: Use Tailwind's tw-color-shades or define new variables in your CSS.
+- **Remove Colors**: Set unwanted colors to undefined in tailwind.config.ts.
+
+<br>
+
+### **4.2 Modify Existing Colors**
+TailwindCSS’s color system is enhanced for branding with support for shaded and non-shaded colors. Customize or add new colors via `tailwind.config.ts` for shades or directly edit CSS variables for non-shaded colors.
+
+#### **Shaded Colors**
+If you want to modify a **color with shades** (i.e `brand-primary`, `brand-secondary` etc.), you can do it in `tailwind.config.ts`. For example, to change the primary brand color to `#001A6E` and secondary brand color to `#FFE893`, the code is given below:
+
+```js
+// Modify colors in tailwind.config.ts
+import twShades from 'tw-color-shades';
+
+export default {
+  theme: {
+    extend: {
+      colors: {
+        "brand-primary": twShades('#001A6E'),
+        "brand-secondary": twShades('#FFE893')
+      }
+    }
+  }
+};
+```
+
+#### **Non-shaded Colors**
+There are some colors like background colors, text colors etc. behave differently in light and dark mode! These colors are **shadeless** and cannot be handled in the way shown above. For these colors we have use CSS variables! You can modify directly in the CSS file. For example, to change the primary background color in light mode to `rgb(253 247 244)` and in dark mode to `rgb(104 87 82)` and default text color in light mode to `rgb(42 51 53)` and in dark mode to `rgb(253 247 244)`, the code is given below:
 
 ```css
+/* Modify colors in app.css or app.postcss */
 @layer base {
   :root {
-    --ui-brand: 80 70 230; /* #5046E6 */
-    --ui-brand-active: 67 56 202; /* #4338CA */
-    --ui-brand-secondary: 253 230 138; /* #FDE68A */
-    --ui-brand-secondary-active: 252 211 77; /* #FCD34D */
-    --ui-text-on-brand: 255 255 255; /* #FFFFFF */
-    --ui-text-on-brand-secondary: 8 8 24; /* #080818 */
-    --ui-text-default: 8 8 24; /* #080818 */
-    --ui-bg-primary: 255 255 255; /* #FFFFFF */
-    --ui-bg-secondary: 243 244 246; /* #F3F4F6 */
-    --ui-bg-tertiary: 229 231 235; /* #E5E7EB */
-
-    --max-width: 1408px;
+    --ui-bg-primary: 253 247 244;
+    --ui-text-default: 42 51 53;
   }
-
   :root.dark {
-    --ui-text-default: 229 231 235; /* #E5E7EB */
-    --ui-bg-primary: 8 8 24; /* #080818 */
-    --ui-bg-secondary: 22 22 38; /* #161626 */
-    --ui-bg-tertiary: 32 32 48; /* #202030 */
+    --ui-bg-primary: 104 87 82;
+    --ui-text-default: 253 247 244;
   }
+}
+```
+> *Writing the color values in the format provided, such as "253 247 244," rather than the conventional RGB code like "rgb(253 247 244)" is essential because it aligns with TailwindCSS's methodology for applying opacity to colors.*
 
-  body {
-    @apply bg-primary text-default;
+<br>
+
+### **4.3 Add New Color**
+#### **Shaded Colors**
+If you want to add a new class for **color with shades**, you can do it in the `tailwind.config.ts` file. For example, let's say, you want to add a new class in the color system named `brand-tertiary` with the base value `#009990`. Just follow the below steps:
+
+```js
+// Generate new colors in tailwind.config.ts
+import twShades from 'tw-color-shades';
+
+export default {
+  theme: {
+    extend: {
+      colors: {
+        "brand-tertiary": twShades('#009990')
+      }
+    }
+  }
+};
+```
+Now you can access this color with `bg-brand-tertiary-500` or other shades like `bg-brand-tertiary-100` or  `bg-brand-tertiary-800`.
+
+#### **Non-shaded Colors**
+If you want to add a new color that behaves differently in light and dark mode and you do not need "shades" for this colors, you can do this in your CSS file and then generate colors in `tailwind.config.ts`. To add a new color `bg-tertiary` in the color system, you can follow the below process:
+
+```css
+/* define colors in app.css or app.postcss */
+@layer base {
+  :root {
+    --my-bg-tertiary: 233 237 234;
+  }
+  :root.dark {
+    --my-bg-tertiary: 114 97 92;
   }
 }
 ```
 
-And thats all. You are ready to start your awesome project now.
+```js
+// Generate the colors in tailwind.config.ts
+import twShades from 'tw-color-shades';
 
-<br>
-
-## **Default CSS Variables**
-
-The component library is built on the powerful foundation of TailwindCSS, a tool capable of generating a wide array of CSS styles and a multitude of variables for your design. However, the real question is, do you truly need an extensive array of CSS variables for your design?
-
-Having the ability to define numerous variables is not the issue. The challenge lies in maintaining design consistency. When you have an overwhelming number of options, it becomes all too easy to lose that consistency, leading to a haphazard and disjointed design.
-
-To address this challenge, the "TheUI Sveltekit" component library introduces a set of carefully curated custom variables that seamlessly integrate with those offered by TailwindCSS. You can effortlessly customize your theme using just one line of code by altering the values of these custom variables.
-
-<br>
-
-### **Utility Variables**
-
-There `--max-width` CSS variable exclusively used in the `Container` component to ensure that the width of the component remains consistent throughout the entire design. There is no dedicated CSS class for this property. Instead, you can apply it using a Tailwind CSS arbitrary value like `max-w-[var(--max-width)]`.
-
-```css
---max-width
+export default {
+  theme: {
+    extend: {
+      backgroundColor: {
+        tertiary: twShades("--my-bg-tertiary")
+      }
+    }
+  }
+};
 ```
 
-### **Colors Variables**
-
-"TheUI Sveltekit" component library offers the following CSS variables and their default values. Each CSS variable is prefixed with "ui" to prevent conflicts with other variables.
-
-```css
-  /* Brand colors */
-  --ui-brand
-  --ui-brand-active
-  --ui-brand-secondary
-  --ui-brand-secondary-active
-  /* Text colors */
-  --ui-text-on-brand
-  --ui-text-on-brand-secondary
-  --ui-text-default
-  /* Background colors */
-  --ui-bg-primary
-  --ui-bg-secondary
-  --ui-bg-tertiary
-```
-
-> Brand colors are universally accessible, ready to be used in various parts of your design. However, it's important to note that text colors are distinct from background colors, and vice versa. This separation ensures that you have the appropriate colors for both text and background elements, allowing for effective and visually pleasing design combinations.
-
 <br>
 
-### **Use of Custom Colors**
+### **4.4 Remove A Color**
+To remove a color follow the Tailwind CSS way, just set the color to `undefined` in the `tailwind.config.ts`.
 
-You have the flexibility to employ custom classes for integrating the custom colors into your design. The Sveltekit Components library incorporates the following classes to make this process seamless:
-
-| CLASS                         | DESCRIPTION                                                                                                                                                                                                                                 |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| .[...]-brand                  | Apply the brand color to your component by using the ".bg-brand" class for the background and ".text-brand" for the foreground.                                                                                                             |
-| .[...]-brand-active           | Use these classes to indicate different states, such as active or hover, for an element. For example, apply the brand color with slight variations using ".bg-brand-active" for the background and ".text-brand-active" for the foreground. |
-| .[...]-brand-secondary        | If you wish to use a secondary brand color for your components, you can do so with the ".bg-brand-secondary" class for the background and ".text-brand-secondary" for the foreground. These classes offer additional design flexibility.    |
-| .[...]-brand-secondary-active | Similar to ".[...]-brand-active," but designed for the secondary brand color.                                                                                                                                                               |
-| .text-on-brand                | This class is for the foreground color when using the background color ".bg-brand."                                                                                                                                                         |
-| .text-on-brand-secondary      | This class serves as the foreground color when using the background color ".bg-brand-secondary."                                                                                                                                            |
-| .text-default                 | This class represents the default text/foreground color for the component library.                                                                                                                                                          |
-| .bg-primary                   | Use this class for the default/primary background color.                                                                                                                                                                                    |
-| .bg-secondary                 | Apply this class for the secondary background color.                                                                                                                                                                                        |
-| .bg-tertiary                  | Utilize this class for the tertiary background color.                                                                                                                                                                                       |
-
-<br>
-
-### **Color Customization**
-
-The process of customizing colors in the Sveltekit Components library is straightforward and requires just a single line of code. To change the value of a specific CSS variable, follow these steps:
-
-- Identify the CSS variable you wish to customize. For instance, let's say you want to set your brand color to "rgb(255, 0, 0)" and change the default text color to "rgb(0, 0, 0)."
-- Open the `./src/app.css` or `./src/app.postcss` file in your project, which contains your TailwindCSS styles and add the following lines to the file:
-
-```css
---ui-brand: 255 0 0;
---ui-text-default: 0 0 0;
+```js
+// Remove colors in tailwind.config.ts
+export default {
+  theme: {
+    extend: {
+      colors: {
+        "brand-secondary": undefined
+      },
+      backgroundColor: {
+        secondary: undefined
+      }
+    }
+  }
+};
 ```
-
-Congratulations! With this simple change, all the components using the brand color and the default text color will automatically adapt to the new color values. No further adjustments are necessary.
-
-> Writing the color values in the format provided, such as "255 0 0," rather than the conventional RGB code like "rgb(255, 255, 266," is essential because it aligns with TailwindCSS's methodology for applying opacity to colors.
-
-TailwindCSS allows you to easily adjust the opacity of colors using utility classes like "bg-opacity-50" to set a 50% opacity background. These utility classes are designed to work with color values expressed in the format you mentioned, "255 0 0," and not with conventional RGB codes like "rgb(255, 255, 266)."
-
-By adhering to this format, you ensure that you can seamlessly leverage TailwindCSS's opacity utilities to control the transparency of your colors, providing a consistent and flexible approach to design customization.
+This will remove all the `brand-secondary` color classes and `bg-secondary` class from the application build!
 
 <br>
 
 ## **The z-index**
-
-In this library, several components make use of z-index values. This document will provide you with information about the order of the z-index in these components.
+This library leverages z-index for stacking elements. Avoid modifying z-index values to prevent layout disruptions.
 
 Z-index helps in managing the stacking order of elements and overlays, controlling their arrangement along the z-axis. It is not recommended to customize these values in the design, as doing so may disrupt the layout along the z-axis.
 
@@ -299,13 +390,13 @@ Z-index helps in managing the stacking order of elements and overlays, controlli
 
 ## **Contributions**
 
-Prior to commencing work on new features or bug fixes, kindly inform us. If you wish to propose a new feature, please create a feature request in [Github Issues](https://github.com/mbparvezme/theui-sveltekit/issues). This promotes open discussions and avoids redundant efforts. It encompasses tasks like adding new components, introducing utility features, and making major changes to existing work.
+Prior to commencing work on new features or bug fixes, kindly inform us. If you wish to propose a new feature, please create a feature request in [Github Issues](https://github.com/mbparvezme/theui-svelte/issues). This promotes open discussions and avoids redundant efforts. It encompasses tasks like adding new components, introducing utility features, and making major changes to existing work.
 
 <br>
 
 ## **Copyright**
 
-The code and documentation are copyright 2023 by [M B Parvez](https://www.mbparvez.me), [Gosoft](https://www.gosoft.io) and [TheUI](https://www.theui.dev).
+The code and documentation are copyright 2023 by [M B Parvez](https://www.mbparvez.me), [Gosoft](https://www.gosoft.io) and [The UI](https://www.theui.dev).
 
 <br>
 
@@ -323,4 +414,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 <br>
 
-## **Special Thanks To [Gosoft.io](https://www.gosoft.io) and [BIPBY Digital](https://www.bipby.digital) for being our digital partner**
+<h2 style="border:0;margin-bottom:0">
+
+**Special Thanks To [Gosoft.io](https://www.gosoft.io) and [BIPBY Digital](https://www.bipby.digital) for being our digital partner**</h2>

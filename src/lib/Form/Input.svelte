@@ -1,93 +1,77 @@
 <script lang="ts">
   import type { INPUT_CONFIG, INPUT_TYPE } from "$lib/types"
-  import { getContext } from "svelte"
-  import { generateToken, getInputBoxClasses, getInputClasses } from "$lib/functions"
-  import { FORM_CTX, Label, HelperText } from "$lib"
+	import { generateToken } from "$lib/function"
+	import { inputContainerClass, inputClasses } from "./form"
+  import { getContext, setContext, type Snippet } from "svelte"
+  import { HelperText, Label } from "$lib"
 
-  // Slot: disabled, readonly, custom, reverse, override, reset
+  interface Props {
+    helperText ?: Snippet|string|undefined,
+    id ?: string,
+    label?: Snippet|string|undefined,
+    name : string,
+    type ?: INPUT_TYPE,
+    value ?: any,
+    [key: string] : unknown
+  }
 
-  // Input attributes
-  export let helperText : string | undefined = undefined
-  export let id : string = generateToken()
-  export let label : string | undefined = undefined
-  export let name : string
-  export let type : INPUT_TYPE = "text"
-  export let value : any = ""
+  const CTX: any = getContext('FORM') ?? {}
 
-  export let animate: INPUT_CONFIG["animate"] = "normal"
-  export let labelClasses: INPUT_CONFIG["labelClasses"] = ""
-  export let rounded: INPUT_CONFIG["rounded"] = "md"
-  export let size: INPUT_CONFIG["size"] = "md"
-  export let variant: INPUT_CONFIG["variant"] = "bordered"
+  let {
+    helperText = undefined,
+    id = generateToken(),
+    label = undefined,
+    name = "",
+    type = "text",
+    value = null,
 
-  const ctx: any = getContext(FORM_CTX || {})
-  let C:INPUT_CONFIG = {animate, labelClasses, rounded, size, variant, grow: !!$$restProps?.grow, reset: !!$$restProps?.reset}
-  if(!$$restProps?.override) Object.assign(C, ctx?.formConfig)
+    animate = CTX?.animate ?? "normal",
+    floatingLabel = CTX?.floatingLabel ?? CTX?.variant == "flat" ?? false,
+    labelClasses = CTX?.labelClasses ?? "",
+    rounded = CTX?.rounded ?? "md",
+    size = CTX?.size ?? "md",
+    variant = CTX?.variant ?? "bordered",
+    reset = CTX?.reset ?? false,
+    ...props
+  } : Props & INPUT_CONFIG = $props()
+
+  let C:INPUT_CONFIG & {id: string, type: "input"} = {animate, floatingLabel, labelClasses, rounded, size, variant, reset, id, type: "input"}
+
+  setContext('FORM', C)
+
   let setType: any = (node: HTMLInputElement) => node.type = type
 </script>
 
-<div class={getInputBoxClasses(C, $$restProps)}>
-  {#if label}
-    <Label {id} {label}/>
+{#snippet labelContent()}
+  {#if typeof label == "string"}
+    <Label {id} {label} />
   {/if}
+  {#if typeof label == "function"}
+    {@render label?.()}
+  {/if}
+{/snippet}
 
-  <input {...$$restProps} {id} {name} class={getInputClasses(C, $$restProps, "input", $$props?.class)}
-    bind:value
-    use:setType
-    on:blur
-    on:change
-    on:click
-    on:contextmenu
-    on:dblclick
-    on:focus
-    on:input
-    on:invalid
-    on:keydown
-    on:keypress
-    on:keyup
-    on:mousedown
-    on:mouseenter
-    on:mouseleave
-    on:mousemove
-    on:mouseout
-    on:mouseover
-    on:mouseup
-    on:mousewheel
-    on:paste
-  />
+<div class={inputContainerClass(C, props)}>
+  {#if label && !floatingLabel}
+    {@render labelContent()}
+  {/if}
+  <div class="relative flex focus-within">
+    {#if type == "textarea"}
+      <textarea {...props} class={inputClasses(C, props)} {id} {name} placeholder={(props?.placeholder ?? " ") as string} rows=1 bind:value></textarea>
+    {:else}
+      <input {...props} class={inputClasses(C, props)} {id} {name} placeholder={props?.placeholder ?? " "} bind:value use:setType/>
+    {/if}
+    {#if label && floatingLabel}
+      {@render labelContent()}
+    {/if}
+  </div>
 
   {#if helperText}
-    <HelperText>{@html helperText}</HelperText>
+    {#if typeof helperText == "string"}
+      <HelperText text={helperText} />
+    {/if}
+    {#if typeof helperText == "function"}
+      {@render helperText?.()}
+    {/if}
   {/if}
 </div>
-
-<!-- <style lang="postcss">
-  :global(.input-box [slot=left], .input-box [slot=right]){
-    @apply flex items-center justify-center z-[-1] text-gray-500 bg-gray-100;
-  }
-  :global(.input-sm .input-box [slot=left], .input-sm .input-box [slot=right]){
-    @apply px-2;
-  }
-  :global(.input-md .input-box [slot=left], .input-md .input-box [slot=right]){
-    @apply px-3;
-  }
-  :global(.input-lg .input-box [slot=left], .input-lg .input-box [slot=right]){
-    @apply px-4;
-  }
-  :global(.input-xl .input-box [slot=left], .input-xl .input-box [slot=right]){
-    @apply px-5;
-  }
-</style> -->
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let id     : string = generateToken()
-  export let name   : string
-  export let value  : any = ""
-  export let type   : string = "text"
-  export let helperText : string | undefined = undefined
-  export let label  : string|undefined = undefined
-  export let config : INPUT_CONFIG = {}
--->

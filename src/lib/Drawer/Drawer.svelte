@@ -1,110 +1,144 @@
 <script lang="ts">
+	import type { Snippet } from "svelte"
   import type { ANIMATE_SPEED } from "$lib/types"
   import { twMerge } from "tailwind-merge"
-  import { getAnimate, generateToken } from "$lib/functions"
+  import { animationClass, generateToken, backdropClasses } from "$lib/function"
 	import { Close } from "$lib"
 
-  export let id             : string = generateToken()
-  export let label          : string = ""
-  export let animate        : ANIMATE_SPEED = "fast"
-  export let backdrop       : boolean = true
-  export let closeOnEsc     : boolean = true
-  export let position       : 'top' | 'end' | 'bottom' | 'start' = "start"
-  export let staticBackdrop : boolean = false
+  interface Props {
+    trigger ?: Snippet,
+    children ?: Snippet,
+    id ?: string,
+    label ?: string,
+    animate ?: ANIMATE_SPEED,
+    backdrop ?: boolean|string,
+    closeOnEsc ?: boolean,
+    position ?: 'top' | 'end' | 'bottom' | 'start',
+    staticBackdrop ?: boolean,
+    [key: string]: unknown // class
+  }
+
+  let {
+    children,
+    trigger,
+    id = generateToken(),
+    label = "",
+    animate = "fast",
+    backdrop = true,
+    closeOnEsc = true,
+    position = "start",
+    staticBackdrop = false,
+    ...props
+  } : Props = $props()
 
   let active: boolean = false
 
-  $: attr = {
+  let attr = $derived({
 		"id" : `${id}Heading`,
 		"aria-label" : label,
 		"aria-haspopup" : "true",
-		"aria-controls" : `${id}Offcanvas`,
+		"aria-controls" : `${id}Drawer`,
 		"aria-expanded" : active
-	}
+	})
 
   let toggle = (id: string) => document.getElementById(id)?.classList.toggle("open")
 
   let handleKeyboard = (e: KeyboardEvent) => {
-		if (document.getElementById(id)?.classList.contains("open") && (closeOnEsc != false && e.keyCode == 27)) toggle(id)
-	}
+    if (document.getElementById(id)?.classList.contains("open") && closeOnEsc && e.key === "Escape") {
+      toggle(id);
+    }
+  }
 
-  let positionCls = () => position === "top" ? "offcanvas-top" : position === "end" ? "offcanvas-end" : position === "bottom" ? "offcanvas-bottom" : "offcanvas-start"
-  let getClass = () => "offcanvas-body fixed bg-white dark:bg-secondary" + getAnimate(animate)
+  let positionCls = () => {
+    const positions: { [key: string]: string } = {
+      top: "drawer-top",
+      end: "drawer-end",
+      bottom: "drawer-bottom",
+      start: "drawer-start"
+    }
+    return positions[position] || "drawer-start"
+  }
+
+  let getClass = twMerge(`drawer-body fixed bg-white dark:bg-secondary${animationClass(animate)}`, (props?.class ?? "") as string)
 </script>
 
-<svelte:body on:keydown={(e)=>handleKeyboard(e)}></svelte:body>
+<svelte:body onkeydown={(e)=>handleKeyboard(e)}></svelte:body>
 
-{#if $$slots.offcanvasButton}
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-interactive-supports-focus -->
-<span role="button" on:click={()=>toggle(id)} id="{id}Btn">
-  <slot name="offcanvasButton" {label} {attr}></slot>
+{#if trigger || label}
+<span role="button" onclick={()=>toggle(id)} onkeydown={(e)=>handleKeyboard(e)}
+  id="{id}Btn"
+  aria-label={label}
+  aria-haspopup="true"
+  aria-controls="{id}Drawer"
+  aria-expanded={active}
+  tabindex="-1">
+  {#if label}
+    {@html label}
+  {:else if typeof trigger === "function"}
+    {@render trigger()}
+  {/if}
 </span>
 {/if}
 
-{#if $$slots.offcanvasContent}
-  <div {id} class="theui-offcanvas fixed inset-0 z-40 {getAnimate(animate)} {positionCls()}" role="dialog" class:animate={animate}>
+{#if children}
+  <div {id} class="theui-drawer fixed inset-0 z-40 {animationClass(animate)} {positionCls()}" role="dialog" class:animate={animate}>
 
     {#if backdrop}
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div class="backdrop fixed inset-0 bg-black z-[-1] {getAnimate(animate)}" on:click={()=>staticBackdrop ? false : toggle(id)}></div>
+      <div role="presentation" class={backdropClasses(backdrop)} onclick={()=>staticBackdrop ? false : toggle(id)}></div>
     {/if}
 
-    <div id="{id}Offcanvas" class={twMerge(getClass(), $$props?.class)} aria-labelledby="{id}Btn" aria-hidden={!active}>
-      <button class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity absolute top-2 right-4" on:click={()=>toggle(id)} aria-label="Close" >
-        <Close/>
-      </button>
-      <slot name="offcanvasContent"></slot>
+    <div id="{id}Drawer" class={getClass} aria-labelledby="{id}Btn" aria-hidden={!active}>
+      <Close class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity absolute top-2 right-4" onclick={()=>toggle(id)}/>
+      {@render children()}
     </div>
 
   </div>
 {/if}
 
 <style lang="postcss">
-  .theui-offcanvas.open{
+  .theui-drawer.open{
     @apply visible opacity-100;
   }
-  .theui-offcanvas{
+  .theui-drawer{
     @apply invisible opacity-0;
   }
-  .theui-offcanvas.offcanvas-end .offcanvas-body, .theui-offcanvas.offcanvas-start .offcanvas-body{
+  .theui-drawer.drawer-end .drawer-body, .theui-drawer.drawer-start .drawer-body{
     @apply top-0 bottom-0 w-full sm:w-96;
   }
-  .theui-offcanvas.offcanvas-top .offcanvas-body, .theui-offcanvas.offcanvas-bottom .offcanvas-body{
+  .theui-drawer.drawer-top .drawer-body, .theui-drawer.drawer-bottom .drawer-body{
     @apply start-0 end-0 w-full min-h-[160px];
   }
-  .theui-offcanvas.offcanvas-end .offcanvas-body{
+  .theui-drawer.drawer-end .drawer-body{
     @apply end-0;
   }
-  .theui-offcanvas.offcanvas-bottom .offcanvas-body{
+  .theui-drawer.drawer-bottom .drawer-body{
     @apply bottom-0;
   }
-  .theui-offcanvas.animate .backdrop{
+  .theui-drawer.animate .backdrop{
     @apply opacity-0;
   }
-  .theui-offcanvas.open .backdrop{
+  .theui-drawer.open .backdrop{
     @apply opacity-50 dark:opacity-75;
   }
-  .theui-offcanvas.animate .offcanvas-body{
+  .theui-drawer.animate .drawer-body{
     @apply transform;
   }
-  .theui-offcanvas.animate.offcanvas-start .offcanvas-body{
+  .theui-drawer.animate.drawer-start .drawer-body{
     @apply -translate-x-full rtl:translate-x-full;
   }
-  .theui-offcanvas.animate.offcanvas-end .offcanvas-body{
+  .theui-drawer.animate.drawer-end .drawer-body{
     @apply translate-x-full rtl:-translate-x-full;
   }
-  .theui-offcanvas.animate.offcanvas-start.open .offcanvas-body, .theui-offcanvas.animate.offcanvas-end.open .offcanvas-body{
+  .theui-drawer.animate.drawer-start.open .drawer-body, .theui-drawer.animate.drawer-end.open .drawer-body{
     @apply translate-x-0;
   }
-  .theui-offcanvas.animate.offcanvas-top .offcanvas-body{
+  .theui-drawer.animate.drawer-top .drawer-body{
     @apply -translate-y-full;
   }
-  .theui-offcanvas.animate.offcanvas-bottom .offcanvas-body{
+  .theui-drawer.animate.drawer-bottom .drawer-body{
     @apply translate-y-full;
   }
-  .theui-offcanvas.animate.offcanvas-top.open .offcanvas-body, .theui-offcanvas.animate.offcanvas-bottom.open .offcanvas-body{
-    @apply translate-y-0
+  .theui-drawer.animate.drawer-top.open .drawer-body, .theui-drawer.animate.drawer-bottom.open .drawer-body{
+    @apply translate-y-0;
   }
 </style>

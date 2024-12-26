@@ -1,29 +1,39 @@
-<script lang="ts">
-  import type {PRELOAD} from "$lib/types"
-  import { getContext } from "svelte"
+ <script lang="ts">
+  import { getContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { getAnimate, getRounded } from "$lib/functions"
-  import { NAV } from "$lib"
-  const { config, id, mobileNav } = getContext(NAV) as any;
+  import { animationClass, roundedClass } from "$lib/function"
+  import { ST_MOBILE_NAV } from "$lib/state.svelte"
 
-  export let href     : string|null = null
-  export let preload  : PRELOAD = "hover"
-  export let active   : string|boolean = false
+  interface Props {children?: Snippet, text?: string, href?: string|null, active?: string|boolean, [key: string]: unknown}
+  let {children, text, href = null, active = false, ...props}: Props = $props()
 
-  let linkCls = `nav-link flex items-center ${twMerge((active ? config.activeLinkStyle : config.linkStyle), $$props.class)} ${getRounded(config?.rounded)} ${getAnimate(config?.animate)}`
+  const { config, id } = getContext('NAV') as any
+
+  let linkCls = () => {
+    let baseClasses = active ? config.activeLinkClasses : config.linkClasses
+    return `nav-link flex items-center ${twMerge(baseClasses, (config?.isDropdown ? config.dropdownLinkClasses : ""),  props.class as string)}${roundedClass(config?.rounded)}${animationClass(config?.animate)}`
+
+  }
 
   let closeMobileNav = () => {
-    if ($mobileNav.includes(id)) {
-      let D = $mobileNav.filter((i:any) => i !== id)
-			mobileNav.update(() => D)
+    if (ST_MOBILE_NAV.value.includes(id)) {
+      ST_MOBILE_NAV.value = ST_MOBILE_NAV.value.filter((i:any) => i !== id)
     }
   }
 </script>
 
+{#snippet content()}
+  {#if text}
+    {@html text}
+  {:else if children}
+    {@render children()}
+  {/if}
+{/snippet}
+
 {#if href}
-  <a {href} class={linkCls} data-sveltekit-preload-data={preload} on:click={()=>closeMobileNav()}><slot/></a>
+  <a {href} {...props} class={linkCls()} onclick={()=>closeMobileNav()}>{@render content()}</a>
 {:else}
-  <span class="cursor-pointer {linkCls}"><slot/></span>
+  <span {...props} class="cursor-pointer {linkCls()}">{@render content()}</span>
 {/if}
 
 <style lang="postcss">

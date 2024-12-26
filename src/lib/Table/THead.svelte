@@ -1,15 +1,18 @@
 <script lang="ts">
+	import type { Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
   import {TR} from "$lib"
 
-  export let headers : object|string[]|undefined = undefined
-  export let keys : string[]|undefined = undefined
+  interface Props{children?: Snippet, headers?: string[]|Record<string, unknown>, keys?: string[], [key: string]: unknown}
+  let {children, headers, keys, ...props} : Props = $props()
 </script>
 
-<thead {...$$restProps} class={twMerge('bg-gray-100 dark:bg-gray-800 text-left uppercase', $$props.class)}>
+{#if headers}
+<thead {...props} class={twMerge('bg-gray-300 dark:bg-gray-700 text-left uppercase font-bold', props?.class as string)}>
   {#if headers}
-    <TR data={headers} {keys} headingRow={true} />
-  {:else}
-    <slot/>
+    <TR data={headers} {keys} tableHeader={true} />
+  {:else if children}
+    {@render children()}
   {/if}
 </thead>
+{/if}

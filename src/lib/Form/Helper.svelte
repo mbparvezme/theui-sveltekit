@@ -1,10 +1,16 @@
 <script lang="ts">
+	import type { Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  export let text: string|undefined = undefined
+  let {children, text, ...props} : {text ?: string|Snippet, [key: string] : unknown} = $props()
 </script>
 
-<p {...$$restProps} class={twMerge("text-xs text-gray-500 dark:text-gray-700", $$props?.class)}>
-  <slot>
-    {#if text}{@html text}{/if}
-  </slot>
+<p {...props} class={twMerge("text-sm text-gray-500 dark:text-gray-600", props?.class as string)}>
+  {#if text}
+    {#if typeof text == "string"}
+      {@html text}
+    {/if}
+    {#if typeof text == "function"}
+      {@render text?.()}
+    {/if}
+  {/if}
 </p>

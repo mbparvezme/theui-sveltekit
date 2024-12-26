@@ -1,40 +1,59 @@
 <script lang="ts">
-    import type { BUTTON_SIZE } from "$lib/types"
-    import { createEventDispatcher } from "svelte"
-    import { twMerge } from "tailwind-merge"
-    import { Button, ButtonGroup } from "$lib"
+  import type { ANIMATE_SPEED, BUTTON_SIZE, ROUNDED } from "$lib/types"
+  import { twMerge } from "tailwind-merge"
+	import { roundedClass } from "$lib/function"
+  import { Button, ButtonGroup } from "$lib"
 
-    export let prevBtn: string = "&larr; Prev"
-    export let nextBtn: string = "Next &rarr;"
-    export let size: BUTTON_SIZE = "md"
-    export let buttonStyle: string = ""
-    export let minimalMode: boolean = false
-    export let activeButtonStyle: string = ""
-    export let align: 'start' | 'center' | 'end' = "center"
-    export let variant: 'bordered' | 'flat' = "bordered"
+  interface Props {
+    data ?: Array<{url: string, active?: boolean}>,
+    activeButtonClasses ?: string,
+    align ?: 'start' | 'center' | 'end',
+    animate ?: ANIMATE_SPEED,
+    buttonClasses ?: string,
+    nextBtn ?: string,
+    prevBtn ?: string,
+    rounded ?: ROUNDED,
+    showPrevNext ?: boolean,
+    size ?: BUTTON_SIZE,
+    variant ?: 'bordered' | 'flat',
+    onPreviousClick ?: any,
+    onNextClick ?: any,
+    [key: string]: unknown
+  }
 
-    export let data: Array<{url: string, active?: boolean}> = []
+  let {
+    data = [],
+    activeButtonClasses = "",
+    align = "center",
+    buttonClasses = "",
+    nextBtn = "Next &rarr;",
+    prevBtn = "&larr; Prev",
+    rounded = "md",
+    showPrevNext = true,
+    size = "md",
+    variant = "bordered",
+    onPreviousClick,
+    onNextClick,
+    ...props
+  } : Props = $props()
 
-    const dispatch  = createEventDispatcher()
-    const previous  = () => dispatch("previous")
-    const next      = () => dispatch("next")
-
-    let getNumLinkClass = (active: boolean|undefined = undefined) => active ?
-                          twMerge("bg-brand-primary-500 text-on-brand-primary-500", activeButtonStyle) :
-                          twMerge("bg-transparent text-default hover:bg-brand-primary-500", buttonStyle)
+  let getNumLinkClass = (active: boolean|undefined = undefined) => active ?
+                        twMerge(`bg-brand-primary-500 text-on-brand-primary-500 ${variant == "bordered" ? "" : roundedClass(rounded)}`, activeButtonClasses) :
+                        twMerge(`bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 text-default hover:text-default ${variant == "bordered" ? "border-gray-200 dark:border-gray-600" : `border-y-0 border-s-0 last:border-e-0 ${roundedClass(rounded)}`}`, buttonClasses)
 </script>
 
-<!-- {#if data.length > 0 || ((!data || data?.length < 1) && minimalMode)} -->
-{#if minimalMode || data.length > 0}
-    <div class="theui-pagination flex" class:justify-center={align=="center"} class:justify-end={align=="end"}>
-        <ButtonGroup label="Pagination" {size} round="none" class={twMerge("", $$props?.class)} {variant} outline={true}>
-            <Button class={getNumLinkClass()} on:click={previous} label={prevBtn} ariaLabel="Pagination link: previous"/>
-            {#if !minimalMode}
-                {#each data as link, i}
-                <Button href={link.url} class={getNumLinkClass(link?.active)} label={(i+1).toString()} ariaLabel="Pagination page {i+1}"/>
-                {/each}
-            {/if}
-            <Button class={getNumLinkClass()} on:click={next} label={nextBtn} ariaLabel="Pagination link: next"/>
-        </ButtonGroup>
-    </div>
-{/if}
+<div class={twMerge("theui-pagination flex", props?.class as string)} class:justify-center={align=="center"} class:justify-end={align=="end"}>
+  <ButtonGroup label="Pagination" {size} {variant} {rounded} outline={true} class={variant == "flat" ? "gap-1" : ""}>
+    {#snippet children()}
+      {#if showPrevNext}
+        <Button class={getNumLinkClass()} onclick={onPreviousClick} label={prevBtn} ariaLabel="Pagination link: previous"/>
+      {/if}
+      {#each data as link, i}
+      <Button href={link.url} class={getNumLinkClass(link?.active)} label={(i+1).toString()} ariaLabel="Pagination page {i+1}"/>
+      {/each}
+      {#if showPrevNext}
+        <Button class={getNumLinkClass()} onclick={onNextClick} label={nextBtn} ariaLabel="Pagination link: next"/>
+      {/if}
+    {/snippet}
+  </ButtonGroup>
+</div>

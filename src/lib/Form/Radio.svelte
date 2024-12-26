@@ -1,43 +1,59 @@
 <script lang="ts">
-  import type { INPUT_CONFIG } from "$lib/types";
-  import { getContext } from "svelte";
-  import { generateToken, getInputBoxClasses, getInputClasses } from "$lib/functions";
-  import { FORM_CTX, HelperText } from "$lib";
-  
-  // Slot: disabled, readonly, custom, reverse, override, reset
+  import type { INPUT_CONFIG } from "$lib/types"
+  import { getContext, type Snippet } from "svelte"
+	import { generateToken } from "$lib/function"
+	import { inputContainerClass, inputClasses } from "./form"
+  import { HelperText } from "$lib"
 
-  // Input attributes
-  export let helperText : string | undefined = undefined;
-  export let id         : string = generateToken();
-  export let label      : string;
-  export let name       : string;
-  export let value      : string = "";
+  interface Props {
+    helperText?: string | Snippet | undefined,
+    id?: string,
+    label: string|Snippet,
+    name: string,
+    value?: string | number | null | undefined | boolean,
+    [key: string]: unknown
+  }
 
-  export let animate: INPUT_CONFIG["animate"] = "normal";
-  export let labelClasses: INPUT_CONFIG["labelClasses"] = "";
-  export let rounded: INPUT_CONFIG["rounded"] = "md";
-  export let size: INPUT_CONFIG["size"] = "md";
+  const CTX: any = getContext('FORM') ?? {}
 
-  const ctx: any = getContext(FORM_CTX || {});
-  let C: any = {animate, labelClasses, rounded, size, reset: !!$$restProps?.reset};
-  if(!$$restProps?.override) Object.assign(C, ctx?.formConfig );
-  let helperSizeFix: string = C.size=="sm" ? "pl-7" : C.size=="md" ? "pl-8" : C.size=="lg" ? "pl-10" : C.size=="xl" ? "pl-12" : "";
+  let {
+    helperText = undefined,
+    label,
+    name,
+    id = generateToken(),
+    value = null,
+    animate = CTX?.animate ?? "normal",
+    labelClasses  = CTX?.labelClasses ?? "",
+    rounded = CTX?.rounded ?? "md",
+    size = CTX?.size ?? "md",
+    reset = CTX?.reset ?? false,
+    variant = CTX?.variant ?? "bordered",
+    ...props
+  }: Props & INPUT_CONFIG = $props()
+
+  let C:INPUT_CONFIG & {id: string, type: "group"} = {animate, labelClasses, rounded, size, variant, reset, id, type: "group"}
 </script>
 
-<label  for={id}
-        class="flex gap-x-4 {getInputBoxClasses(C, $$restProps, "group")}"
-        class:flex-row-reverse={$$restProps?.reverse}
-        class:justify-end={$$restProps?.reverse}
-        class:items-center={C?.size!="lg"}
-        class:items-start={C?.size=="lg"}>
-  <input class={getInputClasses(C, $$restProps, "checkbox", $$props?.class)} {...$$restProps} class:sr-only={$$restProps?.custom} {id} {name} type="radio" bind:value>
-  {#if $$restProps?.custom}
-    <slot />
-  {:else}
+<label for={id}
+  class="inline-flex gap-x-4 {inputContainerClass(C, {props}, "group")}"
+  class:flex-row-reverse={props?.reverse}
+  class:justify-end={props?.reverse}
+  class:items-center={C?.size!="lg"}
+  class:items-start={C?.size=="lg"}>
+  <input class={inputClasses(C, props, "checkbox")} class:sr-only={props?.custom} {...props} {id} {name} type="radio" bind:group={value}>
+  {#if typeof label == "string"}
     {@html label}
+  {/if}
+  {#if typeof label == "function"}
+    {@render label?.()}
   {/if}
 </label>
 
 {#if helperText}
-  <HelperText class={helperSizeFix}>{@html helperText}</HelperText>
+  {#if typeof helperText == "string"}
+    <HelperText text={helperText} />
+  {/if}
+  {#if typeof helperText == "function"}
+    {@render helperText?.()}
+  {/if}
 {/if}

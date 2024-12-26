@@ -1,12 +1,13 @@
 <script lang="ts">
-  import type {PRELOAD} from "$lib/types";
-  import { twMerge } from "tailwind-merge";
+	import type { Snippet } from "svelte"
+  import { twMerge } from "tailwind-merge"
 
-  export let href: string = "/";
-  export let preload: PRELOAD = "hover";
-  export let a11yLabel: string = "Logo: click to to go homepage";
+  interface Props {children: Snippet, href: string, ariaLabel?: string, [key: string]: unknown}
+  let {children, href = "/", ariaLabel = "Logo: click to to go homepage", ...props}: Props = $props()
 </script>
 
-<a {href} data-sveltekit-preload-data={preload} class="navbar-brand {twMerge("flex items-center gap-4 h-full max-w-[180px] font-semibold text-default", $$props?.class)}" aria-label={a11yLabel}>
-  <slot/>
-</a>
+{#if children}
+  <a {href} class="navbar-brand {twMerge("flex items-center gap-4 h-full max-w-[180px] font-semibold text-default", props?.class as string)}" aria-label={ariaLabel}>
+    {@render children()}
+  </a>
+{/if}

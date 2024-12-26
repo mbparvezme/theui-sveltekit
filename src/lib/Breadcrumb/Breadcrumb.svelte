@@ -1,26 +1,47 @@
 <script lang="ts">
   import type { ROUNDED, BREADCRUMB_DATA } from "$lib/types"
-  import { twMerge } from "tailwind-merge"
-  import { getRounded } from "$lib/functions"
+  import { roundedClass } from "$lib/function"
 
-  export let data : BREADCRUMB_DATA = []
-  export let activeLinkClass : string = "text-gray-400"
-  export let linkClass : string = "text-brand-primary-500"
-  export let round : ROUNDED = "md"
-  export let separator : string = "/"
+  interface Props {
+    data : Array<BREADCRUMB_DATA>,
+    activeLinkClasses ?: string,
+    linkClasses ?: string,
+    rounded ?: ROUNDED,
+    separator ?: string,
+    [key: string]: unknown // dismissible, icon
+	}
 
-  let getLinkCls = (url: any) => "before:text-black/30 dark:before:text-white/30 " + (url ? linkClass : activeLinkClass)
+  let {
+    data = [],
+    activeLinkClasses = "text-gray-400",
+    linkClasses = "text-brand-primary-500",
+    rounded = "md",
+    separator = "/",
+    ...props
+  } : Props = $props();
+
+  let navClasses = "theui-breadcrumb " + (props?.class ?? "") + roundedClass(rounded)
+  let getLinkCls = (url: any) => `before:text-gray-300 dark:before:text-gray-500 ${url?linkClasses:activeLinkClasses}${roundedClass(rounded)}`
 </script>
 
-<nav aria-label="breadcrumb" class="theui-breadcrumb {twMerge("bg-secondary/50 p-4", $$props?.class)}{getRounded(round)}">
+<nav aria-label="breadcrumb" class={navClasses} style="--breadcrumb-separator: '{separator}';">
   <ol class="breadcrumb-list flex">
     {#each data as item, i}
-      <li class="breadcrumb-item {getLinkCls(item.url)}" class:before:pr-2={i!=0} class:before:pl-2={i!=0} class:active={!item.url} style="--breadcrumb-separator: '{separator}';">
-        {#if !item.url} {item.text} {:else} <a href={item.url}>{item.text}</a> {/if}
-      </li>
+      {@render breadcrumbLink(item, i)}
     {/each}
   </ol>
 </nav>
+
+<!-- Component Snippet -->
+{#snippet breadcrumbLink(item: BREADCRUMB_DATA, i: number)}
+  <li class="breadcrumb-item {getLinkCls(item.url)}" class:before:px-2={i!=0} class:active={!item.url}>
+    {#if !item.url}
+      {item.text}
+    {:else}
+      <a href={item.url}>{item.text}</a>
+    {/if}
+  </li>
+{/snippet}
 
 <style lang="postcss">
   .theui-breadcrumb .breadcrumb-item:not(:first-child)::before {

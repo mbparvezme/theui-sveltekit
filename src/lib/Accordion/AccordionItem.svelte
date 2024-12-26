@@ -1,111 +1,152 @@
 <script lang="ts">
-  import type { ANIMATE_SPEED, ROUNDED } from "$lib/types";
-  import { getAnimate, getRounded, getRoundedFirst, getRoundedLast, generateToken } from "$lib/functions";
-  import { getContext, onMount } from "svelte";
-  import { twMerge } from "tailwind-merge";
-  import { ACCORDION_GROUP } from "$lib";
+  import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
+  import { getContext, onMount, type Snippet } from "svelte"
+  import { twMerge } from "tailwind-merge"
+  import { generateToken, roundedClass, animationClass } from "$lib/function"
+  import { ST_ACTIVE_ACCORDIONS } from "$lib/state.svelte"
 
-  const ctx: any = getContext(ACCORDION_GROUP) ?? {}
+  interface Props {
+    children?: Snippet,
+    title?: string|Snippet,
+    content?: string,
+    id?: string,
+    animationSpeed?: ANIMATE_SPEED,
+    rounded?: ROUNDED,
+    size?: "compact" | "default" | "large",
+    containerClasses?: string,
+    containerActiveClasses?: string,
+    contentClasses?: string,
+    contentActiveClasses?: string,
+    titleClasses?: string,
+    titleActiveClasses?: string,
+    [key: string] : unknown // open, flush
+	}
 
-  export let title: string|undefined = undefined;
-  export let content: string|undefined = undefined;
-  export let ariaLabel: string = (title??"") +" Accordion";
-  export let isOpen: boolean = false;
-  export let id: string = generateToken();
+  const CTX: any = getContext("ACCORDION") ?? {}
 
-  export let isFlush: boolean = false;
-  export let animationSpeed : ANIMATE_SPEED = "fast";
-  export let containerClass : string  =  "";
-  export let containerActiveClass : string = "";
-  export let contentClass : string = "";
-  export let contentActiveClass : string = "";
-  export let rounded : ROUNDED = "md";
-  export let size : "compact" | "default" | "large" = ctx?.size ?? "default";
-  export let titleClass : string = "";
-  export let titleActiveClass : string = "";
+  let {
+    children,
+    title,
+    content,
+    id = generateToken(),
+    animationSpeed = "fast",
+    rounded = "md",
+    size = CTX?.size ?? "default",
+    containerClasses = "",
+    containerActiveClasses = "",
+    contentClasses = "",
+    contentActiveClasses = "",
+    titleClasses = "",
+    titleActiveClasses = "",
+    ...props
+  } : Props = $props()
 
-  let isOpened: boolean
-  
-  let makeAccordionOpen = (accordion: HTMLElement | null) => {
-    isOpened = true;
-    accordion?.classList.add('open');
-    if(animationSpeed) (accordion as HTMLElement).style.height = ((accordion as HTMLElement).scrollHeight + 20) + "px";
-  }
+  let toggle = () => {
+    const accordion = document.getElementById(id)
+    if (!accordion) return
 
-  let toggle = (id: string) => {
-    const accordion = document.getElementById(id);
-    if (!accordion) return;
-    isOpened = !accordion.classList.contains('open');
-    accordion.style.height = isOpened ? `${accordion.scrollHeight + 20}px` : '0px';
-    accordion.classList.toggle('open', isOpened);
-    accordion.classList.toggle('overflow-hidden', !isOpened);
+    if(CTX?.standalone){
+      if(ST_ACTIVE_ACCORDIONS.value.includes(id)){
+        ST_ACTIVE_ACCORDIONS.value = ST_ACTIVE_ACCORDIONS.value.filter(item => item !== id)
+        accordion.style.height = '0px'
+        accordion.classList.add('overflow-hidden')
+      }else{
+        ST_ACTIVE_ACCORDIONS.value.forEach((accordionID) => {
+          if(accordionID !== ""){
+            let activeAccordionEL = document.querySelector(`#${CTX?.id} #${accordionID}`) as HTMLElement
+            if(!activeAccordionEL) return;
+            ST_ACTIVE_ACCORDIONS.value = ST_ACTIVE_ACCORDIONS.value.filter(item => item !== accordionID)
+            activeAccordionEL.style.height = `0px`
+            activeAccordionEL.classList.add('overflow-hidden')
+          }
+        })
+
+        ST_ACTIVE_ACCORDIONS.value.push(id)
+        accordion.style.height = `${accordion.scrollHeight + 20}px`
+        accordion.classList.remove('overflow-hidden')
+      }
+    }else{
+      if(ST_ACTIVE_ACCORDIONS.value.includes(id)){
+        ST_ACTIVE_ACCORDIONS.value = ST_ACTIVE_ACCORDIONS.value.filter(item => item !== id)
+        accordion.style.height = '0px'
+        accordion.classList.add('overflow-hidden')
+      }else{
+        ST_ACTIVE_ACCORDIONS.value.push(id)
+        accordion.style.height = `${accordion.scrollHeight + 20}px`
+        accordion.classList.remove('overflow-hidden')
+      }
+    }
   }
 
   onMount(() => {
-    if (isOpen){
-      makeAccordionOpen(document.getElementById(id) as HTMLElement);
+    if(props?.open){
+      if(CTX?.standalone) ST_ACTIVE_ACCORDIONS.value = [""]
+      ST_ACTIVE_ACCORDIONS.value.push(id)
     }
   })
 
-  $: getContainerClasses = () => {
-    let cls = "theui-accordion " + (isFlush ? "accordion-flush " : "accordion-default ") + `space-${size}` + (isOpened ? " accordion-active " : " ");
-    if(isFlush){
-      cls += (isOpened ? "accordion-active " : "") + "border-b ";
+  let getContainerClasses = () => {
+    let cls = `theui-accordion ${props?.flush ? "accordion-flush " : "accordion-default "} space-${size} ${ST_ACTIVE_ACCORDIONS.value.includes(id) ? " accordion-active " : " "}`;
+    if(props?.flush){
+      cls += `${ST_ACTIVE_ACCORDIONS.value.includes(id) ? "accordion-active " : ""} border-b `;
     }else{
-      cls += ctx?.group ? ("border-x border-t last:border-b" + getRoundedFirst(rounded, "top") + getRoundedLast(rounded, "bottom")) : ("border" + getRounded(rounded));
+      cls += `${CTX?.group ? `border-x border-t last:border-b ${roundedClass(rounded, "top", "first")} ${roundedClass(rounded, "bottom", "last")}` : `border ${roundedClass(rounded)}`}`;
     }
     cls += " border-gray-300 dark:border-gray-700 overflow-hidden ";
-    return isOpened ? twMerge(cls, containerActiveClass) : twMerge(cls, containerClass);
+    return ST_ACTIVE_ACCORDIONS.value.includes(id) ? twMerge(cls, containerActiveClasses) : twMerge(cls, containerClasses);
   }
 
-  $: getTitleClasses = () => {
-    let cls = "accordion-title flex items-center w-full ";
-    if(isFlush){
-      cls += isOpened ? "border-b border-brand-primary-200 bg-brand-primary-50 text-brand-primary-500 dark:text-on-brand-primary-500 " : "border-b border-gray-300 dark:border-gray-700 ";
+  let getTitleClasses = () => {
+    let cls = `accordion-title flex items-center w-full${animationClass(animationSpeed)} `;
+    if(props?.flush){
+      cls += ST_ACTIVE_ACCORDIONS.value.includes(id) ? "border-b border-brand-primary-200 bg-brand-primary-50 text-brand-primary-500 dark:border-brand-primary-700 dark:bg-brand-primary-900 dark:text-on-brand-primary-500 " : "border-b border-gray-300 dark:border-gray-700 ";
     }else{
-      cls += isOpened ? "bg-brand-primary-500 text-on-brand-primary-500 " : " ";
+      cls += ST_ACTIVE_ACCORDIONS.value.includes(id) ? "bg-brand-primary-500 text-on-brand-primary-300 dark:bg-brand-primary-700" : " ";
     }
-    return isOpened ? twMerge(cls, titleActiveClass) : twMerge(cls, titleClass);
+    return ST_ACTIVE_ACCORDIONS.value.includes(id) ? twMerge(cls, titleActiveClasses) : twMerge(cls, titleClasses);
   }
 
-  $: getContentClasses = () => {
-    let cls = "accordion-content " + (!isFlush ? getRounded(rounded, "bottom") : "") + " h-full ";
-    return isOpened ? twMerge(cls, contentActiveClass) : twMerge(cls, contentClass);
+  let getContentClasses = () => {
+    let cls = "accordion-content " + (!props?.flush ? roundedClass(rounded, "bottom") : "") + " h-full ";
+    return ST_ACTIVE_ACCORDIONS.value.includes(id) ? twMerge(cls, contentActiveClasses) : twMerge(cls, contentClasses);
   }
 </script>
 
+<!-- Main component -->
 <div class={getContainerClasses()}>
-  <div
-    id='{id}Heading'
-    class='accordion-title'
-    aria-controls={id}
-    aria-label={ariaLabel}
-    aria-expanded={isOpened}
-  >
-  <!-- class={getTitleClasses()}
-  class:accordion-active={isOpened} -->
-    <button
-      class={twMerge(getTitleClasses(), isOpened && 'accordion-active')}
-      on:click={()=>toggle(id)}>
-      <slot name="title">{title}</slot>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ms-auto" class:transition-transform={animationSpeed} class:transform={!animationSpeed} class:-rotate-180={isOpened} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-      </svg>
-    </button>
+  <div id='{id}Heading' class='accordion-title' aria-controls={id} aria-label={`${title ?? ""} Accordion`} aria-expanded={ST_ACTIVE_ACCORDIONS.value.includes(id)}>
+    {@render accordionHeading()}
   </div>
-
-  <div
-    {id}
-    class='accordion-body{getAnimate(animationSpeed)}'
-    aria-labelledby='{id}Heading'
-    aria-hidden={!isOpened}
-    class:accordion-close={!isOpened}
-  >
-    <div class={getContentClasses()}>
-      <slot>{content}</slot>
-    </div>
+  <div {id} class='accordion-body{animationClass(animationSpeed)}' class:accordion-close={!ST_ACTIVE_ACCORDIONS.value.includes(id)} class:open={ST_ACTIVE_ACCORDIONS.value.includes(id)} aria-labelledby='{id}Heading' aria-hidden={!ST_ACTIVE_ACCORDIONS.value.includes(id)}>
+    {@render accordionContent()}
   </div>
 </div>
+
+<!-- Component Snippet -->
+{#snippet accordionHeading()}
+  <button class={twMerge(getTitleClasses(), ST_ACTIVE_ACCORDIONS.value.includes(id) && 'accordion-active')} class:accordion-active={ST_ACTIVE_ACCORDIONS.value.includes(id)} onclick={()=>toggle()}>
+    {#if typeof title === "string"}
+      {@html title}
+    {:else}
+      {@render title?.()}
+    {/if}
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ms-auto" class:transition-transform={animationSpeed} class:transform={!animationSpeed} class:-rotate-180={ST_ACTIVE_ACCORDIONS.value.includes(id)} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+{/snippet}
+
+{#snippet accordionContent()}
+  <div class={getContentClasses()}>
+  {#if content}
+		{@html content}
+	{:else}
+		{#if children}
+			{@render children?.()}
+		{/if}
+	{/if}
+  </div>
+{/snippet}
 
 <style lang='postcss'>
   .theui-accordion.space-compact:not(.accordion-flush) .accordion-title button, .theui-accordion.space-compact .accordion-content{

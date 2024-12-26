@@ -1,24 +1,63 @@
-<script context="module">
-	export const BUTTON_GROUP = {}
-</script>
-
 <script lang="ts">
-  import type { BUTTON_SIZE, ROUNDED } from "$lib/types"
-  import { setContext } from "svelte"
+  import type { ANIMATE_SPEED, ROUNDED, BUTTON_SIZE } from "$lib/types"
+  import { setContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { getRounded } from "$lib/functions"
+  import { roundedClass } from "$lib/function"
 
-  export let label    : string = "Button group"
-  export let round    : ROUNDED = "md"
-  export let size     : BUTTON_SIZE = "md"
-  export let stacked  : boolean = false
-  export let outline  : boolean = false
-  export let btnClass : string = "border border-black/10"
-  export let variant  : 'bordered' | 'flat' = "bordered"
+  interface Props {
+    children : Snippet,
+    stacked  ?: boolean,
+    variant  ?: 'bordered' | 'flat',
+    animate ?: ANIMATE_SPEED,
+    ariaLabel ?: string|undefined,
+    buttonClasses ?: string, // Not tested
+    outline ?: boolean,
+    rounded ?: ROUNDED,
+    size ?: BUTTON_SIZE,
+    square ?: boolean,
+    theme ?: 'default' | 'light' | 'gradient'
+    color ?: 'brand' | 'error' | 'info' | 'success' | 'warning',
+    gradientColors ?: 'brand' | 'error' | 'info' | 'success' | 'warning',
+    [key: string]: unknown // any props
+  }
 
-  setContext(BUTTON_GROUP, {group: true, stacked, variant, btnClass, outline, size})
+  let {
+    children,
+    stacked = false,
+    variant = "bordered",
+    ariaLabel = "Button group",
+    animate = "normal",
+    buttonClasses = "",
+    color = "brand",
+    gradientColors = "brand",
+    outline = false,
+    rounded = "md",
+    size = "md",
+    square = false,
+    theme = "default",
+    ...props
+  } : Props = $props()
+
+  setContext('BUTTON_GROUP', {
+    group: true,
+    stacked,
+    variant,
+    animate,
+    buttonClasses,
+    color,
+    gradientColors,
+    outline,
+    rounded,
+    size,
+    square,
+    theme,
+  });
+
+  let getClasses = twMerge(`theui-btn-group inline-flex${roundedClass(rounded)}`, (props?.class as string ?? ""))
 </script>
 
-<div class={twMerge(("theui-btn-group inline-flex" + getRounded(round)), $$props?.class)} class:flex-col={stacked} class:theui-btn-stacked={stacked} role="group" aria-label={label}>
-  <slot {size}></slot>
+{#if children}
+<div class={getClasses} class:flex-col={stacked} class:theui-btn-stacked={stacked} role="group" aria-label={ariaLabel}>
+  {@render children()}
 </div>
+{/if}

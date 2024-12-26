@@ -1,51 +1,82 @@
 <script lang="ts">
-  interface DropdownContext {config: any}
+  import { getContext, type Snippet } from "svelte"
   import type { PRELOAD } from "$lib/types"
   import { twMerge } from "tailwind-merge"
-  import { getContext } from "svelte"
-  import { DROPDOWN } from "$lib"
 
-  const { config } = getContext<DropdownContext>(DROPDOWN)
-  export let url: string = "/"
-  export let text: string|undefined = undefined
-  export let preload : PRELOAD = "hover"
-  export let type : 'link' | 'divider' | 'header' | 'button' = "link"
-  export let active : boolean = false
+  const CTX : {
+		activeClasses: string,
+		linkClasses: string,
+		dividerClass: string,
+		headerClass: string,
+  } = getContext('DROPDOWN_CTX')
 
-  let itemClass = (t:string) => {
-      if(t == "link" || t == "button"){
-          return active ? twMerge(config.activeClass, $$props?.class) : twMerge(config.linkClass, $$props?.class)
-      }
-      if(t == "header"){
-          return twMerge(config.headerClass, $$props?.class)
-      }
-      if(t == "divider"){
-          return twMerge(config.dividerClass, $$props?.class)
-      }
-      return ""
+  interface Props {
+    startItem ?: Snippet,
+    endItem ?: Snippet,
+    children ?: Snippet,
+    text ?: string,
+    url ?: string|undefined,
+    preload ?: PRELOAD,
+    type ?: 'link' | 'divider' | 'header' | 'button'
+    active ?: boolean,
+    [key: string]: unknown
+  }
+
+  let {
+    startItem,
+    endItem,
+    children,
+    text,
+    url = undefined,
+    preload = "hover",
+    type = "link",
+    active = false,
+    ...props
+  } : Props = $props()
+
+  let itemClass = (t: Props['type']) => {
+    const typeClasses: Record<Exclude<Props['type'], undefined>, string> = {
+      link: active ? CTX.activeClasses : CTX.linkClasses,
+      button: active ? CTX.activeClasses : CTX.linkClasses,
+      header: CTX.headerClass,
+      divider: CTX.dividerClass,
+    }
+    return t ? twMerge(typeClasses[t], props?.class as string) : "";
   }
 </script>
 
-<li class="dropdown-item {itemClass(type=="divider" ? "divider" : "")}">
-    {#if type != "divider"}
-        {#if type == "header"}
-            <h6 class={itemClass(type)}>
-                <slot name="startItem" />
-                <slot>{text}</slot>
-                <div class="ms-auto flex items-center"><slot name="endItem" /></div>
-            </h6>
-        {:else if type == "button"}
-            <button class={itemClass(type)} on:click on:dblclick on:focus on:keydown on:keypress on:keyup on:mouseenter on:mouseleave on:mouseover>
-                <slot name="startItem" />
-                <slot>{text}</slot>
-                <div class="ms-auto flex items-center"><slot name="endItem" /></div>
-            </button>
-        {:else}
-            <a href={url} class={itemClass(type)} data-sveltekit-preload-data={preload||preload}>
-                <slot name="startItem" />
-                <slot>{text}</slot>
-                <div class="ms-auto flex items-center"><slot name="endItem" /></div>
-            </a>
-        {/if}
+{#snippet content()}
+  {@render startItem?.()}
+
+  {#if text}
+		{@html text}
+	{:else if children}
+		{@render children()}
+	{/if}
+
+  {#if endItem}
+    <div class="ms-auto flex items-center">{@render endItem()}</div>
+  {/if}
+{/snippet}
+
+{#if type=="divider"}
+  <li class="dropdown-item {itemClass("divider")}" role="presentation"></li>
+{:else}
+  <li class="dropdown-item" role={type=="header" ? "heading" : "menuitem"}>
+    {#if type == "header"}
+      <h6 class={itemClass(type)}>
+        {@render content()}
+      </h6>
+    {:else}
+      {#if url}
+        <a href={url} class={itemClass(type)} data-sveltekit-preload-data={preload||preload}>
+          {@render content()}
+        </a>
+      {:else}
+        <button class={itemClass(type)}>
+          {@render content()}
+        </button>
+      {/if}
     {/if}
-</li>
+  </li>
+{/if}

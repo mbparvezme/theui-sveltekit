@@ -1,60 +1,64 @@
 <script lang="ts">
-  import type { ANIMATE_SPEED } from "$lib/types";
-  import { onMount } from "svelte";
-  import { twMerge } from "tailwind-merge";
-  import { getAnimate, getRounded } from "$lib/functions";
+  import { onMount } from "svelte"
+  import type { ANIMATE_SPEED } from "$lib/types"
+  import { twMerge } from "tailwind-merge"
+  import { animationClass, roundedClass } from "$lib/function"
 
   type TOOLTIP_POSITION = 'left' | 'top' | 'right' | 'bottom';
   type TOOLTIP_ANIMATION = 'fade' | 'slide' | 'zoom-in' | 'zoom-out';
 
-  export let animate      : ANIMATE_SPEED = "slower";
-  export let animation    : TOOLTIP_ANIMATION = "fade";
-  export let bgColor      : string = "#1F2937";
-  export let position     : TOOLTIP_POSITION = "top";
-  export let tooltipEvent : 'hover' | 'click' | string = "hover";
+  interface Props{
+    animate ?: ANIMATE_SPEED,
+    animation ?: TOOLTIP_ANIMATION,
+    bgColor ?: string ,
+    position ?: TOOLTIP_POSITION,
+    tooltipEvent ?: 'hover' | 'click' | string,
+    [key: string] : unknown // class
+  }
+
+  let{
+    animate = "slower",
+    animation = "fade",
+    bgColor = "#1F2937",
+    position = "top",
+    tooltipEvent = "hover",
+    ...props
+  } : Props = $props()
 
   let tooltip: HTMLSpanElement;
-  let tooltipText: string
-  let showTooltip: boolean
-  $: tooltipText = ""
-  $: showTooltip = false
+  let tooltipText: string = $state("")
+  let showTooltip: boolean = $state(false)
 
-  $: tooltipClasses = () => {
+  let tooltipClasses = () => {
     // Define position classes
     let positionClasses = {
-      'left': 'tooltip-left -left-3 top-1/2 -translate-x-full -translate-y-1/2',
-      'right': 'tooltip-right -right-3 top-1/2 translate-x-full -translate-y-1/2',
-      'bottom': 'tooltip-bottom -bottom-3 left-1/2 -translate-x-1/2 translate-y-full',
-      'top': 'tooltip-top -top-3 left-1/2 -translate-x-1/2 -translate-y-full'
+      left: 'tooltip-left -left-3 top-1/2 -translate-x-full -translate-y-1/2',
+      right: 'tooltip-right -right-3 top-1/2 translate-x-full -translate-y-1/2',
+      bottom: 'tooltip-bottom -bottom-3 left-1/2 -translate-x-1/2 translate-y-full',
+      top: 'tooltip-top -top-3 left-1/2 -translate-x-1/2 -translate-y-full'
     };
 
     // Define animation classes
     let animationClasses = {
-      'slide': 'tooltip-slide',
-      'zoom-in': 'tooltip-zoom-in',
-      'zoom-out': 'tooltip-zoom-out',
-      'fade': 'tooltip-fade'
+      slide: 'tooltip-slide',
+      "zoom-in": 'tooltip-zoom-in',
+      "zoom-out": 'tooltip-zoom-out',
+      fade: 'tooltip-fade'
     };
 
-    let defaultClasses = `theui-tooltip ${positionClasses[position]} ${animationClasses[animation] || animationClasses['fade']} z-[60] absolute`;
+    let defaultClasses = `theui-tooltip z-[60] absolute ${positionClasses[position]} ${animationClasses[animation ?? 'fade']}`;
+    let customClasses = `min-w-[150px] max-w-xs text-xs text-center p-1 bg-[var(--bg-color)] text-white ${roundedClass("sm")}${animationClass(animate)}`;
 
-    let customClasses = 'min-w-[150px] max-w-xs text-sm text-center p-2 bg-[var(--bg-color)] text-white' + getRounded("sm") + getAnimate(animate);
-
-    return defaultClasses + ' ' + twMerge(customClasses, $$props?.class);
+    let custom = (props?.class ?? "") as string
+    return `${defaultClasses} ${twMerge(customClasses, custom)}`
   }
 
   onMount(() => {
-    let triggerElement: HTMLElement[]|[] = [...document.querySelectorAll<HTMLElement>("[data-tooltip]")] || [];
-    if (!triggerElement.length) {
-      console.error("No tooltip found.");
-    }
-
+    let triggerElement: HTMLElement[]|[] = [...document.querySelectorAll<HTMLElement>("[data-tooltip]")];
     triggerElement.forEach((element: HTMLElement) => {
       if (element) {
-
-        // Getting trigger event
         let triggerEvent = element.dataset?.tooltipEvent ?? tooltipEvent;
-        
+
         // Making trigger focusable
         if (element.tabIndex < 0){
           element.tabIndex = 0;
@@ -97,6 +101,7 @@
 
 <span
   bind:this={tooltip}
+  {...props}
   class={tooltipClasses()}
   class:show={showTooltip}
   class:inline-block={showTooltip}
@@ -128,16 +133,3 @@
     @apply border-r-0 -right-[7px] top-1/2 -translate-y-1/2;
   }
 </style>
-
-<!--
-@component
-[Go to docs](https://www.theui.dev/r/skcl)
-## Props
-@prop export let text: string|undefined = undefined
-  export const animate   : ANIMATE_SPEED = "normal"
-  export const animation : 'fade' | 'slide' | 'zoom-in' | 'zoom-out' = "fade"
-  export let bgColor   : string = "#1F2937"
-  export let position  : 'left' | 'top' | 'right' | 'bottom' = "top"
-  export let rounded   : ROUNDED = "md"
-  export let tooltipEvent : 'hover' | 'click' | string = "hover"
--->

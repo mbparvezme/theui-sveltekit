@@ -1,39 +1,29 @@
 <script lang="ts">
-  import type { TABLE_ROW } from "$lib/types"
-  import { getContext } from "svelte"
-  import { getAnimate } from "$lib/functions"
+  import { getContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { TABLE, TD as Cell } from "$lib"
-  const { config } = getContext(TABLE)
+  import { Cell } from "$lib"
 
-  export let data : TABLE_ROW	= undefined
-  export let keys : string[]|undefined = undefined
-  export let headingRow : boolean = false
-
-  let getRowClass = () => {
-    let cls = config?.borderColor + " " + (config?.trClass||"")
-    return  ((!headingRow && (config?.border == "both" || config?.border == "y")) ? "border-y " : "") + 
-            ((config?.hover && !headingRow) ? getAnimate(config?.animate) + " hover:bg-gray-100 dark:hover:bg-gray-800 " : "") +
-            (typeof config?.stripe == "string" ? config?.stripe : config?.stripe === true ? " even:bg-gray-50 dark:even:bg-gray-800/50 " : "") + " " + cls
-  }
-
-  let isMultiRows = (d: any) => (Array.isArray(d) && (Object.prototype.toString.call(d[0]) === "[object Object]" || Array.isArray(d[0])))
+  interface Props {children?: Snippet, data?: Array<string>|Record<string, unknown>, keys?: string[], tableHeader?: boolean, [key: string]: unknown}
+  let {children, data, keys, tableHeader = false, ...props} : Props = $props()
+  const CTX: any = getContext("TABLE")
 </script>
 
-{#if !data}
-  <tr {...$$restProps} class={twMerge(getRowClass(), $$props.class)}>
-    <slot />
+{#if children}
+  <tr {...props} class={twMerge(tableHeader ? CTX?.trHeadClasses : CTX.trClasses, props?.class as string)}>
+    {@render children()}
   </tr>
 {:else}
-  {#if isMultiRows(data)}
-    {#each data as r}
-      <tr {...$$restProps} class={twMerge(getRowClass(), $$props.class)}>
-        <Cell data={r} {keys} tag={headingRow?"th":"td"} />
-      </tr>
-    {/each}
-  {:else}
-    <tr {...$$restProps} class={twMerge(getRowClass(), $$props.class)}>
-      <Cell {data} {keys} tag={headingRow?"th":"td"} />
-    </tr>
-  {/if}
+  <tr {...props} class={twMerge(tableHeader ? CTX?.trHeadClasses : CTX.trClasses, props?.class as string)}>
+    {#if Array.isArray(data)}
+      {#each data as d}
+        <Cell tag={tableHeader ? "th" : "td"} data={d.toString()} />
+      {/each}
+    {/if}
+
+    {#if keys && data !== null && Object.prototype.toString.call(data) === "[object Object]"}
+      {#each keys as k}
+        <Cell tag={tableHeader ? "th" : "td"} data={(data as Record<string, unknown>)[k] as string | number ?? "INVALID_KEY"} />
+      {/each}
+    {/if}
+  </tr>
 {/if}

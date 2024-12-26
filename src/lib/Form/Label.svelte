@@ -1,14 +1,18 @@
 <script lang="ts">
-  import { getContext } from "svelte"
-  import { twMerge } from "tailwind-merge"
-  import { FORM_CTX } from "$lib"
-  export let label: string|undefined = undefined
-  export let id: string|undefined = undefined
+  import { getContext, type Snippet } from "svelte"
+	import { labelClasses } from "./form"
 
-  const ctx: any = getContext(FORM_CTX || {})
+  const CTX: any = getContext('FORM') ?? {}
+  let {label, id = "", ...props} : {label: Snippet|string, id: string, [key : string]: unknown} = $props()
 </script>
 
-<label class={twMerge("font-medium inline-flex", ctx?.formConfig?.labelClasses, $$props?.class)} for={id}>
-  {@html label}
-  <slot/>
+<label class={labelClasses(CTX, props)} for={id}>
+  {#if label}
+    {#if typeof label == "string"}
+      {@html label}
+    {/if}
+    {#if typeof label == "function"}
+      {@render label?.()}
+    {/if}
+  {/if}
 </label>

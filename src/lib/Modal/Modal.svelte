@@ -1,128 +1,145 @@
 <script lang="ts">
   import type { ANIMATE_SPEED, ROUNDED } from "$lib/types"
   import { twMerge } from "tailwind-merge"
-  import { getAnimate, getRounded, generateToken } from "$lib/functions"
+  import { animationClass, roundedClass, generateToken, backdropClasses } from "$lib/function"
   import { Close } from "$lib"
+	import type { Snippet } from "svelte"
 
-  export let id                 : string = generateToken() + "Modal"
-	export let label              : string = ""
-  export let animate            : ANIMATE_SPEED = "fast"
-  export let animation          : 'slide-down' | 'slide-up' | 'fade' | 'zoom-in' | 'zoom-out' = "fade"
-  export let backdrop           : boolean = true
-  export let closeBtn           : boolean = true
-  export let closeOnEsc         : boolean = true
-  export let modalFooterClass   : string = ""
-  export let modalHeaderClass   : string = ""
-  export let modalBodyClass     : string = ""
-  export let modalOuterClass    : string = ""
-  export let position           : 'top' | 'center' | 'bottom' = "center"
-  export let rounded            : ROUNDED = "md"
-  export let size               : 'sm' | 'md' | 'lg' | 'full' = "md"
-  export let staticBackdrop     : boolean = false
-  export let modalStatus        : boolean = false
-
-  $: modalStatus = false
-
-  $: attr = {
-		"id" : `${id}Btn`,
-		"aria-label" : label,
-		"aria-haspopup" : "true",
-		"aria-controls" : id,
-		"aria-expanded" : modalStatus
-	}
-
-  $: toggle = ( closeBtn = true ) => {
-    let currentModal = document.getElementById(id)
-    modalStatus = !(currentModal?.classList.contains('open') && (closeBtn || (!closeBtn && !staticBackdrop)))
+  interface Props{
+    trigger?: Snippet,
+    children?: Snippet,
+    header?: Snippet,
+    footer?: Snippet,
+    id?: string,
+    label?: string,
+    animate?: ANIMATE_SPEED,
+    animation?: 'slide-down' | 'slide-up' | 'fade' | 'zoom-in' | 'zoom-out',
+    backdrop?: boolean|string,
+    closeBtn?: boolean,
+    closeOnEsc?: boolean,
+    modalFooterClasses?: string,
+    modalHeaderClasses?: string,
+    modalBodyClasses?: string,
+    modalOuterClasses?: string,
+    position?: 'top' | 'center' | 'bottom',
+    rounded?: ROUNDED,
+    size?: 'sm' | 'md' | 'lg' | 'full',
+    staticBackdrop?: boolean,
+    modalStatus?: boolean
   }
 
-	$: handleKeyboard = (e: KeyboardEvent) => {
-		if (modalStatus && (closeOnEsc && e.code === "Escape")){
+  let {
+    children,
+    trigger,
+    header,
+    footer,
+    id = generateToken() + "Modal",
+    label = "",
+    animate = "fast",
+    animation = "fade",
+    backdrop = true,
+    closeBtn = true,
+    closeOnEsc = true,
+    modalFooterClasses = "",
+    modalHeaderClasses = "",
+    modalBodyClasses = "",
+    modalOuterClasses = "",
+    position = "center",
+    rounded = "md",
+    size = "md",
+    staticBackdrop = false,
+    modalStatus = false,
+  } : Props = $props()
+
+  let toggle = ( closeBtn = true ) => {
+    modalStatus = !(document.getElementById(id)?.classList.contains('open') && (closeBtn || (!closeBtn && !staticBackdrop)))
+  }
+
+	let handleKeyboard = (e: KeyboardEvent) => {
+		if (modalStatus && (closeOnEsc && e.code === "Escape")) {
       e.preventDefault()
       modalStatus = false
     }
 	}
 
-  $: modalSize      = () => " " + (size === "sm" ? " modal-sm" : size === "lg" ? " modal-lg" : size === "full" ? " modal-full" : " modal-md")
-  $: modalPosition  = () => " " + (position === "bottom" ? " items-end" : position === "center" ? " items-center" :  " items-start")
-  $: animateCls     = () => getAnimate(animate)
-  $: modalCls       = () => "theui-modal z-50" + modalSize() + modalPosition() + animateCls()
-  $: modalBodyCls   = () => "modal-content bg-white dark:bg-secondary " + animateCls() + " " + ((animate && animation) ? animation : "")
+  let sizes = {
+    sm : "modal-sm w-full sm:w-96",
+    md : "modal-md w-full md:w-[640px]",
+    lg : "modal-lg w-full lg:w-[960px]",
+    full : "modal-full w-full min-h-screen",
+  }
+
+  let positionClass = {
+    top : "modal-top mb-auto",
+    center : "modal-center my-auto",
+    bottom : "modal-bottom mt-auto",
+  }
+
+  let modalCls = $derived(() => `theui-modal z-50 flex fixed inset-0 visible opacity-100 ${animationClass(animate)}`);
+  let modalBodyCls = $derived(() => `modal-content flex flex-col p-8 relative mx-auto bg-white dark:bg-secondary ${sizes[size]} ${positionClass[position]} ${animationClass(animate)} ${((animate && animation) ? animation : "")}`)
 </script>
 
-<svelte:body on:keydown={(e)=>handleKeyboard(e)}></svelte:body>
+<svelte:body onkeydown={(e)=>handleKeyboard(e)}></svelte:body>
 
-{#if $$slots.modalBtn}
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <!-- svelte-ignore a11y-interactive-supports-focus -->
-  <span role="button" on:click={()=>toggle()}>
-    <slot name="modalBtn" {attr} {label}></slot>
+{#if trigger || label}
+  <!-- svelte-ignore a11y_click_events_have_key_events -->
+  <!-- svelte-ignore a11y_interactive_supports_focus -->
+  <span
+    id="{id}Btn"
+    role="button"
+    onclick={()=>toggle()}
+    aria-haspopup="dialog"
+		aria-label=label
+		aria-controls=id
+		aria-expanded={modalStatus}
+  >
+    {#if label}
+      {@html label}
+    {:else if typeof trigger === "function"}
+      {@render trigger()}
+    {/if}
   </span>
 {/if}
 
-{#if $$slots.body}
-  <div {id} class={twMerge(modalCls(), modalOuterClass)} role="dialog" class:open={modalStatus} class:animate={animate}>
-    {#if backdrop}
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <!-- svelte-ignore a11y-no-static-element-interactions -->
-      <div class="backdrop fixed inset-0 bg-black z-[-1]{animateCls()}" on:click={()=>toggle(false)}></div>
+{#if children}
+<div {id} class={twMerge(modalCls(), modalOuterClasses)} class:open={modalStatus} class:animate={animate} role="dialog" aria-modal="true" aria-hidden={!modalStatus}>
+  {#if backdrop}
+    <div class={backdropClasses(backdrop)} onclick={()=>toggle(false)} aria-hidden="true"></div>
+  {/if}
+
+  <div class={twMerge(modalBodyCls(), (size !== "full" ? roundedClass(rounded) : ""), modalBodyClasses)} aria-labelledby={header ? `${id}Heading` : `${id}Btn`}>
+
+    {#if header}
+      <div id="{id}Heading" class={twMerge("modal-header flex justify-between w-full gap-8 items-start border-b border-black/10 dark:border-tertiary pb-4 mb-8", modalHeaderClasses)}>
+        {@render header?.()}
+        {#if closeBtn!==false}
+          <Close class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity" onclick={()=>toggle()}/>
+        {/if}
+      </div>
+    {:else if closeBtn!==false}
+      <Close class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity absolute top-2 right-2" onclick={()=>toggle()}/>
     {/if}
 
-    <div class={twMerge(modalBodyCls(), (size !== "full" ? getRounded(rounded) : ""), modalBodyClass)}
-      aria-labelledby={$$slots?.header ? `${id}Heading` : `${id}Btn`} aria-hidden={!modalStatus}>
-      {#if $$slots?.header}
-        <div id="{id}Heading" class={twMerge("modal-header flex justify-between w-full gap-8 items-start border-b border-black/10 dark:border-tertiary pb-4 mb-8", modalHeaderClass)}>
-          <slot name="header"></slot>
-          {#if closeBtn!==false}
-          <button class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity" on:click={()=>toggle()}>
-            <Close/>
-          </button>
-          {/if}
-        </div>
-        {:else if closeBtn!==false}
-        <button class="text-default flex-grow-0 opacity-25 hover:opacity-75 transition-opacity absolute top-2 right-2" on:click={()=>toggle()}>
-          <Close/>
-        </button>
-      {/if}
-
-      <div class="w-full">
-        <slot name="body"></slot>
-      </div>
-
-      {#if $$slots.footer}
-        <div class={twMerge("modal-footer border-t border-black/10 dark:border-tertiary pt-4 mt-8", modalFooterClass)}>
-          <slot name="footer"></slot>
-        </div>
-      {/if}
+    <div class="w-full">
+      {@render children()}
     </div>
+
+    {#if footer}
+      <div class={twMerge("modal-footer border-t border-black/10 dark:border-tertiary pt-4 mt-8", modalFooterClasses)}>
+        {@render footer?.()}
+      </div>
+    {/if}
+
   </div>
+</div>
 {/if}
 
 <style lang="postcss">
-  .theui-modal{
-    @apply fixed inset-0 flex justify-center visible opacity-100;
-  }
   .theui-modal:not(.open){
     @apply invisible opacity-0;
   }
   .theui-modal:not(.modal-full){
     @apply p-8;
-  }
-  .theui-modal .modal-content{
-    @apply flex flex-col p-8 md:p-12 relative;
-  }
-  .theui-modal.modal-sm .modal-content{
-    @apply w-full sm:w-96;
-    /* @apply xs:w-72; */
-  }
-  .theui-modal.modal-md .modal-content{
-    @apply w-full md:w-[640px];
-  }
-  .theui-modal.modal-lg .modal-content{
-    @apply w-full lg:w-[960px];
-  }
-  .theui-modal.modal-full .modal-content{
-    @apply w-full min-h-screen;
   }
   .theui-modal.theui-animate .backdrop{
     @apply opacity-0;

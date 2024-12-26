@@ -1,40 +1,38 @@
 import type { Writable } from "svelte/store"
 
-// export interface 1rData {
-//   [key: string]: any;
-// }
-
 // Custom types
 export type ANIMATE_SPEED =
-  | undefined
-  | false
+  | "none"
   | "slower"
   | "slow"
   | "normal"
   | "fast"
   | "faster";
+
 export type ROUNDED = "sm" | "md" | "lg" | "xl" | "full" | "none" | undefined;
+
 export type SHADOW =
+  | "xs"
   | "sm"
   | "md"
   | "lg"
   | "xl"
   | "2xl"
   | "inner"
-  | "none"
-  | undefined;
+  | "none";
 export type PRELOAD = "" | "off" | "tap" | "hover";
-export type TABLE_ROW = object | (object | string | string[])[] | undefined;
-export type BUTTON_SIZE = "xs" | "sm" | "md" | "lg" | "xl" | "0";
-export type INPUT_TYPE = 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'reset' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week' | 'search';
-export type INPUT_VARIANT = "bordered" | "filled" | "flat";
-export type BREADCRUMB_DATA = Array<{ text: string; url?: string }>;
+export type TABLE_ROW = string[] | Record<string, unknown>[];
+export type BUTTON_SIZE = "xs" | "sm" | "md" | "lg" | "xl" | "auto";
+export type INPUT_TYPE = 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'reset' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week' | 'search' | 'textarea';
+export type INPUT_SIZE = "sm" | "md" | "lg" | "xl";
+// export type INPUT_VARIANT = "bordered" | "filled" | "flat";
+export type INPUT_VARIANT = "bordered" | "flat";
+export type BREADCRUMB_DATA = { text: string; url?: string };
 export type DROPDOWN_ITEM = {
   active?: boolean;
   url?: string;
   text?: string;
-  type?: "link" | "divider" | "header";
-  preload?: PRELOAD;
+  type?: "button" | "divider" | "header" | "link"
 };
 export type DROPDOWN_ITEM_CONFIG = {
   activeClass?: string;
@@ -70,26 +68,31 @@ export type CORE = {
 };
 
 export type INPUT_CONFIG = {
-  animate?: ANIMATE_SPEED;
-  grow?: boolean;
-  labelClasses?: string;
-  reset?: boolean;
-  rounded?: ROUNDED;
-  size?: "sm" | "md" | "lg" | "xl";
-  variant?: INPUT_VARIANT;
+  animate ?: ANIMATE_SPEED;
+  labelClasses ?: string | undefined;
+  floatingLabel ?: boolean,
+  rounded ?: ROUNDED;
+  size ?: INPUT_SIZE;
+  reset ?: boolean;
+  variant ?: INPUT_VARIANT;
 };
 
-export type SELECT_DATA = Array<{ disabled?: boolean, selected?: boolean, text: string, value?: any } | string>;
+export type SELECT_DATA = {disabled?: boolean, selected?: boolean, text: string, value?: string|number} | string;
 
-export type Tools = "blockquote" | "code" | "codeblock" | "link" | "horizontalLine" | "youtube" | "highlighter" | "color" | "redoUndo";
+export type Tools = "strike" | "superscript" | "subscript" | "listItem" | "blockquote" | "code" | "codeblock" | "link" | "horizontalLine" | "youtube" | "highlighter" | "color" | "redoUndo";
 
 export type NOTIFICATION_TYPE = "error" | "info" | "success" | "warning";
+
+export type RESPONSIVE_NAV_ON = { sm: string; md: string; lg: string; xl: string; }
+export type MOBILE_NAV_ON = keyof RESPONSIVE_NAV_ON
 
 export type NOTIFY_CONFIG = {
   removeAfter?: number;
   removeOnClick?: boolean;
-  rounded: ROUNDED;
-  variant: "card" | "cardLight" | "borderTop" | "borderBottom" | "borderStart";
+  animate?: boolean;
+  rounded?: ROUNDED;
+  theme ?: "default" | "light"
+  variant?: "card" | "borderTop" | "borderBottom" | "borderStart";
 };
 
 export type TABLE_CONFIG = {
@@ -99,16 +102,15 @@ export type TABLE_CONFIG = {
   hover: boolean | string;
   space: "compact" | "default" | "comfortable" | string;
   stripe: boolean | string;
-  containerClass: string;
   trClass: string;
 };
 
 export type TAB_CONFIG = {
   activeTabClasses?: string;
   animate?: ANIMATE_SPEED;
-  border: boolean,
-  inactiveTabClasses?: string;
+  tabClasses?: string;
   tabPanelClasses?: string;
+  borderClasses ?: boolean | string;
   variant: 'tabs' | 'pills';
 };
 
@@ -116,7 +118,11 @@ export type TABS_CONTEXT = {
   registerTab: (param: HTMLElement) => void;
   registerPanel: (param: HTMLElement) => void;
   selectTab: (param: HTMLElement) => void;
-  selectedTab: Writable<HTMLElement>;
-  selectedPanel: Writable<HTMLElement>;
+  selectedTab: Writable<{ value: HTMLElement | null }>;
+  selectedPanel: Writable<{ value: HTMLElement | null }>;
   config: TAB_CONFIG;
 }
+
+export type ROUNDED_ITEM_TYPES = "default" | "fileButton" | "first" | "last";
+// Private types
+export type ROUNDED_SIDES = "top" | "end" | "bottom" | "start" | "topStart" | "topEnd" | "bottomStart" | "bottomEnd" | "all";

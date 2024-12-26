@@ -1,22 +1,23 @@
 <script lang="ts">
-  import type { TABS_CONTEXT } from "$lib/types"
-  import { getContext } from "svelte"
+  import { getContext, type Snippet } from "svelte"
   import { twMerge } from "tailwind-merge"
-  import { TABS } from "$lib"
-  import { getAnimate, getRounded } from "$lib/functions"
+  import { animationClass, generateToken, roundedClass } from "$lib/function"
+	import { ST_TABS } from "$lib/state.svelte"
 
-  const tab: any = {}
-  const { registerTab, selectTab, selectedTab, config } = getContext<TABS_CONTEXT>(TABS)
-  registerTab(tab)
+  let {children, ...props} : {children : Snippet, [key: string] : unknown} = $props()
+  const CTX = getContext('TAB') as any
+  const id: string = generateToken()
+  ST_TABS.tabs.push(id)
 
-  let baseClasses   = (config.variant == "pills" ? "theui-tab-pill " : "theui-tab ")
-  let getClass = (active: boolean) => {
-    let theUIClasses  = "px-8 py-3 text-center font-medium " + (active ? config?.activeTabClasses : config?.inactiveTabClasses)
-    let roundType: any = (config.variant == "tabs" ? "top" : (config.border ? "top" : "all"))
-    return twMerge(getAnimate(config.animate) + getRounded("md", roundType), theUIClasses)
+  let selectTabL = (tab: string) => {
+    const i = ST_TABS.tabs.indexOf(tab)
+    ST_TABS.selectedTab = tab
+    ST_TABS.selectedPanel = ST_TABS.panels[i]
   }
+
+  let getClass = $derived(`${(CTX.variant == "pills" ? "theui-tab-pill" : "theui-tab")} px-8 py-3 text-center font-medium ${(ST_TABS.selectedTab == id ? CTX?.activeTabClasses : CTX?.tabClasses)} ${roundedClass("md", (CTX.variant == "tabs" ? "top" : (CTX.borderClasses ? "top" : "all")))} ${animationClass(CTX.animate)}`)
 </script>
 
-<button class="{baseClasses} {getClass($selectedTab === tab)}" class:theui-tab-selected={$selectedTab === tab} on:click={() => selectTab(tab)}>
-  <slot/>
+<button {...props} class={twMerge(getClass, props?.class as string)} class:theui-tab-selected={ST_TABS.selectedTab === id} onclick={() => selectTabL(id)}>
+  {@render children?.()}
 </button>
