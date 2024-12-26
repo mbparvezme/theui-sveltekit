@@ -24,6 +24,8 @@
     --ui-text-default: 33 33 33; /* #212121 */
     --ui-text-alt: 189 189 189; /* #BDBDBD */
     --ui-text-muted: 117 117 117; /* #757575 */
+
+    --max-width: 1280px;
   }
 
   /* To change any color for dark mode, change the color below */

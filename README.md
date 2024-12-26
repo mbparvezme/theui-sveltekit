@@ -5,16 +5,16 @@
   [![npm downloads](https://badgen.net/npm/dw/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit)
   [![license](https://badgen.net/npm/license/theui-sveltekit)](https://github.com/mbparvezme/theui-sveltekit/blob/master/license.md)
   <!-- [![npm downloads](https://badgen.net/npm/dt/theui-sveltekit)](https://www.npmjs.com/package/theui-sveltekit) -->
-
 </div>
 
 <h2 align="center">A tool for the <b>Svelte eco-system</b></h2>
 
 <div align="center">
-  <img src="https://theui-beta.vercel.app/img/theui-svelte-components.svg" width="400px">
+  <img src="https://theui-sveltekit-doc.vercel.app/img/theui-sveltekit-components.svg" width="400px">
 </div>
 
-The **theui-svelte** is [**TheUI**](https://www.theui.dev)'s component library for [**Svelte 5**](https://kit.svelte.dev), built on top of TailwindCSS. It combines the strength of Svelte and the features of TailwindCSS to create a powerful tool that accelerates your development process.
+The **theui-svelte** is [**TheUI**](https://www.theui.dev)'s component library for [**Svelte 5**](https://svelte.dev), built on top of TailwindCSS. It combines the strength of Svelte and the features of TailwindCSS to create a powerful tool that accelerates your development process.
+
 <br>
 
 ## **1. Features**
@@ -26,6 +26,7 @@ The **theui-svelte** is [**TheUI**](https://www.theui.dev)'s component library f
 - Includes smooth transitions and animations for better user experience.
 - Fully typed for enhanced development
 - Offers examples, and usage guides tailored for Svelte.
+
 <br>
 
 ## **2. Components**
@@ -135,11 +136,12 @@ Last but not least, here is the list of components available in the component li
 To add the Svelte Components library to your project, you can do it in two ways:
 1. Use the boilerplate from GitHub.
 2. Manual installation from scratch.
+
 <br>
 
 ### **3.1 Install using boilerplate from GitHub**
 
-To install the boilerplate template, open your terminal and use the following command, replacing **<project-name>** with your desired project name.
+To install the boilerplate template, open your terminal and use the following command, replacing **my-app** with your desired project name.
 
 ```bash
 # Clone the project
@@ -156,7 +158,10 @@ npm run dev
 
 ### **3.2. Manually Install from Scratch**
 
-To manually install the component library, follow these steps:
+Easily add theui-svelte to your project via a GitHub boilerplate or manual installation. For manual setup:
+
+- Install SvelteKit and TailwindCSS.
+- Configure Tailwind by updating `tailwind.config.cjs` and importing `theui-svelte/style` in `+layout.svelte`.
 
 ### **a. Install Sveltekit with TailwindCSS**
 
@@ -204,7 +209,7 @@ If you wish to use the default colors or desire an instant design without any co
 </script>
 ```
 
-And thats all. You are ready to start your awesome project now.
+And that's all. You are ready to start your awesome project now.
 
 <br>
 
@@ -239,9 +244,18 @@ Our component library provides a set of custom classes to make integrating these
 **[S]** = **Shade** (e.g., 50, 100-900, 950)<br>
 **Example**: `bg-brand-primary-500`, `text-on-brand-primary-500`, `bg-error-400`
 
+
+**Managing Colors**
+
+- **Modify Colors**: Update shades or use CSS variables for light/dark modes.
+- **Add Colors**: Use Tailwind's tw-color-shades or define new variables in your CSS.
+- **Remove Colors**: Set unwanted colors to undefined in tailwind.config.ts.
+
 <br>
 
 ### **4.2 Modify Existing Colors**
+TailwindCSS’s color system is enhanced for branding with support for shaded and non-shaded colors. Customize or add new colors via `tailwind.config.ts` for shades or directly edit CSS variables for non-shaded colors.
+
 #### **Shaded Colors**
 If you want to modify a **color with shades** (i.e `brand-primary`, `brand-secondary` etc.), you can do it in `tailwind.config.ts`. For example, to change the primary brand color to `#001A6E` and secondary brand color to `#FFE893`, the code is given below:
 
@@ -262,7 +276,7 @@ export default {
 ```
 
 #### **Non-shaded Colors**
-There are some colors like background colors, text colors etc. behave different in light and dark mode! These colors are **shadeless** and can not be handle in the way shows above! For these colors we have use CSS variables! You can modify directly in the CSS file. For example, to change the primary background color in light mode to `rgb(253 247 244)` and in dark mode to `rgb(104 87 82)` and default text color in light mode to `rgb(42 51 53)` and in dark mode to `rgb(253 247 244)`, the code is given below:
+There are some colors like background colors, text colors etc. behave differently in light and dark mode! These colors are **shadeless** and cannot be handled in the way shown above. For these colors we have use CSS variables! You can modify directly in the CSS file. For example, to change the primary background color in light mode to `rgb(253 247 244)` and in dark mode to `rgb(104 87 82)` and default text color in light mode to `rgb(42 51 53)` and in dark mode to `rgb(253 247 244)`, the code is given below:
 
 ```css
 /* Modify colors in app.css or app.postcss */
@@ -283,7 +297,7 @@ There are some colors like background colors, text colors etc. behave different 
 
 ### **4.3 Add New Color**
 #### **Shaded Colors**
-If you want to add a new class for **color with shades**, you can do it in `tailwind.config.ts` file. For example, let's say, you want to add a new class in the color system named `brand-tertiary` with the base value `#009990`. Just follow the below steps:
+If you want to add a new class for **color with shades**, you can do it in the `tailwind.config.ts` file. For example, let's say, you want to add a new class in the color system named `brand-tertiary` with the base value `#009990`. Just follow the below steps:
 
 ```js
 // Generate new colors in tailwind.config.ts
@@ -351,24 +365,12 @@ export default {
   }
 };
 ```
-
 This will remove all the `brand-secondary` color classes and `bg-secondary` class from the application build!
 
 <br>
 
-### **Utility Variables**
-
-There `--max-width` CSS variable exclusively used in the `Container` component to ensure that the width of the component remains consistent throughout the entire design. There is no dedicated CSS class for this property. Instead, you can apply it using a Tailwind CSS arbitrary value like `max-w-[var(--max-width)]`.
-
-```css
---max-width
-```
-
-<br>
-
 ## **The z-index**
-
-In this library, several components make use of z-index values. This document will provide you with information about the order of the z-index in these components.
+This library leverages z-index for stacking elements. Avoid modifying z-index values to prevent layout disruptions.
 
 Z-index helps in managing the stacking order of elements and overlays, controlling their arrangement along the z-axis. It is not recommended to customize these values in the design, as doing so may disrupt the layout along the z-axis.
 
@@ -412,4 +414,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 <br>
 
-## **Special Thanks To [Gosoft.io](https://www.gosoft.io) and [BIPBY Digital](https://www.bipby.digital) for being our digital partner**
+<h2 style="border:0;margin-bottom:0">
+
+**Special Thanks To [Gosoft.io](https://www.gosoft.io) and [BIPBY Digital](https://www.bipby.digital) for being our digital partner**</h2>

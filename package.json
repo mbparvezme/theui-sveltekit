@@ -1,6 +1,6 @@
 {
 	"name": "theui-svelte",
-	"version": "2.0.0rc1",
+	"version": "2.0.0rc2",
 	"description": "theui-svelte A component library by TheUI. Out-of-the-box accessible and easy to customize built with TailwindCSS(3).",
 	"author": {
 		"name": "M B Parvez",
@@ -122,13 +122,13 @@
 			"types": "./dist/Button\\ButtonGroup.svelte.d.ts",
 			"svelte": "./dist/Button\\ButtonGroup.svelte"
 		},
-		"./Fab.svelte": {
-			"types": "./dist/Button\\Fab.svelte.d.ts",
-			"svelte": "./dist/Button\\Fab.svelte"
+		"./Qab.svelte": {
+			"types": "./dist/Button\\Qab.svelte.d.ts",
+			"svelte": "./dist/Button\\Qab.svelte"
 		},
-		"./FabButton.svelte": {
-			"types": "./dist/Button\\FabButton.svelte.d.ts",
-			"svelte": "./dist/Button\\FabButton.svelte"
+		"./QabButton.svelte": {
+			"types": "./dist/Button\\QabButton.svelte.d.ts",
+			"svelte": "./dist/Button\\QabButton.svelte"
 		},
 		"./Card.svelte": {
 			"types": "./dist/Card\\Card.svelte.d.ts",

@@ -20,6 +20,11 @@ export default {
       ...defaultTheme.screens,
     },
     extend: {
+      backgroundColor: {
+        primary: twShades("--ui-bg-primary"),
+        secondary: twShades("--ui-bg-secondary"),
+        alt: twShades("--ui-bg-alt"),
+      },
       colors: {
         "brand-primary": twShades('#E93E3A'),
         "on-brand-primary": twShades('#FFFFFF'),
@@ -29,11 +34,6 @@ export default {
         info: twShades("#29B6F6"),
         success: twShades("#00C853"),
         warning: twShades("#FFC107"),
-      },
-      backgroundColor: {
-        primary: twShades("--ui-bg-primary"),
-        secondary: twShades("--ui-bg-secondary"),
-        alt: twShades("--ui-bg-alt"),
       },
       textColor: {
         default: twShades('--ui-text-default'),
