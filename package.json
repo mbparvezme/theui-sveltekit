@@ -1,7 +1,7 @@
 {
 	"name": "theui-svelte",
-	"version": "2.0.0rc2",
-	"description": "theui-svelte A component library by TheUI. Out-of-the-box accessible and easy to customize built with TailwindCSS(3).",
+	"version": "2.0.0rc3",
+	"description": "theui-svelte A component library by TheUI. Out-of-the-box accessible and easy to customize built with TailwindCSS (v3).",
 	"author": {
 		"name": "M B Parvez",
 		"email": "hello@mbparvez.me",
@@ -56,6 +56,7 @@
 		"@tailwindcss/aspect-ratio": "^0.4.2",
 		"@tailwindcss/forms": "^0.5.9",
 		"@tailwindcss/typography": "^0.5.15",
+		"nvm": "^0.0.4",
 		"svelte-package": "^0.1.0",
 		"tailwind-merge": "^2.5.4",
 		"tw-color-shades": "^1.1.0"

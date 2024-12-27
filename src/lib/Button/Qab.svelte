@@ -4,7 +4,7 @@
   import { setContext, type Snippet } from "svelte"
   import { animationClass, generateToken, roundedClass } from "$lib/function"
   import { twMerge } from "tailwind-merge"
-  import {FabButton} from "$lib"
+  import { QabButton } from "$lib"
 
   interface Props {
     children?: Snippet,
