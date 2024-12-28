@@ -194,8 +194,11 @@ npm i theui-svelte
 <br>
 
 #### **b. Configuration**
+To integrate `theui-svelte` with your project, update your TailwindCSS configuration file by adding the following:</p>
 
-Open the Tailwind CSS configuration file called `tailwind.config.cjs` and replace all of its existing content with the code provided below.
+- Include the path to `theui-svelte` components `{"./node_modules/theui-svelte/**/*.{html,js,svelte,ts}"}` in the content array.
+- Add the preset `presets: [require("theui-svelte/preset")]` from `theui-svelte`.
+
 
 ```diff
 const config = {
@@ -210,8 +213,6 @@ const config = {
     },
     plugins: []
 };
-
-module.exports = config;
 ```
 
 And that's all. You are ready to start your awesome project now.
