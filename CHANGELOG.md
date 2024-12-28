@@ -8,6 +8,8 @@
 
 > Only important changes are listed here.
 
+- **Version 2.0.0rc5**: Styles moved to `preset.cjs`. The `style.css` file removed!
+
 - **Version 2.0.0**: Features an upgrade to Svelte 5 and a complete component rewrite.
 
 - **Later beta versions (v0.28.0 - v1.0.0-beta.32)**: added new components and prepared for the v1 beta release with a full component refresh.

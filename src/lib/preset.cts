@@ -52,6 +52,30 @@ export default {
     typography,
     forms,
     aspectRatio,
+    plugin(({ addBase }) => {
+      addBase({
+        ':root': {
+          '--ui-bg-primary': '250 250 250',
+          '--ui-bg-secondary': '238 238 238',
+          '--ui-bg-alt': '10 10 20',
+          '--ui-text-default': '33 33 33',
+          '--ui-text-alt': '189 189 189',
+          '--ui-text-muted': '117 117 117',
+          '--max-width': '1280px',
+        },
+        ':root.dark': {
+          '--ui-bg-primary': '10 10 20',
+          '--ui-bg-secondary': '30 30 40',
+          '--ui-bg-alt': '250 250 250',
+          '--ui-text-default': '245 245 245',
+          '--ui-text-alt': '245 245 245',
+          '--ui-text-muted': '175 175 175',
+        },
+        'body': {
+          '@apply bg-primary text-default': {},
+        }
+      });
+    }),
     plugin(({ addVariant }) => {
       addVariant("not-first-child", "&:not(:first-child)");
       addVariant("not-last-child", "&:not(:last-child)");

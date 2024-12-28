@@ -195,7 +195,7 @@ npm i theui-svelte
 
 #### **b. Configuration**
 
-Open the TailwindCSS configuration file called `tailwind.config.cjs` and replace all of its existing content with the code provided below.
+Open the Tailwind CSS configuration file called `tailwind.config.cjs` and replace all of its existing content with the code provided below.
 
 ```diff
 const config = {
@@ -212,15 +212,6 @@ const config = {
 };
 
 module.exports = config;
-```
-
-If you wish to use the default colors or desire an instant design without any color customization, you can utilize the `style.postcss` file, which contains all the default CSS variables used in this component library. To do this, open `+layout.svelte` and import the core style file as follows:
-
-```diff
-<script>
-+   import "theui-svelte/style";
-    import "../app.postcss";
-</script>
 ```
 
 And that's all. You are ready to start your awesome project now.
