@@ -104,7 +104,7 @@
   class:navbar-mini={miniNav}
   class:-translate-y-full={hideNav}
   class:fixed={scrollBehavior !== "default"}
-  class="theui-navbar z-20 {twMerge(navClass, props?.class as string)}"
+  class="theui-navbar z-[21] {twMerge(navClass, props?.class as string)}"
 >
   <div class={twMerge(navInnerClass, navInnerClasses)}>
     {@render children()}
