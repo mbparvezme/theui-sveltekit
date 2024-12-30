@@ -8,6 +8,8 @@
 
 > Only important changes are listed here.
 
+- **Version 2.0.0rc9**: Close button fix, Dark-mode rewritten to make it behave like system first by default!
+
 - **Version 2.0.0rc5**: Styles moved to `preset.cjs`. The `style.css` file removed!
 
 - **Version 2.0.0**: Features an upgrade to Svelte 5 and a complete component rewrite.

@@ -1,30 +1,25 @@
 <script lang="ts">
-  import { onMount, type Snippet } from "svelte"
-  import { twMerge } from "tailwind-merge"
+  import { onMount, type Snippet } from "svelte";
+  import { twMerge } from "tailwind-merge";
 
-  let {darkMode = true, children, ...props} : {darkMode?: boolean | 'system' | 'all', children?: Snippet, [key: string]: unknown} = $props()
+  let {systemDefault = true, children, ...props} : {systemDefault?: boolean, children?: Snippet, [key: string]: unknown} = $props()
   let toggleTheme: () => void = () => {}
 
   onMount((): void => {
-    localStorage.setItem("theme", ((darkMode !== false && !localStorage.theme) && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light");
+    if (!localStorage.theme) {
+      localStorage.setItem("theme", systemDefault && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    }
+    if(localStorage.theme === "dark"){
+      document.documentElement.classList.add("dark")
+    }
     toggleTheme = () => {
-      const newTheme = localStorage.theme === "light" ? "dark" : "light"
-      localStorage.setItem("theme", newTheme)
-      document.documentElement.classList.toggle("dark", newTheme === "dark")
+      const newTheme = localStorage.theme === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      document.documentElement.classList.toggle("dark", newTheme === "dark");
     }
   })
 </script>
 
-<svelte:head>
-  {#if darkMode === true}
-  <script>(() => document.documentElement.classList.toggle('dark', localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)))()</script>
-  {/if}
-  {#if darkMode === "system"}
-  <script>(()=>{document.documentElement.classList.toggle("dark", window.matchMedia("(prefers-color-scheme: dark)").matches)})()</script>
-  {/if}
-</svelte:head>
-
-{#if darkMode !== false}
 <button class={"theui-theme-toggler " + twMerge("bg-transparent p-0.5", (props?.class ?? "") as string)} onclick={()=>toggleTheme()} aria-label="Toggle light or dark mode">
   {#if children}
     {@render children()}
@@ -34,4 +29,3 @@
     </svg>
   {/if}
 </button>
-{/if}
